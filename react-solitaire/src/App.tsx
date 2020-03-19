@@ -3,7 +3,7 @@ import BaseApplication from "./react/index";
 
 function App() {
   return (
-    <div className={"react-solitaire"}>
+    <div className="react-solitaire">
       <BaseApplication />
     </div>
   );
