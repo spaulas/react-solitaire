@@ -1,0 +1,12 @@
+@import (once) "~antd/dist/antd.less";
+@import (once) "./fonts/fonts.less";
+
+// removes "-ant" from string to get the class name of the project
+@main-style-pfx: e(replace(@ant-prefix, "-ant", ""));
+.@{main-style-pfx} {
+  /* ALL STYLES MUST MERGE HERE WITH THE EXCEPTION OF ANTD THAT HAS A ant-prefix OPTION and antd places modal outside of this container ex:modals */
+
+  /* Global */
+  font-family: @font-site;
+  height: 100%;
+}
