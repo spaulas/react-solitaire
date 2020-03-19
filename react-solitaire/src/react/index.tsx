@@ -1,7 +1,14 @@
+import { Layout } from "antd";
 import React from "react";
 
-function Dummy() {
-  return <div> dummy for now</div>;
+const { Content } = Layout;
+
+function BaseApplication() {
+  return (
+    <Layout>
+      <Content>Base Application Here</Content>
+    </Layout>
+  );
 }
 
-export default Dummy;
+export default BaseApplication;
