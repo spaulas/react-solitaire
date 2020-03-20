@@ -1,3 +1,4 @@
+import "./styles/index.less";
 import React, { memo } from "react";
 import BaseApplication from "./react/index";
 
