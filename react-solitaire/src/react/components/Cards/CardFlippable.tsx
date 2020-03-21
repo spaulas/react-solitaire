@@ -24,6 +24,9 @@ function CardFlippable(
         setAnimationStyle({
           transform: `translate(${translation}px,0) rotateY(180deg)`
         });
+        setTimeout(() => {
+          setAnimationStyle({ ...animationStyle, display: "none" });
+        }, 600);
       } else {
         setAnimationStyle({ transform: "rotateY(180deg)" });
       }
@@ -40,7 +43,7 @@ function CardFlippable(
       <div
         className="cardFlipContainer"
         // eslint-disable-next-line react/forbid-dom-props
-        style={animationStyle}
+        style={cardFlipped ? animationStyle : {}}
       >
         <div className="cardFlipFront cardDefault">
           <img className="cardImage" src={playCardImage} alt="" />
