@@ -1,16 +1,8 @@
-import { Col } from "antd";
+import CardFrame from "./CardFrame";
 import React from "react";
 
 function CardSpot({ offset }: { offset?: number }) {
-  return (
-    <Col span={3} offset={offset}>
-      <div className="cardSpotContainer">
-        <div className="cardSpotAspectRatio">
-          <div className="cardSpotContent" />
-        </div>
-      </div>
-    </Col>
-  );
+  return <CardFrame offset={offset} className="cardSpot" />;
 }
 
 export default CardSpot;

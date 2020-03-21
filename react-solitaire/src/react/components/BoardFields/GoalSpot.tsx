@@ -1,8 +1,8 @@
-import CardSpot from "../Cards/CardSpot";
+import CardFace from "../Cards/CardFace";
 import React from "react";
 
 function GoalSpot({ offset }: { offset?: number }) {
-  return <CardSpot offset={offset} />;
+  return <CardFace offset={offset} />;
 }
 
 export default GoalSpot;

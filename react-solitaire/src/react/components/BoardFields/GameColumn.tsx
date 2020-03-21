@@ -1,8 +1,8 @@
-import CardSpot from "../Cards/CardSpot";
+import CardBack from "../Cards/CardBack";
 import React from "react";
 
 function GameColumn({ offset }: { offset?: number }) {
-  return <CardSpot offset={offset} />;
+  return <CardBack offset={offset} />;
 }
 
 export default GameColumn;
