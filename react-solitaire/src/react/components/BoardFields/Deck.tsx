@@ -9,13 +9,14 @@ function Deck() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [translation, setTranslation]: [RefAny, RefAny] = useState();
 
-  const [deckPile, setDeckPile] = useState([
-    { cardType: "spot" },
-    { cardType: "deck", translation: 243 },
-    { cardType: "deck", translation: 243 }
-  ]);
-
-  const [flippedPile, setFlippedPile] = useState([{ cardType: "spot" }]);
+  const [piles, setPiles] = useState({
+    deckPile: [
+      { cardType: "spot", name: "deckSpot" },
+      { cardType: "deck", translation: 243, name: "deckMiddle" },
+      { cardType: "deck", translation: 243, name: "deckTop" }
+    ],
+    flippedPile: [{ cardType: "spot", name: "flippedSpot" }]
+  });
 
   useLayoutEffect(() => {
     if (deckRef.current) {
@@ -27,16 +28,19 @@ function Deck() {
 
   const handleDeckSwap = async (card: CardType) => {
     setTimeout(() => {
-      // eslint-disable-next-line no-console
-      console.log("CARD REMOVED FROM DECK : ", card);
+      const { deckPile, flippedPile } = piles;
       const nDeck = deckPile.length;
-      const tempDeck = deckPile.splice(0, nDeck - 2);
-      const tempFlipped = [...flippedPile, card];
+      const tempDeck = deckPile.splice(0, nDeck - 1);
+      const tempFlipped = [
+        ...flippedPile,
+        { cardType: "flipped", name: card.name }
+      ];
 
-      setDeckPile(tempDeck);
-      setFlippedPile(tempFlipped);
+      setPiles({ deckPile: tempDeck, flippedPile: tempFlipped });
     }, 600);
   };
+
+  const { deckPile, flippedPile } = piles;
 
   return (
     <>
