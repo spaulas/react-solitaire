@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { forwardRef, memo, useState } from "react";
 import CardFrame from "./CardFrame";
 import { RefAny } from "../../../global";
@@ -6,11 +7,11 @@ import playCardImage from "../../../images/CardsFaces/Hearts/hearts12.png";
 
 function CardFlippable(
   {
-    offset,
-    translation
+    translation,
+    removeCard
   }: {
-    offset?: number;
     translation?: number;
+    removeCard?: () => void;
   },
   ref: RefAny
 ) {
@@ -29,10 +30,13 @@ function CardFlippable(
     }
 
     setCardFlipped(true);
+    if (removeCard) {
+      removeCard();
+    }
   };
 
   return (
-    <CardFrame ref={ref} offset={offset}>
+    <CardFrame ref={ref}>
       <div
         className="cardFlipContainer"
         // eslint-disable-next-line react/forbid-dom-props

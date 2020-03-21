@@ -3,7 +3,7 @@ import CardFrame from "./CardFrame";
 import { RefAny } from "../../../global";
 
 function CardSpot({ offset }: { offset?: number }, ref: RefAny) {
-  return <CardFrame ref={ref} offset={offset} className="cardSpot" />;
+  return <CardFrame ref={ref} className="cardSpot" />;
 }
 
 export default memo(forwardRef(CardSpot));

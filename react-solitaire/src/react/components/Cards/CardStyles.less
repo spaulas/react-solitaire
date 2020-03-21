@@ -3,7 +3,6 @@
   width: 140px;
   max-width: 100%;
   max-height: 100%;
-  z-index: 999;
 }
 
 .cardAspectRatio {
@@ -50,10 +49,11 @@
   transition: transform 0.6s;
   transform-style: preserve-3d;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  z-index: 999;
 }
 
 .cardFlipContainerRotate {
-  transform: rotateY(180deg) ;
+  transform: rotateY(180deg);
 }
 
 .cardFlipFront,
@@ -67,4 +67,17 @@
 
 .cardFlipFront {
   transform: rotateY(180deg);
+}
+
+.cardPileContainerTop {
+  z-index: 1;
+}
+
+.cardPileContainerBottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
 }
