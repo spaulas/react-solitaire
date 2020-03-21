@@ -3,13 +3,16 @@
 /* eslint-disable react/no-multi-comp */
 import React, { forwardRef, memo } from "react";
 import CardFlippable from "./CardFlippable";
+import CardFrame from "./CardFrame";
 import CardSpot from "./CardSpot";
 import { Col } from "antd";
 import { RefAny } from "../../../global";
+import playCardImage from "../../../images/CardsFaces/Hearts/hearts12.png";
 
 export interface CardInfo {
   cardType: string;
   translation?: number;
+  name: string;
 }
 
 interface CardsPileProps {
@@ -21,7 +24,7 @@ interface CardsPileProps {
 function CardsPile(
   {
     offset,
-    cardsArray = [{ cardType: "spot" }],
+    cardsArray = [{ cardType: "spot", name: "defaultSpot" }],
     handleCardSwap
   }: CardsPileProps,
   ref: RefAny
@@ -34,7 +37,6 @@ function CardsPile(
 
   const printCard = (index: number) => {
     const card: CardInfo = cardsArray[index];
-    console.log("PRINT card = ", card);
     switch (card?.cardType) {
       case "spot":
         return <CardSpot ref={ref} />;
@@ -42,10 +44,17 @@ function CardsPile(
         return (
           <CardFlippable
             ref={ref}
-            // eslint-disable-next-line no-console
             removeCard={() => removeCard(card)}
             translation={card.translation}
           />
+        );
+      case "flipped":
+        return (
+          <CardFrame ref={ref}>
+            <div className="cardDefault">
+              <img className="cardImage" src={playCardImage} alt="" />
+            </div>
+          </CardFrame>
         );
       default:
         return <CardFlippable ref={ref} />;
