@@ -20,7 +20,7 @@
 }
 
 .cardSpot {
-  border: 5px solid white;
+  border: @cardBorderWidth solid white;
   border-radius: @cardBorderRadiusOut;
 }
 
@@ -32,8 +32,9 @@
 }
 
 .cardBack {
-  border: 5px solid @primaryColor;
+  border: @cardBorderWidth solid @primaryColor;
   border-radius: @cardBorderRadiusOut;
   cursor: pointer;
   box-shadow: 1px 1px 4px grey;
+  background-color: white;
 }
