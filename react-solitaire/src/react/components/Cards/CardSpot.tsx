@@ -1,8 +1,9 @@
+import React, { forwardRef, memo } from "react";
 import CardFrame from "./CardFrame";
-import React from "react";
+import { RefAny } from "../../../global";
 
-function CardSpot({ offset }: { offset?: number }) {
-  return <CardFrame offset={offset} className="cardSpot" />;
+function CardSpot({ offset }: { offset?: number }, ref: RefAny) {
+  return <CardFrame ref={ref} offset={offset} className="cardSpot" />;
 }
 
-export default CardSpot;
+export default memo(forwardRef(CardSpot));
