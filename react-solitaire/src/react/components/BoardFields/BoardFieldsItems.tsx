@@ -2,9 +2,9 @@ import Deck from "./Deck";
 import GameColumn from "./GameColumn";
 import GameColumnWrapper from "./GameColumnWrapper";
 import GameOptions from "./GameOptions";
+import GamePlayInfo from "./GamePlayInfo";
 // eslint-disable-next-line import/no-cycle
 import GameTopRow from "./GameTopRow";
-import GameplayInfo from "./GameplayInfo";
 import GoalSpot from "./GoalSpot";
 import GoalSpotWrapper from "./GoalSpotWrapper";
 
@@ -13,8 +13,8 @@ export {
   GameColumn,
   GameColumnWrapper,
   GameOptions,
+  GamePlayInfo,
   GameTopRow,
-  GameplayInfo,
   GoalSpot,
   GoalSpotWrapper
 };

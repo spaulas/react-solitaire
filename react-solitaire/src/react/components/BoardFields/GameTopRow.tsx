@@ -3,13 +3,13 @@ import GoalSpotWrapper from "./GoalSpotWrapper";
 import React from "react";
 import { Row } from "antd";
 
-function GamePlayInfo() {
+function GameTopRow() {
   return (
-    <Row className="boardDeckRow" align="middle">
+    <Row gutter={6} className="boardDeckRow" align="middle">
       <Deck />
       <GoalSpotWrapper />
     </Row>
   );
 }
 
-export default GamePlayInfo;
+export default GameTopRow;
