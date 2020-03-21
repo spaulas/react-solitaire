@@ -1,8 +1,11 @@
+@import (once) "~antd/dist/antd.less";
 @import (once) "./variables.less";
 
 .react-solitaire {
   /* Global */
   font-family: @fontFamily;
-  height: 100%;
-  background-color: @primaryColor;
+
+  @import (once) "../react/Pages/GameBoardStyles.less";
+  @import (once) "../react/components/BoardFields/BoardFieldsStyles.less";
+  @import (once) "../react/components/Cards/CardSpotStyles.less";
 }

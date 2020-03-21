@@ -1,3 +1,4 @@
+import GameBoard from "./Pages/GameBoard";
 import { Layout } from "antd";
 import React from "react";
 
@@ -6,7 +7,9 @@ const { Content } = Layout;
 function BaseApplication() {
   return (
     <Layout>
-      <Content>Base Application Here</Content>
+      <Content>
+        <GameBoard />
+      </Content>
     </Layout>
   );
 }
