@@ -1,30 +1,23 @@
 /* eslint-disable no-console */
 import { CardType, CardsPile } from "../Cards/CardsItems";
-import React, { memo, useLayoutEffect, useRef, useState } from "react";
+import React, { memo, useState } from "react";
 import { RefAny } from "../../../global";
 
-function Deck() {
-  const deckRef: RefAny = useRef();
-  const flippedRef: RefAny = useRef();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [translation, setTranslation]: [RefAny, RefAny] = useState();
+interface DeckProps {
+  deckRef: RefAny;
+  flippedRef: RefAny;
+  translation?: number;
+}
 
+function Deck({ deckRef, flippedRef, translation }: DeckProps) {
   const [piles, setPiles] = useState({
     deckPile: [
       { cardType: "spot", name: "deckSpot" },
-      { cardType: "deck", translation: 243, name: "deckMiddle" },
-      { cardType: "deck", translation: 243, name: "deckTop" }
+      { cardType: "deck", translation, name: "deckMiddle" },
+      { cardType: "deck", translation, name: "deckTop" }
     ],
     flippedPile: [{ cardType: "spot", name: "flippedSpot" }]
   });
-
-  useLayoutEffect(() => {
-    if (deckRef.current) {
-      const deckX = deckRef?.current.getBoundingClientRect().x;
-      const flippedX = flippedRef?.current.getBoundingClientRect().x;
-      setTranslation(flippedX - deckX);
-    }
-  }, []);
 
   const handleDeckSwap = async (card: CardType) => {
     setTimeout(() => {
