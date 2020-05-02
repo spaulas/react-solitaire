@@ -8,7 +8,7 @@ export const selectDeckPile = createSelector(
   Deck => Deck.deckPile
 );
 
-export const selectTurnedPile = createSelector(
+export const selectFlippedPile = createSelector(
   [selectDeck],
-  Deck => Deck.turnedPile
+  Deck => Deck.flippedPile
 );

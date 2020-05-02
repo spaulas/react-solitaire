@@ -10,6 +10,7 @@ function GameTopRow() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [translation, setTranslation]: [RefAny, RefAny] = useState();
 
+  // @todo send tranlation to redux
   useLayoutEffect(() => {
     if (deckRef.current) {
       const deckX = deckRef?.current.getBoundingClientRect().x;
@@ -20,11 +21,7 @@ function GameTopRow() {
 
   return (
     <Row gutter={6} className="boardDeckRow" align="middle">
-      <Deck
-        deckRef={deckRef}
-        flippedRef={flippedRef}
-        translation={translation}
-      />
+      <Deck deckRef={deckRef} flippedRef={flippedRef} />
       <GoalSpotWrapper />
     </Row>
   );

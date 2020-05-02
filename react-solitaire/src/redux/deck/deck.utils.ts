@@ -2,10 +2,10 @@ import { CardsPile } from "./deck.types";
 
 export const popDeckCard = (
   deckPile: Array<CardsPile>,
-  turnedPile: Array<CardsPile>
+  flippedPile: Array<CardsPile>
 ) => {
   const topCard = deckPile.pop() as CardsPile;
-  turnedPile.push(topCard);
+  flippedPile.push(topCard);
 
-  return { deckPile, turnedPile };
+  return { deckPile, flippedPile };
 };

@@ -1,39 +1,31 @@
 /* eslint-disable no-console */
-import { CardType, CardsPile } from "../Cards/CardsItems";
-import React, { memo, useState } from "react";
-import { RefAny } from "../../../global";
+import React, { memo } from "react";
+import { RefAny, RootReducerState } from "../../../global";
+import { useDispatch, useSelector } from "react-redux";
+import { CardsPile } from "../Cards/CardsItems";
+import deckActions from "../../../redux/deck/deck.actions";
 
 interface DeckProps {
   deckRef: RefAny;
   flippedRef: RefAny;
-  translation?: number;
 }
 
-function Deck({ deckRef, flippedRef, translation }: DeckProps) {
-  const [piles, setPiles] = useState({
-    deckPile: [
-      { cardType: "spot", name: "deckSpot" },
-      { cardType: "deck", translation, name: "deckMiddle" },
-      { cardType: "deck", translation, name: "deckTop" }
-    ],
-    flippedPile: [{ cardType: "spot", name: "flippedSpot" }]
-  });
-
-  const handleDeckSwap = async (card: CardType) => {
+function Deck({ deckRef, flippedRef }: DeckProps) {
+  const dispatch = useDispatch();
+  // get piles from redux
+  const { deckPile, flippedPile } = useSelector(
+    ({ Deck }: RootReducerState) => ({
+      deckPile: Deck.deckPile,
+      flippedPile: Deck.flippedPile
+    })
+  );
+  // swap from deck to flipped pile
+  const handleDeckSwap = async () => {
+    // wait for the css animation to end
     setTimeout(() => {
-      const { deckPile, flippedPile } = piles;
-      const nDeck = deckPile.length;
-      const tempDeck = deckPile.splice(0, nDeck - 1);
-      const tempFlipped = [
-        ...flippedPile,
-        { cardType: "flipped", name: card.name }
-      ];
-
-      setPiles({ deckPile: tempDeck, flippedPile: tempFlipped });
+      dispatch(deckActions.sendDeckTopToFlippedPile());
     }, 600);
   };
-
-  const { deckPile, flippedPile } = piles;
 
   return (
     <>
