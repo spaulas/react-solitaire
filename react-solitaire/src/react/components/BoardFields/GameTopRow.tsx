@@ -11,14 +11,16 @@ function GameTopRow() {
   const [translation, setTranslation]: [RefAny, RefAny] = useState();
 
   // @todo send tranlation to redux
-  useLayoutEffect(() => {
+  /* useLayoutEffect(() => {
     if (deckRef.current) {
       const deckX = deckRef?.current.getBoundingClientRect().x;
       const flippedX = flippedRef?.current.getBoundingClientRect().x;
       setTranslation(flippedX - deckX);
     }
-  }, []);
+  }, []); */
 
+  // eslint-disable-next-line no-console
+  console.log("translation = ", translation);
   return (
     <Row gutter={6} className="boardDeckRow" align="middle">
       <Deck deckRef={deckRef} flippedRef={flippedRef} />

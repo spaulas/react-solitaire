@@ -1,11 +1,13 @@
 const DeckActionTypes = {
   GET_DECK_CARDS: "GET_DECK_CARDS",
-  SEND_DECK_TOP_TO_FLIPPED_PILE: "SEND_DECK_TOP_TO_FLIPPED_PILE"
+  FLIP_DECK_PILE: "FLIP_DECK_PILE"
 };
 
 export interface CardsPile {
+  id: number;
+  pos: number;
   name: string;
-  cardType: "deck" | "spot";
+  cardType: "deck" | "spot" | "flipped";
   translation?: number;
 }
 

@@ -5,13 +5,14 @@ const getDeckCards = () => ({
   type: DeckActionTypes.GET_DECK_CARDS
 });
 
-const sendDeckTopToFlippedPile = () => ({
-  type: DeckActionTypes.SEND_DECK_TOP_TO_FLIPPED_PILE
+const flipDeckPile = (cardId: number) => ({
+  type: DeckActionTypes.FLIP_DECK_PILE,
+  cardId
 });
 
 const actionsCreators = Object.freeze({
   getDeckCards,
-  sendDeckTopToFlippedPile
+  flipDeckPile
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

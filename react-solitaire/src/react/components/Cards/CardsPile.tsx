@@ -10,6 +10,7 @@ import { RefAny } from "../../../global";
 import playCardImage from "../../../images/CardsFaces/Hearts/hearts12.png";
 
 export interface CardInfo {
+  id: number;
   cardType: string;
   translation?: number;
   name: string;
@@ -24,7 +25,7 @@ interface CardsPileProps {
 function CardsPile(
   {
     offset,
-    cardsArray = [{ cardType: "spot", name: "defaultSpot" }],
+    cardsArray = [{ id: -1, cardType: "spot", name: "defaultSpot" }],
     handleCardSwap
   }: CardsPileProps,
   ref: RefAny
@@ -34,7 +35,6 @@ function CardsPile(
       handleCardSwap(card);
     }
   };
-
   const printCard = (index: number) => {
     const card: CardInfo = cardsArray[index];
     switch (card?.cardType) {
@@ -63,21 +63,23 @@ function CardsPile(
 
   const getTopCard = () => {
     const topIndex = cardsArray.length - 1;
+    console.log("topcard = ", topIndex);
     return printCard(topIndex);
   };
 
-  const getBottomCard = () => {
-    const bottomIndex = cardsArray.length - 2;
-    if (bottomIndex >= 0) {
-      return printCard(bottomIndex);
+  const getBottomCards = () => {
+    const bottomCardsArray = [];
+    for (let i = 0; i < cardsArray.length - 1; i++) {
+      bottomCardsArray.push(printCard(i));
     }
-    return null;
+    bottomCardsArray.push(<CardSpot ref={ref} />);
+    return bottomCardsArray;
   };
 
   return (
     <Col className="cardPile" span={3} offset={offset}>
       <div className="cardPileContainerTop">{getTopCard()}</div>
-      <div className="cardPileContainerBottom">{getBottomCard()}</div>
+      <div className="cardPileContainerBottom">{getBottomCards()}</div>
     </Col>
   );
 }

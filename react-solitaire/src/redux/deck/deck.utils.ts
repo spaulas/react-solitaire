@@ -1,11 +1,20 @@
 import { CardsPile } from "./deck.types";
 
-export const popDeckCard = (
-  deckPile: Array<CardsPile>,
-  flippedPile: Array<CardsPile>
-) => {
-  const topCard = deckPile.pop() as CardsPile;
-  flippedPile.push(topCard);
+export const popDeckCard = (deckPile: Array<CardsPile>, cardId: number) => {
+  const tempDeckPile = deckPile.map(card =>
+    card.id === cardId ? { ...card, cardType: "flipped" } : card
+  );
 
-  return { deckPile, flippedPile };
+  // eslint-disable-next-line no-console
+  console.log("CURRENT = ", tempDeckPile);
+
+  const topDeck = tempDeckPile.find(
+    card => card.cardType === "deck"
+  ) as CardsPile;
+
+  return {
+    deckPile: tempDeckPile,
+    topDeck: topDeck ? topDeck.id : null,
+    topFlipped: cardId
+  };
 };

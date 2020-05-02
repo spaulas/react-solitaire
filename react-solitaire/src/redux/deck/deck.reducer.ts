@@ -5,16 +5,32 @@ import { popDeckCard } from "./deck.utils";
 
 interface InitialDeck {
   deckPile: Array<CardsPile>;
-  flippedPile: Array<CardsPile>;
+  topDeck: number;
+  topFlipped?: number;
+  translation: number;
 }
 
 const INITIAL_DECK: InitialDeck = {
   deckPile: [
-    { cardType: "spot", name: "deckSpot" },
-    { cardType: "deck", translation: 80, name: "deckMiddle" },
-    { cardType: "deck", translation: 80, name: "deckTop" }
+    { id: 0, pos: 2, cardType: "deck", translation: 243.75, name: "deckTop" },
+    {
+      id: 1,
+      pos: 1,
+      cardType: "deck",
+      translation: 243.75,
+      name: "deckMiddle"
+    },
+    {
+      id: 2,
+      pos: 0,
+      cardType: "deck",
+      translation: 243.75,
+      name: "deckBottom"
+    }
   ],
-  flippedPile: [{ cardType: "spot", name: "flippedSpot" }]
+  translation: 243.75,
+  topDeck: 0,
+  topFlipped: undefined
 };
 
 const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
@@ -22,15 +38,16 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
     // to be changed once it has the connection to firebase
     case DeckActionTypes.GET_DECK_CARDS:
       return state;
-    case DeckActionTypes.SEND_DECK_TOP_TO_FLIPPED_PILE:
-      const { deckPile, flippedPile } = popDeckCard(
+    case DeckActionTypes.FLIP_DECK_PILE:
+      const { deckPile, topDeck, topFlipped } = popDeckCard(
         state.deckPile,
-        state.flippedPile
+        action.cardId
       );
       return {
         ...state,
         deckPile,
-        flippedPile
+        topDeck,
+        topFlipped
       };
     default:
       return state;
