@@ -29,7 +29,7 @@ const INITIAL_DECK: InitialDeck = {
     }
   ],
   translation: 243.75,
-  topDeck: 0,
+  topDeck: 2,
   topFlipped: undefined
 };
 

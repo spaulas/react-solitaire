@@ -3,10 +3,14 @@ import { RefAny } from "../../../global";
 
 interface CardFrameProps {
   className?: string;
+  offset?: number;
   children?: ReactNode;
 }
 
-function CardFrame({ className, children }: CardFrameProps, ref: RefAny) {
+function CardFrame(
+  { className, offset, children }: CardFrameProps,
+  ref: RefAny
+) {
   return (
     <div ref={ref} className="cardContainer">
       <div className="cardAspectRatio">

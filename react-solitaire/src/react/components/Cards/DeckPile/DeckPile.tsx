@@ -11,10 +11,9 @@ import deckActions from "../../../../redux/deck/deck.actions";
 const DeckPile = (props: RefAny, ref: RefAny) => {
   const dispatch = useDispatch();
   // get piles from redux
-  const { deckPile, translation, topDeck } = useSelector(
+  const { deckPile, translation } = useSelector(
     ({ Deck }: RootReducerState) => ({
       deckPile: Deck.deckPile,
-      topDeck: Deck.topDeck,
       translation: Deck.translation
     })
   );
@@ -36,22 +35,21 @@ const DeckPile = (props: RefAny, ref: RefAny) => {
     );
   };
 
-  const getTopCard = () => {
-    return topDeck ? printCard(topDeck) : null;
-  };
-
   const getBottomCards = () => {
-    const bottomCardsArray = deckPile.map(
-      (card: CardsPile) => card.id !== topDeck && printCard(card.id)
+    const bottomCardsArray = deckPile.map((card: CardsPile) =>
+      printCard(card.id)
     );
-    bottomCardsArray.push(<CardSpot ref={ref} />);
+    bottomCardsArray.push(
+      <CardSpot ref={ref} key="deck_spot" withColumn={false} />
+    );
     return bottomCardsArray;
   };
 
   return (
-    <Col className="cardPile" span={3} offset={2}>
-      <div className="cardPileContainerTop">{getTopCard()}</div>
-      <div className="cardPileContainerBottom">{getBottomCards()}</div>
+    <Col span={3} offset={2}>
+      <div className="cardPile">
+        <div className="cardPileContainerBottom">{getBottomCards()}</div>
+      </div>
     </Col>
   );
 };
