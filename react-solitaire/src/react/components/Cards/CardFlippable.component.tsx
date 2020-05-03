@@ -27,9 +27,6 @@ function CardFlippable(
         setAnimationStyle({
           transform: `translate(${translationX}px, ${translationY}px) rotateY(180deg)`
         });
-        setTimeout(() => {
-          setAnimationStyle({ ...animationStyle, display: "none" });
-        }, 600);
       } else {
         setAnimationStyle({ transform: "rotateY(180deg)" });
       }

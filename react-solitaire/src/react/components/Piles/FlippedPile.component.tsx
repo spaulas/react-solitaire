@@ -27,7 +27,12 @@ const FlippedPile = () => {
       </CardFrame>
     ));
     cardsArray.push(
-      <CardSpot ref={flippedRef} key="flipped_spot" withColumn={false} />
+      <CardSpot
+        ref={flippedRef}
+        key="flipped_spot"
+        withColumn={false}
+        isFlipped
+      />
     );
     return cardsArray;
   };

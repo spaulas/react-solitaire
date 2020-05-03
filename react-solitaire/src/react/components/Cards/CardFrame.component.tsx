@@ -20,7 +20,9 @@ function CardFrame(
       className={`cardContainer ${isFlipped ? "cardContainerFlipped" : ""}`}
     >
       <div className="cardAspectRatio" style={{ zIndex }}>
-        <div className={`cardContent ${className}`}>{children}</div>
+        <div className={`cardContent ${className ? className : ""}`}>
+          {children}
+        </div>
       </div>
     </div>
   );

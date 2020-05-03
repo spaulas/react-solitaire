@@ -7,11 +7,13 @@ function CardSpot(
   {
     offset,
     className,
-    withColumn = true
+    withColumn = true,
+    isFlipped
   }: {
     offset?: number;
     className?: string;
     withColumn?: boolean;
+    isFlipped?: boolean;
   },
   ref: RefAny
 ) {
@@ -23,7 +25,11 @@ function CardSpot(
       />
     </Col>
   ) : (
-    <CardFrame ref={ref} className={`cardSpot ${className ? className : ""}`} />
+    <CardFrame
+      ref={ref}
+      isFlipped={isFlipped}
+      className={`cardSpot ${className ? className : ""}`}
+    />
   );
 }
 

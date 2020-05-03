@@ -43,7 +43,7 @@ const DeckPile = () => {
   };
 
   return (
-    <Col span={3} offset={2}>
+    <Col span={3} offset={2} className="deckPile">
       <div className="cardPile">
         <div className="cardPileContainer">{getCards()}</div>
       </div>

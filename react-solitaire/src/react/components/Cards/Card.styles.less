@@ -54,7 +54,6 @@
   transition: transform 0.6s;
   transform-style: preserve-3d;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  z-index: 10;
 }
 
 .cardFlipContainerRotate {
@@ -71,7 +70,6 @@
 }
 
 .cardFlipFront {
-  z-index: 99999;
   transform: rotateY(180deg);
 }
 
@@ -89,4 +87,8 @@
   right: 0;
   bottom: 0;
   z-index: 0;
+}
+
+.deckPile{
+  z-index: 100;
 }
