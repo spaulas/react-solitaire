@@ -1,5 +1,5 @@
 /* eslint-disable react/no-multi-comp */
-import { CardFrame, CardSpot } from "../Cards/CardsItems";
+import { CardFrame, CardSpot } from "../Cards/Cards.items";
 import React, { forwardRef, memo } from "react";
 import { CardsPile } from "../../../redux/deck/deck.types";
 import { Col } from "antd";

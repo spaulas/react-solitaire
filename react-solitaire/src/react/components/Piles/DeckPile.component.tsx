@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-multi-comp */
-import { CardFlippable, CardSpot } from "../Cards/CardsItems";
+import { CardFlippable, CardSpot } from "../Cards/Cards.items";
 import React, { forwardRef, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardsPile } from "../../../redux/deck/deck.types";

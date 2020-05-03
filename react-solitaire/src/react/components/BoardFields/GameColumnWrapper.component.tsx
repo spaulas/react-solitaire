@@ -1,4 +1,4 @@
-import GameColumn from "./GameColumn";
+import GameColumn from "./GameColumn.component";
 import React from "react";
 import { Row } from "antd";
 

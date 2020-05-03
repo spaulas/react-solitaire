@@ -1,6 +1,6 @@
 import React, { memo, useLayoutEffect, useRef } from "react";
-import DeckPile from "../Piles/DeckPile";
-import FlippedPile from "../Piles/FlippedPile";
+import DeckPile from "../Piles/DeckPile.component";
+import FlippedPile from "../Piles/FlippedPile.component";
 import { RefAny } from "../../../global";
 import deckActions from "../../../redux/deck/deck.actions";
 import { useDispatch } from "react-redux";

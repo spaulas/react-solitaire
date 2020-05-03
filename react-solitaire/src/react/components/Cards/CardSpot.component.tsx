@@ -1,5 +1,5 @@
 import React, { forwardRef, memo } from "react";
-import CardFrame from "./CardFrame";
+import CardFrame from "./CardFrame.component";
 import { Col } from "antd";
 import { RefAny } from "../../../global";
 

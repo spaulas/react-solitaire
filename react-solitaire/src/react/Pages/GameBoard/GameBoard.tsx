@@ -3,7 +3,7 @@ import {
   GameOptions,
   GamePlayInfo,
   GameTopRow
-} from "../components/BoardFields/BoardFieldsItems";
+} from "../../components/BoardFields/BoardFields.items";
 import React, { memo } from "react";
 
 function GameBoard() {

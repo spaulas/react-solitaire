@@ -1,4 +1,4 @@
-import GameBoard from "./Pages/GameBoard";
+import GameBoard from "./pages/GameBoard/GameBoard.component";
 import { Layout } from "antd";
 import React from "react";
 

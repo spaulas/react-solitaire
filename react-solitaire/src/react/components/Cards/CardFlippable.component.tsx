@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { forwardRef, memo, useState } from "react";
-import CardFrame from "./CardFrame";
+import CardFrame from "./CardFrame.component";
 import { RefAny } from "../../../global";
 import backgroundImage from "../../../images/CardsBackPatterns/flowers.png";
 import playCardImage from "../../../images/CardsFaces/Hearts/hearts12.png";
