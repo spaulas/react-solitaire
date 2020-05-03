@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable react/no-multi-comp */
 import { CardFlippable, CardSpot } from "../Cards/Cards.items";
 import React, { forwardRef, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,30 +24,24 @@ const DeckPile = () => {
     }, 600);
   };
 
-  const printCard = (index: number) => {
-    return (
+  const getCards = () => {
+    const cardsArray = deckPile.map((card: CardsPile) => (
       <CardFlippable
-        key={`deck_${index}`}
-        removeCard={() => handleDeckSwap(index)}
+        key={`deck_${card.id}`}
+        removeCard={() => handleDeckSwap(card.id)}
         translation={translation}
       />
-    );
-  };
-
-  const getBottomCards = () => {
-    const bottomCardsArray = deckPile.map((card: CardsPile) =>
-      printCard(card.id)
-    );
-    bottomCardsArray.push(
+    ));
+    cardsArray.push(
       <CardSpot ref={deckRef} key="deck_spot" withColumn={false} />
     );
-    return bottomCardsArray;
+    return cardsArray;
   };
 
   return (
     <Col span={3} offset={2}>
       <div className="cardPile">
-        <div className="cardPileContainerBottom">{getBottomCards()}</div>
+        <div className="cardPileContainer">{getCards()}</div>
       </div>
     </Col>
   );

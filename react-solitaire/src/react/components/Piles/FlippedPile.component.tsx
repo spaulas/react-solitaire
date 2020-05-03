@@ -1,4 +1,3 @@
-/* eslint-disable react/no-multi-comp */
 import { CardFrame, CardSpot } from "../Cards/Cards.items";
 import React, { forwardRef, memo } from "react";
 import { CardsPile } from "../../../redux/deck/deck.types";
@@ -16,29 +15,23 @@ const FlippedPile = () => {
     })
   );
 
-  const printCard = (index: number) => {
-    return (
-      <CardFrame key={`flipped${index}`}>
+  const getCards = () => {
+    const cardsArray = flippedPile.map((card: CardsPile) => (
+      <CardFrame key={`flipped_${card.id}`}>
         <div className="cardDefault">
           <img className="cardImage" src={playCardImage} alt="" />
         </div>
       </CardFrame>
-    );
-  };
-
-  const getBottomCards = () => {
-    const bottomCardsArray = flippedPile.map((card: CardsPile) =>
-      printCard(card.id)
-    );
-    bottomCardsArray.push(
+    ));
+    cardsArray.push(
       <CardSpot ref={flippedRef} key="flipped_spot" withColumn={false} />
     );
-    return bottomCardsArray;
+    return cardsArray;
   };
 
   return (
     <Col className="cardPile" span={3}>
-      <div className="cardPileContainerBottom">{getBottomCards()}</div>
+      <div className="cardPileContainer">{getCards()}</div>
     </Col>
   );
 };
