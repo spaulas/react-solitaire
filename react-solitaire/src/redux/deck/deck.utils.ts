@@ -60,3 +60,15 @@ export const getAllCards = () => {
 
   return cards;
 };
+
+export const getTranslationY = (
+  deckPile: Array<CardsPile>,
+  flippedPile: Array<CardsPile>
+) => {
+  const nDeckCards = deckPile.length;
+  const nFlippedCards = flippedPile.length;
+
+  const diffCards = nDeckCards - nFlippedCards;
+
+  return diffCards;
+};

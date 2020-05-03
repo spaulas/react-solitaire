@@ -4,12 +4,14 @@ import { RefAny } from "../../../global";
 
 function CardFlippable(
   {
-    translation,
+    translationX = 0,
+    translationY = 0,
     removeCard,
     image,
     zIndex
   }: {
-    translation?: number;
+    translationX?: number;
+    translationY?: number;
     removeCard?: () => void;
     image: string;
     zIndex?: number;
@@ -21,9 +23,9 @@ function CardFlippable(
 
   const handleFlip = () => {
     if (!cardFlipped) {
-      if (translation && translation !== 0) {
+      if (translationX && translationX !== 0) {
         setAnimationStyle({
-          transform: `translate(${translation}px,0) rotateY(180deg)`
+          transform: `translate(${translationX}px, ${translationY}px) rotateY(180deg)`
         });
         setTimeout(() => {
           setAnimationStyle({ ...animationStyle, display: "none" });

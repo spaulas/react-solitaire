@@ -9,11 +9,12 @@ import deckActions from "../../../redux/deck/deck.actions";
 const DeckPile = () => {
   const dispatch = useDispatch();
   // get piles from redux
-  const { deckRef, deckPile, translation } = useSelector(
+  const { deckRef, deckPile, translationX, translationY } = useSelector(
     ({ Deck }: RootReducerState) => ({
       deckRef: Deck.deckRef,
       deckPile: Deck.deckPile,
-      translation: Deck.translation
+      translationX: Deck.translationX,
+      translationY: Deck.translationY
     })
   );
   // swap from deck to flipped pile
@@ -31,7 +32,8 @@ const DeckPile = () => {
         image={card.image}
         zIndex={999}
         removeCard={() => handleDeckSwap(card.id)}
-        translation={translation}
+        translationX={translationX}
+        translationY={translationY}
       />
     ));
     cardsArray.push(
