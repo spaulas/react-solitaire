@@ -1,10 +1,6 @@
 import { RefAny, ValueOf } from "../../global";
 import DeckActionTypes from "./deck.types";
 
-const getDeckCards = () => ({
-  type: DeckActionTypes.GET_DECK_CARDS
-});
-
 const flipDeckPile = (cardId: number) => ({
   type: DeckActionTypes.FLIP_DECK_PILE,
   cardId
@@ -21,16 +17,10 @@ const setTranslation = (translation: number) => ({
   translation
 });
 
-const createDeck = () => ({
-  type: DeckActionTypes.CREATE_DECK
-});
-
 const actionsCreators = Object.freeze({
-  getDeckCards,
   flipDeckPile,
   setRefs,
-  setTranslation,
-  createDeck
+  setTranslation
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

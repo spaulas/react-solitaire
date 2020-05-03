@@ -1,7 +1,8 @@
 /* eslint-disable indent */
-import DeckActionTypes, { CardsPile, cardsConfigurations } from "./deck.types";
-import { createRandomDeck, getTranslationY, popDeckCard } from "./deck.utils";
+import { CardsPile, cardsConfigurations } from "../gameBoard/gameBoard.types";
+import { getTranslationY, popDeckCard } from "./deck.utils";
 import { ActionsCreators } from "./deck.actions";
+import DeckActionTypes from "./deck.types";
 import { RefAny } from "../../global";
 
 interface InitialDeck {
@@ -24,14 +25,10 @@ const INITIAL_DECK: InitialDeck = {
 
 const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
   switch (action.type) {
-    // to be changed once it has the connection to firebase
-    case DeckActionTypes.GET_DECK_CARDS:
-      return state;
     case DeckActionTypes.FLIP_DECK_PILE:
       const { deckPile, flippedPile } = popDeckCard(
         state.deckPile,
-        state.flippedPile,
-        action.cardId
+        state.flippedPile
       );
       const translationY = getTranslationY(deckPile, flippedPile);
       return {
@@ -48,9 +45,6 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
       };
     case DeckActionTypes.SET_TRANSLATION:
       return { ...state, translationX: action.translation };
-    case DeckActionTypes.CREATE_DECK:
-      const newDeckPile = createRandomDeck();
-      return { ...state, deckPile: newDeckPile };
     default:
       return state;
   }
