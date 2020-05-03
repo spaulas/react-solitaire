@@ -3,6 +3,11 @@
   width: 140px;
   max-width: 100%;
   max-height: 100%;
+  margin-top: -1px;
+}
+
+.cardContainerFlipped {
+  margin-top: -2px;
 }
 
 .cardAspectRatio {
@@ -63,10 +68,10 @@
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  z-index: 5;
 }
 
 .cardFlipFront {
+  z-index: 99999;
   transform: rotateY(180deg);
 }
 

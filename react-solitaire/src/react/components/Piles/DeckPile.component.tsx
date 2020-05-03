@@ -29,7 +29,7 @@ const DeckPile = () => {
       <CardFlippable
         key={`deck_${card.id}`}
         image={card.image}
-        zIndex={card.id}
+        zIndex={999}
         removeCard={() => handleDeckSwap(card.id)}
         translation={translation}
       />

@@ -7,14 +7,18 @@ interface CardFrameProps {
   offset?: number;
   zIndex?: number;
   children?: ReactNode;
+  isFlipped?: boolean;
 }
 
 function CardFrame(
-  { className, offset, children, zIndex }: CardFrameProps,
+  { className, offset, children, zIndex = 1, isFlipped }: CardFrameProps,
   ref: RefAny
 ) {
   return (
-    <div ref={ref} className="cardContainer">
+    <div
+      ref={ref}
+      className={`cardContainer ${isFlipped ? "cardContainerFlipped" : ""}`}
+    >
       <div className="cardAspectRatio" style={{ zIndex }}>
         <div className={`cardContent ${className}`}>{children}</div>
       </div>
