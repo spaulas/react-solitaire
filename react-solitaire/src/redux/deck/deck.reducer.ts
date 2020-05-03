@@ -47,7 +47,7 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
         flippedRef: action.flippedRef
       };
     case DeckActionTypes.SET_TRANSLATION:
-      return { ...state, translation: action.translation };
+      return { ...state, translationX: action.translation };
     case DeckActionTypes.CREATE_DECK:
       const newDeckPile = createRandomDeck();
       return { ...state, deckPile: newDeckPile };

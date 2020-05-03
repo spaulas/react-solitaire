@@ -12,10 +12,10 @@ function Deck() {
   const deckRef: RefAny = useRef();
   const flippedRef: RefAny = useRef();
 
-  const mountDeck = () => {
-    // set this refs at the redux
-    dispatch(deckActions.setRefs(deckRef, flippedRef));
+  // set this refs at the redux
+  dispatch(deckActions.setRefs(deckRef, flippedRef));
 
+  const mountDeck = () => {
     // create new deck
     dispatch(deckActions.createDeck());
   };
@@ -27,13 +27,10 @@ function Deck() {
     if (deckRef.current && flippedRef.current) {
       const deckX = deckRef.current.getBoundingClientRect().x;
       const flippedX = flippedRef.current.getBoundingClientRect().x;
-      // eslint-disable-next-line no-console
-      console.log("setting translation to = ", flippedX - deckX);
       // save the distance at the redux
       dispatch(deckActions.setTranslation(flippedX - deckX));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deckRef, flippedRef]);
+  });
 
   return (
     <>
