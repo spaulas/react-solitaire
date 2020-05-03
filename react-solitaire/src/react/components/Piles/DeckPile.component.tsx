@@ -28,6 +28,7 @@ const DeckPile = () => {
     const cardsArray = deckPile.map((card: CardsPile) => (
       <CardFlippable
         key={`deck_${card.id}`}
+        image={card.image}
         removeCard={() => handleDeckSwap(card.id)}
         translation={translation}
       />

@@ -1,8 +1,8 @@
 /* eslint-disable indent */
 import DeckActionTypes, { CardsPile } from "./deck.types";
+import { createRandomDeck, popDeckCard } from "./deck.utils";
 import { ActionsCreators } from "./deck.actions";
 import { RefAny } from "../../global";
-import { popDeckCard } from "./deck.utils";
 
 interface InitialDeck {
   deckPile: Array<CardsPile>;
@@ -13,19 +13,9 @@ interface InitialDeck {
 }
 
 const INITIAL_DECK: InitialDeck = {
-  deckPile: [
-    { id: 0, name: "deckTop" },
-    {
-      id: 1,
-      name: "deckMiddle"
-    },
-    {
-      id: 2,
-      name: "deckBottom"
-    }
-  ],
+  deckPile: [],
   flippedPile: [],
-  translation: 0,
+  translation: 243.75,
   deckRef: undefined,
   flippedRef: undefined
 };
@@ -54,6 +44,9 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
       };
     case DeckActionTypes.SET_TRANSLATION:
       return { ...state, translation: action.translation };
+    case DeckActionTypes.CREATE_DECK:
+      const newDeckPile = createRandomDeck();
+      return { ...state, deckPile: newDeckPile };
     default:
       return state;
   }

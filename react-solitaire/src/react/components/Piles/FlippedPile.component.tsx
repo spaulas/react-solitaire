@@ -3,7 +3,6 @@ import React, { forwardRef, memo } from "react";
 import { CardsPile } from "../../../redux/deck/deck.types";
 import { Col } from "antd";
 import { RootReducerState } from "../../../global";
-import playCardImage from "../../../images/CardsFaces/Hearts/hearts12.png";
 import { useSelector } from "react-redux";
 
 const FlippedPile = () => {
@@ -19,7 +18,11 @@ const FlippedPile = () => {
     const cardsArray = flippedPile.map((card: CardsPile) => (
       <CardFrame key={`flipped_${card.id}`}>
         <div className="cardDefault">
-          <img className="cardImage" src={playCardImage} alt="" />
+          <img
+            className="cardImage"
+            src={`../../../images/CardsFaces/${card.image}`}
+            alt=""
+          />
         </div>
       </CardFrame>
     ));

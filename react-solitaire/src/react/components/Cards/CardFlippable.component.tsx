@@ -2,15 +2,16 @@ import React, { forwardRef, memo, useState } from "react";
 import CardFrame from "./CardFrame.component";
 import { RefAny } from "../../../global";
 import backgroundImage from "../../../images/CardsBackPatterns/flowers.png";
-import playCardImage from "../../../images/CardsFaces/Hearts/hearts12.png";
 
 function CardFlippable(
   {
     translation,
-    removeCard
+    removeCard,
+    image
   }: {
     translation?: number;
     removeCard?: () => void;
+    image: string;
   },
   ref: RefAny
 ) {
@@ -45,7 +46,11 @@ function CardFlippable(
         style={cardFlipped ? animationStyle : {}}
       >
         <div className="cardFlipFront cardDefault">
-          <img className="cardImage" src={playCardImage} alt="" />
+          <img
+            className="cardImage"
+            src={`../../../images/CardsFaces/${image}`}
+            alt=""
+          />
         </div>
         <div className="cardFlipBack cardDefault" onClick={handleFlip}>
           <img className="cardImage" src={backgroundImage} alt="" />

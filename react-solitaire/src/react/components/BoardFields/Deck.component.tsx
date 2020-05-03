@@ -1,4 +1,4 @@
-import React, { memo, useLayoutEffect, useRef } from "react";
+import React, { memo, useEffect, useLayoutEffect, useRef } from "react";
 import DeckPile from "../Piles/DeckPile.component";
 import FlippedPile from "../Piles/FlippedPile.component";
 import { RefAny } from "../../../global";
@@ -12,19 +12,27 @@ function Deck() {
   const deckRef: RefAny = useRef();
   const flippedRef: RefAny = useRef();
 
-  // set this refs at the redux
-  dispatch(deckActions.setRefs(deckRef, flippedRef));
+  const mountDeck = () => {
+    // set this refs at the redux
+    dispatch(deckActions.setRefs(deckRef, flippedRef));
+
+    // create new deck
+    dispatch(deckActions.createDeck());
+  };
+
+  useEffect(mountDeck, []);
 
   // when a change in the layout is detected, recalculate the distance between the two piles
   useLayoutEffect(() => {
     if (deckRef.current && flippedRef.current) {
       const deckX = deckRef.current.getBoundingClientRect().x;
       const flippedX = flippedRef.current.getBoundingClientRect().x;
+      // eslint-disable-next-line no-console
+      console.log("setting translation to = ", flippedX - deckX);
       // save the distance at the redux
       dispatch(deckActions.setTranslation(flippedX - deckX));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
   return (
     <>
