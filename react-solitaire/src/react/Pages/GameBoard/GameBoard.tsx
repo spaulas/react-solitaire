@@ -3,8 +3,8 @@ import {
   GameOptions,
   GamePlayInfo,
   GameTopRow
-} from "../components/BoardFields/BoardFieldsItems";
-import React from "react";
+} from "../../components/BoardFields/BoardFields.items";
+import React, { memo } from "react";
 
 function GameBoard() {
   return (
@@ -17,4 +17,4 @@ function GameBoard() {
   );
 }
 
-export default GameBoard;
+export default memo(GameBoard);

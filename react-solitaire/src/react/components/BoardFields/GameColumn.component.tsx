@@ -1,8 +1,8 @@
-import CardFlippable from "../Cards/CardFlippable";
+import { CardSpot } from "../Cards/Cards.items";
 import React from "react";
 
 function GameColumn({ offset }: { offset?: number }) {
-  return <CardFlippable offset={offset} />;
+  return <CardSpot offset={offset} />;
 }
 
 export default GameColumn;

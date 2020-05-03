@@ -1,6 +1,6 @@
-import Deck from "./Deck";
-import GoalSpotWrapper from "./GoalSpotWrapper";
-import React from "react";
+import React, { memo } from "react";
+import Deck from "./Deck.component";
+import GoalSpotWrapper from "./GoalSpotWrapper.component";
 import { Row } from "antd";
 
 function GameTopRow() {
@@ -12,4 +12,4 @@ function GameTopRow() {
   );
 }
 
-export default GameTopRow;
+export default memo(GameTopRow);

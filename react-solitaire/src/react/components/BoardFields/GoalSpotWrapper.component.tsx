@@ -1,4 +1,4 @@
-import GoalSpot from "./GoalSpot";
+import GoalSpot from "./GoalSpot.component";
 import React from "react";
 
 function GoalSpotWrapper() {
