@@ -8,7 +8,11 @@ function CardSpot(
     offset,
     className,
     withColumn = true
-  }: { offset?: number; className?: string; withColumn?: boolean },
+  }: {
+    offset?: number;
+    className?: string;
+    withColumn?: boolean;
+  },
   ref: RefAny
 ) {
   return withColumn ? (

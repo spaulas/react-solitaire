@@ -1,18 +1,19 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-multi-comp */
-import { CardFlippable, CardSpot } from "../CardsItems";
+import { CardFlippable, CardSpot } from "../Cards/CardsItems";
 import React, { forwardRef, memo } from "react";
-import { RefAny, RootReducerState } from "../../../../global";
 import { useDispatch, useSelector } from "react-redux";
-import { CardsPile } from "../../../../redux/deck/deck.types";
+import { CardsPile } from "../../../redux/deck/deck.types";
 import { Col } from "antd";
-import deckActions from "../../../../redux/deck/deck.actions";
+import { RootReducerState } from "../../../global";
+import deckActions from "../../../redux/deck/deck.actions";
 
-const DeckPile = (props: RefAny, ref: RefAny) => {
+const DeckPile = () => {
   const dispatch = useDispatch();
   // get piles from redux
-  const { deckPile, translation } = useSelector(
+  const { deckRef, deckPile, translation } = useSelector(
     ({ Deck }: RootReducerState) => ({
+      deckRef: Deck.deckRef,
       deckPile: Deck.deckPile,
       translation: Deck.translation
     })
@@ -40,7 +41,7 @@ const DeckPile = (props: RefAny, ref: RefAny) => {
       printCard(card.id)
     );
     bottomCardsArray.push(
-      <CardSpot ref={ref} key="deck_spot" withColumn={false} />
+      <CardSpot ref={deckRef} key="deck_spot" withColumn={false} />
     );
     return bottomCardsArray;
   };

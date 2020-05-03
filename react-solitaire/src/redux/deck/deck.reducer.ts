@@ -1,36 +1,33 @@
 /* eslint-disable indent */
 import DeckActionTypes, { CardsPile } from "./deck.types";
 import { ActionsCreators } from "./deck.actions";
+import { RefAny } from "../../global";
 import { popDeckCard } from "./deck.utils";
 
 interface InitialDeck {
   deckPile: Array<CardsPile>;
-  topDeck: number;
-  topFlipped?: number;
+  flippedPile: Array<CardsPile>;
   translation: number;
+  deckRef: RefAny;
+  flippedRef: RefAny;
 }
 
 const INITIAL_DECK: InitialDeck = {
   deckPile: [
-    { id: 0, pos: 2, cardType: "deck", translation: 243.75, name: "deckTop" },
+    { id: 0, name: "deckTop" },
     {
       id: 1,
-      pos: 1,
-      cardType: "deck",
-      translation: 243.75,
       name: "deckMiddle"
     },
     {
       id: 2,
-      pos: 0,
-      cardType: "deck",
-      translation: 243.75,
       name: "deckBottom"
     }
   ],
-  translation: 243.75,
-  topDeck: 2,
-  topFlipped: undefined
+  flippedPile: [],
+  translation: 0,
+  deckRef: undefined,
+  flippedRef: undefined
 };
 
 const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
@@ -39,16 +36,24 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
     case DeckActionTypes.GET_DECK_CARDS:
       return state;
     case DeckActionTypes.FLIP_DECK_PILE:
-      const { deckPile, topDeck, topFlipped } = popDeckCard(
+      const { deckPile, flippedPile } = popDeckCard(
         state.deckPile,
+        state.flippedPile,
         action.cardId
       );
       return {
         ...state,
         deckPile,
-        topDeck,
-        topFlipped
+        flippedPile
       };
+    case DeckActionTypes.SET_REFS:
+      return {
+        ...state,
+        deckRef: action.deckRef,
+        flippedRef: action.flippedRef
+      };
+    case DeckActionTypes.SET_TRANSLATION:
+      return { ...state, translation: action.translation };
     default:
       return state;
   }
