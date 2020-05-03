@@ -7,11 +7,13 @@ function CardFlippable(
   {
     translation,
     removeCard,
-    image
+    image,
+    zIndex
   }: {
     translation?: number;
     removeCard?: () => void;
     image: string;
+    zIndex?: number;
   },
   ref: RefAny
 ) {
@@ -39,7 +41,7 @@ function CardFlippable(
   };
 
   return (
-    <CardFrame ref={ref}>
+    <CardFrame ref={ref} zIndex={zIndex}>
       <div
         className="cardFlipContainer"
         // eslint-disable-next-line react/forbid-dom-props
@@ -48,7 +50,7 @@ function CardFlippable(
         <div className="cardFlipFront cardDefault">
           <img
             className="cardImage"
-            src={`../../../images/CardsFaces/${image}`}
+            src={require(`../../../images/CardsFaces/${image}`)}
             alt=""
           />
         </div>

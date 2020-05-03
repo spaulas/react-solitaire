@@ -6,6 +6,8 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 
 function App() {
+  // eslint-disable-next-line no-console
+  console.log("DOCUMENT = ", document.body);
   return (
     <div className="react-solitaire">
       <Provider store={store}>

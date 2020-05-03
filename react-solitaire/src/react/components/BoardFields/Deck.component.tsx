@@ -32,7 +32,8 @@ function Deck() {
       // save the distance at the redux
       dispatch(deckActions.setTranslation(flippedX - deckX));
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deckRef, flippedRef]);
 
   return (
     <>

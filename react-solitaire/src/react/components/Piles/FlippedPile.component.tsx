@@ -20,7 +20,7 @@ const FlippedPile = () => {
         <div className="cardDefault">
           <img
             className="cardImage"
-            src={`../../../images/CardsFaces/${card.image}`}
+            src={require(`../../../images/CardsFaces/${card.image}`)}
             alt=""
           />
         </div>

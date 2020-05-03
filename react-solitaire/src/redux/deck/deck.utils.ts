@@ -6,11 +6,13 @@ export const popDeckCard = (
   flippedPile: Array<CardsPile>,
   cardId: number
 ) => {
-  const cardFlipped = deckPile.find(card => card.id === cardId) as CardsPile;
   const tempDeckPile = [...deckPile];
-  tempDeckPile.filter(card => card.id !== cardId);
+  const cardFlipped = tempDeckPile.pop();
   const tempFlippedPile = [...flippedPile];
-  tempFlippedPile.push(cardFlipped);
+
+  if (cardFlipped) {
+    tempFlippedPile.push(cardFlipped);
+  }
 
   return {
     deckPile: tempDeckPile,
@@ -28,9 +30,6 @@ export const createRandomDeck = () => {
       image: cardsArray[i]
     });
   }
-
-  // eslint-disable-next-line no-console
-  console.log("final deck cards - ", deckCards);
 
   return deckCards;
 };
@@ -53,11 +52,11 @@ export const getAllCards = () => {
 
   for (let i = 0; i < suits.length; i++) {
     for (let j = 1; j <= 13; j++) {
-      cards.push(`${suits[i]}/${suits[i].toLowerCase()}${j}.png`);
+      cards.push(
+        `${suits[i]}/${suits[i].toLowerCase()}${j < 10 ? `0${j}` : j}.png`
+      );
     }
   }
 
-  // eslint-disable-next-line no-console
-  console.log("CARDS = ", cards);
   return cards;
 };
