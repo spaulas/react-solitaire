@@ -25,6 +25,8 @@ const INITIAL_DECK: InitialDeck = {
 
 const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
   switch (action.type) {
+    case DeckActionTypes.SET_INITIAL_DECK:
+      return { ...state, deckPile: action.deckPile };
     case DeckActionTypes.FLIP_DECK_PILE:
       const { deckPile, flippedPile } = popDeckCard(
         state.deckPile,

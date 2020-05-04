@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useLayoutEffect, useRef } from "react";
+import React, { memo, useLayoutEffect, useRef } from "react";
 import DeckPile from "../Piles/DeckPile.component";
 import FlippedPile from "../Piles/FlippedPile.component";
 import { RefAny } from "../../../global";
@@ -14,13 +14,6 @@ function Deck() {
 
   // set this refs at the redux
   dispatch(deckActions.setRefs(deckRef, flippedRef));
-
-  const mountDeck = () => {
-    // create new deck
-    dispatch(deckActions.createDeck());
-  };
-
-  useEffect(mountDeck, []);
 
   // when a change in the layout is detected, recalculate the distance between the two piles
   useLayoutEffect(() => {

@@ -1,7 +1,7 @@
 import { CardFlippable, CardSpot } from "../Cards/Cards.items";
 import React, { forwardRef, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CardsPile } from "../../../redux/deck/deck.types";
+import { CardsPile } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import { RootReducerState } from "../../../global";
 import deckActions from "../../../redux/deck/deck.actions";

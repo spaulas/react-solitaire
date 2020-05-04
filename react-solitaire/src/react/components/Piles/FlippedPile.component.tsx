@@ -1,6 +1,6 @@
 import { CardFrame, CardSpot } from "../Cards/Cards.items";
 import React, { forwardRef, memo } from "react";
-import { CardsPile } from "../../../redux/deck/deck.types";
+import { CardsPile } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import { RootReducerState } from "../../../global";
 import { useSelector } from "react-redux";

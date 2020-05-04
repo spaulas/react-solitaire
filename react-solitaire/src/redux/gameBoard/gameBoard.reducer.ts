@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import GameBoardActionTypes, { CardsPile } from "./gameBoard.types";
 import { ActionsCreators } from "./gameBoard.actions";
-import { createRandomDeck } from "./gameBoard.utils";
+import { createRandomGame } from "./gameBoard.utils";
 
 interface InitialDeck {
   deckPile: Array<CardsPile>;
@@ -30,7 +30,7 @@ const INITIAL_DECK: InitialDeck = {
 const gameBoardReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
   switch (action.type) {
     case GameBoardActionTypes.CREATE_DECK:
-      const newDeckPile = createRandomDeck();
+      const newDeckPile = createRandomGame();
       return newDeckPile;
     default:
       return state;
