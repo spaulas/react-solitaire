@@ -1,5 +1,4 @@
 import Deck from "./Deck.component";
-import GameColumn from "./GameColumn.component";
 import GameColumnWrapper from "./GameColumnWrapper.component";
 import GameOptions from "./GameOptions.component";
 import GamePlayInfo from "./GamePlayInfo.component";
@@ -10,7 +9,6 @@ import GoalSpotWrapper from "./GoalSpotWrapper.component";
 
 export {
   Deck,
-  GameColumn,
   GameColumnWrapper,
   GameOptions,
   GamePlayInfo,

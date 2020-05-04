@@ -3,7 +3,7 @@ import GameBoardActionTypes, { CardsPile } from "./gameBoard.types";
 import { ActionsCreators } from "./gameBoard.actions";
 import { createRandomGame } from "./gameBoard.utils";
 
-interface InitialDeck {
+interface InitialGameBoard {
   deckPile: Array<CardsPile>;
   flippedPile: Array<CardsPile>;
   column1Pile: Array<CardsPile>;
@@ -15,7 +15,7 @@ interface InitialDeck {
   column7Pile: Array<CardsPile>;
 }
 
-const INITIAL_DECK: InitialDeck = {
+const INITIAL_GAME_BOARD: InitialGameBoard = {
   deckPile: [],
   flippedPile: [],
   column1Pile: [],
@@ -27,7 +27,10 @@ const INITIAL_DECK: InitialDeck = {
   column7Pile: []
 };
 
-const gameBoardReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
+const gameBoardReducer = (
+  state = INITIAL_GAME_BOARD,
+  action: ActionsCreators
+) => {
   switch (action.type) {
     case GameBoardActionTypes.CREATE_DECK:
       const newDeckPile = createRandomGame();

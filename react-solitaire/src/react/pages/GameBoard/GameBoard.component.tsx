@@ -7,14 +7,31 @@ import {
 import React, { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootReducerState } from "../../../global";
+import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 
 function GameBoard() {
   const dispatch = useDispatch();
 
-  const { deckPile } = useSelector(({ GameBoard }: RootReducerState) => ({
-    deckPile: GameBoard.deckPile
+  const {
+    deckPile,
+    column1Pile,
+    column2Pile,
+    column3Pile,
+    column4Pile,
+    column5Pile,
+    column6Pile,
+    column7Pile
+  } = useSelector(({ GameBoard }: RootReducerState) => ({
+    deckPile: GameBoard.deckPile,
+    column1Pile: GameBoard.column1Pile,
+    column2Pile: GameBoard.column2Pile,
+    column3Pile: GameBoard.column3Pile,
+    column4Pile: GameBoard.column4Pile,
+    column5Pile: GameBoard.column5Pile,
+    column6Pile: GameBoard.column6Pile,
+    column7Pile: GameBoard.column7Pile
   }));
 
   // when the component mounts, create a new random game
@@ -28,6 +45,18 @@ function GameBoard() {
   const setCardsPile = () => {
     // set the initial deck
     dispatch(deckActions.setInitialDeck(deckPile));
+    // set the initial columns
+    dispatch(
+      columnsActions.setInitialColumns({
+        column1Pile,
+        column2Pile,
+        column3Pile,
+        column4Pile,
+        column5Pile,
+        column6Pile,
+        column7Pile
+      })
+    );
   };
   useEffect(setCardsPile, [deckPile]);
 
