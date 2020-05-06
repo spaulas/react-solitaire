@@ -38,10 +38,23 @@ export const swapColumns = (
   // get from what index to slice
   const indexToDelete = initialCol.length - nCards;
 
-  // get the cards that will swap
+  // get the cards that will swap and also remove them from the initial column
   const cardsToSwap = initialCol.splice(indexToDelete, nCards);
 
+  // add the swapped cards to the final column
   cardsToSwap.map((card: CardsPile) => finalCol.push(card));
+
+  // if the indexToDelete is bigger than 0, there are more cards in the initial column
+  // if the last index has flipped = false, then make it true
+  if (indexToDelete > 0) {
+    const lastCard = indexToDelete - 1;
+    if (!initialCol[lastCard].flipped) {
+      initialCol[lastCard] = {
+        ...initialCol[lastCard],
+        flipped: true
+      };
+    }
+  }
 
   return { [initialIndex]: initialCol, [finalIndex]: finalCol };
 };
