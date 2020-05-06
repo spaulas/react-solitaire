@@ -1,5 +1,6 @@
 /* eslint-disable react/forbid-dom-props */
-import React, { ReactNode, forwardRef, memo } from "react";
+import React, { ReactNode, forwardRef, memo, useState } from "react";
+import Draggable from "react-draggable";
 import { RefAny } from "../../../global";
 
 interface CardFrameProps {
@@ -22,23 +23,32 @@ function CardFrame(
   }: CardFrameProps,
   ref: RefAny
 ) {
+  const [grabbing, setGrabbing] = useState(false);
+  const onGrab = () => {
+    setGrabbing(true);
+  };
+  const onDrop = () => {
+    setGrabbing(false);
+  };
   return (
-    <div
-      ref={ref}
-      className={`cardContainer ${isFlipped ? "cardContainerFlipped" : ""} ${
-        cardContainerClassName ? cardContainerClassName : ""
-      }`}
-    >
-      <div className="cardAspectRatio" style={{ zIndex }}>
-        <div
-          className={`cardContent ${
-            cardContentClassName ? cardContentClassName : ""
-          }`}
-        >
-          {children}
+    <Draggable onStart={onGrab} onStop={onDrop}>
+      <div
+        ref={ref}
+        className={`cardContainer ${isFlipped ? "cardContainerFlipped" : ""} ${
+          cardContainerClassName ? cardContainerClassName : ""
+        }`}
+      >
+        <div className="cardAspectRatio" style={{ zIndex }}>
+          <div
+            className={`cardContent ${
+              cardContentClassName ? cardContentClassName : ""
+            }`}
+          >
+            {children}
+          </div>
         </div>
       </div>
-    </div>
+    </Draggable>
   );
 }
 

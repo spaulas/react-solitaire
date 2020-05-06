@@ -1,5 +1,8 @@
 /* eslint-disable no-console */
-import { CardFlippable, CardFrame, CardSpot } from "../Cards/Cards.items";
+import {
+  CardFlippable,
+  CardFrame /* , CardSpot */
+} from "../Cards/Cards.items";
 import { CardsPile } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import React from "react";
@@ -42,13 +45,13 @@ function ColumnPile({ offset, columnCards }: ColumnPileProps) {
       );
     });
 
-    cardsArray.push(
+    /* cardsArray.push(
       <CardSpot
         cardContainerColumns="cardContainerSpot"
         key="column_spot"
         withColumn={false}
       />
-    );
+    ); */
     return cardsArray;
   };
   return (
