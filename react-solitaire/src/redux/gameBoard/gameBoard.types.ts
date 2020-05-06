@@ -17,6 +17,8 @@ export interface CardsPile {
   id: number;
   image: string;
   flipped?: boolean;
+  cardColor: "red" | "black";
+  cardNumber: number;
 }
 
 export default GameBoardActionTypes;

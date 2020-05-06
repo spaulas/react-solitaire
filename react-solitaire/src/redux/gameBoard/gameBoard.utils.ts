@@ -47,16 +47,26 @@ export const getAllCards = () => {
 
   for (let i = 0; i < suits.length; i++) {
     for (let j = 1; j <= 13; j++) {
-      cards.push(
-        `${suits[i]}/${suits[i].toLowerCase()}${j < 10 ? `0${j}` : j}.png`
-      );
+      cards.push({
+        cardColor: i < 2 ? "red" : "black",
+        cardNumber: j,
+        image: `${suits[i]}/${suits[i].toLowerCase()}${
+          j < 10 ? `0${j}` : j
+        }.png`
+      } as const);
     }
   }
 
   return cards;
 };
 
-export const shuffle = (array: Array<string>) => {
+export const shuffle = (
+  array: Array<{
+    cardColor: "red" | "black";
+    cardNumber: number;
+    image: string;
+  }>
+) => {
   for (
     let j, x, i = array.length;
     i;
@@ -69,7 +79,11 @@ export const shuffle = (array: Array<string>) => {
 };
 
 export const createCardsArray = (
-  cardsImages: Array<string>,
+  cardsImages: Array<{
+    cardColor: "red" | "black";
+    cardNumber: number;
+    image: string;
+  }>,
   min: number,
   max: number
 ) => {
@@ -77,7 +91,7 @@ export const createCardsArray = (
   for (let i = min; i < max; i++) {
     cardsArray.push({
       id: i,
-      image: cardsImages[i]
+      ...cardsImages[i]
     });
   }
   return cardsArray;
