@@ -25,3 +25,23 @@ export const createColumns = (columns: Record<string, Array<CardsPile>>) => {
 
   return finalResult;
 };
+
+export const swapColumns = (
+  columns: Record<string, Array<CardsPile>>,
+  initialIndex: string,
+  finalIndex: string,
+  nCards: number
+) => {
+  const initialCol = [...columns[initialIndex]];
+  const finalCol = [...columns[finalIndex]];
+
+  // get from what index to slice
+  const indexToDelete = initialCol.length - nCards;
+
+  // get the cards that will swap
+  const cardsToSwap = initialCol.splice(indexToDelete, nCards);
+
+  cardsToSwap.map((card: CardsPile) => finalCol.push(card));
+
+  return { [initialIndex]: initialCol, [finalIndex]: finalCol };
+};

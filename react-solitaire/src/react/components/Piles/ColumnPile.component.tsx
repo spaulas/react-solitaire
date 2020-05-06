@@ -6,19 +6,33 @@ import {
 import { CardsPile } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import React from "react";
+import columnActions from "../../../redux/columns/columns.actions";
+import { getColumnToDrop } from "../Cards/Cards.utils";
+import { useDispatch } from "react-redux";
 
 interface ColumnPileProps {
   offset?: number;
   columnCards: Array<CardsPile>;
+  columnId: string;
 }
 
-function ColumnPile({ offset, columnCards }: ColumnPileProps) {
+function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
+  const dispatch = useDispatch();
+
+  const onDrop = (e: MouseEvent) => {
+    const columnDropedTo = getColumnToDrop(e);
+    if (columnDropedTo !== columnId) {
+      dispatch(columnActions.swapColumns(columnId, columnDropedTo, 1));
+    }
+  };
+
   const getCards = () => {
     const cardsArray = columnCards.map((card: CardsPile) => {
       if (card.flipped) {
         return (
           <CardFrame
             cardId={card.id}
+            onDrop={onDrop}
             cardContainerClassName="cardContainerColumns"
             key={`flipped_${card.id}`}
             zIndex={999}

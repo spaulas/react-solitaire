@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable react/forbid-dom-props */
-import React, { ReactNode, forwardRef, memo, useState } from "react";
+import React, { ReactNode, forwardRef, memo } from "react";
 import Draggable from "react-draggable";
 import { RefAny } from "../../../global";
-import { getColumnToDrop } from "./Cards.utils";
 
 interface CardFrameProps {
   cardContainerClassName?: string;
@@ -13,6 +12,7 @@ interface CardFrameProps {
   children?: ReactNode;
   isFlipped?: boolean;
   cardId: number;
+  onDrop?: (e: MouseEvent) => void;
 }
 
 function CardFrame(
@@ -23,22 +23,19 @@ function CardFrame(
     children,
     zIndex = 1,
     isFlipped,
-    cardId
+    cardId,
+    onDrop
   }: CardFrameProps,
   ref: RefAny
 ) {
-  const [grabbing, setGrabbing] = useState(false);
   const onGrab = (e: any) => {
     console.log("ON GRAB = ", e);
-    setGrabbing(true);
-  };
-  const onDrop = (e: any) => {
-    console.log("ON DROP = ", e);
-    setGrabbing(false);
-    getColumnToDrop(cardId, e);
   };
   return (
-    <Draggable onStart={onGrab} onStop={onDrop}>
+    <Draggable
+      onStart={onGrab}
+      onStop={(e: any) => (onDrop ? onDrop(e) : console.log("dropping"))}
+    >
       <div
         ref={ref}
         className={`cardContainer ${isFlipped ? "cardContainerFlipped" : ""} ${

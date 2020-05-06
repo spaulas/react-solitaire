@@ -1,8 +1,8 @@
 /* eslint-disable indent */
+import { createColumns, swapColumns } from "./columns.utils";
 import { ActionsCreators } from "./columns.actions";
 import { CardsPile } from "../gameBoard/gameBoard.types";
 import ColumnsActionTypes from "./columns.types";
-import { createColumns } from "./columns.utils";
 
 interface InitialColumns {
   column1Pile: Array<CardsPile>;
@@ -28,6 +28,14 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
   switch (action.type) {
     case ColumnsActionTypes.SET_INITIAL_COLUMNS:
       return createColumns(action.columns);
+    case ColumnsActionTypes.SWAP_COLUMNS:
+      const result = swapColumns(
+        state as any,
+        action.initialIndex,
+        action.finalIndex,
+        action.nCards
+      );
+      return { ...state, ...result };
     default:
       return state;
   }

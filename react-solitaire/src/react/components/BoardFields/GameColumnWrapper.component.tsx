@@ -25,13 +25,13 @@ function GameColumnWrapper() {
   }));
   return (
     <Row gutter={6} className="gameColumnsRow" align="middle">
-      <ColumnPile columnCards={column1Pile} offset={2} />
-      <ColumnPile columnCards={column2Pile} />
-      <ColumnPile columnCards={column3Pile} />
-      <ColumnPile columnCards={column4Pile} />
-      <ColumnPile columnCards={column5Pile} />
-      <ColumnPile columnCards={column6Pile} />
-      <ColumnPile columnCards={column7Pile} />
+      <ColumnPile columnId="column1Pile" columnCards={column1Pile} offset={2} />
+      <ColumnPile columnId="column2Pile" columnCards={column2Pile} />
+      <ColumnPile columnId="column3Pile" columnCards={column3Pile} />
+      <ColumnPile columnId="column4Pile" columnCards={column4Pile} />
+      <ColumnPile columnId="column5Pile" columnCards={column5Pile} />
+      <ColumnPile columnId="column6Pile" columnCards={column6Pile} />
+      <ColumnPile columnId="column7Pile" columnCards={column7Pile} />
     </Row>
   );
 }
