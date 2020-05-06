@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable indent */
 import { CardsPile, cardsConfigurations } from "./gameBoard.types";
 
@@ -75,8 +76,8 @@ export const createCardsArray = (
   const cardsArray: Array<CardsPile> = [];
   for (let i = min; i < max; i++) {
     cardsArray.push({
-      id: i + min,
-      image: cardsImages[i + min]
+      id: i,
+      image: cardsImages[i]
     });
   }
   return cardsArray;

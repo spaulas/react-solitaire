@@ -3,7 +3,8 @@ import React, { ReactNode, forwardRef, memo } from "react";
 import { RefAny } from "../../../global";
 
 interface CardFrameProps {
-  className?: string;
+  cardContainerClassName?: string;
+  cardContentClassName?: string;
   offset?: number;
   zIndex?: number;
   children?: ReactNode;
@@ -11,16 +12,29 @@ interface CardFrameProps {
 }
 
 function CardFrame(
-  { className, offset, children, zIndex = 1, isFlipped }: CardFrameProps,
+  {
+    cardContainerClassName,
+    cardContentClassName,
+    offset,
+    children,
+    zIndex = 1,
+    isFlipped
+  }: CardFrameProps,
   ref: RefAny
 ) {
   return (
     <div
       ref={ref}
-      className={`cardContainer ${isFlipped ? "cardContainerFlipped" : ""}`}
+      className={`cardContainer ${isFlipped ? "cardContainerFlipped" : ""} ${
+        cardContainerClassName ? cardContainerClassName : ""
+      }`}
     >
       <div className="cardAspectRatio" style={{ zIndex }}>
-        <div className={`cardContent ${className ? className : ""}`}>
+        <div
+          className={`cardContent ${
+            cardContentClassName ? cardContentClassName : ""
+          }`}
+        >
           {children}
         </div>
       </div>

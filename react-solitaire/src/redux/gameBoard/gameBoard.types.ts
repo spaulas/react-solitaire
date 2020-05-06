@@ -16,6 +16,7 @@ export const cardsConfigurations = {
 export interface CardsPile {
   id: number;
   image: string;
+  flipped?: boolean;
 }
 
 export default GameBoardActionTypes;

@@ -2,6 +2,7 @@
 import { ActionsCreators } from "./columns.actions";
 import { CardsPile } from "../gameBoard/gameBoard.types";
 import ColumnsActionTypes from "./columns.types";
+import { createColumns } from "./columns.utils";
 
 interface InitialColumns {
   column1Pile: Array<CardsPile>;
@@ -26,7 +27,7 @@ const INITIAL_COLUMNS: InitialColumns = {
 const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
   switch (action.type) {
     case ColumnsActionTypes.SET_INITIAL_COLUMNS:
-      return action.columns;
+      return createColumns(action.columns);
     default:
       return state;
   }

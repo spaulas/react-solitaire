@@ -4,17 +4,21 @@ import { RefAny } from "../../../global";
 
 function CardFlippable(
   {
+    className,
     translationX = 0,
     translationY = 0,
     removeCard,
     image,
+    disabled,
     zIndex
   }: {
+    className?: string;
     translationX?: number;
     translationY?: number;
     removeCard?: () => void;
     image: string;
     zIndex?: number;
+    disabled?: boolean;
   },
   ref: RefAny
 ) {
@@ -22,7 +26,7 @@ function CardFlippable(
   const [animationStyle, setAnimationStyle] = useState({});
 
   const handleFlip = () => {
-    if (!cardFlipped) {
+    if (!cardFlipped && !disabled) {
       if (translationX && translationX !== 0) {
         setAnimationStyle({
           transform: `translate(${translationX}px, ${translationY}px) rotateY(180deg)`
@@ -39,7 +43,7 @@ function CardFlippable(
   };
 
   return (
-    <CardFrame ref={ref} zIndex={zIndex}>
+    <CardFrame ref={ref} zIndex={zIndex} cardContainerClassName={className}>
       <div
         className="cardFlipContainer"
         // eslint-disable-next-line react/forbid-dom-props
