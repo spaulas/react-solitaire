@@ -18,6 +18,7 @@ function ColumnPile({ offset, columnCards }: ColumnPileProps) {
       if (card.flipped) {
         return (
           <CardFrame
+            cardId={card.id}
             cardContainerClassName="cardContainerColumns"
             key={`flipped_${card.id}`}
             zIndex={999}
@@ -36,6 +37,7 @@ function ColumnPile({ offset, columnCards }: ColumnPileProps) {
 
       return (
         <CardFlippable
+          cardId={card.id}
           disabled={true}
           className="cardContainerColumns"
           key={`columnPile_${card.id}`}

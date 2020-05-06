@@ -10,7 +10,8 @@ function CardFlippable(
     removeCard,
     image,
     disabled,
-    zIndex
+    zIndex,
+    cardId
   }: {
     className?: string;
     translationX?: number;
@@ -19,6 +20,7 @@ function CardFlippable(
     image: string;
     zIndex?: number;
     disabled?: boolean;
+    cardId: number;
   },
   ref: RefAny
 ) {
@@ -43,7 +45,12 @@ function CardFlippable(
   };
 
   return (
-    <CardFrame ref={ref} zIndex={zIndex} cardContainerClassName={className}>
+    <CardFrame
+      cardId={cardId}
+      ref={ref}
+      zIndex={zIndex}
+      cardContainerClassName={className}
+    >
       <div
         className="cardFlipContainer"
         // eslint-disable-next-line react/forbid-dom-props

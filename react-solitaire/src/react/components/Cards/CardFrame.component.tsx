@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
 /* eslint-disable react/forbid-dom-props */
 import React, { ReactNode, forwardRef, memo, useState } from "react";
 import Draggable from "react-draggable";
 import { RefAny } from "../../../global";
+import { getColumnToDrop } from "./Cards.utils";
 
 interface CardFrameProps {
   cardContainerClassName?: string;
@@ -10,6 +12,7 @@ interface CardFrameProps {
   zIndex?: number;
   children?: ReactNode;
   isFlipped?: boolean;
+  cardId: number;
 }
 
 function CardFrame(
@@ -19,16 +22,20 @@ function CardFrame(
     offset,
     children,
     zIndex = 1,
-    isFlipped
+    isFlipped,
+    cardId
   }: CardFrameProps,
   ref: RefAny
 ) {
   const [grabbing, setGrabbing] = useState(false);
-  const onGrab = () => {
+  const onGrab = (e: any) => {
+    console.log("ON GRAB = ", e);
     setGrabbing(true);
   };
-  const onDrop = () => {
+  const onDrop = (e: any) => {
+    console.log("ON DROP = ", e);
     setGrabbing(false);
+    getColumnToDrop(cardId, e);
   };
   return (
     <Draggable onStart={onGrab} onStop={onDrop}>

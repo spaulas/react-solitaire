@@ -28,6 +28,7 @@ const DeckPile = () => {
   const getCards = () => {
     const cardsArray = deckPile.map((card: CardsPile) => (
       <CardFlippable
+        cardId={card.id}
         key={`deck_${card.id}`}
         image={card.image}
         zIndex={999}
@@ -37,7 +38,7 @@ const DeckPile = () => {
       />
     ));
     cardsArray.push(
-      <CardSpot ref={deckRef} key="deck_spot" withColumn={false} />
+      <CardSpot cardId={-1} ref={deckRef} key="deck_spot" withColumn={false} />
     );
     return cardsArray;
   };

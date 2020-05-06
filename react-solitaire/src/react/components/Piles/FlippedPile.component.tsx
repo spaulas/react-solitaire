@@ -16,7 +16,12 @@ const FlippedPile = () => {
 
   const getCards = () => {
     const cardsArray = flippedPile.map((card: CardsPile) => (
-      <CardFrame key={`flipped_${card.id}`} zIndex={5} isFlipped>
+      <CardFrame
+        key={`flipped_${card.id}`}
+        cardId={card.id}
+        zIndex={5}
+        isFlipped
+      >
         <div className="cardDefault">
           <img
             className="cardImage"
@@ -28,6 +33,7 @@ const FlippedPile = () => {
     ));
     cardsArray.push(
       <CardSpot
+        cardId={-1}
         ref={flippedRef}
         key="flipped_spot"
         withColumn={false}
