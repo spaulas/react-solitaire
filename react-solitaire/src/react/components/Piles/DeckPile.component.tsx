@@ -37,9 +37,9 @@ const DeckPile = () => {
         translationY={translationY}
       />
     ));
-    cardsArray.push(
+    /* cardsArray.push(
       <CardSpot cardId={-1} ref={deckRef} key="deck_spot" withColumn={false} />
-    );
+    ); */
     return cardsArray;
   };
 

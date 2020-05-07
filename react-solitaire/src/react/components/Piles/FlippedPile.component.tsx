@@ -31,7 +31,7 @@ const FlippedPile = () => {
         </div>
       </CardFrame>
     ));
-    cardsArray.push(
+    /* cardsArray.push(
       <CardSpot
         cardId={-1}
         ref={flippedRef}
@@ -39,7 +39,7 @@ const FlippedPile = () => {
         withColumn={false}
         isFlipped
       />
-    );
+    ); */
     return cardsArray;
   };
 
