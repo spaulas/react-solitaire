@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-component-props */
 import {
   GameColumnWrapper,
   GameOptions,
@@ -6,6 +7,7 @@ import {
 } from "../../components/BoardFields/BoardFields.items";
 import React, { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Button } from "antd";
 import DraggableCard from "../../components/BoardFields/DraggableCard.component";
 import { RootReducerState } from "../../../global";
 import columnsActions from "../../../redux/columns/columns.actions";
@@ -63,6 +65,12 @@ function GameBoard() {
 
   return (
     <div className="gameBoard">
+      <Button
+        style={{ zIndex: 9999999999999 }}
+        onClick={() => dispatch(deckActions.resetDeck())}
+      >
+        RESET DECK
+      </Button>
       <GamePlayInfo />
       <GameOptions />
       <DraggableCard />

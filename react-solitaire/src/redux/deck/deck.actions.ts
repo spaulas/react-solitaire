@@ -23,11 +23,16 @@ const setTranslation = (translation: number) => ({
   translation
 });
 
+const resetDeck = () => ({
+  type: DeckActionTypes.RESET_DECK
+});
+
 const actionsCreators = Object.freeze({
   setInitialDeck,
   flipDeckPile,
   setRefs,
-  setTranslation
+  setTranslation,
+  resetDeck
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

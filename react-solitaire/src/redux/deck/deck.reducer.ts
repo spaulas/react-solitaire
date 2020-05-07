@@ -47,6 +47,8 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
       };
     case DeckActionTypes.SET_TRANSLATION:
       return { ...state, translationX: action.translation };
+    case DeckActionTypes.RESET_DECK:
+      return { ...state, deckPile: state.flippedPile, flippedPile: [] };
     default:
       return state;
   }
