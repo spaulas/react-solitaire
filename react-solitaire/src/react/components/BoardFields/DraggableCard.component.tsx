@@ -9,9 +9,10 @@ import columnActions from "../../../redux/columns/columns.actions";
 const DraggableCard = () => {
   const dispatch = useDispatch();
   const { cardDragging, cardDraggingPosition } = useSelector(
-    ({ Columns }: RootReducerState) => ({
-      cardDragging: Columns.cardDragging,
-      cardDraggingPosition: Columns.cardDraggingPosition
+    ({ Columns, Deck }: RootReducerState) => ({
+      cardDragging: Columns.cardDragging || Deck.cardDragging,
+      cardDraggingPosition:
+        Columns.cardDraggingPosition || Deck.cardDraggingPosition
     })
   );
 

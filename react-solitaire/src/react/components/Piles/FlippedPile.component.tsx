@@ -1,22 +1,39 @@
 import { CardFrame, CardSpot } from "../Cards/Cards.items";
 import React, { forwardRef, memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { CardsPile } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import { RootReducerState } from "../../../global";
-import { useSelector } from "react-redux";
+import columnActions from "../../../redux/columns/columns.actions";
+import deckActions from "../../../redux/deck/deck.actions";
 
 const FlippedPile = () => {
+  const dispatch = useDispatch();
   // get piles from redux
-  const { flippedRef, flippedPile } = useSelector(
+  const { flippedRef, flippedPile, cardDragging } = useSelector(
     ({ Deck }: RootReducerState) => ({
       flippedRef: Deck.flippedRef,
-      flippedPile: Deck.flippedPile
+      flippedPile: Deck.flippedPile,
+      cardDragging: Deck.cardDragging
     })
   );
+
+  const onGrab = (e: any) => {
+    const position = e.currentTarget.getBoundingClientRect();
+    dispatch(deckActions.removeFlippedCard(position));
+
+    /*  dispatch(
+      columnActions.setCardDragging(1, "flipped", {
+        x: position.x,
+        y: position.y
+      })
+    ); */
+  };
 
   const getCards = () => {
     const cardsArray = flippedPile.map((card: CardsPile) => (
       <CardFrame
+        onGrab={onGrab}
         key={`flipped_${card.id}`}
         cardId={card.id}
         zIndex={5}

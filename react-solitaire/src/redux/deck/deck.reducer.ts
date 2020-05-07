@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import { CardsPile, cardsConfigurations } from "../gameBoard/gameBoard.types";
-import { getTranslationY, popDeckCard } from "./deck.utils";
+import { getTranslationY, popDeckCard, popFlippedCard } from "./deck.utils";
 import { ActionsCreators } from "./deck.actions";
 import DeckActionTypes from "./deck.types";
 import { RefAny } from "../../global";
@@ -12,6 +12,8 @@ interface InitialDeck {
   translationY: number;
   deckRef: RefAny;
   flippedRef: RefAny;
+  cardDragging?: Array<CardsPile>;
+  cardDraggingPosition?: { x: number; y: number };
 }
 
 const INITIAL_DECK: InitialDeck = {
@@ -20,7 +22,9 @@ const INITIAL_DECK: InitialDeck = {
   translationX: 243.75,
   translationY: cardsConfigurations.deck,
   deckRef: undefined,
-  flippedRef: undefined
+  flippedRef: undefined,
+  cardDragging: undefined,
+  cardDraggingPosition: undefined
 };
 
 const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
@@ -49,6 +53,12 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
       return { ...state, translationX: action.translation };
     case DeckActionTypes.RESET_DECK:
       return { ...state, deckPile: state.flippedPile, flippedPile: [] };
+    case DeckActionTypes.REMOVE_FLIPPED_CARD:
+      return {
+        ...state,
+        ...popFlippedCard(state.flippedPile),
+        cardDraggingPosition: action.position
+      };
     default:
       return state;
   }

@@ -18,6 +18,16 @@ export const popDeckCard = (
   };
 };
 
+export const popFlippedCard = (flippedPile: Array<CardsPile>) => {
+  const tempFlippedPile = [...flippedPile];
+  const cardFlipped = tempFlippedPile.pop();
+
+  return {
+    cardDragging: [cardFlipped],
+    flippedPile: tempFlippedPile
+  };
+};
+
 export const getTranslationY = (
   deckPile: Array<CardsPile>,
   flippedPile: Array<CardsPile>
