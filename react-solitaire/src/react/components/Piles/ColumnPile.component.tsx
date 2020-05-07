@@ -18,10 +18,11 @@ interface ColumnPileProps {
 function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
   const dispatch = useDispatch();
 
-  const onGrab = (e: any) => {
+  const onGrab = (e: any, index: number) => {
+    const diff = columnCards.length - index;
     const position = e.currentTarget.getBoundingClientRect();
     dispatch(
-      columnActions.setCardDragging(1, columnId, {
+      columnActions.setCardDragging(diff, columnId, {
         x: position.x,
         y: position.y
       })
@@ -29,12 +30,12 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
   };
 
   const getCards = () => {
-    const cardsArray = columnCards.map((card: CardsPile) => {
+    const cardsArray = columnCards.map((card: CardsPile, index: number) => {
       if (card.flipped) {
         return (
           <CardFrame
             cardId={card.id}
-            onGrab={onGrab}
+            onGrab={(e: any) => onGrab(e, index)}
             cardContainerClassName="cardContainerColumns"
             key={`flipped_${card.id}`}
             zIndex={999}

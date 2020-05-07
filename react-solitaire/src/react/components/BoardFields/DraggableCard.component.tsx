@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardFrame } from "../Cards/Cards.items";
 import { CardsPile } from "../../../redux/gameBoard/gameBoard.types";
+import { Col } from "antd";
 import { RootReducerState } from "../../../global";
 import columnActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
@@ -56,26 +57,32 @@ const DraggableCard = () => {
     <div
       className={`draggableCard ${cardDragging ? "draggableCardActive" : ""}`}
     >
-      {cardDragging &&
-        cardDragging.map((card: CardsPile) => (
-          <CardFrame
-            defaultPosition={cardDraggingPosition}
-            cardId={card.id}
-            onDrop={onDrop}
-            cardContainerClassName="cardContainerColumns"
-            key={`flipped_${card.id}`}
-            zIndex={999}
-            isFlipped
-          >
-            <div className="cardDefault">
-              <img
-                className="cardImage"
-                src={require(`../../../images/CardsFaces/${card.image}`)}
-                alt=""
-              />
-            </div>
-          </CardFrame>
-        ))}
+      <Col span={3} className="deckPile">
+        <div className="columnPile">
+          <div className="cardPileContainer">
+            {cardDragging &&
+              cardDragging.map((card: CardsPile) => (
+                <CardFrame
+                  defaultPosition={cardDraggingPosition}
+                  cardId={card.id}
+                  onDrop={onDrop}
+                  cardContainerClassName="cardContainerColumns"
+                  key={`flipped_${card.id}`}
+                  zIndex={999}
+                  isFlipped
+                >
+                  <div className="cardDefault">
+                    <img
+                      className="cardImage"
+                      src={require(`../../../images/CardsFaces/${card.image}`)}
+                      alt=""
+                    />
+                  </div>
+                </CardFrame>
+              ))}
+          </div>
+        </div>
+      </Col>
     </div>
   );
 };
