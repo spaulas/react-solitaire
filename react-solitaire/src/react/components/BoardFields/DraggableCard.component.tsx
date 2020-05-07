@@ -1,15 +1,18 @@
 /* eslint-disable no-console */
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardFrame } from "../Cards/Cards.items";
 import { CardsPile } from "../../../redux/gameBoard/gameBoard.types";
-import React from "react";
 import { RootReducerState } from "../../../global";
 import columnActions from "../../../redux/columns/columns.actions";
+import deckActions from "../../../redux/deck/deck.actions";
 
 const DraggableCard = () => {
   const dispatch = useDispatch();
-  const { cardDragging, cardDraggingPosition } = useSelector(
+  const { cardDragging, cardDraggingPosition, isDeck, sendBack } = useSelector(
     ({ Columns, Deck }: RootReducerState) => ({
+      isDeck: !!Deck.cardDragging,
+      sendBack: Columns.sendBack,
       cardDragging: Columns.cardDragging || Deck.cardDragging,
       cardDraggingPosition:
         Columns.cardDraggingPosition || Deck.cardDraggingPosition
@@ -23,15 +26,32 @@ const DraggableCard = () => {
     const columnSizes = innerWidth / 7;
     const columnNumber = Math.ceil(x / columnSizes);
 
-    return `column${columnNumber}Pile`;
+    console.log("onDrop innerWidth = ", innerWidth);
+    console.log("onDrop columnSizes = ", columnSizes);
+    console.log("onDrop columnNumber = ", columnNumber);
+
+    return `column${columnNumber || 1}Pile`;
   };
 
   const onDrop = (e: MouseEvent) => {
     const columnDropedTo = getColumnToDrop(e);
-    dispatch(columnActions.swapColumns(columnDropedTo, 1));
-    dispatch(columnActions.removeCardDragging());
+    console.log("onDrop columnDropedTo = ", columnDropedTo);
+    console.log("onDrop cardDragging = ", cardDragging);
+    console.log("onDrop isDeck = ", isDeck);
+    if (isDeck) {
+      dispatch(columnActions.addToColumn(cardDragging, columnDropedTo, 1));
+    } else {
+      dispatch(columnActions.swapColumns(columnDropedTo, 1));
+      dispatch(columnActions.removeCardDragging());
+    }
   };
 
+  useEffect(() => {
+    if (sendBack) {
+      dispatch(deckActions.addFlippedCard());
+    }
+    dispatch(deckActions.removeCardDragging());
+  }, [sendBack]);
   return (
     <div
       className={`draggableCard ${cardDragging ? "draggableCardActive" : ""}`}

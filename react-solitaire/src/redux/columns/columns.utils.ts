@@ -31,6 +31,9 @@ export const isValidMovement = (
   cardsToSwap: Array<CardsPile>,
   finalCard: CardsPile
 ) => {
+  console.log("isValidMovement cardsToSwap  = ", cardsToSwap);
+  console.log("isValidMovement finalCard  = ", finalCard);
+
   const firstCard = cardsToSwap[0];
 
   if (!finalCard) {
@@ -93,6 +96,31 @@ export const swapColumns = (
     [cardDraggingColIndex]: initialCol,
     cardsDragging: undefined,
     cardsDraggingCol: undefined
+  };
+};
+
+export const addToColumn = (
+  columns: Record<string, Array<CardsPile>>,
+  finalIndex: string,
+  cardDragging: Array<CardsPile>
+) => {
+  // get the cards that will swap and also remove th
+  const finalCol = [...columns[finalIndex]];
+
+  if (isValidMovement(cardDragging, finalCol[finalCol.length - 1])) {
+    // add the swapped cards to the final column
+    cardDragging.map((card: CardsPile) =>
+      finalCol.push({ ...card, flipped: true })
+    );
+
+    return {
+      [finalIndex]: finalCol,
+      sendBack: false
+    };
+  }
+
+  return {
+    sendBack: true
   };
 };
 

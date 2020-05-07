@@ -39,3 +39,12 @@ export const getTranslationY = (
 
   return diffCards;
 };
+
+export const addFlippedCard = (
+  card: Array<CardsPile>,
+  flippedPile: Array<CardsPile>
+) => {
+  const tempFlippedPile = [...flippedPile, ...card];
+
+  return { flippedPile: tempFlippedPile };
+};

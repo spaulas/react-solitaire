@@ -1,6 +1,11 @@
 /* eslint-disable indent */
 import { CardsPile, cardsConfigurations } from "../gameBoard/gameBoard.types";
-import { getTranslationY, popDeckCard, popFlippedCard } from "./deck.utils";
+import {
+  addFlippedCard,
+  getTranslationY,
+  popDeckCard,
+  popFlippedCard
+} from "./deck.utils";
 import { ActionsCreators } from "./deck.actions";
 import DeckActionTypes from "./deck.types";
 import { RefAny } from "../../global";
@@ -58,6 +63,18 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
         ...state,
         ...popFlippedCard(state.flippedPile),
         cardDraggingPosition: action.position
+      };
+    case DeckActionTypes.ADD_FLIPPED_CARD:
+      return {
+        ...state,
+        ...addFlippedCard(state.cardDragging || [], state.flippedPile)
+      };
+    case DeckActionTypes.REMOVE_CARD_DRAGGING:
+      return {
+        ...state,
+        cardDragging: undefined,
+        cardDraggingCol: undefined,
+        cardDraggingPosition: undefined
       };
     default:
       return state;

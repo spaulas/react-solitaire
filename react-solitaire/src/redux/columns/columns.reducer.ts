@@ -1,5 +1,10 @@
 /* eslint-disable indent */
-import { createColumns, setCardDragging, swapColumns } from "./columns.utils";
+import {
+  addToColumn,
+  createColumns,
+  setCardDragging,
+  swapColumns
+} from "./columns.utils";
 import { ActionsCreators } from "./columns.actions";
 import { CardsPile } from "../gameBoard/gameBoard.types";
 import ColumnsActionTypes from "./columns.types";
@@ -7,6 +12,7 @@ import ColumnsActionTypes from "./columns.types";
 interface InitialColumns {
   cardDragging?: CardsPile;
   cardDraggingCol?: string;
+  sendBack?: boolean;
   column1Pile: Array<CardsPile>;
   column2Pile: Array<CardsPile>;
   column3Pile: Array<CardsPile>;
@@ -19,6 +25,7 @@ interface InitialColumns {
 const INITIAL_COLUMNS: InitialColumns = {
   cardDragging: undefined,
   cardDraggingCol: undefined,
+  sendBack: undefined,
   column1Pile: [],
   column2Pile: [],
   column3Pile: [],
@@ -34,7 +41,8 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
       return {
         ...createColumns(action.columns),
         cardDragging: undefined,
-        cardDraggingCol: undefined
+        cardDraggingCol: undefined,
+        sendBack: undefined
       };
 
     case ColumnsActionTypes.SWAP_COLUMNS:
@@ -63,7 +71,14 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         ...state,
         cardDragging: undefined,
         cardDraggingCol: undefined,
-        cardDraggingPosition: undefined
+        cardDraggingPosition: undefined,
+        sendBack: undefined
+      };
+
+    case ColumnsActionTypes.ADD_TO_COLUMN:
+      return {
+        ...state,
+        ...addToColumn(state as any, action.finalIndex, action.cardDragging)
       };
     default:
       return state;

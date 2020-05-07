@@ -32,13 +32,23 @@ const removeFlippedCard = (position: { x: number; y: number }) => ({
   position
 });
 
+const addFlippedCard = () => ({
+  type: DeckActionTypes.ADD_FLIPPED_CARD
+});
+
+const removeCardDragging = () => ({
+  type: DeckActionTypes.REMOVE_CARD_DRAGGING
+});
+
 const actionsCreators = Object.freeze({
   setInitialDeck,
   flipDeckPile,
   setRefs,
   setTranslation,
   resetDeck,
-  removeFlippedCard
+  removeFlippedCard,
+  addFlippedCard,
+  removeCardDragging
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

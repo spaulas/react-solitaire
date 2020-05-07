@@ -28,11 +28,23 @@ const removeCardDragging = () => ({
   type: ColumnActionTypes.REMOVE_CARD_DRAGGING
 });
 
+const addToColumn = (
+  cardDragging: Array<CardsPile>,
+  finalIndex: string,
+  nCards: number
+) => ({
+  type: ColumnActionTypes.ADD_TO_COLUMN,
+  cardDragging,
+  finalIndex,
+  nCards
+});
+
 const actionsCreators = Object.freeze({
   setInitialColumns,
   swapColumns,
   setCardDragging,
-  removeCardDragging
+  removeCardDragging,
+  addToColumn
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;
