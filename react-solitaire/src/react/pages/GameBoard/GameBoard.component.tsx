@@ -8,7 +8,7 @@ import {
 import React, { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "antd";
-import DraggableCard from "../../components/BoardFields/DraggableCard.component";
+import DraggablePile from "../../components/Piles/DraggablePile.component";
 import { RootReducerState } from "../../../global";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
@@ -73,7 +73,7 @@ function GameBoard() {
       </Button>
       <GamePlayInfo />
       <GameOptions />
-      <DraggableCard />
+      <DraggablePile />
       <GameTopRow />
       <GameColumnWrapper />
     </div>

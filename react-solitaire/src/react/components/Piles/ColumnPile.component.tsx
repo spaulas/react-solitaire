@@ -24,7 +24,7 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
     dispatch(
       columnActions.setCardDragging(diff, columnId, {
         x: position.x,
-        y: position.y
+        y: position.y - 30
       })
     );
   };

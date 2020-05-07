@@ -1,15 +1,16 @@
-/* /* eslint-disable no-console * /
+/* eslint-disable no-console */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CardFrame } from "../Cards/Cards.items";
 import { CardsPile } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
+import Draggable from "react-draggable";
 import { RootReducerState } from "../../../global";
 import columnActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 
-const DraggableCard = () => {
+function DraggablePile() {
   const dispatch = useDispatch();
+
   const { cardDragging, cardDraggingPosition, isDeck, sendBack } = useSelector(
     ({ Columns, Deck }: RootReducerState) => ({
       isDeck: !!Deck.cardDragging,
@@ -46,47 +47,49 @@ const DraggableCard = () => {
     }
     dispatch(deckActions.removeCardDragging());
   }, [sendBack]);
+
+  const getCards = () => {
+    console.log("cardDragging NEW COMPONENT -  = ", cardDragging);
+    const cardsArray = cardDragging.map((card: CardsPile, index: number) => {
+      return (
+        <div
+          key={`cardframedraggable_${card.id}`}
+          className="cardContainer cardContainerColumns"
+        >
+          <div className="cardAspectRatio">
+            <div className="cardContent">
+              <div className="cardDefault">
+                <img
+                  className="cardImage"
+                  src={require(`../../../images/CardsFaces/${card.image}`)}
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    });
+    return cardsArray;
+  };
   return (
     <div
       className={`draggableCard ${cardDragging ? "draggableCardActive" : ""}`}
     >
-      <Col span={3} className="deckPile">
-        <div className="columnPile">
-          <div className="cardPileContainer">
-            {cardDragging &&
-              cardDragging.map((card: CardsPile) => (
-                <CardFrame
-                  defaultPosition={cardDraggingPosition}
-                  cardId={card.id}
-                  onDrop={onDrop}
-                  cardContainerClassName="cardContainerColumns"
-                  key={`flipped_${card.id}`}
-                  zIndex={999}
-                  isFlipped
-                >
-                  <div className="cardDefault">
-                    <img
-                      className="cardImage"
-                      src={require(`../../../images/CardsFaces/${card.image}`)}
-                      alt=""
-                    />
-                  </div>
-                </CardFrame>
-              ))}
-          </div>
-        </div>
-      </Col>
+      {cardDragging && (
+        <Draggable
+          defaultPosition={cardDraggingPosition}
+          onStop={(e: any) => onDrop(e)}
+        >
+          <Col span={3} className="deckPile">
+            <div className="columnPile">
+              <div className="cardPileContainer">{getCards()}</div>
+            </div>
+          </Col>
+        </Draggable>
+      )}
     </div>
   );
-};
+}
 
-export default DraggableCard;
- */
-
-import React from "react";
-
-const DraggableCard = () => {
-  return <div>something</div>;
-};
-
-export default DraggableCard;
+export default DraggablePile;
