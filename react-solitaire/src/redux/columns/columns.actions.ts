@@ -7,20 +7,27 @@ const setInitialColumns = (columns: Record<string, Array<CardsPile>>) => ({
   columns
 });
 
-const swapColumns = (
-  initialIndex: string,
-  finalIndex: string,
-  nCards: number
-) => ({
+const swapColumns = (finalIndex: string, nCards: number) => ({
   type: ColumnActionTypes.SWAP_COLUMNS,
-  initialIndex,
   finalIndex,
   nCards
 });
 
+const setCardDragging = (nCards: number, columnId: string) => ({
+  type: ColumnActionTypes.SET_CARD_DRAGGING,
+  nCards,
+  columnId
+});
+
+const removeCardDragging = () => ({
+  type: ColumnActionTypes.REMOVE_CARD_DRAGGING
+});
+
 const actionsCreators = Object.freeze({
   setInitialColumns,
-  swapColumns
+  swapColumns,
+  setCardDragging,
+  removeCardDragging
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

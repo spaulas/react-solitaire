@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { CardsPile } from "../gameBoard/gameBoard.types";
 
 export const createColumns = (columns: Record<string, Array<CardsPile>>) => {
@@ -32,11 +33,6 @@ export const isValidMovement = (
 ) => {
   const firstCard = cardsToSwap[0];
 
-  // eslint-disable-next-line no-console
-  console.log("firstCard = ", firstCard);
-  // eslint-disable-next-line no-console
-  console.log("finalCard = ", finalCard);
-
   if (firstCard.cardColor === finalCard.cardColor) {
     return false;
   }
@@ -48,24 +44,20 @@ export const isValidMovement = (
 
 export const swapColumns = (
   columns: Record<string, Array<CardsPile>>,
-  initialIndex: string,
+  cardDraggingColIndex: string,
   finalIndex: string,
   nCards: number
 ) => {
-  const initialCol = [...columns[initialIndex]];
-  const finalCol = [...columns[finalIndex]];
-
+  const initialCol = [...columns[cardDraggingColIndex]];
   // get from what index to slice
-  const indexToDelete = initialCol.length - nCards;
+  const indexToDelete = initialCol.length;
+  // get the cards that will swap and also remove th
+  const finalCol = [...columns[finalIndex]];
+  const cardDragging = [...columns.cardDragging];
 
-  // get the cards that will swap and also remove them from the initial column
-  const cardsToSwap = initialCol.splice(indexToDelete, nCards);
-
-  if (isValidMovement(cardsToSwap, finalCol[finalCol.length - 1])) {
-    // eslint-disable-next-line no-console
-    console.log("MOVEMENT IS VALID!!!!!!!!!!!!");
+  if (isValidMovement(cardDragging, finalCol[finalCol.length - 1])) {
     // add the swapped cards to the final column
-    cardsToSwap.map((card: CardsPile) => finalCol.push(card));
+    cardDragging.map((card: CardsPile) => finalCol.push(card));
 
     // if the indexToDelete is bigger than 0, there are more cards in the initial column
     // if the last index has flipped = false, then make it true
@@ -77,8 +69,43 @@ export const swapColumns = (
           flipped: true
         };
       }
-      return { [initialIndex]: initialCol, [finalIndex]: finalCol };
+      return {
+        [cardDraggingColIndex]: initialCol,
+        [finalIndex]: finalCol,
+        cardsDragging: undefined,
+        cardsDraggingCol: undefined
+      };
     }
+    return {
+      [finalIndex]: finalCol,
+      cardsDragging: undefined,
+      cardsDraggingCol: undefined
+    };
   }
-  return {};
+
+  // if the movement was invalid, then put the card back
+  cardDragging.map((card: CardsPile) => initialCol.push(card));
+  return {
+    [cardDraggingColIndex]: initialCol,
+    cardsDragging: undefined,
+    cardsDraggingCol: undefined
+  };
+};
+
+export const setCardDragging = (
+  columns: Record<string, Array<CardsPile>>,
+  nCards: number,
+  columnId: string
+) => {
+  const initialCol = [...columns[columnId]];
+  // get from what index to slice
+  const indexToDelete = initialCol.length - nCards;
+  // get the cards that will swap and also remove them from the initial column
+  const cardsToSwap = initialCol.splice(indexToDelete, nCards);
+
+  return {
+    cardDragging: cardsToSwap,
+    cardDraggingCol: columnId,
+    [columnId]: initialCol
+  };
 };

@@ -12,7 +12,10 @@ interface CardFrameProps {
   children?: ReactNode;
   isFlipped?: boolean;
   cardId: number;
+  onGrab?: () => void;
+  onMouseUp?: () => void;
   onDrop?: (e: MouseEvent) => void;
+  defaultPosition?: { x: number; y: number };
 }
 
 function CardFrame(
@@ -24,16 +27,17 @@ function CardFrame(
     zIndex = 1,
     isFlipped,
     cardId,
-    onDrop
+    onDrop,
+    onGrab,
+    onMouseUp,
+    defaultPosition
   }: CardFrameProps,
   ref: RefAny
 ) {
-  const onGrab = (e: any) => {
-    console.log("ON GRAB = ", e);
-  };
   return (
     <Draggable
       onStart={onGrab}
+      defaultPosition={defaultPosition}
       onStop={(e: any) => (onDrop ? onDrop(e) : console.log("dropping"))}
     >
       <div

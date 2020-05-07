@@ -6,6 +6,7 @@ import {
 } from "../../components/BoardFields/BoardFields.items";
 import React, { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import DraggableCard from "../../components/BoardFields/DraggableCard.component";
 import { RootReducerState } from "../../../global";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
@@ -63,9 +64,10 @@ function GameBoard() {
   return (
     <div className="gameBoard">
       <GamePlayInfo />
+      <GameOptions />
+      <DraggableCard />
       <GameTopRow />
       <GameColumnWrapper />
-      <GameOptions />
     </div>
   );
 }
