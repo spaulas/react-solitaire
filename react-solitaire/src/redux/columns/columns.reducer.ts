@@ -52,10 +52,19 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         action.nCards,
         action.columnId
       );
-      return { ...state, ...draggingResult };
+      return {
+        ...state,
+        ...draggingResult,
+        cardDraggingPosition: action.position
+      };
 
     case ColumnsActionTypes.REMOVE_CARD_DRAGGING:
-      return { ...state, cardDragging: undefined, cardDraggingCol: undefined };
+      return {
+        ...state,
+        cardDragging: undefined,
+        cardDraggingCol: undefined,
+        cardDraggingPosition: undefined
+      };
     default:
       return state;
   }

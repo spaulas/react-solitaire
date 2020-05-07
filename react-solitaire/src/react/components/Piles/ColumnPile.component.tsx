@@ -7,7 +7,6 @@ import { CardsPile } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import React from "react";
 import columnActions from "../../../redux/columns/columns.actions";
-import { getColumnToDrop } from "../Cards/Cards.utils";
 import { useDispatch } from "react-redux";
 
 interface ColumnPileProps {
@@ -19,8 +18,14 @@ interface ColumnPileProps {
 function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
   const dispatch = useDispatch();
 
-  const onGrab = (cardId: number) => {
-    dispatch(columnActions.setCardDragging(1, columnId));
+  const onGrab = (e: any) => {
+    const position = e.currentTarget.getBoundingClientRect();
+    dispatch(
+      columnActions.setCardDragging(1, columnId, {
+        x: position.x,
+        y: position.y
+      })
+    );
   };
 
   const getCards = () => {
@@ -29,7 +34,7 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
         return (
           <CardFrame
             cardId={card.id}
-            onGrab={() => onGrab(card.id)}
+            onGrab={onGrab}
             cardContainerClassName="cardContainerColumns"
             key={`flipped_${card.id}`}
             zIndex={999}

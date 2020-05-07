@@ -12,8 +12,7 @@ interface CardFrameProps {
   children?: ReactNode;
   isFlipped?: boolean;
   cardId: number;
-  onGrab?: () => void;
-  onMouseUp?: () => void;
+  onGrab?: (e: any) => void;
   onDrop?: (e: MouseEvent) => void;
   defaultPosition?: { x: number; y: number };
 }
@@ -29,7 +28,6 @@ function CardFrame(
     cardId,
     onDrop,
     onGrab,
-    onMouseUp,
     defaultPosition
   }: CardFrameProps,
   ref: RefAny

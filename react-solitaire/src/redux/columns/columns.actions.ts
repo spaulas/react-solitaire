@@ -13,10 +13,15 @@ const swapColumns = (finalIndex: string, nCards: number) => ({
   nCards
 });
 
-const setCardDragging = (nCards: number, columnId: string) => ({
+const setCardDragging = (
+  nCards: number,
+  columnId: string,
+  position: { x: number; y: number }
+) => ({
   type: ColumnActionTypes.SET_CARD_DRAGGING,
   nCards,
-  columnId
+  columnId,
+  position
 });
 
 const removeCardDragging = () => ({

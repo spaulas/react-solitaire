@@ -8,9 +8,12 @@ import columnActions from "../../../redux/columns/columns.actions";
 
 const DraggableCard = () => {
   const dispatch = useDispatch();
-  const { cardDragging } = useSelector(({ Columns }: RootReducerState) => ({
-    cardDragging: Columns.cardDragging
-  }));
+  const { cardDragging, cardDraggingPosition } = useSelector(
+    ({ Columns }: RootReducerState) => ({
+      cardDragging: Columns.cardDragging,
+      cardDraggingPosition: Columns.cardDraggingPosition
+    })
+  );
 
   // then do one for the 4 top goal spaces (the function called will depend on the y axis)
   const getColumnToDrop = ({ x, view }: MouseEvent) => {
@@ -35,7 +38,7 @@ const DraggableCard = () => {
       {cardDragging &&
         cardDragging.map((card: CardsPile) => (
           <CardFrame
-            defaultPosition={{ x: 100, y: 100 }}
+            defaultPosition={cardDraggingPosition}
             cardId={card.id}
             onDrop={onDrop}
             cardContainerClassName="cardContainerColumns"
