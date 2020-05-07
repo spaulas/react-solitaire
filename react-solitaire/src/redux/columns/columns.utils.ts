@@ -33,6 +33,10 @@ export const isValidMovement = (
 ) => {
   const firstCard = cardsToSwap[0];
 
+  if (!finalCard) {
+    return true;
+  }
+
   if (firstCard.cardColor === finalCard.cardColor) {
     return false;
   }
