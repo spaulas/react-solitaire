@@ -34,10 +34,12 @@ function DraggablePile() {
   const onDrop = (e: MouseEvent) => {
     const columnDropedTo = getColumnToDrop(e);
     if (isDeck) {
-      dispatch(columnActions.addToColumn(cardDragging, columnDropedTo, 1));
+      dispatch(
+        columnActions.addDraggingCardsToColumn(cardDragging, columnDropedTo)
+      );
     } else {
       dispatch(columnActions.swapColumns(columnDropedTo, 1));
-      dispatch(columnActions.removeCardDragging());
+      dispatch(columnActions.resetCardDragging());
     }
   };
 

@@ -59,8 +59,7 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
 
       return {
         ...state,
-        deckPile: flipResult.deckPile,
-        flippedPile: flipResult.flippedPile,
+        ...flipResult,
         translationY
       };
 
@@ -76,8 +75,7 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
 
       return {
         ...state,
-        cardDragging: dragResult.cardDragging,
-        flippedPile: dragResult.flippedPile,
+        ...dragResult,
         cardDraggingPosition: action.position
       };
 
@@ -89,10 +87,10 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
 
       return {
         ...state,
-        flippedPile: restoreResult.flippedPile
+        ...restoreResult
       };
 
-    case DeckActionTypes.RESET_CARD_DRAGGING:
+    case DeckActionTypes.RESET_FLIPPED_CARD_DRAGGING:
       return {
         ...state,
         cardDragging: undefined,

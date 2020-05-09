@@ -22,7 +22,7 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
     const diff = columnCards.length - index;
     const position = e.currentTarget.getBoundingClientRect();
     dispatch(
-      columnActions.setCardDragging(diff, columnId, {
+      columnActions.dragColumnCards(diff, columnId, {
         x: position.x,
         y: position.y - 30
       })

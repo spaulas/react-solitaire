@@ -76,7 +76,7 @@ const restoreFlippedCard = () => ({
  * Resets the currently saved card that was been dragged and its position
  */
 const resetCardDragging = () => ({
-  type: DeckActionTypes.RESET_CARD_DRAGGING
+  type: DeckActionTypes.RESET_FLIPPED_CARD_DRAGGING
 });
 
 // ********************************************************
