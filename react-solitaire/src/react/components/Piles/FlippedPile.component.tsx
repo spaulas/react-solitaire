@@ -20,7 +20,7 @@ const FlippedPile = () => {
 
   const onGrab = (e: any) => {
     const position = e.currentTarget.getBoundingClientRect();
-    dispatch(deckActions.removeFlippedCard(position));
+    dispatch(deckActions.dragFlippedCard(position));
 
     /*  dispatch(
       columnActions.setCardDragging(1, "flipped", {

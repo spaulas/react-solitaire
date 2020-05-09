@@ -1,81 +1,106 @@
 /* eslint-disable indent */
 import { CardType, cardsConfigurations } from "../gameBoard/gameBoard.types";
 import {
-  addFlippedCard,
+  flipDeckCard,
   getTranslationY,
-  popDeckCard,
-  popFlippedCard
+  popFlippedCard,
+  restoreFlippedCard
 } from "./deck.utils";
 import { ActionsCreators } from "./deck.actions";
 import DeckActionTypes from "./deck.types";
 import { RefAny } from "../../global";
 
 interface InitialDeck {
+  deckRef: RefAny;
+  flippedRef: RefAny;
   deckPile: Array<CardType>;
   flippedPile: Array<CardType>;
   translationX: number;
   translationY: number;
-  deckRef: RefAny;
-  flippedRef: RefAny;
   cardDragging?: Array<CardType>;
   cardDraggingPosition?: { x: number; y: number };
 }
 
 const INITIAL_DECK: InitialDeck = {
+  deckRef: undefined,
+  flippedRef: undefined,
   deckPile: [],
   flippedPile: [],
   translationX: 243.75,
   translationY: cardsConfigurations.deck,
-  deckRef: undefined,
-  flippedRef: undefined,
   cardDragging: undefined,
   cardDraggingPosition: undefined
 };
 
 const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
   switch (action.type) {
+    // ********************************************************
+    // INITIAL SETTINGS ACTIONS
+
     case DeckActionTypes.SET_INITIAL_DECK:
       return { ...state, deckPile: action.deckPile };
-    case DeckActionTypes.FLIP_DECK_PILE:
-      const { deckPile, flippedPile } = popDeckCard(
-        state.deckPile,
-        state.flippedPile
-      );
-      const translationY = getTranslationY(deckPile, flippedPile);
-      return {
-        ...state,
-        deckPile,
-        flippedPile,
-        translationY
-      };
+
     case DeckActionTypes.SET_REFS:
       return {
         ...state,
         deckRef: action.deckRef,
         flippedRef: action.flippedRef
       };
+
     case DeckActionTypes.SET_TRANSLATION:
       return { ...state, translationX: action.translation };
-    case DeckActionTypes.RESET_DECK:
-      return { ...state, deckPile: state.flippedPile, flippedPile: [] };
-    case DeckActionTypes.REMOVE_FLIPPED_CARD:
+
+    // ********************************************************
+    // FLIPPING ACTIONS
+
+    case DeckActionTypes.FLIP_DECK_PILE:
+      const flipResult = flipDeckCard(state.deckPile, state.flippedPile);
+      const translationY = getTranslationY(flipResult);
+
       return {
         ...state,
-        ...popFlippedCard(state.flippedPile),
+        deckPile: flipResult.deckPile,
+        flippedPile: flipResult.flippedPile,
+        translationY
+      };
+
+    case DeckActionTypes.RESET_DECK:
+      // set the deck pile to have the flipped pile cards and reset the flipped pile
+      return { ...state, deckPile: state.flippedPile, flippedPile: [] };
+
+    // ********************************************************
+    // DRAGGING ACTIONS
+
+    case DeckActionTypes.DRAG_FLIPPED_CARD:
+      const dragResult = popFlippedCard(state.flippedPile);
+
+      return {
+        ...state,
+        cardDragging: dragResult.cardDragging,
+        flippedPile: dragResult.flippedPile,
         cardDraggingPosition: action.position
       };
-    case DeckActionTypes.ADD_FLIPPED_CARD:
+
+    case DeckActionTypes.RESTORE_FLIPPED_CARD:
+      const restoreResult = restoreFlippedCard(
+        state.cardDragging,
+        state.flippedPile
+      );
+
       return {
         ...state,
-        ...addFlippedCard(state.cardDragging || [], state.flippedPile)
+        flippedPile: restoreResult.flippedPile
       };
-    case DeckActionTypes.REMOVE_CARD_DRAGGING:
+
+    case DeckActionTypes.RESET_CARD_DRAGGING:
       return {
         ...state,
         cardDragging: undefined,
-        cardDraggingCol: undefined,
         cardDraggingPosition: undefined
       };
+
+    // ********************************************************
+
     default:
       return state;
   }

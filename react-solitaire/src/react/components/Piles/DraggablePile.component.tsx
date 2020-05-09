@@ -43,9 +43,9 @@ function DraggablePile() {
 
   useEffect(() => {
     if (sendBack) {
-      dispatch(deckActions.addFlippedCard());
+      dispatch(deckActions.restoreFlippedCard());
     }
-    dispatch(deckActions.removeCardDragging());
+    dispatch(deckActions.resetCardDragging());
   }, [sendBack]);
 
   const getCards = () => {
