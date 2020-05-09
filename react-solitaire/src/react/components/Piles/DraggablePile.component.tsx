@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CardsPile } from "../../../redux/gameBoard/gameBoard.types";
+import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import Draggable from "react-draggable";
 import { RootReducerState } from "../../../global";
@@ -50,7 +50,7 @@ function DraggablePile() {
 
   const getCards = () => {
     console.log("cardDragging NEW COMPONENT -  = ", cardDragging);
-    const cardsArray = cardDragging.map((card: CardsPile, index: number) => {
+    const cardsArray = cardDragging.map((card: CardType, index: number) => {
       return (
         <div
           key={`cardframedraggable_${card.id}`}

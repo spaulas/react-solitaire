@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-component-props */
 import {
   GameColumnWrapper,
   GameOptions,
@@ -42,10 +41,11 @@ function GameBoard() {
     // create new deck
     dispatch(gameBoardActions.createDeck());
   };
+  // triggers the call of the mountGameBoard function when the component is mounted
   useEffect(mountGameBoard, []);
 
   // distribute the decks created to the right redux
-  const setCardsPile = () => {
+  const setCardType = () => {
     // set the initial deck
     dispatch(deckActions.setInitialDeck(deckPile));
     // set the initial columns
@@ -61,11 +61,14 @@ function GameBoard() {
       })
     );
   };
-  useEffect(setCardsPile, [deckPile]);
+  // triggers the call of the setCardType function when the deckPile is changed (and therefore, all the other columns as well)
+  useEffect(setCardType, [deckPile]);
 
   return (
     <div className="gameBoard">
+      {/* @todo remove this button (it goes to the deck) */}
       <Button
+        // eslint-disable-next-line react/forbid-component-props
         style={{ zIndex: 9999999999999 }}
         onClick={() => dispatch(deckActions.resetDeck())}
       >
@@ -73,8 +76,11 @@ function GameBoard() {
       </Button>
       <GamePlayInfo />
       <GameOptions />
+      {/* layer for the draggable cards */}
       <DraggablePile />
+      {/* top row of the game, includes the deck and the 4 goal spots */}
       <GameTopRow />
+      {/* bottom row of the game, includes all the 7 columns */}
       <GameColumnWrapper />
     </div>
   );

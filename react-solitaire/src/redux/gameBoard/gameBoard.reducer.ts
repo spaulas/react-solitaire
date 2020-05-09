@@ -1,18 +1,18 @@
 /* eslint-disable indent */
-import GameBoardActionTypes, { CardsPile } from "./gameBoard.types";
+import GameBoardActionTypes, { CardType } from "./gameBoard.types";
 import { ActionsCreators } from "./gameBoard.actions";
 import { createRandomGame } from "./gameBoard.utils";
 
 interface InitialGameBoard {
-  deckPile: Array<CardsPile>;
-  flippedPile: Array<CardsPile>;
-  column1Pile: Array<CardsPile>;
-  column2Pile: Array<CardsPile>;
-  column3Pile: Array<CardsPile>;
-  column4Pile: Array<CardsPile>;
-  column5Pile: Array<CardsPile>;
-  column6Pile: Array<CardsPile>;
-  column7Pile: Array<CardsPile>;
+  deckPile: Array<CardType>;
+  flippedPile: Array<CardType>;
+  column1Pile: Array<CardType>;
+  column2Pile: Array<CardType>;
+  column3Pile: Array<CardType>;
+  column4Pile: Array<CardType>;
+  column5Pile: Array<CardType>;
+  column6Pile: Array<CardType>;
+  column7Pile: Array<CardType>;
 }
 
 const INITIAL_GAME_BOARD: InitialGameBoard = {
@@ -33,8 +33,7 @@ const gameBoardReducer = (
 ) => {
   switch (action.type) {
     case GameBoardActionTypes.CREATE_DECK:
-      const newDeckPile = createRandomGame();
-      return newDeckPile;
+      return createRandomGame();
     default:
       return state;
   }

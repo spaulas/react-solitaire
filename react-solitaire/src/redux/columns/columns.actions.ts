@@ -1,8 +1,8 @@
-import { CardsPile } from "../gameBoard/gameBoard.types";
+import { CardType } from "../gameBoard/gameBoard.types";
 import ColumnActionTypes from "./columns.types";
 import { ValueOf } from "../../global";
 
-const setInitialColumns = (columns: Record<string, Array<CardsPile>>) => ({
+const setInitialColumns = (columns: Record<string, Array<CardType>>) => ({
   type: ColumnActionTypes.SET_INITIAL_COLUMNS,
   columns
 });
@@ -29,7 +29,7 @@ const removeCardDragging = () => ({
 });
 
 const addToColumn = (
-  cardDragging: Array<CardsPile>,
+  cardDragging: Array<CardType>,
   finalIndex: string,
   nCards: number
 ) => ({

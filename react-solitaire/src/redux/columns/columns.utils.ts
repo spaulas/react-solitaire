@@ -1,22 +1,22 @@
 /* eslint-disable no-console */
-import { CardsPile } from "../gameBoard/gameBoard.types";
+import { CardType } from "../gameBoard/gameBoard.types";
 
-export const createColumns = (columns: Record<string, Array<CardsPile>>) => {
-  const columnValues: Array<Array<CardsPile>> = Object.values(columns);
+export const createColumns = (columns: Record<string, Array<CardType>>) => {
+  const columnValues: Array<Array<CardType>> = Object.values(columns);
 
   const cardsFlippedSet = columnValues.map(
-    (values: Array<CardsPile>, columnIndex: number) =>
-      values.map((value: CardsPile, valueIndex: number) => {
+    (values: Array<CardType>, columnIndex: number) =>
+      values.map((value: CardType, valueIndex: number) => {
         return { ...value, flipped: valueIndex === columnIndex };
       })
   );
 
   // create array with all the cards piles needed
-  const cardsPiles = Object.keys(columns);
+  const CardTypes = Object.keys(columns);
 
   // add to each pile the corresponding cards
   let finalResult = {};
-  cardsPiles.map(
+  CardTypes.map(
     (pile: string, index: number) =>
       (finalResult = {
         ...finalResult,
@@ -28,8 +28,8 @@ export const createColumns = (columns: Record<string, Array<CardsPile>>) => {
 };
 
 export const isValidMovement = (
-  cardsToSwap: Array<CardsPile>,
-  finalCard: CardsPile
+  cardsToSwap: Array<CardType>,
+  finalCard: CardType
 ) => {
   console.log("isValidMovement cardsToSwap  = ", cardsToSwap);
   console.log("isValidMovement finalCard  = ", finalCard);
@@ -50,7 +50,7 @@ export const isValidMovement = (
 };
 
 export const swapColumns = (
-  columns: Record<string, Array<CardsPile>>,
+  columns: Record<string, Array<CardType>>,
   cardDraggingColIndex: string,
   finalIndex: string,
   nCards: number
@@ -64,7 +64,7 @@ export const swapColumns = (
 
   if (isValidMovement(cardDragging, finalCol[finalCol.length - 1])) {
     // add the swapped cards to the final column
-    cardDragging.map((card: CardsPile) => finalCol.push(card));
+    cardDragging.map((card: CardType) => finalCol.push(card));
 
     // if the indexToDelete is bigger than 0, there are more cards in the initial column
     // if the last index has flipped = false, then make it true
@@ -91,7 +91,7 @@ export const swapColumns = (
   }
 
   // if the movement was invalid, then put the card back
-  cardDragging.map((card: CardsPile) => initialCol.push(card));
+  cardDragging.map((card: CardType) => initialCol.push(card));
   return {
     [cardDraggingColIndex]: initialCol,
     cardsDragging: undefined,
@@ -100,16 +100,16 @@ export const swapColumns = (
 };
 
 export const addToColumn = (
-  columns: Record<string, Array<CardsPile>>,
+  columns: Record<string, Array<CardType>>,
   finalIndex: string,
-  cardDragging: Array<CardsPile>
+  cardDragging: Array<CardType>
 ) => {
   // get the cards that will swap and also remove th
   const finalCol = [...columns[finalIndex]];
 
   if (isValidMovement(cardDragging, finalCol[finalCol.length - 1])) {
     // add the swapped cards to the final column
-    cardDragging.map((card: CardsPile) =>
+    cardDragging.map((card: CardType) =>
       finalCol.push({ ...card, flipped: true })
     );
 
@@ -125,7 +125,7 @@ export const addToColumn = (
 };
 
 export const setCardDragging = (
-  columns: Record<string, Array<CardsPile>>,
+  columns: Record<string, Array<CardType>>,
   nCards: number,
   columnId: string
 ) => {

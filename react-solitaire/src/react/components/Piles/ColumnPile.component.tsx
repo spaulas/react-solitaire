@@ -3,7 +3,7 @@ import {
   CardFlippable,
   CardFrame /* , CardSpot */
 } from "../Cards/Cards.items";
-import { CardsPile } from "../../../redux/gameBoard/gameBoard.types";
+import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import React from "react";
 import columnActions from "../../../redux/columns/columns.actions";
@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 
 interface ColumnPileProps {
   offset?: number;
-  columnCards: Array<CardsPile>;
+  columnCards: Array<CardType>;
   columnId: string;
 }
 
@@ -30,7 +30,7 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
   };
 
   const getCards = () => {
-    const cardsArray = columnCards.map((card: CardsPile, index: number) => {
+    const cardsArray = columnCards.map((card: CardType, index: number) => {
       if (card.flipped) {
         return (
           <CardFrame

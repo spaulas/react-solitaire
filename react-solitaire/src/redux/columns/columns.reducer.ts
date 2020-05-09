@@ -6,20 +6,20 @@ import {
   swapColumns
 } from "./columns.utils";
 import { ActionsCreators } from "./columns.actions";
-import { CardsPile } from "../gameBoard/gameBoard.types";
+import { CardType } from "../gameBoard/gameBoard.types";
 import ColumnsActionTypes from "./columns.types";
 
 interface InitialColumns {
-  cardDragging?: CardsPile;
+  cardDragging?: CardType;
   cardDraggingCol?: string;
   sendBack?: boolean;
-  column1Pile: Array<CardsPile>;
-  column2Pile: Array<CardsPile>;
-  column3Pile: Array<CardsPile>;
-  column4Pile: Array<CardsPile>;
-  column5Pile: Array<CardsPile>;
-  column6Pile: Array<CardsPile>;
-  column7Pile: Array<CardsPile>;
+  column1Pile: Array<CardType>;
+  column2Pile: Array<CardType>;
+  column3Pile: Array<CardType>;
+  column4Pile: Array<CardType>;
+  column5Pile: Array<CardType>;
+  column6Pile: Array<CardType>;
+  column7Pile: Array<CardType>;
 }
 
 const INITIAL_COLUMNS: InitialColumns = {

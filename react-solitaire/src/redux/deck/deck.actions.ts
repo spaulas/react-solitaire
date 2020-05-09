@@ -1,8 +1,8 @@
 import { RefAny, ValueOf } from "../../global";
-import { CardsPile } from "../gameBoard/gameBoard.types";
+import { CardType } from "../gameBoard/gameBoard.types";
 import DeckActionTypes from "./deck.types";
 
-const setInitialDeck = (deckPile: Array<CardsPile>) => ({
+const setInitialDeck = (deckPile: Array<CardType>) => ({
   type: DeckActionTypes.SET_INITIAL_DECK,
   deckPile
 });

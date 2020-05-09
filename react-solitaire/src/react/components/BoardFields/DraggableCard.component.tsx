@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardFrame } from "../Cards/Cards.items";
-import { CardsPile } from "../../../redux/gameBoard/gameBoard.types";
+import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import { RootReducerState } from "../../../global";
 import columnActions from "../../../redux/columns/columns.actions";
@@ -54,7 +54,7 @@ const DraggableCard = () => {
         <div className="columnPile">
           <div className="cardPileContainer">
             {cardDragging &&
-              cardDragging.map((card: CardsPile) => (
+              cardDragging.map((card: CardType) => (
                 <CardFrame
                   defaultPosition={cardDraggingPosition}
                   cardId={card.id}

@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { CardsPile, cardsConfigurations } from "../gameBoard/gameBoard.types";
+import { CardType, cardsConfigurations } from "../gameBoard/gameBoard.types";
 import {
   addFlippedCard,
   getTranslationY,
@@ -11,13 +11,13 @@ import DeckActionTypes from "./deck.types";
 import { RefAny } from "../../global";
 
 interface InitialDeck {
-  deckPile: Array<CardsPile>;
-  flippedPile: Array<CardsPile>;
+  deckPile: Array<CardType>;
+  flippedPile: Array<CardType>;
   translationX: number;
   translationY: number;
   deckRef: RefAny;
   flippedRef: RefAny;
-  cardDragging?: Array<CardsPile>;
+  cardDragging?: Array<CardType>;
   cardDraggingPosition?: { x: number; y: number };
 }
 

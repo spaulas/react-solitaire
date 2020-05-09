@@ -1,7 +1,7 @@
 import { CardFlippable, CardSpot } from "../Cards/Cards.items";
 import React, { forwardRef, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CardsPile } from "../../../redux/gameBoard/gameBoard.types";
+import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import { RootReducerState } from "../../../global";
 import deckActions from "../../../redux/deck/deck.actions";
@@ -26,7 +26,7 @@ const DeckPile = () => {
   };
 
   const getCards = () => {
-    const cardsArray = deckPile.map((card: CardsPile) => (
+    const cardsArray = deckPile.map((card: CardType) => (
       <CardFlippable
         cardId={card.id}
         key={`deck_${card.id}`}

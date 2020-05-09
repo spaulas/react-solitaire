@@ -1,7 +1,7 @@
 import { CardFrame, CardSpot } from "../Cards/Cards.items";
 import React, { forwardRef, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CardsPile } from "../../../redux/gameBoard/gameBoard.types";
+import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import { RootReducerState } from "../../../global";
 import columnActions from "../../../redux/columns/columns.actions";
@@ -31,7 +31,7 @@ const FlippedPile = () => {
   };
 
   const getCards = () => {
-    const cardsArray = flippedPile.map((card: CardsPile) => (
+    const cardsArray = flippedPile.map((card: CardType) => (
       <CardFrame
         onGrab={onGrab}
         key={`flipped_${card.id}`}

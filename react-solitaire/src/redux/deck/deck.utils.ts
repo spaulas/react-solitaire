@@ -1,8 +1,8 @@
-import { CardsPile } from "../gameBoard/gameBoard.types";
+import { CardType } from "../gameBoard/gameBoard.types";
 
 export const popDeckCard = (
-  deckPile: Array<CardsPile>,
-  flippedPile: Array<CardsPile>
+  deckPile: Array<CardType>,
+  flippedPile: Array<CardType>
 ) => {
   const tempDeckPile = [...deckPile];
   const cardFlipped = tempDeckPile.pop();
@@ -18,7 +18,7 @@ export const popDeckCard = (
   };
 };
 
-export const popFlippedCard = (flippedPile: Array<CardsPile>) => {
+export const popFlippedCard = (flippedPile: Array<CardType>) => {
   const tempFlippedPile = [...flippedPile];
   const cardFlipped = tempFlippedPile.pop();
 
@@ -29,8 +29,8 @@ export const popFlippedCard = (flippedPile: Array<CardsPile>) => {
 };
 
 export const getTranslationY = (
-  deckPile: Array<CardsPile>,
-  flippedPile: Array<CardsPile>
+  deckPile: Array<CardType>,
+  flippedPile: Array<CardType>
 ) => {
   const nDeckCards = deckPile.length;
   const nFlippedCards = flippedPile.length;
@@ -41,8 +41,8 @@ export const getTranslationY = (
 };
 
 export const addFlippedCard = (
-  card: Array<CardsPile>,
-  flippedPile: Array<CardsPile>
+  card: Array<CardType>,
+  flippedPile: Array<CardType>
 ) => {
   const tempFlippedPile = [...flippedPile, ...card];
 
