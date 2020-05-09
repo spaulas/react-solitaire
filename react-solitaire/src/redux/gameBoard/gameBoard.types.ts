@@ -1,6 +1,6 @@
 // Game Board Actions
 const GameBoardActionTypes = {
-  CREATE_DECK: "CREATE_DECK"
+  CREATE_GAME: "CREATE_GAME"
 };
 
 // number of the initial cards of each field of the game

@@ -32,7 +32,7 @@ const gameBoardReducer = (
   action: ActionsCreators
 ) => {
   switch (action.type) {
-    case GameBoardActionTypes.CREATE_DECK:
+    case GameBoardActionTypes.CREATE_GAME:
       return createRandomGame();
     default:
       return state;

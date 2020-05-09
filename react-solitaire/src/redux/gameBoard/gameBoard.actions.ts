@@ -1,12 +1,15 @@
 import GameBoardActionTypes from "./gameBoard.types";
 import { ValueOf } from "../../global";
 
-const createDeck = () => ({
-  type: GameBoardActionTypes.CREATE_DECK
+/**
+ * Creates an initial distribution of the cards
+ */
+const createGame = () => ({
+  type: GameBoardActionTypes.CREATE_GAME
 });
 
 const actionsCreators = Object.freeze({
-  createDeck
+  createGame
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

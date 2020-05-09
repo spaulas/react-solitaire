@@ -39,7 +39,7 @@ function GameBoard() {
   // when the component mounts, create a new random game
   const mountGameBoard = () => {
     // create new deck
-    dispatch(gameBoardActions.createDeck());
+    dispatch(gameBoardActions.createGame());
   };
   // triggers the call of the mountGameBoard function when the component is mounted
   useEffect(mountGameBoard, []);
