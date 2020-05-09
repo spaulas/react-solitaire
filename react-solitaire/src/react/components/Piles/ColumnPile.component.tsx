@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   CardFlippable,
   CardFrame /* , CardSpot */
@@ -6,6 +5,7 @@ import {
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import React from "react";
+import { RefAny } from "../../../global";
 import columnActions from "../../../redux/columns/columns.actions";
 import { useDispatch } from "react-redux";
 
@@ -18,7 +18,7 @@ interface ColumnPileProps {
 function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
   const dispatch = useDispatch();
 
-  const onGrab = (e: any, index: number) => {
+  const onGrab = (e: RefAny, index: number) => {
     const diff = columnCards.length - index;
     const position = e.currentTarget.getBoundingClientRect();
     dispatch(
@@ -35,7 +35,7 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
         return (
           <CardFrame
             cardId={card.id}
-            onGrab={(e: any) => onGrab(e, index)}
+            onGrab={(e: RefAny) => onGrab(e, index)}
             cardContainerClassName="cardContainerColumns"
             key={`flipped_${card.id}`}
             zIndex={999}

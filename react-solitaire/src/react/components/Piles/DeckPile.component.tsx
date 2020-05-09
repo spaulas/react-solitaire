@@ -1,6 +1,6 @@
-import { CardFlippable, CardSpot } from "../Cards/Cards.items";
 import React, { forwardRef, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { CardFlippable /* CardSpot */ } from "../Cards/Cards.items";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import { RootReducerState } from "../../../global";
@@ -9,7 +9,7 @@ import deckActions from "../../../redux/deck/deck.actions";
 const DeckPile = () => {
   const dispatch = useDispatch();
   // get piles from redux
-  const { deckRef, deckPile, translationX, translationY } = useSelector(
+  const { /* deckRef */ deckPile, translationX, translationY } = useSelector(
     ({ Deck }: RootReducerState) => ({
       deckRef: Deck.deckRef,
       deckPile: Deck.deckPile,

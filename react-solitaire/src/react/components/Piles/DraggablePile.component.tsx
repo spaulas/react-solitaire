@@ -1,10 +1,9 @@
-/* eslint-disable no-console */
 import React, { useEffect } from "react";
+import { RefAny, RootReducerState } from "../../../global";
 import { useDispatch, useSelector } from "react-redux";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import Draggable from "react-draggable";
-import { RootReducerState } from "../../../global";
 import columnActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 
@@ -48,11 +47,13 @@ function DraggablePile() {
       dispatch(deckActions.restoreFlippedCard());
     }
     dispatch(deckActions.resetCardDragging());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sendBack]);
 
   const getCards = () => {
-    console.log("cardDragging NEW COMPONENT -  = ", cardDragging);
-    const cardsArray = cardDragging.map((card: CardType, index: number) => {
+    const cardsArray = cardDragging.map((
+      card: CardType /*  index: number */
+    ) => {
       return (
         <div
           key={`cardframedraggable_${card.id}`}
@@ -81,7 +82,7 @@ function DraggablePile() {
       {cardDragging && (
         <Draggable
           defaultPosition={cardDraggingPosition}
-          onStop={(e: any) => onDrop(e)}
+          onStop={(e: RefAny) => onDrop(e)}
         >
           <Col span={3} className="deckPile">
             <div className="columnPile">
