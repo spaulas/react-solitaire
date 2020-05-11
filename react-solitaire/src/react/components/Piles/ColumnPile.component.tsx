@@ -1,3 +1,4 @@
+/* eslint-disable jest/expect-expect */
 import {
   CardFlippable,
   CardFrame /* , CardSpot */
@@ -21,6 +22,7 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
   const onGrab = (e: RefAny, index: number) => {
     const diff = columnCards.length - index;
     const position = e.currentTarget.getBoundingClientRect();
+
     dispatch(
       columnActions.dragColumnCards(diff, columnId, {
         x: position.x,
@@ -66,17 +68,10 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
       );
     });
 
-    /* cardsArray.push(
-      <CardSpot
-        cardContainerColumns="cardContainerSpot"
-        key="column_spot"
-        withColumn={false}
-      />
-    ); */
     return cardsArray;
   };
   return (
-    <Col span={3} offset={offset} className="deckPile">
+    <Col id={columnId} span={3} offset={offset} className="deckPile">
       <div className="columnPile">
         <div className="cardPileContainer">{getCards()}</div>
       </div>

@@ -75,14 +75,14 @@ function GameBoard() {
     <div className="gameBoard">
       <GamePlayInfo />
       <GameOptions />
-      {/* layer for the draggable cards */}
-      <DraggablePile />
       {/* empty spots */}
       <BoardEmptySpots />
       {/* top row of the game, includes the deck and the 4 goal spots */}
       <GameTopRow />
       {/* bottom row of the game, includes all the 7 columns */}
       <GameColumnWrapper />
+      {/* layer for the draggable cards */}
+      <DraggablePile />
     </div>
   );
 }
