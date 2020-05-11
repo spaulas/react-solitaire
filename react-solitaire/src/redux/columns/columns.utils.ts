@@ -58,6 +58,7 @@ export const isValidMovement = (firstCard: CardType, finalCard: CardType) => {
 
 export const swapColumns = (
   columns: Record<string, Array<CardType>>,
+  cardsDragging: Array<CardType> = [],
   cardInitialColId = "column1Pile",
   finalId: string
 ) => {
@@ -68,7 +69,7 @@ export const swapColumns = (
   // create copy of the destination column
   const finalCol = [...columns[finalId]];
   // create copy of the cards that have to be swapped
-  const cardsSwapping = [...columns.cardDragging];
+  const cardsSwapping = [...cardsDragging];
 
   // check if the movement respects the rules of the game (compare the first card to add with the last card of the destination column)
   if (isValidMovement(cardsSwapping[0], finalCol[finalCol.length - 1])) {

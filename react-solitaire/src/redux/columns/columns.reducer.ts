@@ -19,7 +19,7 @@ export interface InitialColumns {
     column6Pile: Array<CardType>;
     column7Pile: Array<CardType>;
   };
-  cardDragging?: CardType;
+  cardDragging?: Array<CardType>;
   cardDraggingCol?: string;
   sendBack?: boolean;
 }
@@ -58,6 +58,7 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
     case ColumnsActionTypes.SWAP_COLUMNS:
       const result = swapColumns(
         state.columns,
+        state.cardDragging,
         state.cardDraggingCol,
         action.finalId
       );
