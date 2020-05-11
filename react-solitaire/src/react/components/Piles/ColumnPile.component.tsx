@@ -36,7 +36,9 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
           <CardFrame
             cardId={card.id}
             onGrab={(e: RefAny) => onGrab(e, index)}
-            cardContainerClassName="cardContainerColumns"
+            cardContainerClassName={`${
+              index > 0 ? "cardContainerColumns" : ""
+            }`}
             key={`flipped_${card.id}`}
             zIndex={999}
             isFlipped
@@ -56,7 +58,7 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
         <CardFlippable
           cardId={card.id}
           disabled={true}
-          className="cardContainerColumns"
+          className={`${index > 0 ? "cardContainerColumns" : ""}`}
           key={`columnPile_${card.id}`}
           image={card.image}
           zIndex={999}

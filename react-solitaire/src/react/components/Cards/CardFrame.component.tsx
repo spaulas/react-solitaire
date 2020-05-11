@@ -8,12 +8,12 @@ interface CardFrameProps {
   cardContentClassName?: string;
   offset?: number;
   zIndex?: number;
-  children?: ReactNode;
   isFlipped?: boolean;
-  cardId: number;
+  cardId?: number;
   onGrab?: (e: RefAny) => void;
   onDrop?: (e: MouseEvent) => void;
   defaultPosition?: { x: number; y: number };
+  children?: ReactNode;
 }
 
 function CardFrame(

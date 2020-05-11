@@ -10,9 +10,8 @@ import deckActions from "../../../redux/deck/deck.actions";
 const FlippedPile = () => {
   const dispatch = useDispatch();
   // get piles from redux
-  const { /* flippedRef,  */ flippedPile /* cardDragging */ } = useSelector(
+  const { flippedPile /* cardDragging */ } = useSelector(
     ({ Deck }: RootReducerState) => ({
-      flippedRef: Deck.flippedRef,
       flippedPile: Deck.flippedPile,
       cardDragging: Deck.cardDragging
     })
@@ -48,15 +47,6 @@ const FlippedPile = () => {
         </div>
       </CardFrame>
     ));
-    /* cardsArray.push(
-      <CardSpot
-        cardId={-1}
-        ref={flippedRef}
-        key="flipped_spot"
-        withColumn={false}
-        isFlipped
-      />
-    ); */
     return cardsArray;
   };
 

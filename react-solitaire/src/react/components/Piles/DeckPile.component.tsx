@@ -9,9 +9,8 @@ import deckActions from "../../../redux/deck/deck.actions";
 const DeckPile = () => {
   const dispatch = useDispatch();
   // get piles from redux
-  const { /* deckRef */ deckPile, translationX, translationY } = useSelector(
+  const { deckPile, translationX, translationY } = useSelector(
     ({ Deck }: RootReducerState) => ({
-      deckRef: Deck.deckRef,
       deckPile: Deck.deckPile,
       translationX: Deck.translationX,
       translationY: Deck.translationY
@@ -37,9 +36,6 @@ const DeckPile = () => {
         translationY={translationY}
       />
     ));
-    /* cardsArray.push(
-      <CardSpot cardId={-1} ref={deckRef} key="deck_spot" withColumn={false} />
-    ); */
     return cardsArray;
   };
 

@@ -1,20 +1,24 @@
 import {
+  BoardEmptySpots,
   GameColumnWrapper,
   GameOptions,
   GamePlayInfo,
   GameTopRow
 } from "../../components/BoardFields/BoardFields.items";
-import React, { memo, useEffect } from "react";
+import React, { memo, useEffect, useRef } from "react";
+import { RefAny, RootReducerState } from "../../../global";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "antd";
 import DraggablePile from "../../components/Piles/DraggablePile.component";
-import { RootReducerState } from "../../../global";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 
 function GameBoard() {
   const dispatch = useDispatch();
+
+  // create refs for the deck and flipped piles
+  const deckRef: RefAny = useRef();
+  const flippedRef: RefAny = useRef();
 
   const {
     deckPile,
@@ -40,6 +44,9 @@ function GameBoard() {
   const mountGameBoard = () => {
     // create new deck
     dispatch(gameBoardActions.createGame());
+
+    // set this refs at the redux
+    dispatch(deckActions.setRefs(deckRef, flippedRef));
   };
   // triggers the call of the mountGameBoard function when the component is mounted
   useEffect(mountGameBoard, []);
@@ -66,18 +73,12 @@ function GameBoard() {
 
   return (
     <div className="gameBoard">
-      {/* @todo remove this button (it goes to the deck) */}
-      <Button
-        // eslint-disable-next-line react/forbid-component-props
-        style={{ zIndex: 9999999999999 }}
-        onClick={() => dispatch(deckActions.resetDeck())}
-      >
-        RESET DECK
-      </Button>
       <GamePlayInfo />
       <GameOptions />
       {/* layer for the draggable cards */}
       <DraggablePile />
+      {/* empty spots */}
+      <BoardEmptySpots />
       {/* top row of the game, includes the deck and the 4 goal spots */}
       <GameTopRow />
       {/* bottom row of the game, includes all the 7 columns */}

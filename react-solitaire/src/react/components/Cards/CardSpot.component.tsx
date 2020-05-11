@@ -1,43 +1,29 @@
-import React, { forwardRef, memo } from "react";
+import React, { ReactNode, forwardRef, memo } from "react";
 import CardFrame from "./CardFrame.component";
 import { Col } from "antd";
 import { RefAny } from "../../../global";
 
+interface CardSpotProps {
+  cardContainerColumns?: string;
+  offset?: number;
+  className?: string;
+  children?: ReactNode;
+}
+
 function CardSpot(
-  {
-    offset,
-    className,
-    cardContainerColumns,
-    withColumn = true,
-    isFlipped,
-    cardId
-  }: {
-    cardContainerColumns?: string;
-    offset?: number;
-    className?: string;
-    withColumn?: boolean;
-    isFlipped?: boolean;
-    cardId: number;
-  },
+  { offset, className, cardContainerColumns, children }: CardSpotProps,
   ref: RefAny
 ) {
-  return withColumn ? (
+  return (
     <Col span={3} offset={offset}>
       <CardFrame
         ref={ref}
-        cardId={cardId}
         cardContainerClassName={cardContainerColumns}
         cardContentClassName={`cardSpot ${className ? className : ""}`}
-      />
+      >
+        {children}
+      </CardFrame>
     </Col>
-  ) : (
-    <CardFrame
-      ref={ref}
-      cardId={cardId}
-      isFlipped={isFlipped}
-      cardContainerClassName={cardContainerColumns}
-      cardContentClassName={`cardSpot ${className ? className : ""}`}
-    />
   );
 }
 
