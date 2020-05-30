@@ -32,29 +32,23 @@ function CardFrame(
   ref: RefAny
 ) {
   return (
-    <Draggable
-      onStart={onGrab}
-      defaultPosition={defaultPosition}
-      // eslint-disable-next-line no-console
-      onStop={(e: RefAny) => (onDrop ? onDrop(e) : console.log("dropping"))}
+    <div
+      onClick={onGrab}
+      ref={ref}
+      className={`cardContainer ${isFlipped ? "cardContainerFlipped" : ""} ${
+        cardContainerClassName ? cardContainerClassName : ""
+      }`}
     >
-      <div
-        ref={ref}
-        className={`cardContainer ${isFlipped ? "cardContainerFlipped" : ""} ${
-          cardContainerClassName ? cardContainerClassName : ""
-        }`}
-      >
-        <div className="cardAspectRatio" style={{ zIndex }}>
-          <div
-            className={`cardContent ${
-              cardContentClassName ? cardContentClassName : ""
-            }`}
-          >
-            {children}
-          </div>
+      <div className="cardAspectRatio" style={{ zIndex }}>
+        <div
+          className={`cardContent ${
+            cardContentClassName ? cardContentClassName : ""
+          }`}
+        >
+          {children}
         </div>
       </div>
-    </Draggable>
+    </div>
   );
 }
 
