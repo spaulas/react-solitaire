@@ -36,15 +36,10 @@ const swapColumns = (finalId: string, nCards: number) => ({
  * @param columnId columns which the cards come from
  * @param position the initial position of the cards
  */
-const dragColumnCards = (
-  nCards: number,
-  columnId: string,
-  position: { x: number; y: number }
-) => ({
+const dragColumnCards = (nCards: number, columnId: string) => ({
   type: ColumnActionTypes.DRAG_COLUMN_CARDS,
   nCards,
-  columnId,
-  position
+  columnId
 });
 
 /**

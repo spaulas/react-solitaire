@@ -75,8 +75,7 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
       );
       return {
         ...state,
-        ...draggingResult,
-        cardDraggingPosition: action.position
+        ...draggingResult
       };
 
     case ColumnsActionTypes.ADD_DRAGGING_CARDS_TO_COLUMN:

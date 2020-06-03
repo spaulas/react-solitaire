@@ -168,7 +168,7 @@ export const setCardDragging = (
 
   return {
     cardDragging: cardsToSwap,
-    cardDraggingCol: columnId,
-    columns: { ...columns, [columnId]: initialCol }
+    cardDraggingCol: columnId
+    // columns: { ...columns, [columnId]: initialCol } @todo check if this change can be completely deleted!
   };
 };
