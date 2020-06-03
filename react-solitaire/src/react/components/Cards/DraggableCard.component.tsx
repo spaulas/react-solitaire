@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
-import { DragPreviewImage, useDrag } from "react-dnd";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
+import { getEmptyImage } from "react-dnd-html5-backend";
+import { useDrag } from "react-dnd";
 
 const type = "cardframe";
 
@@ -25,15 +26,11 @@ const DraggableCard = ({
     }
   });
 
-  return (
-    <>
-      <DragPreviewImage
-        connect={preview}
-        src={`../../../images/CardsFaces/${card.image}`}
-      />
-      {children && React.cloneElement(children, { ref: drag })}
-    </>
-  );
+  useEffect(() => {
+    preview(getEmptyImage(), { captureDraggingState: true });
+  }, []);
+
+  return children ? React.cloneElement(children, { ref: drag }) : null;
 };
 
 export default DraggableCard;
