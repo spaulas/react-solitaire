@@ -5,6 +5,7 @@ import {
 } from "../Cards/Cards.items";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
+import DraggableCard from "../Cards/DraggableCard.component";
 import React from "react";
 import { RefAny } from "../../../global";
 import columnActions from "../../../redux/columns/columns.actions";
@@ -20,7 +21,7 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
   const dispatch = useDispatch();
 
   const onGrab = (e: RefAny, index: number) => {
-    const diff = columnCards.length - index;
+    /* const diff = columnCards.length - index;
     const position = e.currentTarget.getBoundingClientRect();
 
     dispatch(
@@ -28,31 +29,33 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
         x: position.x,
         y: position.y - 30
       })
-    );
+    ); */
   };
 
   const getCards = () => {
     const cardsArray = columnCards.map((card: CardType, index: number) => {
       if (card.flipped) {
         return (
-          <CardFrame
-            cardId={card.id}
-            onGrab={(e: RefAny) => onGrab(e, index)}
-            cardContainerClassName={`${
-              index > 0 ? "cardContainerColumns" : ""
-            }`}
-            key={`flipped_${card.id}`}
-            zIndex={999}
-            isFlipped
-          >
-            <div className="cardDefault">
-              <img
-                className="cardImage"
-                src={require(`../../../images/CardsFaces/${card.image}`)}
-                alt=""
-              />
-            </div>
-          </CardFrame>
+          <DraggableCard card={card}>
+            <CardFrame
+              cardId={card.id}
+              onGrab={(e: RefAny) => onGrab(e, index)}
+              cardContainerClassName={`${
+                index > 0 ? "cardContainerColumns" : ""
+              }`}
+              key={`flipped_${card.id}`}
+              zIndex={999}
+              isFlipped
+            >
+              <div className="cardDefault">
+                <img
+                  className="cardImage"
+                  src={require(`../../../images/CardsFaces/${card.image}`)}
+                  alt=""
+                />
+              </div>
+            </CardFrame>
+          </DraggableCard>
         );
       }
 

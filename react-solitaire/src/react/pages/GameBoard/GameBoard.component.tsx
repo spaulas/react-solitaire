@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   BoardEmptySpots,
   GameColumnWrapper,
@@ -8,7 +9,9 @@ import {
 import React, { memo, useEffect, useRef } from "react";
 import { RefAny, RootReducerState } from "../../../global";
 import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
 import DraggablePile from "../../components/Piles/DraggablePile.component";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
@@ -73,16 +76,18 @@ function GameBoard() {
 
   return (
     <div className="gameBoard">
-      <GamePlayInfo />
-      <GameOptions />
-      {/* empty spots */}
-      <BoardEmptySpots />
-      {/* top row of the game, includes the deck and the 4 goal spots */}
-      <GameTopRow />
-      {/* bottom row of the game, includes all the 7 columns */}
-      <GameColumnWrapper />
-      {/* layer for the draggable cards */}
-      <DraggablePile />
+      <DndProvider backend={HTML5Backend as any}>
+        <GamePlayInfo />
+        <GameOptions />
+        {/* empty spots */}
+        <BoardEmptySpots />
+        {/* top row of the game, includes the deck and the 4 goal spots */}
+        <GameTopRow />
+        {/* bottom row of the game, includes all the 7 columns */}
+        <GameColumnWrapper />
+        {/* layer for the draggable cards */}
+        <DraggablePile />
+      </DndProvider>
     </div>
   );
 }

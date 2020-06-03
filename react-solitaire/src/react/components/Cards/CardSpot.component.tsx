@@ -18,6 +18,7 @@ function CardSpot(
     <Col span={3} offset={offset}>
       <CardFrame
         ref={ref}
+        cardId={-1}
         cardContainerClassName={cardContainerColumns}
         cardContentClassName={`cardSpot ${className ? className : ""}`}
       >

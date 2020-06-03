@@ -1,6 +1,7 @@
+/* eslint-disable react/forbid-component-props */
+/* eslint-disable no-console */
 /* eslint-disable react/forbid-dom-props */
 import React, { ReactNode, forwardRef, memo } from "react";
-import Draggable from "react-draggable";
 import { RefAny } from "../../../global";
 
 interface CardFrameProps {
@@ -9,9 +10,9 @@ interface CardFrameProps {
   offset?: number;
   zIndex?: number;
   isFlipped?: boolean;
-  cardId?: number;
+  cardId: number;
   onGrab?: (e: RefAny) => void;
-  onDrop?: (e: MouseEvent) => void;
+  // onDrop?: (e: MouseEvent) => void;
   defaultPosition?: { x: number; y: number };
   children?: ReactNode;
 }
@@ -24,8 +25,8 @@ function CardFrame(
     children,
     zIndex = 1,
     isFlipped,
-    /* cardId, */
-    onDrop,
+    cardId,
+    // onDrop,
     onGrab,
     defaultPosition
   }: CardFrameProps,
