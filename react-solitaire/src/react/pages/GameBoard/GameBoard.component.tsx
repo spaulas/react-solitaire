@@ -9,7 +9,6 @@ import React, { memo, useEffect, useRef } from "react";
 import { RefAny, RootReducerState } from "../../../global";
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
-import DraggablePile from "../../components/Piles/DraggablePile.component";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import TempHelper from "../../components/BoardFields/TempHelper.component";
 import columnsActions from "../../../redux/columns/columns.actions";
@@ -85,8 +84,6 @@ function GameBoard() {
         <GameTopRow />
         {/* bottom row of the game, includes all the 7 columns */}
         <TempHelper />
-        {/* layer for the draggable cards */}
-        <DraggablePile />
       </DndProvider>
     </div>
   );

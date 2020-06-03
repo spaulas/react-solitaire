@@ -13,7 +13,6 @@ const AppDragDropDemo = () => {
     { name: "Vue", category: "complete", bgcolor: "skyblue" }
   ]);
   const updateTaskGroups = () => {
-    console.log("UPDATE TASK GROUPS FUNCTION");
     const tempTaskGroups: any = { wip: [], complete: [] };
     stateTasks.forEach((t: any) => {
       tempTaskGroups[t.category].push(
@@ -37,7 +36,6 @@ const AppDragDropDemo = () => {
     ev: { dataTransfer: { setData: (arg0: string, arg1: any) => void } },
     id: any
   ) => {
-    console.log("dragstart:", id);
     ev.dataTransfer.setData("id", id);
   };
 
@@ -49,7 +47,6 @@ const AppDragDropDemo = () => {
     ev: { dataTransfer: { getData: (arg0: string) => any } },
     cat: string
   ) => {
-    console.log("ON DROP START!!!!!!!");
     const id = ev.dataTransfer.getData("id");
 
     const tasks = stateTasks.filter((task: any) => {

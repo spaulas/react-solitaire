@@ -8,18 +8,20 @@ import { Col } from "antd";
 import DraggableCard from "../Cards/DraggableCard.component";
 import React from "react";
 import { RefAny } from "../../../global";
-import columnActions from "../../../redux/columns/columns.actions";
-import { useDispatch } from "react-redux";
 
 interface ColumnPileProps {
   offset?: number;
   columnCards: Array<CardType>;
   columnId: string;
+  onMouseOver: () => void;
 }
 
-function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
-  const dispatch = useDispatch();
-
+function ColumnPile({
+  offset,
+  columnCards,
+  columnId,
+  onMouseOver
+}: ColumnPileProps) {
   const onGrab = (e: RefAny, index: number) => {
     /* const diff = columnCards.length - index;
     const position = e.currentTarget.getBoundingClientRect();
@@ -75,7 +77,7 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
   };
   return (
     <Col id={columnId} span={3} offset={offset} className="deckPile">
-      <div className="columnPile">
+      <div onMouseOver={onMouseOver} className="columnPile">
         <div className="cardPileContainer">{getCards()}</div>
       </div>
     </Col>

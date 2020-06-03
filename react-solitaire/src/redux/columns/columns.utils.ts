@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { CardType } from "../gameBoard/gameBoard.types";
 
 /**
@@ -64,6 +65,9 @@ export const swapColumns = (
 ) => {
   // create copy of the column the cards come from
   const initialCol = [...columns[cardInitialColId]];
+  const indexToDelete = initialCol.length - cardsDragging.length;
+  initialCol.splice(indexToDelete, cardsDragging.length);
+
   // get the number of cards left in the initial column
   const cardsLeft = initialCol.length;
   // create copy of the destination column
@@ -101,7 +105,11 @@ export const swapColumns = (
 
     // no changes were made in the initial column, so simply return the changes in the final column
     return {
-      columns: { ...columns, [finalId]: finalCol }
+      columns: {
+        ...columns,
+        [finalId]: finalCol,
+        [cardInitialColId]: initialCol
+      }
     };
   }
 
