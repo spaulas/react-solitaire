@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   BoardEmptySpots,
-  GameColumnWrapper,
   GameOptions,
   GamePlayInfo,
   GameTopRow
@@ -12,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import DraggablePile from "../../components/Piles/DraggablePile.component";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import TempHelper from "../../components/BoardFields/TempHelper.component";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
@@ -84,7 +84,7 @@ function GameBoard() {
         {/* top row of the game, includes the deck and the 4 goal spots */}
         <GameTopRow />
         {/* bottom row of the game, includes all the 7 columns */}
-        <GameColumnWrapper />
+        <TempHelper />
         {/* layer for the draggable cards */}
         <DraggablePile />
       </DndProvider>
