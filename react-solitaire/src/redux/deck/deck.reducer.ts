@@ -91,10 +91,14 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
       };
 
     case DeckActionTypes.RESET_FLIPPED_CARD_DRAGGING:
+      const tempFlipped = [...state.flippedPile];
+      tempFlipped.pop();
+
       return {
         ...state,
         cardDragging: undefined,
-        cardDraggingPosition: undefined
+        cardDraggingPosition: undefined,
+        flippedPile: tempFlipped
       };
 
     // ********************************************************

@@ -6,6 +6,7 @@ import React from "react";
 import { RootReducerState } from "../../../global";
 import { Row } from "antd";
 import columnActions from "../../../redux/columns/columns.actions";
+import deckActions from "../../../redux/deck/deck.actions";
 import { useDrop } from "react-dnd";
 
 function GameColumnWrapper() {
@@ -49,11 +50,11 @@ function GameColumnWrapper() {
       "style",
       "transition: transform 0.2s; transform: scale(1);"
     );
-    // setColumnScaled("");
     if (isDeck) {
       dispatch(
         columnActions.addDraggingCardsToColumn(cardDragging, columnDropedTo)
       );
+      dispatch(deckActions.resetCardDragging());
     } else {
       dispatch(columnActions.swapColumns(columnDropedTo, 1));
       dispatch(columnActions.resetCardDragging());

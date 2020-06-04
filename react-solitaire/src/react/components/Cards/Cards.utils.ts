@@ -26,6 +26,6 @@ export const onDrop = (
     addDraggingCardsToColumn(columnDropedTo);
   } else {
     swapColumns(columnDropedTo, 1);
-    resetCardDragging();
+    // resetCardDragging();
   }
 };
