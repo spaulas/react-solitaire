@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/forbid-component-props */
 /* eslint-disable no-console */
 /* eslint-disable react/forbid-dom-props */
@@ -15,6 +16,7 @@ interface CardFrameProps {
   // onDrop?: (e: MouseEvent) => void;
   defaultPosition?: { x: number; y: number };
   children?: ReactNode;
+  style?: any;
 }
 
 function CardFrame(
@@ -28,13 +30,15 @@ function CardFrame(
     cardId,
     // onDrop,
     onGrab,
-    defaultPosition
+    defaultPosition,
+    style
   }: CardFrameProps,
   ref: RefAny
 ) {
   return (
     <div
       ref={ref}
+      style={style}
       className={`cardContainer ${isFlipped ? "cardContainerFlipped" : ""} ${
         cardContainerClassName ? cardContainerClassName : ""
       }`}
