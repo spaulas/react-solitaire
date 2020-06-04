@@ -1,11 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/forbid-dom-props */
-/* eslint-disable no-console */
 /* eslint-disable indent */
 /* eslint-disable react/no-multi-comp */
-import CardPreview from "./CardPreview.component";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { CardType } from "../../../redux/gameBoard/gameBoard.types";
+import { Col } from "antd";
 import React from "react";
+import { RootReducerState } from "../../../global";
 import { useDragLayer } from "react-dnd";
+import { useSelector } from "react-redux";
 
 const layerStyles = {
   position: "fixed" as const,
@@ -38,7 +40,7 @@ const CustomDragLayer = () => {
   const {
     itemType,
     isDragging,
-    item,
+    // item,
     initialOffset,
     currentOffset
   } = useDragLayer((monitor: any) => ({
@@ -49,10 +51,46 @@ const CustomDragLayer = () => {
     isDragging: monitor.isDragging()
   }));
 
+  const { cardDragging } = useSelector(
+    ({ Columns, Deck }: RootReducerState) => ({
+      cardDragging: Columns.cardDragging || Deck.cardDragging || []
+    })
+  );
+
+  const getCards = () => {
+    const cardsArray = cardDragging.map((card: CardType) => {
+      return (
+        <div
+          key={`cardframedraggable_${card.id}`}
+          className="cardContainer cardContainerColumns"
+        >
+          <div className="cardAspectRatio">
+            <div className="cardContent">
+              <div className="cardDefault">
+                <img
+                  className="cardImage"
+                  src={require(`../../../images/CardsFaces/${card.image}`)}
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    });
+    return cardsArray;
+  };
+
   function renderItem() {
     switch (itemType) {
       case "cardframe":
-        return <CardPreview card={item.card} />;
+        return (
+          <Col span={3} className="deckPile">
+            <div className="columnPile">
+              <div className="cardPileContainer">{getCards()}</div>
+            </div>
+          </Col>
+        );
       default:
         return null;
     }

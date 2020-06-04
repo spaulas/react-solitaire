@@ -38,7 +38,7 @@ function ColumnPile({
     const cardsArray = columnCards.map((card: CardType, index: number) => {
       if (card.flipped) {
         return (
-          <DraggableCard card={card}>
+          <DraggableCard card={card} nCards={columnCards.length - index}>
             <CardFrame
               cardId={card.id}
               onGrab={(e: RefAny) => onGrab(e, index)}

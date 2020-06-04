@@ -10,18 +10,20 @@ const type = "cardframe";
 
 const DraggableCard = ({
   children,
-  card
+  card,
+  nCards
 }: {
   children: ReactElement;
   card: CardType;
+  nCards: number;
 }) => {
   const dispatch = useDispatch();
 
   const onDrag = (card: CardType, sourceId: string) => {
+    console.log("NCARDS = ", nCards);
     // @todo for now is only one card at a time!!!!
-    // @todo is only possible for the first column yet!!!
     // will "save" the cards that are being dragged
-    dispatch(columnActions.dragColumnCards(1, `column${sourceId[1]}Pile`));
+    dispatch(columnActions.dragColumnCards(nCards, `column${sourceId[1]}Pile`));
   };
 
   // useDrag will be responsible for making an element draggable. It also expose, isDragging method to add any styles while dragging
