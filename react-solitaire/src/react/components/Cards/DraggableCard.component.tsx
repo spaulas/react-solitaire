@@ -17,18 +17,18 @@ const DraggableCard = ({
 }) => {
   const dispatch = useDispatch();
 
-  const onDrag = (card: CardType) => {
+  const onDrag = (card: CardType, sourceId: string) => {
     // @todo for now is only one card at a time!!!!
     // @todo is only possible for the first column yet!!!
     // will "save" the cards that are being dragged
-    dispatch(columnActions.dragColumnCards(1, "column1Pile"));
+    dispatch(columnActions.dragColumnCards(1, `column${sourceId[1]}Pile`));
   };
 
   // useDrag will be responsible for making an element draggable. It also expose, isDragging method to add any styles while dragging
   const [, drag, preview] = useDrag({
     // item denotes the element type, unique identifier (id) and the index (position)
     item: { type, card },
-    begin: () => onDrag(card),
+    begin: (monitor: any) => onDrag(card, monitor.sourceId),
     // collect method is like an event listener, it monitors whether the element is dragged and expose that information
     collect: (monitor: any) => {
       return {
