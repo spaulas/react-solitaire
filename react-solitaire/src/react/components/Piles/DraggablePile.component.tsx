@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+/* import React, { useEffect, useState } from "react";
 import { RefAny, RootReducerState } from "../../../global";
 import { useDispatch, useSelector } from "react-redux";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
@@ -95,7 +95,7 @@ function DraggablePile() {
 
   const getCards = () => {
     const cardsArray = cardDragging.map((
-      card: CardType /*  index: number */
+      card: CardType /*  index: number * /
     ) => {
       return (
         <div
@@ -137,3 +137,12 @@ function DraggablePile() {
 }
 
 export default DraggablePile;
+*/
+
+import React from "react";
+
+const ToDelete = () => {
+  return <div> previus drag </div>;
+};
+
+export default ToDelete;

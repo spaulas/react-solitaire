@@ -60,9 +60,8 @@ const resetDeck = () => ({
  * Starts dragging the top card of the flipped pile
  * @param position initial position of the flipped pile (in case it is send to an invalid place)
  */
-const dragFlippedCard = (position: { x: number; y: number }) => ({
-  type: DeckActionTypes.DRAG_FLIPPED_CARD,
-  position
+const dragFlippedCard = () => ({
+  type: DeckActionTypes.DRAG_FLIPPED_CARD
 });
 
 /**

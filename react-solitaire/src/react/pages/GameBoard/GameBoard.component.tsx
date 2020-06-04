@@ -2,14 +2,14 @@
 import {
   BoardEmptySpots,
   GameOptions,
-  GamePlayInfo,
-  GameTopRow
+  GamePlayInfo
 } from "../../components/BoardFields/BoardFields.items";
 import React, { memo, useEffect, useRef } from "react";
 import { RefAny, RootReducerState } from "../../../global";
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import TempDeckHelper from "../../components/BoardFields/TempDeckHelper.component";
 import TempHelper from "../../components/BoardFields/TempHelper.component";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
@@ -78,10 +78,10 @@ function GameBoard() {
       <DndProvider backend={HTML5Backend as any}>
         <GamePlayInfo />
         <GameOptions />
-        {/* empty spots */}
         <BoardEmptySpots />
+        {/* empty spots */}
         {/* top row of the game, includes the deck and the 4 goal spots */}
-        <GameTopRow />
+        <TempDeckHelper />
         {/* bottom row of the game, includes all the 7 columns */}
         <TempHelper />
       </DndProvider>

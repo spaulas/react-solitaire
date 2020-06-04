@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/require-optimization */
 /* eslint-disable no-console */
-import React, { useState } from "react";
+/*import React, { useState } from "react";
 
 const AppDragDropDemo = () => {
   const [stateTasks, setStateTask] = useState<
@@ -86,3 +86,12 @@ const AppDragDropDemo = () => {
 };
 
 export default AppDragDropDemo;
+ */
+
+import React from "react";
+
+const ToDelete = () => {
+  return <div>To delete</div>;
+};
+
+export default ToDelete;

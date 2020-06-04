@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CardFrame /* CardSpot */ } from "../Cards/Cards.items";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
+import DraggableCard from "../Cards/DraggableCard.component";
 /* import columnActions from "../../../redux/columns/columns.actions"; */
 import deckActions from "../../../redux/deck/deck.actions";
 
@@ -18,8 +19,7 @@ const FlippedPile = () => {
   );
 
   const onGrab = (e: RefAny) => {
-    const position = e.currentTarget.getBoundingClientRect();
-    dispatch(deckActions.dragFlippedCard(position));
+    dispatch(deckActions.dragFlippedCard());
 
     /*  dispatch(
       columnActions.setCardDragging(1, "flipped", {
@@ -31,21 +31,23 @@ const FlippedPile = () => {
 
   const getCards = () => {
     const cardsArray = flippedPile.map((card: CardType) => (
-      <CardFrame
-        onGrab={onGrab}
-        key={`flipped_${card.id}`}
-        cardId={card.id}
-        zIndex={5}
-        isFlipped
-      >
-        <div className="cardDefault">
-          <img
-            className="cardImage"
-            src={require(`../../../images/CardsFaces/${card.image}`)}
-            alt=""
-          />
-        </div>
-      </CardFrame>
+      <DraggableCard card={card} nCards={1} key={card.id}>
+        <CardFrame
+          onGrab={onGrab}
+          key={`flipped_${card.id}`}
+          cardId={card.id}
+          zIndex={5}
+          isFlipped
+        >
+          <div className="cardDefault">
+            <img
+              className="cardImage"
+              src={require(`../../../images/CardsFaces/${card.image}`)}
+              alt=""
+            />
+          </div>
+        </CardFrame>
+      </DraggableCard>
     ));
     return cardsArray;
   };

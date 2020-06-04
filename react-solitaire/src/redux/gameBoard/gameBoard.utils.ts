@@ -39,6 +39,7 @@ export const createRandomGame = () => {
         ...finalResult,
         [pile]: createCardsArray(
           cardsImages,
+          pile,
           indexArray[index],
           indexArray[index + 1]
         )
@@ -88,6 +89,7 @@ export const shuffle = (array: Array<RawCardType>) => {
 // separates the cards array in parts from min to max and adds its id
 export const createCardsArray = (
   cardsRawArray: Array<RawCardType>,
+  cardField: string,
   min: number,
   max: number
 ) => {
@@ -95,6 +97,7 @@ export const createCardsArray = (
   for (let i = min; i < max; i++) {
     cardsArray.push({
       id: i,
+      cardField,
       ...cardsRawArray[i]
     });
   }

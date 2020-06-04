@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-component-props */
 import React, { ReactNode, forwardRef, memo } from "react";
 import CardFrame from "./CardFrame.component";
 import { Col } from "antd";
@@ -15,10 +16,11 @@ function CardSpot(
   ref: RefAny
 ) {
   return (
-    <Col span={3} offset={offset}>
+    <Col span={3} offset={offset} style={{ zIndex: 0 }}>
       <CardFrame
         ref={ref}
         cardId={-1}
+        zIndex={1}
         cardContainerClassName={cardContainerColumns}
         cardContentClassName={`cardSpot ${className ? className : ""}`}
       >

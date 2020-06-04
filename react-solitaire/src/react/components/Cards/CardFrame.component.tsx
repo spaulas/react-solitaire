@@ -34,7 +34,6 @@ function CardFrame(
 ) {
   return (
     <div
-      onClick={onGrab}
       ref={ref}
       className={`cardContainer ${isFlipped ? "cardContainerFlipped" : ""} ${
         cardContainerClassName ? cardContainerClassName : ""

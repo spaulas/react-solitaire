@@ -38,8 +38,8 @@ export const popFlippedCard = (flippedPile: Array<CardType>) => {
   const cardFlipped = tempFlippedPile.pop();
 
   return {
-    cardDragging: [cardFlipped],
-    flippedPile: tempFlippedPile
+    cardDragging: [cardFlipped]
+    // flippedPile: tempFlippedPile
   };
 };
 

@@ -22,6 +22,7 @@ export interface CardType {
   flipped?: boolean; // when true, the face of the card is shown
   cardColor: "red" | "black"; // color of the suit
   cardNumber: number; // actual number of the card, goes from 1 to 13
+  cardField: string;
 }
 
 export default GameBoardActionTypes;
