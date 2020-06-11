@@ -57,7 +57,6 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
     // SWAPPING ACTIONS
 
     case ColumnsActionTypes.SWAP_COLUMNS:
-      console.log("SWAP_COLUMNS cardDragging = ", state.cardDragging);
       const result = swapColumns(
         state.columns,
         state.cardDragging,
@@ -70,7 +69,6 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
     // DRAGGING ACTIONS
 
     case ColumnsActionTypes.DRAG_COLUMN_CARDS:
-      console.log("DRAG_COLUMN_CARDS cardDragging = ", state.cardDragging);
       const draggingResult = setCardDragging(
         state.columns,
         action.columnId,
@@ -82,10 +80,6 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
       };
 
     case ColumnsActionTypes.ADD_DRAGGING_CARDS_TO_COLUMN:
-      console.log(
-        "ADD_DRAGGING_CARDS_TO_COLUMN cardDragging = ",
-        state.cardDragging
-      );
       const addResult = addToColumn(
         state.columns,
         action.finalId,
@@ -97,10 +91,6 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
       };
 
     case ColumnsActionTypes.RESET_COLUMN_CARD_DRAGGING:
-      console.log(
-        "RESET_COLUMN_CARD_DRAGGING cardDragging = ",
-        state.cardDragging
-      );
       return {
         ...state,
         cardDragging: undefined,

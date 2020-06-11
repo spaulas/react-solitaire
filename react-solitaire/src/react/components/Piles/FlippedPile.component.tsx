@@ -33,7 +33,6 @@ const FlippedPile = () => {
     const cardsArray = flippedPile.map((card: CardType) => (
       <DraggableCard card={card} nCards={1} key={card.id}>
         <CardFrame
-          onGrab={onGrab}
           key={`flipped_${card.id}`}
           cardId={card.id}
           zIndex={5}

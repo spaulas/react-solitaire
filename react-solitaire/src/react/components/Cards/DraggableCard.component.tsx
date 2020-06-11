@@ -23,7 +23,6 @@ const DraggableCard = ({
   const dispatch = useDispatch();
 
   const onDrag = (card: CardType) => {
-    console.log("onDrag card = ", card);
     if (card.cardField === "deckPile") {
       dispatch(deckActions.dragFlippedCard());
     } else {

@@ -174,17 +174,12 @@ export const setCardDragging = (
   columnId: string,
   nCards: number
 ) => {
-  console.log("setCardDragging columns = ", columns);
-  console.log("setCardDragging columnId = ", columnId);
-  console.log("setCardDragging nCards = ", nCards);
   // create copy of the initial column
   const initialCol = [...columns[columnId]];
   // get from what index to slice
   const indexToDelete = initialCol.length - nCards;
   // get the cards that will swap and also remove them from the initial column
   const cardsToSwap = initialCol.splice(indexToDelete, nCards);
-
-  console.log("cardsToSwap = ", cardsToSwap);
 
   return {
     cardDragging: cardsToSwap,

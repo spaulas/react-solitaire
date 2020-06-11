@@ -36,7 +36,6 @@ function CardFrame(
   CardFrameProps,
   ref: RefAny
 ) {
-  // console.log("draggingClassName = ", draggingClassName);
   return (
     <div
       ref={ref}
