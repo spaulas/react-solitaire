@@ -17,6 +17,7 @@ interface CardFrameProps {
   defaultPosition?: { x: number; y: number };
   children?: ReactNode;
   style?: any;
+  draggingClassName?: string;
 }
 
 function CardFrame(
@@ -30,15 +31,16 @@ function CardFrame(
     cardId,
     // onDrop,
     onGrab,
-    defaultPosition,
-    style
-  }: CardFrameProps,
+    defaultPosition
+  }: // sdraggingClassName
+  CardFrameProps,
   ref: RefAny
 ) {
+  // console.log("draggingClassName = ", draggingClassName);
   return (
     <div
       ref={ref}
-      style={style}
+      // style={style}
       className={`cardContainer ${isFlipped ? "cardContainerFlipped" : ""} ${
         cardContainerClassName ? cardContainerClassName : ""
       }`}

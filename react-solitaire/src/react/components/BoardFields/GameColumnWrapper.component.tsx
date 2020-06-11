@@ -56,7 +56,7 @@ function GameColumnWrapper() {
       );
       dispatch(deckActions.resetCardDragging());
     } else {
-      dispatch(columnActions.swapColumns(columnDropedTo, 1));
+      dispatch(columnActions.swapColumns(columnDropedTo));
       dispatch(columnActions.resetCardDragging());
     }
   };

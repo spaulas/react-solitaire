@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/forbid-dom-props */
 /* eslint-disable indent */
 /* eslint-disable react/no-multi-comp */
@@ -37,19 +38,15 @@ function getItemStyles(
 }
 
 const CustomDragLayer = () => {
-  const {
-    itemType,
-    isDragging,
-    // item,
-    initialOffset,
-    currentOffset
-  } = useDragLayer((monitor: any) => ({
-    item: monitor.getItem(),
-    itemType: monitor.getItemType(),
-    initialOffset: monitor.getInitialSourceClientOffset(),
-    currentOffset: monitor.getSourceClientOffset(),
-    isDragging: monitor.isDragging()
-  }));
+  const { itemType, isDragging, initialOffset, currentOffset } = useDragLayer(
+    (monitor: any) => ({
+      item: monitor.getItem(),
+      itemType: monitor.getItemType(),
+      initialOffset: monitor.getInitialSourceClientOffset(),
+      currentOffset: monitor.getSourceClientOffset(),
+      isDragging: monitor.isDragging()
+    })
+  );
 
   const { cardDragging } = useSelector(
     ({ Columns, Deck }: RootReducerState) => ({

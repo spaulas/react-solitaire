@@ -22,7 +22,7 @@ const setInitialColumns = (columns: Record<string, Array<CardType>>) => ({
  * @param finalId id of the destination column
  * @param nCards number of cards to be swapped
  */
-const swapColumns = (finalId: string, nCards: number) => ({
+const swapColumns = (finalId: string) => ({
   type: ColumnActionTypes.SWAP_COLUMNS,
   finalId
 });

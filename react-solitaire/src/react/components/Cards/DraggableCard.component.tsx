@@ -33,7 +33,10 @@ const DraggableCard = ({
   };
 
   // useDrag will be responsible for making an element draggable. It also expose, isDragging method to add any styles while dragging
-  const [{ isDragging }, drag, preview] = useDrag({
+  const [, /* 
+    {
+       isDragging 
+    } */ drag, preview] = useDrag({
     // item denotes the element type, unique identifier (id) and the index (position)
     item: { type, card },
     begin: () => onDrag(card),
@@ -50,16 +53,18 @@ const DraggableCard = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getStyles = (isDragging: boolean) => {
+  /* const getStyles = (isDragging: boolean) => {
     return {
       // IE fallback: hide the real node using CSS when dragging
       // because IE will ignore our custom "empty image" drag preview.
       opacity: isDragging ? 0.5 : 1
     };
-  };
+  }; */
 
   return children
-    ? React.cloneElement(children, { ref: drag, style: getStyles(isDragging) })
+    ? React.cloneElement(children, {
+        ref: drag
+      })
     : null;
 };
 

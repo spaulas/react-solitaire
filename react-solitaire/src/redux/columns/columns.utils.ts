@@ -78,7 +78,9 @@ export const swapColumns = (
   // check if the movement respects the rules of the game (compare the first card to add with the last card of the destination column)
   if (isValidMovement(cardsSwapping[0], finalCol[finalCol.length - 1])) {
     // add the swapped cards to the final column
-    cardsSwapping.map((card: CardType) => finalCol.push(card));
+    cardsSwapping.map((card: CardType) =>
+      finalCol.push({ ...card, cardField: finalId })
+    );
 
     // if the cardsLeft is bigger than 0, there are more cards in the initial column
     if (cardsLeft > 0) {
@@ -118,7 +120,11 @@ export const swapColumns = (
 
   // no changes were made in the final column, so simply return the changes in the initial column
   return {
-    columns: { ...columns, [cardInitialColId]: initialCol }
+    columns: {
+      ...columns,
+      [cardInitialColId]: initialCol,
+      cardsDragging: undefined
+    }
   };
 };
 
@@ -140,12 +146,13 @@ export const addToColumn = (
   if (isValidMovement(cardDragging[0], finalCol[finalCol.length - 1])) {
     // add the swapped cards to the final column
     cardDragging.map((card: CardType) =>
-      finalCol.push({ ...card, flipped: true })
+      finalCol.push({ ...card, flipped: true, cardField: finalId })
     );
 
     // returns the changes in the destination column and, since the movement was valid, there is no need to send them back
     return {
       columns: { ...columns, [finalId]: finalCol },
+      cardDragging: undefined,
       sendBack: false
     };
   }
@@ -167,12 +174,17 @@ export const setCardDragging = (
   columnId: string,
   nCards: number
 ) => {
+  console.log("setCardDragging columns = ", columns);
+  console.log("setCardDragging columnId = ", columnId);
+  console.log("setCardDragging nCards = ", nCards);
   // create copy of the initial column
   const initialCol = [...columns[columnId]];
   // get from what index to slice
   const indexToDelete = initialCol.length - nCards;
   // get the cards that will swap and also remove them from the initial column
   const cardsToSwap = initialCol.splice(indexToDelete, nCards);
+
+  console.log("cardsToSwap = ", cardsToSwap);
 
   return {
     cardDragging: cardsToSwap,
