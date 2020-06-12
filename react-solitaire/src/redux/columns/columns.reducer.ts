@@ -87,6 +87,7 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
       );
       return {
         ...state,
+        cardDragging: undefined,
         ...addResult
       };
 
