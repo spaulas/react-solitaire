@@ -1,11 +1,14 @@
 import React, { forwardRef, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CardFlippable /* CardSpot */ } from "../Cards/Cards.items";
+import { CardFlippable } from "../Cards/Cards.items";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import { Col } from "antd";
 import { RootReducerState } from "../../../global";
+import SimplePile from "./SimplePile.component";
 import deckActions from "../../../redux/deck/deck.actions";
 
+/**
+ * Component that consists of a pile (3d) of unflipped cards that can be flipped one by one (with a translation)
+ */
 const DeckPile = () => {
   const dispatch = useDispatch();
   // get piles from redux
@@ -16,6 +19,7 @@ const DeckPile = () => {
       translationY: Deck.translationY
     })
   );
+
   // swap from deck to flipped pile
   const handleDeckSwap = async (cardId: number) => {
     // wait for the css animation to end
@@ -24,6 +28,7 @@ const DeckPile = () => {
     }, 600);
   };
 
+  // renders cards components that can be flipped (with translation)
   const getCards = () => {
     const cardsArray = deckPile.map((card: CardType) => (
       <CardFlippable
@@ -38,12 +43,15 @@ const DeckPile = () => {
     return cardsArray;
   };
 
+  // return a pile of cards to be flipped
   return (
-    <Col span={3} offset={2} className="deckPile">
-      <div className="cardPile">
-        <div className="cardPileContainer">{getCards()}</div>
-      </div>
-    </Col>
+    <SimplePile
+      pileId="deckPile"
+      getCards={getCards}
+      offset={2}
+      pileClassName="deckPile"
+      insideClassName="cardPile"
+    />
   );
 };
 

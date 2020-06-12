@@ -1,8 +1,9 @@
 /* eslint-disable indent */
+import { CardFrame, CardImage } from "../../components/Cards/Cards.items";
 import { RefAny, RootReducerState } from "../../../global";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import { Col } from "antd";
 import React from "react";
+import { SimplePile } from "../../components/Piles/Piles.items";
 import { useDragLayer } from "react-dnd";
 import { useSelector } from "react-redux";
 
@@ -32,22 +33,12 @@ const CustomDragLayer = () => {
   const getCards = () => {
     const cardsArray = cardDragging.map((card: CardType) => {
       return (
-        <div
+        <CardFrame
           key={`cardframedraggable_${card.id}`}
-          className="cardContainer cardContainerColumns"
+          cardContainerClassName="cardContainerColumns"
         >
-          <div className="cardAspectRatio">
-            <div className="cardContent">
-              <div className="cardDefault">
-                <img
-                  className="cardImage"
-                  src={require(`../../../images/CardsFaces/${card.image}`)}
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+          <CardImage directory="CardsFaces" image={card.image} />
+        </CardFrame>
       );
     });
     return cardsArray;
@@ -59,11 +50,12 @@ const CustomDragLayer = () => {
     switch (itemType) {
       case "cardframe":
         return (
-          <Col span={3} className="deckPile">
-            <div className="columnPile">
-              <div className="cardPileContainer">{getCards()}</div>
-            </div>
-          </Col>
+          <SimplePile
+            pileId="dragging"
+            getCards={getCards}
+            pileClassName="deckPile"
+            insideClassName="columnPile"
+          />
         );
       default:
         return null;

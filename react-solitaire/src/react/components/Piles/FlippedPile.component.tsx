@@ -1,11 +1,14 @@
+import { CardFrame, CardImage } from "../Cards/Cards.items";
 import React, { forwardRef, memo } from "react";
-import { CardFrame } from "../Cards/Cards.items";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import { Col } from "antd";
 import DraggableCard from "../Cards/DraggableCard.component";
 import { RootReducerState } from "../../../global";
+import SimplePile from "./SimplePile.component";
 import { useSelector } from "react-redux";
 
+/**
+ * Component that consists of a pile (3d) of flipped cards that can be dragged
+ */
 const FlippedPile = () => {
   // get piles from redux
   const { flippedPile /* cardDragging */ } = useSelector(
@@ -15,27 +18,25 @@ const FlippedPile = () => {
     })
   );
 
+  // renders cards components that can be dragged
   const getCards = () => {
     const cardsArray = flippedPile.map((card: CardType) => (
       <DraggableCard card={card} nCards={1} key={card.id}>
         <CardFrame key={`flipped_${card.id}`} zIndex={5} isFlipped>
-          <div className="cardDefault">
-            <img
-              className="cardImage"
-              src={require(`../../../images/CardsFaces/${card.image}`)}
-              alt=""
-            />
-          </div>
+          <CardImage directory="CardsFaces" image={card.image} />
         </CardFrame>
       </DraggableCard>
     ));
     return cardsArray;
   };
 
+  // return a pile of flipped cards
   return (
-    <Col className="cardPile" span={3}>
-      <div className="cardPileContainer">{getCards()}</div>
-    </Col>
+    <SimplePile
+      pileId="flippedPile"
+      getCards={getCards}
+      pileClassName="cardPile"
+    />
   );
 };
 

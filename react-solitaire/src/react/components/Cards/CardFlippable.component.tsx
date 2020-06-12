@@ -1,5 +1,6 @@
 import React, { forwardRef, memo, useState } from "react";
 import CardFrame from "./CardFrame.component";
+import CardImage from "./CardImage.component";
 import { RefAny } from "../../../global";
 
 /**
@@ -52,20 +53,16 @@ function CardFlippable(
         // eslint-disable-next-line react/forbid-dom-props
         style={cardFlipped ? animationStyle : {}}
       >
-        <div className="cardFlipFront cardDefault">
-          <img
-            className="cardImage"
-            src={require(`../../../images/CardsFaces/${image}`)}
-            alt=""
-          />
-        </div>
-        <div className="cardFlipBack cardDefault" onClick={handleFlip}>
-          <img
-            className="cardImage"
-            src={require("../../../images/CardsBackPatterns/flowers.png")}
-            alt=""
-          />
-        </div>
+        <CardImage
+          image={image}
+          directory="CardsFaces"
+          additionalClassName="cardFlipFront"
+        />
+        <CardImage
+          directory="CardsBackPatterns"
+          additionalClassName="cardFlipBack"
+          onClick={handleFlip}
+        />
       </div>
     </CardFrame>
   );

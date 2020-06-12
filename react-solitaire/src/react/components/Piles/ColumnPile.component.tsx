@@ -1,22 +1,27 @@
-/* eslint-disable jest/expect-expect */
 import {
   CardFlippable,
-  CardFrame /* , CardSpot */
+  CardFrame,
+  CardImage,
+  DraggableCard
 } from "../Cards/Cards.items";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import { Col } from "antd";
-import DraggableCard from "../Cards/DraggableCard.component";
 import React from "react";
+import SimplePile from "./SimplePile.component";
 
 interface ColumnPileProps {
-  offset?: number;
-  columnCards: Array<CardType>;
-  columnId: string;
+  offset?: number; // column offset
+  columnCards: Array<CardType>; // card of the column
+  columnId: string; // column id
 }
 
-function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
+/**
+ * Component that renders a column of cards, some are hidden and some are flipped
+ */
+const ColumnPile = ({ offset, columnCards, columnId }: ColumnPileProps) => {
+  // renders cards components accordingly if it is flipped or not
   const getCards = () => {
     const cardsArray = columnCards.map((card: CardType, index: number) => {
+      // if the card is flipped, then the card image is shown and it can be dragged
       if (card.flipped) {
         return (
           <DraggableCard card={card} nCards={columnCards.length - index}>
@@ -28,18 +33,13 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
               zIndex={999}
               isFlipped
             >
-              <div className="cardDefault">
-                <img
-                  className="cardImage"
-                  src={require(`../../../images/CardsFaces/${card.image}`)}
-                  alt=""
-                />
-              </div>
+              <CardImage directory="CardsFaces" image={card.image} />
             </CardFrame>
           </DraggableCard>
         );
       }
 
+      // if it is not flipped, then the card can be flipped (but this flip is made automatically, when there are no more cards over it)
       return (
         <CardFlippable
           disabled={true}
@@ -53,13 +53,17 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
 
     return cardsArray;
   };
+
+  // return a pile of the flipped and unflipped cards
   return (
-    <Col id={columnId} span={3} offset={offset} className="deckPile">
-      <div className="columnPile">
-        <div className="cardPileContainer">{getCards()}</div>
-      </div>
-    </Col>
+    <SimplePile
+      pileId={columnId}
+      getCards={getCards}
+      offset={offset}
+      pileClassName="deckPile"
+      insideClassName="columnPile"
+    />
   );
-}
+};
 
 export default ColumnPile;
