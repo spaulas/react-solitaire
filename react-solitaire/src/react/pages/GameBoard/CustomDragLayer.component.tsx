@@ -76,7 +76,8 @@ function CustomDragLayer() {
     const transform = `translate(${x}px, ${y}px)`;
     return {
       transform,
-      WebkitTransform: transform
+      WebkitTransform: transform,
+      marginTop: "-30px"
     };
   };
 
