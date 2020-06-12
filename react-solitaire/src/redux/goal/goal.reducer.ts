@@ -56,7 +56,8 @@ const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
         ...state,
         cardDragging: undefined,
         cardDraggingGoal: undefined,
-        cardDraggingPosition: undefined
+        cardDraggingPosition: undefined,
+        sendBack: undefined
       };
 
     case GoalActionTypes.REMOVE_GOAL_CARD:

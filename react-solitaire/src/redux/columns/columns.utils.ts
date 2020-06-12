@@ -189,3 +189,31 @@ export const setCardDragging = (
     // columns: { ...columns, [columnId]: initialCol } @todo check if this change can be completely deleted!
   };
 };
+
+export const removeCard = (
+  columns: Record<string, Array<CardType>>,
+  columnId: string
+) => {
+  // create copy of the column
+  const tempCol = [...columns[columnId]];
+  // remove the last card
+  tempCol.splice(-1, 1);
+
+  // get index of last card
+  const lastCard = tempCol.length - 1;
+
+  // if the last card has flipped = false, then make it true
+  if (lastCard > -1 && !tempCol[lastCard].flipped) {
+    tempCol[lastCard] = {
+      ...tempCol[lastCard],
+      flipped: true
+    };
+  }
+
+  return {
+    columns: {
+      ...columns,
+      [columnId]: tempCol
+    }
+  };
+};

@@ -2,6 +2,7 @@
 import {
   addToColumn,
   createColumns,
+  removeCard,
   setCardDragging,
   swapColumns
 } from "./columns.utils";
@@ -99,9 +100,16 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         sendBack: undefined
       };
 
-    // DRAG COLUMN CARDS
-    // SWAP COLUMNS
-    // RESET COLUMNS
+    case ColumnsActionTypes.REMOVE_CARD:
+      const removeResult = removeCard(
+        state.columns,
+        state.cardDraggingCol as string
+      );
+      return {
+        ...state,
+        ...removeResult,
+        cardDragging: undefined
+      };
 
     // ********************************************************
 

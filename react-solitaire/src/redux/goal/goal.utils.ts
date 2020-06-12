@@ -21,7 +21,10 @@ export const setCardDragging = (
  */
 export const isValidMovement = (firstCard: CardType, finalCard: CardType) => {
   // if the goal has no cards, then it should be the first number
-  if (!finalCard && firstCard.cardNumber !== 1) {
+  if (!finalCard) {
+    if (firstCard.cardNumber === 1) {
+      return true;
+    }
     return false;
   }
 
@@ -30,7 +33,7 @@ export const isValidMovement = (firstCard: CardType, finalCard: CardType) => {
     return false;
   }
   // if the card being added has a number that is not one value higher, then return false
-  if (finalCard.cardNumber - 1 !== firstCard.cardNumber) {
+  if (finalCard.cardNumber + 1 !== firstCard.cardNumber) {
     return false;
   }
 
@@ -63,10 +66,13 @@ export const addToGoal = (
     return {
       goals: { ...goals, [finalId]: finalGoal },
       cardDragging: undefined,
-      cardDraggingGoal: undefined
+      cardDraggingGoal: undefined,
+      sendBack: false
     };
   }
 
   // since the movement was invalid, it is necessary to send the card back to the correct place
-  return {};
+  return {
+    sendBack: true
+  };
 };

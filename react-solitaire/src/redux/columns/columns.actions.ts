@@ -63,6 +63,13 @@ const resetCardDragging = () => ({
   type: ColumnActionTypes.RESET_COLUMN_CARD_DRAGGING
 });
 
+/**
+ * Resets the currently saved card that was been dragged, its position and initial column ids
+ */
+const removeCard = () => ({
+  type: ColumnActionTypes.REMOVE_CARD
+});
+
 // ********************************************************
 
 const actionsCreators = Object.freeze({
@@ -70,7 +77,8 @@ const actionsCreators = Object.freeze({
   swapColumns,
   dragColumnCards,
   resetCardDragging,
-  addDraggingCardsToColumn
+  addDraggingCardsToColumn,
+  removeCard
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;
