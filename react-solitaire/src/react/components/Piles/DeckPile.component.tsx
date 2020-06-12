@@ -27,7 +27,6 @@ const DeckPile = () => {
   const getCards = () => {
     const cardsArray = deckPile.map((card: CardType) => (
       <CardFlippable
-        cardId={card.id}
         key={`deck_${card.id}`}
         image={card.image}
         zIndex={999}

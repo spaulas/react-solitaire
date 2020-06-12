@@ -1,7 +1,10 @@
-import { CardFrame } from "./Cards.items";
+import CardFrame from "./CardFrame.component";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import React from "react";
 
+/**
+ * Component only visible when a card is being dragged, serves as a preview of the movement
+ */
 const CardPreview = ({ card }: { card: CardType }) => {
   const styles = {
     display: "inline-block",
@@ -12,7 +15,7 @@ const CardPreview = ({ card }: { card: CardType }) => {
   return (
     // eslint-disable-next-line react/forbid-dom-props
     <div style={styles}>
-      <CardFrame cardId={card.id} zIndex={5} isFlipped>
+      <CardFrame zIndex={5} isFlipped>
         <div className="cardDefault">
           <img
             className="cardImage"

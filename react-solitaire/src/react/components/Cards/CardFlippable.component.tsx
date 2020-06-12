@@ -2,6 +2,9 @@ import React, { forwardRef, memo, useState } from "react";
 import CardFrame from "./CardFrame.component";
 import { RefAny } from "../../../global";
 
+/**
+ * Component that adds to the card the possibility to flip and/or translate
+ */
 function CardFlippable(
   {
     className,
@@ -10,8 +13,7 @@ function CardFlippable(
     removeCard,
     image,
     disabled,
-    zIndex,
-    cardId
+    zIndex
   }: {
     className?: string;
     translationX?: number;
@@ -20,7 +22,6 @@ function CardFlippable(
     image: string;
     zIndex?: number;
     disabled?: boolean;
-    cardId: number;
   },
   ref: RefAny
 ) {
@@ -45,12 +46,7 @@ function CardFlippable(
   };
 
   return (
-    <CardFrame
-      cardId={cardId}
-      ref={ref}
-      zIndex={zIndex}
-      cardContainerClassName={className}
-    >
+    <CardFrame ref={ref} zIndex={zIndex} cardContainerClassName={className}>
       <div
         className="cardFlipContainer"
         // eslint-disable-next-line react/forbid-dom-props

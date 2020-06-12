@@ -18,12 +18,7 @@ const FlippedPile = () => {
   const getCards = () => {
     const cardsArray = flippedPile.map((card: CardType) => (
       <DraggableCard card={card} nCards={1} key={card.id}>
-        <CardFrame
-          key={`flipped_${card.id}`}
-          cardId={card.id}
-          zIndex={5}
-          isFlipped
-        >
+        <CardFrame key={`flipped_${card.id}`} zIndex={5} isFlipped>
           <div className="cardDefault">
             <img
               className="cardImage"

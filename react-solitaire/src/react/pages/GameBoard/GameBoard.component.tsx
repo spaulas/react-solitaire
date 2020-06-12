@@ -10,7 +10,7 @@ import {
 import React, { memo, useEffect, useRef } from "react";
 import { RefAny, RootReducerState } from "../../../global";
 import { useDispatch, useSelector } from "react-redux";
-import CustomDragLayer from "../../components/Cards/CustomDragLayer.component";
+import CustomDragLayer from "./CustomDragLayer.component";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";

@@ -1,7 +1,4 @@
-/* eslint-disable react/forbid-dom-props */
 /* eslint-disable indent */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-console */
 import React, { ReactElement, useEffect } from "react";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import columnActions from "../../../redux/columns/columns.actions";
@@ -11,55 +8,44 @@ import { useDispatch } from "react-redux";
 import { useDrag } from "react-dnd";
 const type = "cardframe";
 
-const DraggableCard = ({
-  children,
-  card,
-  nCards
-}: {
-  children: ReactElement;
-  card: CardType;
-  nCards: number;
-}) => {
+interface DraggableCardProps {
+  card: CardType; // card info
+  nCards: number; // number of cards being dragged (this card and all bellow)
+  children: ReactElement; // children components
+}
+
+/**
+ * Component that adds the drag functionality to a card and the cards bellow it
+ */
+const DraggableCard = ({ card, nCards, children }: DraggableCardProps) => {
   const dispatch = useDispatch();
 
+  // useDrag will be responsible for making an element draggable. It also expose, isDragging method to add any styles while dragging
+  const [, drag, preview] = useDrag({
+    item: { type, card }, // item denotes the element type, unique identifier (id) and card info
+    begin: () => onDrag(card) // call the onDrag function when dragging begins
+  });
+
+  // function called when a card starts being dragged
   const onDrag = (card: CardType) => {
+    // if it is a card from the deck pile, then call the deck action that saves what is being dragged
     if (card.cardField === "deckPile") {
       dispatch(deckActions.dragFlippedCard());
     } else {
-      // will "save" the cards that are being dragged
+      // if it is a card from the dolumns, then call the column action that saves what is being dragged
       dispatch(columnActions.dragColumnCards(nCards, card.cardField));
     }
   };
 
-  // useDrag will be responsible for making an element draggable. It also expose, isDragging method to add any styles while dragging
-  const [, /* 
-    {
-       isDragging 
-    } */ drag, preview] = useDrag({
-    // item denotes the element type, unique identifier (id) and the index (position)
-    item: { type, card },
-    begin: () => onDrag(card),
-    // collect method is like an event listener, it monitors whether the element is dragged and expose that information
-    collect: (monitor: any) => {
-      return {
-        isDragging: monitor.isDragging()
-      };
-    }
-  });
-
-  useEffect(() => {
+  // adds preview to the drag event
+  const getPreviewImage = () => {
     preview(getEmptyImage(), { captureDraggingState: true });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  };
 
-  /* const getStyles = (isDragging: boolean) => {
-    return {
-      // IE fallback: hide the real node using CSS when dragging
-      // because IE will ignore our custom "empty image" drag preview.
-      opacity: isDragging ? 0.5 : 1
-    };
-  }; */
+  // on component did mount, call the getPreviewImage function
+  useEffect(getPreviewImage, []);
 
+  // return the card component with the ref of the drag event
   return children
     ? React.cloneElement(children, {
         ref: drag

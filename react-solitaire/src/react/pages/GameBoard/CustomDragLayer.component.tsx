@@ -1,45 +1,18 @@
-/* eslint-disable no-console */
-/* eslint-disable react/forbid-dom-props */
 /* eslint-disable indent */
-/* eslint-disable react/no-multi-comp */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { RefAny, RootReducerState } from "../../../global";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import React from "react";
-import { RootReducerState } from "../../../global";
 import { useDragLayer } from "react-dnd";
 import { useSelector } from "react-redux";
 
-const layerStyles = {
-  position: "fixed" as const,
-  pointerEvents: "none" as const,
-  zIndex: 100,
-  left: 0,
-  top: 0,
-  width: "100%" as const,
-  height: "100%" as const
-};
-
-function getItemStyles(
-  initialOffset?: string,
-  currentOffset?: { x: number; y: number }
-) {
-  if (!initialOffset || !currentOffset) {
-    return {
-      display: "none"
-    };
-  }
-  const { x, y } = currentOffset;
-  const transform = `translate(${x}px, ${y}px)`;
-  return {
-    transform,
-    WebkitTransform: transform
-  };
-}
-
+/**
+ * Custom "layer" for the drag event
+ */
 const CustomDragLayer = () => {
+  // get necessary properties from the drag layer hook function
   const { itemType, isDragging, initialOffset, currentOffset } = useDragLayer(
-    (monitor: any) => ({
+    (monitor: RefAny) => ({
       item: monitor.getItem(),
       itemType: monitor.getItemType(),
       initialOffset: monitor.getInitialSourceClientOffset(),
@@ -48,12 +21,14 @@ const CustomDragLayer = () => {
     })
   );
 
+  // get the cards that are dragging from the redux (can be from the deck or form the columns)
   const { cardDragging } = useSelector(
     ({ Columns, Deck }: RootReducerState) => ({
       cardDragging: Columns.cardDragging || Deck.cardDragging || []
     })
   );
 
+  // render cards components from the cards dragging array (flipped)
   const getCards = () => {
     const cardsArray = cardDragging.map((card: CardType) => {
       return (
@@ -78,7 +53,9 @@ const CustomDragLayer = () => {
     return cardsArray;
   };
 
-  function renderItem() {
+  // render the item as a column, because more than one card can be dragged
+  // eslint-disable-next-line react/no-multi-comp
+  const renderItem = () => {
     switch (itemType) {
       case "cardframe":
         return (
@@ -91,12 +68,35 @@ const CustomDragLayer = () => {
       default:
         return null;
     }
-  }
+  };
+
+  // get the style for the draggable component according to its movement
+  const getItemStyles = (
+    initialOffset?: string,
+    currentOffset?: { x: number; y: number }
+  ) => {
+    if (!initialOffset || !currentOffset) {
+      return {
+        display: "none"
+      };
+    }
+    const { x, y } = currentOffset;
+    const transform = `translate(${x}px, ${y}px)`;
+    return {
+      transform,
+      WebkitTransform: transform
+    };
+  };
+
+  // if there are no cards dragging, simply return null
   if (!isDragging) {
     return null;
   }
+
+  // if not, then return the proper rendered components
   return (
-    <div style={layerStyles}>
+    <div className="dragLayer">
+      {/* eslint-disable-next-line react/forbid-dom-props */}
       <div style={getItemStyles(initialOffset, currentOffset)}>
         {renderItem()}
       </div>
