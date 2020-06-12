@@ -1,15 +1,12 @@
 import React, { forwardRef, memo } from "react";
-import { RefAny, RootReducerState } from "../../../global";
-import { useDispatch, useSelector } from "react-redux";
-import { CardFrame /* CardSpot */ } from "../Cards/Cards.items";
+import { CardFrame } from "../Cards/Cards.items";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import { Col } from "antd";
 import DraggableCard from "../Cards/DraggableCard.component";
-/* import columnActions from "../../../redux/columns/columns.actions"; */
-import deckActions from "../../../redux/deck/deck.actions";
+import { RootReducerState } from "../../../global";
+import { useSelector } from "react-redux";
 
 const FlippedPile = () => {
-  const dispatch = useDispatch();
   // get piles from redux
   const { flippedPile /* cardDragging */ } = useSelector(
     ({ Deck }: RootReducerState) => ({
@@ -17,17 +14,6 @@ const FlippedPile = () => {
       cardDragging: Deck.cardDragging
     })
   );
-
-  const onGrab = (e: RefAny) => {
-    dispatch(deckActions.dragFlippedCard());
-
-    /*  dispatch(
-      columnActions.setCardDragging(1, "flipped", {
-        x: position.x,
-        y: position.y
-      })
-    ); */
-  };
 
   const getCards = () => {
     const cardsArray = flippedPile.map((card: CardType) => (

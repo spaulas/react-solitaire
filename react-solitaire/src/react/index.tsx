@@ -10,6 +10,7 @@ function BaseApplication() {
   return (
     <Layout>
       <Content>
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         <DndProvider backend={HTML5Backend as any}>
           <GameBoard />
         </DndProvider>

@@ -96,6 +96,16 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
         cardDraggingPosition: undefined
       };
 
+    case DeckActionTypes.POP_FLIPPED_CARD:
+      const tempFlipped = [...state.flippedPile];
+      tempFlipped.pop();
+      // eslint-disable-next-line no-console
+      console.log("tempFlipped = ", tempFlipped);
+      return {
+        ...state,
+        flippedPile: tempFlipped
+      };
+
     // ********************************************************
 
     default:

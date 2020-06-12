@@ -78,6 +78,13 @@ const resetCardDragging = () => ({
   type: DeckActionTypes.RESET_FLIPPED_CARD_DRAGGING
 });
 
+/**
+ * After a successful action, pop the top card of the flipped card pile
+ */
+const popFlippedCard = () => ({
+  type: DeckActionTypes.POP_FLIPPED_CARD
+});
+
 // ********************************************************
 
 const actionsCreators = Object.freeze({
@@ -88,7 +95,8 @@ const actionsCreators = Object.freeze({
   resetDeck,
   dragFlippedCard,
   restoreFlippedCard,
-  resetCardDragging
+  resetCardDragging,
+  popFlippedCard
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

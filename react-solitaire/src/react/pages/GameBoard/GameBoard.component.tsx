@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   BoardEmptySpots,
@@ -112,6 +113,12 @@ function GameBoard() {
     accept: "cardframe",
     drop: onDrop
   });
+
+  useEffect(() => {
+    if (sendBack === false) {
+      deckActions.popFlippedCard();
+    }
+  }, [sendBack]);
 
   return (
     <div className="gameBoard" ref={drop}>
