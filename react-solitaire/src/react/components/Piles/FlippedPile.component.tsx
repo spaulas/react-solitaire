@@ -1,4 +1,3 @@
-import { CardFrame, CardImage } from "../Cards/Cards.items";
 import React, { forwardRef, memo } from "react";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import DraggableCard from "../Cards/DraggableCard.component";
@@ -21,11 +20,7 @@ function FlippedPile() {
   // renders cards components that can be dragged
   const getCards = () => {
     const cardsArray = flippedPile.map((card: CardType) => (
-      <DraggableCard card={card} nCards={1} key={card.id}>
-        <CardFrame key={`flipped_${card.id}`} zIndex={5} isFlipped>
-          <CardImage directory="CardsFaces" image={card.image} />
-        </CardFrame>
-      </DraggableCard>
+      <DraggableCard card={card} nCards={1} key={card.id} />
     ));
     return cardsArray;
   };

@@ -1,6 +1,9 @@
 /* eslint-disable indent */
-import React, { ReactElement, useEffect } from "react";
+import React, { useEffect } from "react";
+import CardFrame from "./CardFrame.component";
+import CardImage from "./CardImage.component";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
+import { ExplicitAny } from "../../../global";
 import columnActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import { getEmptyImage } from "react-dnd-html5-backend";
@@ -11,19 +14,22 @@ const type = "cardframe";
 interface DraggableCardProps {
   card: CardType; // card info
   nCards: number; // number of cards being dragged (this card and all bellow)
-  children: ReactElement; // children components
+  index?: number;
 }
 
 /**
  * Component that adds the drag functionality to a card and the cards bellow it
  */
-function DraggableCard({ card, nCards, children }: DraggableCardProps) {
+function DraggableCard({ card, nCards, index = 0 }: DraggableCardProps) {
   const dispatch = useDispatch();
 
   // useDrag will be responsible for making an element draggable. It also expose, isDragging method to add any styles while dragging
-  const [, drag, preview] = useDrag({
+  const [{ isDragging }, drag, preview] = useDrag({
     item: { type, card }, // item denotes the element type, unique identifier (id) and card info
-    begin: () => onDrag(card) // call the onDrag function when dragging begins
+    begin: () => onDrag(card), // call the onDrag function when dragging begins
+    collect: (monitor: ExplicitAny) => ({
+      isDragging: monitor.isDragging()
+    })
   });
 
   // function called when a card starts being dragged
@@ -46,11 +52,22 @@ function DraggableCard({ card, nCards, children }: DraggableCardProps) {
   useEffect(getPreviewImage, []);
 
   // return the card component with the ref of the drag event
-  return children
-    ? React.cloneElement(children, {
-        ref: drag
-      })
-    : null;
+  return (
+    <CardFrame
+      ref={drag}
+      cardContainerClassName={`${index > 0 ? "cardContainerColumns" : ""}`}
+      zIndex={999}
+      isFlipped
+    >
+      <CardImage
+        additionalClassName={
+          isDragging ? "cardIsDragging" : "cardIsNotDragging"
+        }
+        directory="CardsFaces"
+        image={card.image}
+      />
+    </CardFrame>
+  );
 }
 
 export default DraggableCard;

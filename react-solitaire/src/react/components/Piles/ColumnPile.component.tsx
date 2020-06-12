@@ -1,12 +1,9 @@
-import {
-  CardFlippable,
-  CardFrame,
-  CardImage,
-  DraggableCard
-} from "../Cards/Cards.items";
+import { CardFlippable, DraggableCard } from "../Cards/Cards.items";
+import React, { memo } from "react";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import React from "react";
+import { RootReducerState } from "../../../global";
 import SimplePile from "./SimplePile.component";
+import { useSelector } from "react-redux";
 
 interface ColumnPileProps {
   offset?: number; // column offset
@@ -18,6 +15,16 @@ interface ColumnPileProps {
  * Component that renders a column of cards, some are hidden and some are flipped
  */
 function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
+  // get the cards that are dragging from the redux (can be from the deck or form the columns)
+  const { cardDragging } = useSelector(
+    ({ Columns, Deck }: RootReducerState) => ({
+      cardDragging: Columns.cardDragging || Deck.cardDragging || []
+    })
+  );
+
+  // eslint-disable-next-line no-console
+  console.log("cardDragging - ", cardDragging);
+
   // renders cards components accordingly if it is flipped or not
   const getCards = () => {
     const cardsArray = columnCards.map((card: CardType, index: number) => {
@@ -28,17 +35,8 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
             key={`${columnId}_flipped_${card.id}`}
             card={card}
             nCards={columnCards.length - index}
-          >
-            <CardFrame
-              cardContainerClassName={`${
-                index > 0 ? "cardContainerColumns" : ""
-              }`}
-              zIndex={999}
-              isFlipped
-            >
-              <CardImage directory="CardsFaces" image={card.image} />
-            </CardFrame>
-          </DraggableCard>
+            index={index}
+          />
         );
       }
 
@@ -69,4 +67,4 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
   );
 }
 
-export default ColumnPile;
+export default memo(ColumnPile);
