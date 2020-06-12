@@ -1,13 +1,12 @@
-/* eslint-disable indent */
+import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CardFrame from "./CardFrame.component";
 import CardImage from "./CardImage.component";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import { ExplicitAny } from "../../../global";
 import columnActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import { getEmptyImage } from "react-dnd-html5-backend";
-import { useDispatch } from "react-redux";
 import { useDrag } from "react-dnd";
 const type = "cardframe";
 
@@ -22,6 +21,13 @@ interface DraggableCardProps {
  */
 function DraggableCard({ card, nCards, index = 0 }: DraggableCardProps) {
   const dispatch = useDispatch();
+
+  // get the cards that are dragging from the redux (can be from the deck or form the columns)
+  const { cardDragging } = useSelector(
+    ({ Columns, Deck }: RootReducerState) => ({
+      cardDragging: Columns.cardDragging || Deck.cardDragging || []
+    })
+  );
 
   // useDrag will be responsible for making an element draggable. It also expose, isDragging method to add any styles while dragging
   const [{ isDragging }, drag, preview] = useDrag({
@@ -51,6 +57,12 @@ function DraggableCard({ card, nCards, index = 0 }: DraggableCardProps) {
   // on component did mount, call the getPreviewImage function
   useEffect(getPreviewImage, []);
 
+  // a card should be hidden, if it is dragging or if it is from the column that the cards are being dragged from
+  const hideCard =
+    isDragging ||
+    (card.cardField !== "deckPile" &&
+      cardDragging[0]?.cardField === card.cardField);
+
   // return the card component with the ref of the drag event
   return (
     <CardFrame
@@ -60,7 +72,7 @@ function DraggableCard({ card, nCards, index = 0 }: DraggableCardProps) {
       isFlipped
     >
       <CardImage
-        additionalClassName={isDragging ? "cardIsDragging" : ""}
+        additionalClassName={hideCard ? "cardIsDragging" : ""}
         directory="CardsFaces"
         image={card.image}
       />

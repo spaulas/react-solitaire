@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { CardType } from "../gameBoard/gameBoard.types";
 
 /**

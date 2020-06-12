@@ -34,10 +34,7 @@ function BaseEmptySpots() {
   };
 
   // Only called when the component is mounted and when the deckRef is set
-  useEffect(() => {
-    setTranslation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deckRef]);
+  useEffect(setTranslation, [deckRef]);
 
   useEffect(() => {
     // debounce assures that the function is only called once every 100 ms

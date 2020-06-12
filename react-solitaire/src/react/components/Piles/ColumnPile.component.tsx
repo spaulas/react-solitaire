@@ -1,9 +1,7 @@
 import { CardFlippable, DraggableCard } from "../Cards/Cards.items";
 import React, { memo } from "react";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import { RootReducerState } from "../../../global";
 import SimplePile from "./SimplePile.component";
-import { useSelector } from "react-redux";
 
 interface ColumnPileProps {
   offset?: number; // column offset
@@ -15,16 +13,6 @@ interface ColumnPileProps {
  * Component that renders a column of cards, some are hidden and some are flipped
  */
 function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
-  // get the cards that are dragging from the redux (can be from the deck or form the columns)
-  const { cardDragging } = useSelector(
-    ({ Columns, Deck }: RootReducerState) => ({
-      cardDragging: Columns.cardDragging || Deck.cardDragging || []
-    })
-  );
-
-  // eslint-disable-next-line no-console
-  console.log("cardDragging - ", cardDragging);
-
   // renders cards components accordingly if it is flipped or not
   const getCards = () => {
     const cardsArray = columnCards.map((card: CardType, index: number) => {
