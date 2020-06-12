@@ -14,8 +14,8 @@ interface CardFrameProps {
  */
 function CardFrame(
   {
-    cardContainerClassName,
-    cardContentClassName,
+    cardContainerClassName = "",
+    cardContentClassName = "",
     zIndex = 1,
     isFlipped,
     children
@@ -25,19 +25,13 @@ function CardFrame(
   return (
     <div
       ref={ref}
-      className={`cardContainer ${isFlipped ? "cardContainerFlipped" : ""} ${
-        cardContainerClassName ? cardContainerClassName : ""
-      }`}
+      className={`cardContainer ${
+        isFlipped ? "cardContainerFlipped" : ""
+      } ${cardContainerClassName}`}
     >
       {/* eslint-disable-next-line react/forbid-dom-props */}
       <div className="cardAspectRatio" style={{ zIndex }}>
-        <div
-          className={`cardContent ${
-            cardContentClassName ? cardContentClassName : ""
-          }`}
-        >
-          {children}
-        </div>
+        <div className={`cardContent ${cardContentClassName}`}>{children}</div>
       </div>
     </div>
   );

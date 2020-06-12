@@ -7,7 +7,7 @@ import { RefAny } from "../../../global";
  */
 function CardFlippable(
   {
-    className,
+    className = "",
     translationX = 0,
     translationY = 0,
     removeCard,

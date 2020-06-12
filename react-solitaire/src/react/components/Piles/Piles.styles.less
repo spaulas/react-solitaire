@@ -36,3 +36,48 @@
   background-color: #eeeeee;
   border-right: 2px dotted red;
 }
+
+// ------------------------
+
+
+.cardContainerColumns {
+  margin-top: 30px;
+}
+
+.cardPile {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  bottom: 100px;
+}
+
+.cardPileContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+.columnPile {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.2s;
+  transform: scale(1);
+}
+
+.deckPile {
+  z-index: 100;
+}
+
+.dragLayer {
+  position: fixed;
+  pointer-events: none;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
