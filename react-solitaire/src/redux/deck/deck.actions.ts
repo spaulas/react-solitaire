@@ -65,13 +65,6 @@ const dragFlippedCard = () => ({
 });
 
 /**
- * Restore card to flipped deck (after dragging and letting go in an invalid place)
- */
-const restoreFlippedCard = () => ({
-  type: DeckActionTypes.RESTORE_FLIPPED_CARD
-});
-
-/**
  * Resets the currently saved card that was been dragged and its position
  */
 const resetCardDragging = () => ({
@@ -81,8 +74,8 @@ const resetCardDragging = () => ({
 /**
  * After a successful action, pop the top card of the flipped card pile
  */
-const popFlippedCard = () => ({
-  type: DeckActionTypes.POP_FLIPPED_CARD
+const removeFlippedCard = () => ({
+  type: DeckActionTypes.REMOVE_FLIPPED_CARD
 });
 
 // ********************************************************
@@ -94,9 +87,8 @@ const actionsCreators = Object.freeze({
   flipDeckPile,
   resetDeck,
   dragFlippedCard,
-  restoreFlippedCard,
   resetCardDragging,
-  popFlippedCard
+  removeFlippedCard
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

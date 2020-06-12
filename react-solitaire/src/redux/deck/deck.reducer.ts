@@ -1,11 +1,6 @@
 /* eslint-disable indent */
 import { CardType, cardsConfigurations } from "../gameBoard/gameBoard.types";
-import {
-  flipDeckCard,
-  getTranslationY,
-  popFlippedCard,
-  restoreFlippedCard
-} from "./deck.utils";
+import { flipDeckCard, getTranslationY, popFlippedCard } from "./deck.utils";
 import { ActionsCreators } from "./deck.actions";
 import DeckActionTypes from "./deck.types";
 import { ExplicitAny } from "../../global";
@@ -78,17 +73,6 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
         ...dragResult
       };
 
-    case DeckActionTypes.RESTORE_FLIPPED_CARD:
-      const restoreResult = restoreFlippedCard(
-        state.cardDragging,
-        state.flippedPile
-      );
-
-      return {
-        ...state,
-        ...restoreResult
-      };
-
     case DeckActionTypes.RESET_FLIPPED_CARD_DRAGGING:
       return {
         ...state,
@@ -96,9 +80,9 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
         cardDraggingPosition: undefined
       };
 
-    case DeckActionTypes.POP_FLIPPED_CARD:
+    case DeckActionTypes.REMOVE_FLIPPED_CARD:
       const tempFlipped = [...state.flippedPile];
-      tempFlipped.pop();
+      tempFlipped.splice(-1, 1);
       // eslint-disable-next-line no-console
       console.log("tempFlipped = ", tempFlipped);
       return {

@@ -24,12 +24,15 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
       // if the card is flipped, then the card image is shown and it can be dragged
       if (card.flipped) {
         return (
-          <DraggableCard card={card} nCards={columnCards.length - index}>
+          <DraggableCard
+            key={`${columnId}_flipped_${card.id}`}
+            card={card}
+            nCards={columnCards.length - index}
+          >
             <CardFrame
               cardContainerClassName={`${
                 index > 0 ? "cardContainerColumns" : ""
               }`}
-              key={`flipped_${card.id}`}
               zIndex={999}
               isFlipped
             >
@@ -44,7 +47,7 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
         <CardFlippable
           disabled={true}
           className={`${index > 0 ? "cardContainerColumns" : ""}`}
-          key={`columnPile_${card.id}`}
+          key={`${columnId}_flippable_${card.id}`}
           image={card.image}
           zIndex={999}
         />

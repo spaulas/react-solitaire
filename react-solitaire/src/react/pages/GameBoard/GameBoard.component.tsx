@@ -119,11 +119,14 @@ function GameBoard() {
   };
 
   // handle a deck exchange
-  useEffect(() => {
+  const removeDeckCard = () => {
     if (sendBack === false) {
-      deckActions.popFlippedCard();
+      dispatch(deckActions.removeFlippedCard());
+      dispatch(columnsActions.resetCardDragging());
     }
-  }, [sendBack]);
+  };
+  // when the sendBack card changes, check if it is false
+  useEffect(removeDeckCard, [sendBack]);
 
   // create drop reference and associate functions
   const [, drop] = useDrop({
