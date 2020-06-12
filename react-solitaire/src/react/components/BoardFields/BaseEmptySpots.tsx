@@ -7,6 +7,9 @@ import { RootReducerState } from "../../../global";
 import _debounce from "lodash.debounce";
 import deckActions from "../../../redux/deck/deck.actions";
 
+/**
+ * Base Layout with all the empty card spots
+ */
 function BaseEmptySpots() {
   const dispatch = useDispatch();
   // get refs from redux
@@ -56,6 +59,7 @@ function BaseEmptySpots() {
       <Row gutter={6} className="boardDeckRow" align="middle">
         {/* Deck and Flipped piles */}
         <CardSpot ref={deckRef} offset={2} className="deckCardSpot">
+          {/* Button to reset deck */}
           <Button
             className="redoDeckButton"
             onClick={() => dispatch(deckActions.resetDeck())}

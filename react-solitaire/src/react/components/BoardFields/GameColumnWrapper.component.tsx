@@ -1,11 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-console */
-import ColumnPile from "../Piles/ColumnPile.component";
+import { ColumnPile } from "../Piles/Piles.items";
 import React from "react";
 import { RootReducerState } from "../../../global";
 import { Row } from "antd";
 import { useSelector } from "react-redux";
 
+/**
+ * Component that unites all the column piles
+ */
 function GameColumnWrapper() {
   // get piles from redux
   const {
