@@ -60,9 +60,7 @@ function DraggableCard({ card, nCards, index = 0 }: DraggableCardProps) {
       isFlipped
     >
       <CardImage
-        additionalClassName={
-          isDragging ? "cardIsDragging" : "cardIsNotDragging"
-        }
+        additionalClassName={isDragging ? "cardIsDragging" : ""}
         directory="CardsFaces"
         image={card.image}
       />
