@@ -60,7 +60,12 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
 
     case DeckActionTypes.RESET_DECK:
       // set the deck pile to have the flipped pile cards and reset the flipped pile
-      return { ...state, deckPile: state.flippedPile, flippedPile: [] };
+      return {
+        ...state,
+        deckPile: state.flippedPile.reverse(),
+        translationY: state.flippedPile.length,
+        flippedPile: []
+      };
 
     // ********************************************************
     // DRAGGING ACTIONS
@@ -83,8 +88,6 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
     case DeckActionTypes.REMOVE_FLIPPED_CARD:
       const tempFlipped = [...state.flippedPile];
       tempFlipped.splice(-1, 1);
-      // eslint-disable-next-line no-console
-      console.log("tempFlipped = ", tempFlipped);
       return {
         ...state,
         flippedPile: tempFlipped
