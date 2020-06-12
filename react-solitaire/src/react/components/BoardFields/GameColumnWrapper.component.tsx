@@ -24,42 +24,13 @@ function GameColumnWrapper() {
 
   return (
     <Row gutter={6} className="gameColumnsRow" align="middle">
-      <ColumnPile
-        columnId="column1Pile"
-        columnCards={column1Pile}
-        offset={2}
-        onMouseOver={() => null}
-      />
-      <ColumnPile
-        columnId="column2Pile"
-        columnCards={column2Pile}
-        onMouseOver={() => null}
-      />
-      <ColumnPile
-        columnId="column3Pile"
-        columnCards={column3Pile}
-        onMouseOver={() => null}
-      />
-      <ColumnPile
-        columnId="column4Pile"
-        columnCards={column4Pile}
-        onMouseOver={() => null}
-      />
-      <ColumnPile
-        columnId="column5Pile"
-        columnCards={column5Pile}
-        onMouseOver={() => null}
-      />
-      <ColumnPile
-        columnId="column6Pile"
-        columnCards={column6Pile}
-        onMouseOver={() => null}
-      />
-      <ColumnPile
-        columnId="column7Pile"
-        columnCards={column7Pile}
-        onMouseOver={() => null}
-      />
+      <ColumnPile columnId="column1Pile" columnCards={column1Pile} offset={2} />
+      <ColumnPile columnId="column2Pile" columnCards={column2Pile} />
+      <ColumnPile columnId="column3Pile" columnCards={column3Pile} />
+      <ColumnPile columnId="column4Pile" columnCards={column4Pile} />
+      <ColumnPile columnId="column5Pile" columnCards={column5Pile} />
+      <ColumnPile columnId="column6Pile" columnCards={column6Pile} />
+      <ColumnPile columnId="column7Pile" columnCards={column7Pile} />
     </Row>
   );
 }

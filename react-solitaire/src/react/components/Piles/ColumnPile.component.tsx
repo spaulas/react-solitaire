@@ -13,15 +13,9 @@ interface ColumnPileProps {
   offset?: number;
   columnCards: Array<CardType>;
   columnId: string;
-  onMouseOver: () => void;
 }
 
-function ColumnPile({
-  offset,
-  columnCards,
-  columnId,
-  onMouseOver
-}: ColumnPileProps) {
+function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
   const onGrab = (e: RefAny, index: number) => {
     /* const diff = columnCards.length - index;
     const position = e.currentTarget.getBoundingClientRect();
@@ -77,7 +71,7 @@ function ColumnPile({
   };
   return (
     <Col id={columnId} span={3} offset={offset} className="deckPile">
-      <div onMouseOver={onMouseOver} className="columnPile">
+      <div className="columnPile">
         <div className="cardPileContainer">{getCards()}</div>
       </div>
     </Col>
