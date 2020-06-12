@@ -1,7 +1,7 @@
 import React, { forwardRef, memo, useState } from "react";
 import CardFrame from "./CardFrame.component";
 import CardImage from "./CardImage.component";
-import { RefAny } from "../../../global";
+import { ExplicitAny } from "../../../global";
 
 /**
  * Component that adds to the card the possibility to flip and/or translate
@@ -24,7 +24,7 @@ function CardFlippable(
     zIndex?: number;
     disabled?: boolean;
   },
-  ref: RefAny
+  ref: ExplicitAny
 ) {
   const [cardFlipped, setCardFlipped] = useState(false);
   const [animationStyle, setAnimationStyle] = useState({});

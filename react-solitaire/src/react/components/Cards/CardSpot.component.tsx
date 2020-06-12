@@ -1,7 +1,7 @@
 import React, { ReactNode, forwardRef, memo } from "react";
 import CardFrame from "./CardFrame.component";
 import { Col } from "antd";
-import { RefAny } from "../../../global";
+import { ExplicitAny } from "../../../global";
 
 interface CardSpotProps {
   cardContainerColumns?: string; // additional className to the CardFrame container
@@ -15,7 +15,7 @@ interface CardSpotProps {
  */
 function CardSpot(
   { offset, className = "", cardContainerColumns, children }: CardSpotProps,
-  ref: RefAny
+  ref: ExplicitAny
 ) {
   return (
     <Col span={3} offset={offset} className="cardSpotCol">

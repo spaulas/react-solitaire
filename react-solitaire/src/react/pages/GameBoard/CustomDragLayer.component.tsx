@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import { CardFrame, CardImage } from "../../components/Cards/Cards.items";
-import { RefAny, RootReducerState } from "../../../global";
+import { ExplicitAny, RootReducerState } from "../../../global";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import React from "react";
 import { SimplePile } from "../../components/Piles/Piles.items";
@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 const CustomDragLayer = () => {
   // get necessary properties from the drag layer hook function
   const { itemType, isDragging, initialOffset, currentOffset } = useDragLayer(
-    (monitor: RefAny) => ({
+    (monitor: ExplicitAny) => ({
       item: monitor.getItem(),
       itemType: monitor.getItemType(),
       initialOffset: monitor.getInitialSourceClientOffset(),

@@ -8,11 +8,11 @@ import {
 } from "./deck.utils";
 import { ActionsCreators } from "./deck.actions";
 import DeckActionTypes from "./deck.types";
-import { RefAny } from "../../global";
+import { ExplicitAny } from "../../global";
 
 interface InitialDeck {
-  deckRef: RefAny;
-  flippedRef: RefAny;
+  deckRef: ExplicitAny;
+  flippedRef: ExplicitAny;
   deckPile: Array<CardType>;
   flippedPile: Array<CardType>;
   translationX: number;

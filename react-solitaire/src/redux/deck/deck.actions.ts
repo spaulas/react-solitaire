@@ -1,4 +1,4 @@
-import { RefAny, ValueOf } from "../../global";
+import { ExplicitAny, ValueOf } from "../../global";
 import { CardType } from "../gameBoard/gameBoard.types";
 import DeckActionTypes from "./deck.types";
 
@@ -19,7 +19,7 @@ const setInitialDeck = (deckPile: Array<CardType>) => ({
  * @param deckRef
  * @param flippedRef
  */
-const setRefs = (deckRef: RefAny, flippedRef: RefAny) => ({
+const setRefs = (deckRef: ExplicitAny, flippedRef: ExplicitAny) => ({
   type: DeckActionTypes.SET_REFS,
   deckRef,
   flippedRef

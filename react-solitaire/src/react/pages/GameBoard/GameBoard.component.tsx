@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   BoardEmptySpots,
   GameColumnWrapper,
@@ -7,8 +5,8 @@ import {
   GamePlayInfo,
   GameTopRow
 } from "../../components/BoardFields/BoardFields.items";
+import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { memo, useEffect, useRef } from "react";
-import { RefAny, RootReducerState } from "../../../global";
 import { useDispatch, useSelector } from "react-redux";
 import CustomDragLayer from "./CustomDragLayer.component";
 import columnsActions from "../../../redux/columns/columns.actions";
@@ -20,8 +18,8 @@ function GameBoard() {
   const dispatch = useDispatch();
 
   // create refs for the deck and flipped piles
-  const deckRef: RefAny = useRef();
-  const flippedRef: RefAny = useRef();
+  const deckRef: ExplicitAny = useRef();
+  const flippedRef: ExplicitAny = useRef();
 
   const {
     deckPile,
@@ -82,7 +80,7 @@ function GameBoard() {
   // triggers the call of the setCardType function when the deckPile is changed (and therefore, all the other columns as well)
   useEffect(setCardType, [deckPile]);
 
-  const getColumnToDrop = ({ x, y }: any) => {
+  const getColumnToDrop = ({ x, y }: ExplicitAny) => {
     const innerWidth = window.innerWidth;
 
     const columnSizes = innerWidth / 7;
@@ -91,7 +89,7 @@ function GameBoard() {
     return `column${columnNumber || 1}Pile`;
   };
 
-  const onDrop = (card: any, monitor: any) => {
+  const onDrop = (card: ExplicitAny, monitor: ExplicitAny) => {
     const columnDropedTo = getColumnToDrop(monitor.getClientOffset());
     const finalColumn = document.getElementById(columnDropedTo);
     finalColumn?.setAttribute(

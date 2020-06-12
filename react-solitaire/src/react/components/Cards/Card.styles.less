@@ -1,4 +1,4 @@
-// ------------------------
+// ----------------------------------
 // CardFlippable
 .cardFlipContainer {
   width: 100%;
@@ -25,22 +25,7 @@
   transform: rotateY(180deg);
 }
 
-.cardDefault {
-  border: @cardBorderWidth solid @primaryColor;
-  border-radius: @cardBorderRadiusOut;
-  cursor: pointer;
-  box-shadow: 1px 1px 4px grey;
-  background-color: white;
-}
-
-.cardImage {
-  width: 100%;
-  height: 100%;
-  border-radius: @cardBorderRadiusIn;
-  background-color: white;
-}
-
-// ------------------------
+// ----------------------------------
 // CardFrame
 .cardContainer {
   height: 200px;
@@ -68,7 +53,24 @@
   margin: 5px;
 }
 
-// ------------------------
+// ----------------------------------
+// CardImage
+.cardDefault {
+  border: @cardBorderWidth solid @primaryColor;
+  border-radius: @cardBorderRadiusOut;
+  cursor: pointer;
+  box-shadow: 1px 1px 4px grey;
+  background-color: white;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  border-radius: @cardBorderRadiusIn;
+  background-color: white;
+}
+
+// ----------------------------------
 // CardSpot
 .cardSpotCol {
   z-index: 0;

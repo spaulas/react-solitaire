@@ -1,5 +1,5 @@
 import React, { ReactNode, forwardRef, memo } from "react";
-import { RefAny } from "../../../global";
+import { ExplicitAny } from "../../../global";
 
 interface CardFrameProps {
   cardContainerClassName?: string; // additional classname for the container
@@ -20,7 +20,7 @@ function CardFrame(
     isFlipped,
     children
   }: CardFrameProps,
-  ref: RefAny
+  ref: ExplicitAny
 ) {
   return (
     <div
