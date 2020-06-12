@@ -7,12 +7,12 @@ interface CardImageProps {
   onClick?: () => void;
 }
 
-const CardImage = ({
+function CardImage({
   image = "flowers.png",
   directory,
   additionalClassName = "",
   onClick
-}: CardImageProps) => {
+}: CardImageProps) {
   const handleOnClick = () => {
     if (typeof onClick === "function") {
       onClick();
@@ -31,6 +31,6 @@ const CardImage = ({
       />
     </div>
   );
-};
+}
 
 export default CardImage;

@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 /**
  * Custom "layer" for the drag event
  */
-const CustomDragLayer = () => {
+function CustomDragLayer() {
   // get necessary properties from the drag layer hook function
   const { itemType, isDragging, initialOffset, currentOffset } = useDragLayer(
     (monitor: ExplicitAny) => ({
@@ -94,6 +94,6 @@ const CustomDragLayer = () => {
       </div>
     </div>
   );
-};
+}
 
 export default CustomDragLayer;

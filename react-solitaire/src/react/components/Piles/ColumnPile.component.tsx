@@ -17,7 +17,7 @@ interface ColumnPileProps {
 /**
  * Component that renders a column of cards, some are hidden and some are flipped
  */
-const ColumnPile = ({ offset, columnCards, columnId }: ColumnPileProps) => {
+function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
   // renders cards components accordingly if it is flipped or not
   const getCards = () => {
     const cardsArray = columnCards.map((card: CardType, index: number) => {
@@ -64,6 +64,6 @@ const ColumnPile = ({ offset, columnCards, columnId }: ColumnPileProps) => {
       insideClassName="columnPile"
     />
   );
-};
+}
 
 export default ColumnPile;

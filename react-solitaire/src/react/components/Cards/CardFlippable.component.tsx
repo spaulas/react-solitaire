@@ -3,6 +3,16 @@ import CardFrame from "./CardFrame.component";
 import CardImage from "./CardImage.component";
 import { ExplicitAny } from "../../../global";
 
+interface CardFlippableProps {
+  className?: string; // additional classname for the cardframe
+  translationX?: number; // flip with x translation
+  translationY?: number; // flip with y translation
+  removeCard?: () => void; // function called after the movement
+  image: string; // image of the card
+  zIndex?: number; // zIndex to add
+  disabled?: boolean; // if disabled, cannot flip
+}
+
 /**
  * Component that adds to the card the possibility to flip and/or translate
  */
@@ -15,15 +25,7 @@ function CardFlippable(
     image,
     disabled,
     zIndex
-  }: {
-    className?: string;
-    translationX?: number;
-    translationY?: number;
-    removeCard?: () => void;
-    image: string;
-    zIndex?: number;
-    disabled?: boolean;
-  },
+  }: CardFlippableProps,
   ref: ExplicitAny
 ) {
   const [cardFlipped, setCardFlipped] = useState(false);

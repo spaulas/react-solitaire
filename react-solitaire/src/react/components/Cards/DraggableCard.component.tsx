@@ -17,7 +17,7 @@ interface DraggableCardProps {
 /**
  * Component that adds the drag functionality to a card and the cards bellow it
  */
-const DraggableCard = ({ card, nCards, children }: DraggableCardProps) => {
+function DraggableCard({ card, nCards, children }: DraggableCardProps) {
   const dispatch = useDispatch();
 
   // useDrag will be responsible for making an element draggable. It also expose, isDragging method to add any styles while dragging
@@ -51,6 +51,6 @@ const DraggableCard = ({ card, nCards, children }: DraggableCardProps) => {
         ref: drag
       })
     : null;
-};
+}
 
 export default DraggableCard;

@@ -9,7 +9,7 @@ import deckActions from "../../../redux/deck/deck.actions";
 /**
  * Component that consists of a pile (3d) of unflipped cards that can be flipped one by one (with a translation)
  */
-const DeckPile = () => {
+function DeckPile() {
   const dispatch = useDispatch();
   // get piles from redux
   const { deckPile, translationX, translationY } = useSelector(
@@ -53,6 +53,6 @@ const DeckPile = () => {
       insideClassName="cardPile"
     />
   );
-};
+}
 
 export default memo(forwardRef(DeckPile));

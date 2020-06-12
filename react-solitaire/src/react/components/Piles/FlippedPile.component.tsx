@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 /**
  * Component that consists of a pile (3d) of flipped cards that can be dragged
  */
-const FlippedPile = () => {
+function FlippedPile() {
   // get piles from redux
   const { flippedPile /* cardDragging */ } = useSelector(
     ({ Deck }: RootReducerState) => ({
@@ -38,6 +38,6 @@ const FlippedPile = () => {
       pileClassName="cardPile"
     />
   );
-};
+}
 
 export default memo(forwardRef(FlippedPile));

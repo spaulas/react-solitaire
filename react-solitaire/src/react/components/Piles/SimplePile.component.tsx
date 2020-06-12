@@ -12,13 +12,13 @@ interface SimplePileProps {
 /**
  * Component that simply distributes the cards as a column, depending on the classnames provided, the result could be either a deck or a column
  */
-const SimplePile = ({
+function SimplePile({
   getCards,
   pileId,
   offset,
   pileClassName = "",
   insideClassName = ""
-}: SimplePileProps) => {
+}: SimplePileProps) {
   return (
     <Col id={pileId} span={3} offset={offset} className={pileClassName}>
       <div className={insideClassName}>
@@ -26,6 +26,6 @@ const SimplePile = ({
       </div>
     </Col>
   );
-};
+}
 
 export default SimplePile;
