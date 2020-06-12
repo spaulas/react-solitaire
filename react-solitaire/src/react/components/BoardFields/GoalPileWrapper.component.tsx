@@ -7,10 +7,10 @@ import React from "react";
 function GoalPileWrapper() {
   return (
     <>
-      <GoalPile offset={3} />
-      <GoalPile />
-      <GoalPile />
-      <GoalPile />
+      <GoalPile goalId="goal1Pile" offset={3} />
+      <GoalPile goalId="goal2Pile" />
+      <GoalPile goalId="goal3Pile" />
+      <GoalPile goalId="goal4Pile" />
     </>
   );
 }
