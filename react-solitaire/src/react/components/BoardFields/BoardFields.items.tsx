@@ -4,8 +4,7 @@ import GameColumnWrapper from "./GameColumnWrapper.component";
 import GameOptions from "./GameOptions.component";
 import GamePlayInfo from "./GamePlayInfo.component";
 import GameTopRow from "./GameTopRow.component";
-import GoalSpot from "./GoalSpot.component";
-import GoalSpotWrapper from "./GoalSpotWrapper.component";
+import GoalPileWrapper from "./GoalPileWrapper.component";
 
 export {
   BoardEmptySpots,
@@ -14,6 +13,5 @@ export {
   GameOptions,
   GamePlayInfo,
   GameTopRow,
-  GoalSpot,
-  GoalSpotWrapper
+  GoalPileWrapper
 };
