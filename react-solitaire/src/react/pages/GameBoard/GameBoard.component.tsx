@@ -21,6 +21,7 @@ function GameBoard() {
   const deckRef: ExplicitAny = useRef();
   const flippedRef: ExplicitAny = useRef();
 
+  // get all necessary elements from redux
   const {
     deckPile,
     column1Pile,
@@ -48,6 +49,9 @@ function GameBoard() {
     cardDraggingPosition:
       Columns.cardDraggingPosition || Deck.cardDraggingPosition
   }));
+
+  // ---------------------------------------------------------
+  // Create Game
 
   // when the component mounts, create a new random game
   const mountGameBoard = () => {
@@ -80,6 +84,10 @@ function GameBoard() {
   // triggers the call of the setCardType function when the deckPile is changed (and therefore, all the other columns as well)
   useEffect(setCardType, [deckPile]);
 
+  // ---------------------------------------------------------
+  // Handle Drop
+
+  // get the column the card was dropped to
   const getColumnToDrop = ({ x, y }: ExplicitAny) => {
     const innerWidth = window.innerWidth;
 
@@ -89,34 +97,41 @@ function GameBoard() {
     return `column${columnNumber || 1}Pile`;
   };
 
+  // handle the drop of a card
   const onDrop = (card: ExplicitAny, monitor: ExplicitAny) => {
+    // get the id of the column the card is going to
     const columnDropedTo = getColumnToDrop(monitor.getClientOffset());
-    const finalColumn = document.getElementById(columnDropedTo);
-    finalColumn?.setAttribute(
-      "style",
-      "transition: transform 0.2s; transform: scale(1);"
-    );
+
+    // if it was a deck move
     if (isDeck) {
+      // call the column action that adds the dragging cards to the column
       dispatch(
         columnsActions.addDraggingCardsToColumn(cardDragging, columnDropedTo)
       );
+      // then reset the values at the deck redux
       dispatch(deckActions.resetCardDragging());
     } else {
+      // if it was a column swap, then swap the cards from one column to the other
       dispatch(columnsActions.swapColumns(columnDropedTo));
+      // then reset
       dispatch(columnsActions.resetCardDragging());
     }
   };
 
-  const [, drop] = useDrop({
-    accept: "cardframe",
-    drop: onDrop
-  });
-
+  // handle a deck exchange
   useEffect(() => {
     if (sendBack === false) {
       deckActions.popFlippedCard();
     }
   }, [sendBack]);
+
+  // create drop reference and associate functions
+  const [, drop] = useDrop({
+    accept: "cardframe",
+    drop: onDrop
+  });
+
+  // ---------------------------------------------------------
 
   return (
     <div className="gameBoard" ref={drop}>
