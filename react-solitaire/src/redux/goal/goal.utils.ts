@@ -62,12 +62,25 @@ export const addToGoal = (
       finalGoal.push({ ...card, flipped: true, cardField: finalId })
     );
 
+    const goalKeys = Object.keys(goals);
+
+    // it stops at the first comparison that is true, so it does not check the other piles without need
+    // since the game is only over when all the four piles are full
+    const gameOver = !goalKeys.some((key: string) => {
+      if (finalId === key) {
+        // because it was not added yet
+        return goals[key].length + 1 < 13;
+      }
+      return goals[key].length < 13;
+    });
+
     // returns the changes in the destination column and, since the movement was valid, there is no need to send them back
     return {
       goals: { ...goals, [finalId]: finalGoal },
       cardDragging: undefined,
       cardDraggingGoal: undefined,
-      sendBack: false
+      sendBack: false,
+      gameOver
     };
   }
 

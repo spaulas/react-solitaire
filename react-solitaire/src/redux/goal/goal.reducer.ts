@@ -13,6 +13,7 @@ export interface InitialGoal {
   };
   cardDragging?: Array<CardType>;
   cardDraggingGoal?: string;
+  gameOver: boolean;
 }
 
 const INITIAL_GOAL: InitialGoal = {
@@ -23,7 +24,8 @@ const INITIAL_GOAL: InitialGoal = {
     goal4Pile: []
   },
   cardDragging: undefined,
-  cardDraggingGoal: undefined
+  cardDraggingGoal: undefined,
+  gameOver: false
 };
 
 const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
