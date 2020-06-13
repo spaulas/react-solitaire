@@ -30,7 +30,8 @@ function FlippedPile() {
     <SimplePile
       pileId="flippedPile"
       getCards={getCards}
-      pileClassName="cardPile"
+      pileClassName="deckPile flippedPile"
+      insideClassName="columnPile"
     />
   );
 }

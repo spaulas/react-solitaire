@@ -28,19 +28,16 @@ function GoalPile({ goalId, offset }: GoalPileProps) {
     return cardsArray;
   };
 
-  if (goalPile.length > 0) {
-    // return a pile of flipped cards
-    return (
-      <SimplePile
-        offset={offset}
-        pileId={goalId}
-        getCards={getCards}
-        pileClassName="cardPile"
-      />
-    );
-  }
-  // has to return something, to "fill" the space
-  return <CardSpot offset={offset} />;
+  // return a pile of flipped cards
+  return (
+    <SimplePile
+      offset={offset}
+      pileId={goalId}
+      getCards={getCards}
+      pileClassName="deckPile flippedPile"
+      insideClassName="columnPile"
+    />
+  );
 }
 
 export default memo(forwardRef(GoalPile));
