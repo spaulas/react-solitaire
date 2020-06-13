@@ -4,6 +4,7 @@ import { CardType, cardsConfigurations } from "./gameBoard.types";
 // part of the CardType interface
 interface RawCardType {
   cardColor: CardType["cardColor"];
+  cardSuit: string;
   cardNumber: CardType["cardNumber"];
   image: CardType["image"];
 }
@@ -62,6 +63,7 @@ export const getAllCards = () => {
     for (let j = 1; j <= 13; j++) {
       cards.push({
         cardColor: i < 2 ? "red" : "black", // for i = 0 and i = 1, the suits are red, the are two are black
+        cardSuit: suits[i],
         cardNumber: j,
         image: `${suits[i]}/${suits[i].toLowerCase()}${
           j < 10 ? `0${j}` : j

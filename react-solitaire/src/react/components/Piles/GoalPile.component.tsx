@@ -1,5 +1,4 @@
 import React, { forwardRef, memo } from "react";
-import { CardSpot } from "../Cards/Cards.items";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import DraggableCard from "../Cards/DraggableCard.component";
 import { RootReducerState } from "../../../global";

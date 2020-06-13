@@ -21,6 +21,7 @@ export interface CardType {
   image: string; // image associated with the card
   flipped?: boolean; // when true, the face of the card is shown
   cardColor: "red" | "black"; // color of the suit
+  cardSuit: string;
   cardNumber: number; // actual number of the card, goes from 1 to 13
   cardField: string;
 }

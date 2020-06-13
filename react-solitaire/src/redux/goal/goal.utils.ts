@@ -29,7 +29,7 @@ export const isValidMovement = (firstCard: CardType, finalCard: CardType) => {
   }
 
   // if the cards have different colors, then return false
-  if (firstCard.cardColor !== finalCard.cardColor) {
+  if (firstCard.cardSuit.indexOf(finalCard.cardSuit) !== 0) {
     return false;
   }
   // if the card being added has a number that is not one value higher, then return false
