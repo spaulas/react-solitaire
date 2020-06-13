@@ -58,11 +58,10 @@ function DraggableCard({ card, nCards, index = 0 }: DraggableCardProps) {
   // on component did mount, call the getPreviewImage function
   useEffect(getPreviewImage, []);
 
-  // a card should be hidden, if it is dragging or if it is from the column that the cards are being dragged from
+  // a card should be hidden, if it is dragging or if it is inside the cardDragging array
   const hideCard =
     isDragging ||
-    (card.cardField !== "deckPile" &&
-      cardDragging[0]?.cardField === card.cardField);
+    (card.cardField.indexOf("column") === 0 && cardDragging.includes(card));
 
   // return the card component with the ref of the drag event
   return (
