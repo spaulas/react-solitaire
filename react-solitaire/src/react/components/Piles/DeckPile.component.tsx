@@ -49,8 +49,8 @@ function DeckPile() {
       pileId="deckPile"
       getCards={getCards}
       offset={2}
-      pileClassName="deckPile"
-      insideClassName="cardPile"
+      pileClassName="deckPileIndex flippedPile"
+      insideClassName="columnPile"
     />
   );
 }
