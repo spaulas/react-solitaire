@@ -119,7 +119,6 @@ function GameBoard() {
   const onDrop = (card: ExplicitAny, monitor: ExplicitAny) => {
     // get the id of the column the card is going to
     const columnDropedTo = getColumnToDrop(monitor.getClientOffset());
-    console.log("columnDropedTo = ", columnDropedTo);
 
     if (!!columnDropedTo) {
       // if the card came from the deck

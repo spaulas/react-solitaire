@@ -11,7 +11,7 @@ function NewGameButton() {
   return (
     <Popconfirm
       placement="top"
-      title="Are you sure you want to start a new game?"
+      title="This game will be considered a lost. Are you sure you want to start a new game?"
       onConfirm={() => dispatch(gameBoardActions.createGame())}
       okText="Yes"
       cancelText="No"
