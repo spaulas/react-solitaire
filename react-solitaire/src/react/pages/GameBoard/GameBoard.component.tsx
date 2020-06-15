@@ -38,8 +38,7 @@ function GameBoard() {
     isDeck,
     isGoal,
     sendBack,
-    sendBackGoal,
-    sendBackDeck
+    sendBackGoal
   } = useSelector(({ GameBoard, Columns, Deck, Goal }: RootReducerState) => ({
     deckPile: GameBoard.deckPile,
     column1Pile: GameBoard.column1Pile,
@@ -53,7 +52,6 @@ function GameBoard() {
     isGoal: !!Goal.cardDragging,
     sendBack: Columns.sendBack,
     sendBackGoal: Goal.sendBack,
-    sendBackDeck: Deck.sendBack,
     cardDragging: Columns.cardDragging || Deck.cardDragging || Goal.cardDragging
   }));
 
@@ -121,6 +119,7 @@ function GameBoard() {
   const onDrop = (card: ExplicitAny, monitor: ExplicitAny) => {
     // get the id of the column the card is going to
     const columnDropedTo = getColumnToDrop(monitor.getClientOffset());
+    console.log("columnDropedTo = ", columnDropedTo);
 
     if (!!columnDropedTo) {
       // if the card came from the deck
@@ -143,8 +142,24 @@ function GameBoard() {
         dispatch(deckActions.resetCardDragging());
       } else if (isGoal) {
         // if the cards came from the goal piles
-        console.log("IS GOAL!");
-        // should handle go to column and go to another goal pile
+        // should handle go to column
+        if (columnDropedTo.indexOf("column") === 0) {
+          // call the column action that adds the dragging cards to the column
+          dispatch(
+            columnsActions.addDraggingCardsToColumn(
+              cardDragging,
+              columnDropedTo
+            )
+          );
+        } else {
+          // and go to another goal pile
+          // call the goal action that adds the dragging cards to the goal
+
+          // if it was a column swap, then swap the cards from one column to the other
+          dispatch(goalActions.swapGoals(columnDropedTo));
+          // then reset
+          dispatch(goalActions.resetCardDragging());
+        }
       } else {
         if (columnDropedTo.indexOf("column") === 0) {
           // if it was a column swap, then swap the cards from one column to the other
@@ -159,12 +174,20 @@ function GameBoard() {
         }
       }
     }
+    // if it dropped in an invalid place, then it should return the cards to the original spot
+    else {
+      console.log("RETURN INVALID");
+    }
   };
 
   // handle a deck exchange
   const removeDeckCard = () => {
     if (sendBack === false) {
-      dispatch(deckActions.removeFlippedCard());
+      if (isDeck) {
+        dispatch(deckActions.removeFlippedCard());
+      } else {
+        dispatch(goalActions.removeGoalCard());
+      }
       dispatch(columnsActions.resetCardDragging());
     }
   };

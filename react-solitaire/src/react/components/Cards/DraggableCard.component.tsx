@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +8,7 @@ import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import columnActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import { getEmptyImage } from "react-dnd-html5-backend";
+import goalActions from "../../../redux/goal/goal.actions";
 import { useDrag } from "react-dnd";
 const type = "cardframe";
 
@@ -41,12 +43,20 @@ function DraggableCard({ card, nCards, index = 0 }: DraggableCardProps) {
 
   // function called when a card starts being dragged
   const onDrag = (card: CardType) => {
-    // if it is a card from the deck pile, then call the deck action that saves what is being dragged
-    if (card.cardField === "deckPile") {
-      dispatch(deckActions.dragFlippedCard());
-    } else {
-      // if it is a card from the dolumns, then call the column action that saves what is being dragged
-      dispatch(columnActions.dragColumnCards(nCards, card.cardField));
+    switch (card.cardField) {
+      case "deckPile":
+        dispatch(deckActions.dragFlippedCard());
+        break;
+      case "goal1Pile":
+      case "goal2Pile":
+      case "goal3Pile":
+      case "goal4Pile":
+        // if it is a card from the columns, then call the column action that saves what is being dragged
+        dispatch(goalActions.dragGoalCards(card.cardField));
+        break;
+      default:
+        // if it is a card from the columns, then call the column action that saves what is being dragged
+        dispatch(columnActions.dragColumnCards(nCards, card.cardField));
     }
   };
 

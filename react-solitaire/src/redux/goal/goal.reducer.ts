@@ -1,7 +1,8 @@
 /* eslint-disable indent */
-import { addToGoal, setCardDragging } from "./goal.utils";
+import { addToGoal, setCardDragging, swapGoals } from "./goal.utils";
 import { ActionsCreators } from "./goal.actions";
 import { CardType } from "../gameBoard/gameBoard.types";
+import { ExplicitAny } from "../../global";
 import GoalActionTypes from "./goal.types";
 
 export interface InitialGoal {
@@ -30,6 +31,18 @@ const INITIAL_GOAL: InitialGoal = {
 
 const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
   switch (action.type) {
+    // ********************************************************
+    // SWAPPING ACTIONS
+
+    case GoalActionTypes.SWAP_GOALS:
+      const result = swapGoals(
+        state.goals,
+        state.cardDragging,
+        state.cardDraggingGoal,
+        action.finalId
+      );
+      return { ...state, ...result };
+
     // ********************************************************
     // DRAGGING ACTIONS
 
@@ -64,7 +77,7 @@ const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
 
     case GoalActionTypes.REMOVE_GOAL_CARD:
       const goalPile = [
-        ...(state.goals as any)[state.cardDraggingGoal || "goal1Pile"]
+        ...(state.goals as ExplicitAny)[state.cardDraggingGoal || "goal1Pile"]
       ];
       goalPile.splice(-1, 1);
       return {

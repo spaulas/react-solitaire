@@ -3,6 +3,19 @@ import GoalActionTypes from "./goal.types";
 import { ValueOf } from "../../global";
 
 // ********************************************************
+// SWAPPING ACTIONS
+
+/**
+ * Swapping N cards from one column to the other
+ * @param finalId id of the destination column
+ * @param nCards number of cards to be swapped
+ */
+const swapGoals = (finalId: string) => ({
+  type: GoalActionTypes.SWAP_GOALS,
+  finalId
+});
+
+// ********************************************************
 // DRAGGING ACTIONS
 
 /**
@@ -45,6 +58,7 @@ const resetCardDragging = () => ({
 // ********************************************************
 
 const actionsCreators = Object.freeze({
+  swapGoals,
   dragGoalCards,
   addDraggingCardsToGoal,
   removeGoalCard,

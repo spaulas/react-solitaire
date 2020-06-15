@@ -42,7 +42,7 @@ export const isValidMovement = (firstCard: CardType, finalCard: CardType) => {
 };
 
 /**
- * Adds the cards being dragged to the destination column
+ * Adds the cards being dragged to the destination goal pile
  * @param goals
  * @param finalId
  * @param cardDragging
@@ -52,12 +52,12 @@ export const addToGoal = (
   finalId: string,
   cardDragging: Array<CardType>
 ) => {
-  // create a copy of the destination column
+  // create a copy of the destination goal pile
   const finalGoal = [...goals[finalId]];
 
   // check if the movement respects the game rules
   if (isValidMovement(cardDragging[0], finalGoal[finalGoal.length - 1])) {
-    // add the swapped cards to the final column
+    // add the swapped cards to the final goal pile
     cardDragging.map((card: CardType) =>
       finalGoal.push({ ...card, flipped: true, cardField: finalId })
     );
@@ -74,7 +74,7 @@ export const addToGoal = (
       return goals[key].length < 13;
     });
 
-    // returns the changes in the destination column and, since the movement was valid, there is no need to send them back
+    // returns the changes in the destination goal pile and, since the movement was valid, there is no need to send them back
     return {
       goals: { ...goals, [finalId]: finalGoal },
       cardDragging: undefined,
@@ -87,5 +87,53 @@ export const addToGoal = (
   // since the movement was invalid, it is necessary to send the card back to the correct place
   return {
     sendBack: true
+  };
+};
+
+export const swapGoals = (
+  goals: Record<string, Array<CardType>>,
+  cardsDragging: Array<CardType> = [],
+  cardInitialGoalId = "goal1Pile",
+  finalId: string
+) => {
+  // create copy of the goal pile the cards come from
+  const initialGoal = [...goals[cardInitialGoalId]];
+  const indexToDelete = initialGoal.length - 1;
+  initialGoal.splice(indexToDelete, 1);
+
+  // create copy of the destination goal pile
+  const finalGoal = [...goals[finalId]];
+  // create copy of the cards that have to be swapped
+  const cardsSwapping = [...cardsDragging];
+
+  // check if the movement respects the rules of the game (compare the first card to add with the last card of the destination goal pile)
+  if (isValidMovement(cardsSwapping[0], finalGoal[finalGoal.length - 1])) {
+    // add the swapped cards to the final goal pile
+    cardsSwapping.map((card: CardType) =>
+      finalGoal.push({ ...card, cardField: finalId })
+    );
+
+    // no changes were made in the initial goal pile, so simply return the changes in the final goal pile
+    return {
+      goals: {
+        ...goals,
+        [finalId]: finalGoal,
+        [cardInitialGoalId]: initialGoal,
+        sendBack: false
+      }
+    };
+  }
+
+  // if the movement was invalid, then put the card back in the initial goal pile
+  cardsSwapping.map((card: CardType) => initialGoal.push(card));
+
+  // no changes were made in the final goal pile, so simply return the changes in the initial goal pile
+  return {
+    goals: {
+      ...goals,
+      [cardInitialGoalId]: initialGoal,
+      cardsDragging: undefined,
+      sendBack: true
+    }
   };
 };
