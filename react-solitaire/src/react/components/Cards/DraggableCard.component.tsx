@@ -79,7 +79,6 @@ function DraggableCard({ card, nCards, index = 0 }: DraggableCardProps) {
       ref={drag}
       cardContainerClassName={`${index > 0 ? "cardContainerColumns" : ""}`}
       zIndex={999}
-      isFlipped
     >
       <CardImage
         additionalClassName={hideCard ? "cardIsDragging" : ""}

@@ -5,7 +5,6 @@ interface CardFrameProps {
   cardContainerClassName?: string; // additional classname for the container
   cardContentClassName?: string; // additional classname for the content
   zIndex?: number; // z-index to be applied
-  isFlipped?: boolean; // true if card is flipped
   children?: ReactNode; // children
 }
 
@@ -17,18 +16,12 @@ function CardFrame(
     cardContainerClassName = "",
     cardContentClassName = "",
     zIndex = 1,
-    isFlipped,
     children
   }: CardFrameProps,
   ref: ExplicitAny
 ) {
   return (
-    <div
-      ref={ref}
-      className={`cardContainer ${
-        isFlipped ? "cardContainerFlipped" : ""
-      } ${cardContainerClassName}`}
-    >
+    <div ref={ref} className={`cardContainer ${cardContainerClassName}`}>
       {/* eslint-disable-next-line react/forbid-dom-props */}
       <div className="cardAspectRatio" style={{ zIndex }}>
         <div className={`cardContent ${cardContentClassName}`}>{children}</div>

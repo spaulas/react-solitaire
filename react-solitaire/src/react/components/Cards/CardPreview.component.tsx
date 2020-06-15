@@ -20,7 +20,7 @@ function CardPreview({ card }: CardPreviewProps) {
   return (
     // eslint-disable-next-line react/forbid-dom-props
     <div style={styles}>
-      <CardFrame zIndex={5} isFlipped>
+      <CardFrame zIndex={5}>
         <CardImage directory="CardsFaces" image={card.image} />
       </CardFrame>
     </div>

@@ -74,7 +74,7 @@ export const getTranslationY = ({
   const nFlippedCards = flippedPile.length;
 
   // get the difference
-  const diffCards = nDeckCards - nFlippedCards * 2;
+  const diffCards = nDeckCards - nFlippedCards;
 
   return diffCards;
 };
