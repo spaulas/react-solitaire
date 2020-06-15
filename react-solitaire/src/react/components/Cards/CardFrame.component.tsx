@@ -1,20 +1,30 @@
 import React, { ReactNode, forwardRef, memo } from "react";
-import { RefAny } from "../../../global";
+import { ExplicitAny } from "../../../global";
 
 interface CardFrameProps {
-  className?: string;
-  offset?: number;
-  children?: ReactNode;
+  cardContainerClassName?: string; // additional classname for the container
+  cardContentClassName?: string; // additional classname for the content
+  zIndex?: number; // z-index to be applied
+  children?: ReactNode; // children
 }
 
+/**
+ * Component that renders the cards with a proper size, adjusting to the screen size
+ */
 function CardFrame(
-  { className, offset, children }: CardFrameProps,
-  ref: RefAny
+  {
+    cardContainerClassName = "",
+    cardContentClassName = "",
+    zIndex = 1,
+    children
+  }: CardFrameProps,
+  ref: ExplicitAny
 ) {
   return (
-    <div ref={ref} className="cardContainer">
-      <div className="cardAspectRatio">
-        <div className={`cardContent ${className}`}>{children}</div>
+    <div ref={ref} className={`cardContainer ${cardContainerClassName}`}>
+      {/* eslint-disable-next-line react/forbid-dom-props */}
+      <div className="cardAspectRatio" style={{ zIndex }}>
+        <div className={`cardContent ${cardContentClassName}`}>{children}</div>
       </div>
     </div>
   );

@@ -1,17 +1,53 @@
+// ----------------------------------
+// Base Empty Spots
+.baseEmptySpots {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.deckCardSpot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.redoDeckButton {
+  background: transparent;
+  border: none;
+  color: white;
+  height: auto;
+  font-size: 50px;
+  transition: transform 0.2s;
+}
+
+.redoDeckButton:hover {
+  transform: scale(1.5);
+}
+
+// ----------------------------------
+// Game Column Wrapper
+.gameColumnsRow {
+  margin: 2% 0 2% 0;
+}
+
+// ----------------------------------
+// Game Options
 .boardOptionsRow {
   padding: 20px;
   position: absolute;
   bottom: 0;
 }
 
-.boardDeckRow {
-  margin: 2% 0 2% 0;
-}
-
-.gameColumnsRow {
-  margin: 2% 0 2% 0;
-}
-
+// ----------------------------------
+// Game Play Info
 .boardInfoRow {
   height: 10%;
+}
+
+// ----------------------------------
+// Game Top Row
+.boardDeckRow {
+  margin: 2% 0 2% 0;
+  height: 200px;
 }

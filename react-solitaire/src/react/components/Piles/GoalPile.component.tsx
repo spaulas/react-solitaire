@@ -5,21 +5,23 @@ import { RootReducerState } from "../../../global";
 import SimplePile from "./SimplePile.component";
 import { useSelector } from "react-redux";
 
+interface GoalPileProps {
+  goalId: string;
+  offset?: number;
+}
+
 /**
  * Component that consists of a pile (3d) of flipped cards that can be dragged
  */
-function FlippedPile() {
+function GoalPile({ goalId, offset }: GoalPileProps) {
   // get piles from redux
-  const { flippedPile /* cardDragging */ } = useSelector(
-    ({ Deck }: RootReducerState) => ({
-      flippedPile: Deck.flippedPile,
-      cardDragging: Deck.cardDragging
-    })
-  );
+  const { goalPile } = useSelector(({ Goal }: RootReducerState) => ({
+    goalPile: Goal.goals[goalId]
+  }));
 
   // renders cards components that can be dragged
   const getCards = () => {
-    const cardsArray = flippedPile.map((card: CardType) => (
+    const cardsArray = goalPile.map((card: CardType) => (
       <DraggableCard card={card} nCards={1} key={card.id} />
     ));
     return cardsArray;
@@ -28,7 +30,8 @@ function FlippedPile() {
   // return a pile of flipped cards
   return (
     <SimplePile
-      pileId="flippedPile"
+      offset={offset}
+      pileId={goalId}
       getCards={getCards}
       pileClassName="deckPile flippedPile"
       insideClassName="columnPile"
@@ -36,4 +39,4 @@ function FlippedPile() {
   );
 }
 
-export default memo(forwardRef(FlippedPile));
+export default memo(forwardRef(GoalPile));

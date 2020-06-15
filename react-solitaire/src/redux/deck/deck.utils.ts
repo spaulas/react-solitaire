@@ -1,18 +1,80 @@
-import { CardsPile } from "./deck.types";
+import { CardType } from "../gameBoard/gameBoard.types";
 
-export const popDeckCard = (
-  deckPile: Array<CardsPile>,
-  flippedPile: Array<CardsPile>,
-  cardId: number
+/**
+ * Flips one deck card to the flipped pile
+ * @param deckPile
+ * @param flippedPile
+ */
+export const flipDeckCard = (
+  deckPile: Array<CardType>,
+  flippedPile: Array<CardType>
 ) => {
-  const cardFlipped = deckPile.find(card => card.id === cardId) as CardsPile;
+  // create copy of the deck pile
   const tempDeckPile = [...deckPile];
-  tempDeckPile.filter(card => card.id !== cardId);
+  // get the top card of the deck pile
+  const cardFlipped = tempDeckPile.pop();
+  // get copy of the flipped pile
   const tempFlippedPile = [...flippedPile];
-  tempFlippedPile.push(cardFlipped);
+
+  // if there was indeed a card to be flipped, then add it to the flipped pile
+  if (cardFlipped) {
+    tempFlippedPile.push(cardFlipped);
+  }
 
   return {
     deckPile: tempDeckPile,
     flippedPile: tempFlippedPile
   };
+};
+
+/**
+ * Gets the top card of the flipped pile
+ * @param flippedPile
+ */
+export const popFlippedCard = (flippedPile: Array<CardType>) => {
+  // create copy of the flipped pile
+  const tempFlippedPile = [...flippedPile];
+  // get the top card
+  const cardFlipped = tempFlippedPile.pop();
+
+  return {
+    cardDragging: [cardFlipped]
+    // flippedPile: tempFlippedPile
+  };
+};
+
+/**
+ * Restore the flipped deck pile that was being dragged
+ * @param card it needs to be an array simply to simplify, because in the columns, more than one card can be dragged at once
+ * @param flippedPile
+ */
+export const restoreFlippedCard = (
+  card: Array<CardType> = [],
+  flippedPile: Array<CardType>
+) => {
+  // add the card back to the flipped pile
+  const tempFlippedPile = [...flippedPile, ...card];
+
+  return { flippedPile: tempFlippedPile };
+};
+
+/**
+ * Gets the current Y translation from the deck pile to the flipped pile
+ * @param pilesObject
+ */
+export const getTranslationY = ({
+  deckPile,
+  flippedPile
+}: {
+  deckPile: Array<CardType>;
+  flippedPile: Array<CardType>;
+}) => {
+  // get the number of cards of each pile
+  const nDeckCards = deckPile.length;
+  const nFlippedCards = flippedPile.length;
+
+  // get the difference
+  const diffCards = nDeckCards - nFlippedCards;
+
+  return diffCards;
 };

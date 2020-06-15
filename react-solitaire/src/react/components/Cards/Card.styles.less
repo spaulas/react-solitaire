@@ -1,8 +1,38 @@
+// ----------------------------------
+// CardFlippable
+.cardFlipContainer {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  perspective: 1000px;
+  position: relative;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.cardFlipFront,
+.cardFlipBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.cardFlipFront {
+  transform: rotateY(180deg);
+}
+
+// ----------------------------------
+// CardFrame
 .cardContainer {
   height: 200px;
   width: 140px;
   max-width: 100%;
   max-height: 100%;
+  margin-top: -1px;
 }
 
 .cardAspectRatio {
@@ -19,9 +49,14 @@
   margin: 5px;
 }
 
-.cardSpot {
-  border: @cardBorderWidth solid white;
+// ----------------------------------
+// CardImage
+.cardDefault {
+  border: @cardBorderWidth solid @primaryColor;
   border-radius: @cardBorderRadiusOut;
+  cursor: pointer;
+  box-shadow: 1px 1px 4px grey;
+  background-color: white;
 }
 
 .cardImage {
@@ -31,56 +66,19 @@
   background-color: white;
 }
 
-.cardDefault {
-  border: @cardBorderWidth solid @primaryColor;
-  border-radius: @cardBorderRadiusOut;
-  cursor: pointer;
-  box-shadow: 1px 1px 4px grey;
-  background-color: white;
-}
-
-.cardFlipContainer {
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  perspective: 1000px;
-  position: relative;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  z-index: 999;
-}
-
-.cardFlipContainerRotate {
-  transform: rotateY(180deg);
-}
-
-.cardFlipFront,
-.cardFlipBack {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-
-.cardFlipFront {
-  transform: rotateY(180deg);
-}
-
-.cardPile {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  bottom: 100px;
-}
-
-.cardPileContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+// ----------------------------------
+// CardSpot
+.cardSpotCol {
   z-index: 0;
+}
+
+.cardSpot {
+  border: @cardBorderWidth solid white;
+  border-radius: @cardBorderRadiusOut;
+}
+
+// ----------------------------------
+// DraggableCard
+.cardIsDragging {
+  opacity: 0;
 }

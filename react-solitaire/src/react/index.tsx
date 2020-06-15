@@ -1,4 +1,7 @@
+import { DndProvider } from "react-dnd";
+import { ExplicitAny } from "../global";
 import GameBoard from "./pages/GameBoard/GameBoard.component";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { Layout } from "antd";
 import React from "react";
 
@@ -8,7 +11,9 @@ function BaseApplication() {
   return (
     <Layout>
       <Content>
-        <GameBoard />
+        <DndProvider backend={HTML5Backend as ExplicitAny}>
+          <GameBoard />
+        </DndProvider>
       </Content>
     </Layout>
   );

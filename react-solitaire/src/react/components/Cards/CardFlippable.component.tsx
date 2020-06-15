@@ -1,31 +1,42 @@
 import React, { forwardRef, memo, useState } from "react";
 import CardFrame from "./CardFrame.component";
-import { RefAny } from "../../../global";
-import backgroundImage from "../../../images/CardsBackPatterns/flowers.png";
-import playCardImage from "../../../images/CardsFaces/Hearts/hearts12.png";
+import CardImage from "./CardImage.component";
+import { ExplicitAny } from "../../../global";
 
+interface CardFlippableProps {
+  className?: string; // additional classname for the cardframe
+  translationX?: number; // flip with x translation
+  translationY?: number; // flip with y translation
+  removeCard?: () => void; // function called after the movement
+  image: string; // image of the card
+  zIndex?: number; // zIndex to add
+  disabled?: boolean; // if disabled, cannot flip
+}
+
+/**
+ * Component that adds to the card the possibility to flip and/or translate
+ */
 function CardFlippable(
   {
-    translation,
-    removeCard
-  }: {
-    translation?: number;
-    removeCard?: () => void;
-  },
-  ref: RefAny
+    className = "",
+    translationX = 0,
+    translationY = 0,
+    removeCard,
+    image,
+    disabled,
+    zIndex
+  }: CardFlippableProps,
+  ref: ExplicitAny
 ) {
   const [cardFlipped, setCardFlipped] = useState(false);
   const [animationStyle, setAnimationStyle] = useState({});
 
   const handleFlip = () => {
-    if (!cardFlipped) {
-      if (translation && translation !== 0) {
+    if (!cardFlipped && !disabled) {
+      if (translationX && translationX !== 0) {
         setAnimationStyle({
-          transform: `translate(${translation}px,0) rotateY(180deg)`
+          transform: `translate(${translationX}px, ${translationY}px) rotateY(180deg)`
         });
-        setTimeout(() => {
-          setAnimationStyle({ ...animationStyle, display: "none" });
-        }, 600);
       } else {
         setAnimationStyle({ transform: "rotateY(180deg)" });
       }
@@ -38,18 +49,22 @@ function CardFlippable(
   };
 
   return (
-    <CardFrame ref={ref}>
+    <CardFrame ref={ref} zIndex={zIndex} cardContainerClassName={className}>
       <div
         className="cardFlipContainer"
         // eslint-disable-next-line react/forbid-dom-props
         style={cardFlipped ? animationStyle : {}}
       >
-        <div className="cardFlipFront cardDefault">
-          <img className="cardImage" src={playCardImage} alt="" />
-        </div>
-        <div className="cardFlipBack cardDefault" onClick={handleFlip}>
-          <img className="cardImage" src={backgroundImage} alt="" />
-        </div>
+        <CardImage
+          image={image}
+          directory="CardsFaces"
+          additionalClassName="cardFlipFront"
+        />
+        <CardImage
+          directory="CardsBackPatterns"
+          additionalClassName="cardFlipBack"
+          onClick={handleFlip}
+        />
       </div>
     </CardFrame>
   );

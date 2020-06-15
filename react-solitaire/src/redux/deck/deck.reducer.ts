@@ -1,59 +1,100 @@
 /* eslint-disable indent */
-import DeckActionTypes, { CardsPile } from "./deck.types";
+import { CardType, cardsConfigurations } from "../gameBoard/gameBoard.types";
+import { flipDeckCard, getTranslationY, popFlippedCard } from "./deck.utils";
 import { ActionsCreators } from "./deck.actions";
-import { RefAny } from "../../global";
-import { popDeckCard } from "./deck.utils";
+import DeckActionTypes from "./deck.types";
+import { ExplicitAny } from "../../global";
 
 interface InitialDeck {
-  deckPile: Array<CardsPile>;
-  flippedPile: Array<CardsPile>;
-  translation: number;
-  deckRef: RefAny;
-  flippedRef: RefAny;
+  deckRef: ExplicitAny;
+  flippedRef: ExplicitAny;
+  deckPile: Array<CardType>;
+  flippedPile: Array<CardType>;
+  translationX: number;
+  translationY: number;
+  cardDragging?: Array<CardType>;
+  cardDraggingPosition?: { x: number; y: number };
 }
 
 const INITIAL_DECK: InitialDeck = {
-  deckPile: [
-    { id: 0, name: "deckTop" },
-    {
-      id: 1,
-      name: "deckMiddle"
-    },
-    {
-      id: 2,
-      name: "deckBottom"
-    }
-  ],
-  flippedPile: [],
-  translation: 0,
   deckRef: undefined,
-  flippedRef: undefined
+  flippedRef: undefined,
+  deckPile: [],
+  flippedPile: [],
+  translationX: 243.75,
+  translationY: cardsConfigurations.deck,
+  cardDragging: undefined,
+  cardDraggingPosition: undefined
 };
 
 const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
   switch (action.type) {
-    // to be changed once it has the connection to firebase
-    case DeckActionTypes.GET_DECK_CARDS:
-      return state;
-    case DeckActionTypes.FLIP_DECK_PILE:
-      const { deckPile, flippedPile } = popDeckCard(
-        state.deckPile,
-        state.flippedPile,
-        action.cardId
-      );
-      return {
-        ...state,
-        deckPile,
-        flippedPile
-      };
+    // ********************************************************
+    // INITIAL SETTINGS ACTIONS
+
+    case DeckActionTypes.SET_INITIAL_DECK:
+      return { ...state, deckPile: action.deckPile };
+
     case DeckActionTypes.SET_REFS:
       return {
         ...state,
         deckRef: action.deckRef,
         flippedRef: action.flippedRef
       };
+
     case DeckActionTypes.SET_TRANSLATION:
-      return { ...state, translation: action.translation };
+      return { ...state, translationX: action.translation };
+
+    // ********************************************************
+    // FLIPPING ACTIONS
+
+    case DeckActionTypes.FLIP_DECK_PILE:
+      const flipResult = flipDeckCard(state.deckPile, state.flippedPile);
+      const translationY = getTranslationY(flipResult);
+
+      return {
+        ...state,
+        ...flipResult,
+        translationY
+      };
+
+    case DeckActionTypes.RESET_DECK:
+      // set the deck pile to have the flipped pile cards and reset the flipped pile
+      return {
+        ...state,
+        deckPile: state.flippedPile.reverse(),
+        translationY: state.flippedPile.length,
+        flippedPile: []
+      };
+
+    // ********************************************************
+    // DRAGGING ACTIONS
+
+    case DeckActionTypes.DRAG_FLIPPED_CARD:
+      const dragResult = popFlippedCard(state.flippedPile);
+
+      return {
+        ...state,
+        ...dragResult
+      };
+
+    case DeckActionTypes.RESET_FLIPPED_CARD_DRAGGING:
+      return {
+        ...state,
+        cardDragging: undefined,
+        cardDraggingPosition: undefined
+      };
+
+    case DeckActionTypes.REMOVE_FLIPPED_CARD:
+      const tempFlipped = [...state.flippedPile];
+      tempFlipped.splice(-1, 1);
+      return {
+        ...state,
+        flippedPile: tempFlipped
+      };
+
+    // ********************************************************
+
     default:
       return state;
   }

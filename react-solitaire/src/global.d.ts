@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type RefAny = any;
+export type ExplicitAny = any;
 
 export type ValueOf<T> = T[typeof T];
 
