@@ -1,6 +1,6 @@
-import NewGameButton from "../Options/NewGameButton.component";
+import NewGameButton from "../Buttons/NewGameButton.component";
 import React from "react";
-import RestartGameButton from "../Options/RestartGameButton.component";
+import RestartGameButton from "../Buttons/RestartGameButton.component";
 import { Row } from "antd";
 
 /* Will be the game options - to be developed */

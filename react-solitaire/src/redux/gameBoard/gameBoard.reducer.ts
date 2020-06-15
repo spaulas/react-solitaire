@@ -13,6 +13,7 @@ interface InitialGameBoard {
   column5Pile: Array<CardType>;
   column6Pile: Array<CardType>;
   column7Pile: Array<CardType>;
+  timerFlag: boolean;
 }
 
 const INITIAL_GAME_BOARD: InitialGameBoard = {
@@ -24,7 +25,8 @@ const INITIAL_GAME_BOARD: InitialGameBoard = {
   column4Pile: [],
   column5Pile: [],
   column6Pile: [],
-  column7Pile: []
+  column7Pile: [],
+  timerFlag: false
 };
 
 const gameBoardReducer = (
@@ -33,7 +35,9 @@ const gameBoardReducer = (
 ) => {
   switch (action.type) {
     case GameBoardActionTypes.CREATE_GAME:
-      return createRandomGame();
+      return { ...createRandomGame(), timerFlag: !state.timerFlag };
+    case GameBoardActionTypes.TOGGLE_TIMER_FLAG:
+      return { ...state, timerFlag: !state.timerFlag };
     default:
       return state;
   }

@@ -4,6 +4,7 @@ import React from "react";
 import { RootReducerState } from "../../../global";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
+import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 
 /**
  * Option to start a new game, with a confirmation dialog
@@ -47,6 +48,8 @@ function RestartGameButton() {
         column7Pile
       })
     );
+    // toggle the timer flag
+    dispatch(gameBoardActions.toggleTimerFlag());
   };
 
   return (

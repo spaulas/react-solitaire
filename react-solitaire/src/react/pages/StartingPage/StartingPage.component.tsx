@@ -1,5 +1,5 @@
 import React from "react";
-import StartButton from "../../components/Options/StartButton.component";
+import StartButton from "../../components/Buttons/StartButton.component";
 
 function StartingPage() {
   return (

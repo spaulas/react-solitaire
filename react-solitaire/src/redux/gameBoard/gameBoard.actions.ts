@@ -8,8 +8,16 @@ const createGame = () => ({
   type: GameBoardActionTypes.CREATE_GAME
 });
 
+/**
+ * Toggles the timer flag to reset the game timer
+ */
+const toggleTimerFlag = () => ({
+  type: GameBoardActionTypes.TOGGLE_TIMER_FLAG
+});
+
 const actionsCreators = Object.freeze({
-  createGame
+  createGame,
+  toggleTimerFlag
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;
