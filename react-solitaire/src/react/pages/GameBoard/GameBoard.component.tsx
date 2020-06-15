@@ -220,7 +220,6 @@ function GameBoard() {
     <div className="gameBoard" ref={drop}>
       <GameOverModal />
       <GamePlayInfo />
-      <GameOptions />
       {/* empty spots */}
       <BoardEmptySpots />
       {/* top row of the game, includes the deck and the 4 goal spots */}
@@ -229,6 +228,7 @@ function GameBoard() {
       <GameColumnWrapper />
       {/* preview of the card being dragged */}
       <CustomDragLayer />
+      <GameOptions />
     </div>
   );
 }
