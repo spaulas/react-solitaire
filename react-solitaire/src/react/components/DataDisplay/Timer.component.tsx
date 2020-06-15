@@ -60,7 +60,7 @@ function Timer() {
   const { seconds, minutes, hours } = useTimer();
 
   return (
-    <div className="timerBox">
+    <div className="infoDisplay timeDisplay">
       <span>
         {hours > 0 ? `${hours}:` : null}
         {minutes < 10 ? `0${minutes}` : minutes}:
