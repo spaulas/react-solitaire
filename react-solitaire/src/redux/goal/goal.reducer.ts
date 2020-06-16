@@ -58,6 +58,21 @@ const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
       return { ...state, ...unswapResult };
 
     // ********************************************************
+    // UNDO ACTIONS
+
+    case GoalActionTypes.UNDO_TO_GOAL:
+      return {
+        ...state,
+        goals: {
+          ...state.goals,
+          [action.goalId]: [
+            ...action.goalId,
+            { ...action.card, cardField: action.goalId }
+          ]
+        }
+      };
+
+    // ********************************************************
     // DRAGGING ACTIONS
 
     case GoalActionTypes.DRAG_GOAL_CARDS:

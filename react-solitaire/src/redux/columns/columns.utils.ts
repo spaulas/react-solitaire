@@ -256,3 +256,28 @@ export const removeCard = (
     }
   };
 };
+
+/**
+ * Remove the top card of a column and store it in the cardUndo state
+ * @param columns state current columns object
+ * @param columnId id of the column to remove the top card
+ */
+export const undoMoveToColumn = (
+  columns: Record<string, Array<CardType>>,
+  columnId: string
+) => {
+  // eslint-disable-next-line no-console
+  console.log("columnId = ", columnId);
+  // get copy of the column
+  const column = [...columns[columnId]];
+  // get card to be removed
+  const cardUndo = column.pop();
+
+  return {
+    columns: {
+      ...columns,
+      [columnId]: column
+    },
+    cardUndo
+  };
+};

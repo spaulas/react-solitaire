@@ -61,6 +61,14 @@ const resetDeck = () => ({
 });
 
 // ********************************************************
+// UNDO ACTIONS
+
+const undoToFlipped = (card: CardType) => ({
+  type: DeckActionTypes.UNDO_TO_FLIPPED,
+  card
+});
+
+// ********************************************************
 // DRAGGING ACTIONS
 
 /**
@@ -93,6 +101,7 @@ const actionsCreators = Object.freeze({
   setTranslation,
   flipDeckPile,
   unflipDeckPile,
+  undoToFlipped,
   resetDeck,
   dragFlippedCard,
   resetCardDragging,

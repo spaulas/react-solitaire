@@ -81,6 +81,18 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
       };
 
     // ********************************************************
+    // UNDO ACTIONS
+
+    case DeckActionTypes.UNDO_TO_FLIPPED:
+      return {
+        ...state,
+        flippedPile: [
+          ...state.flippedPile,
+          { ...action.card, cardField: "deckPile" }
+        ]
+      };
+
+    // ********************************************************
     // DRAGGING ACTIONS
 
     case DeckActionTypes.DRAG_FLIPPED_CARD:

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import React from "react";
 import { RootReducerState } from "../../../global";
 import { StepBackwardOutlined } from "@ant-design/icons";
 import columnActions from "../../../redux/columns/columns.actions";
@@ -14,10 +14,13 @@ import goalActions from "../../../redux/goal/goal.actions";
 function UndoButton() {
   const dispatch = useDispatch();
 
+  const [sourceBack, setSourceBack] = useState("");
+
   // get gameMoves from redux
-  const { gamePreviousMoves } = useSelector(
-    ({ GameBoard }: RootReducerState) => ({
-      gamePreviousMoves: GameBoard.gamePreviousMoves
+  const { gamePreviousMoves, columnCardUndo } = useSelector(
+    ({ GameBoard, Columns }: RootReducerState) => ({
+      gamePreviousMoves: GameBoard.gamePreviousMoves,
+      columnCardUndo: Columns.cardUndo
     })
   );
 
@@ -29,6 +32,8 @@ function UndoButton() {
         nMoves - 1
       ];
 
+      console.log("gamePreviousMoves = ", gamePreviousMoves);
+
       if (source.indexOf("deckPile") === 0) {
         if (target.indexOf("flippedPile") === 0) {
           console.log("GO BACK from DECK pile to FLIPPED pile");
@@ -38,6 +43,8 @@ function UndoButton() {
           console.log("GO BACK from DECK pile to GOAL pile");
         } else if (target.indexOf("column") === 0) {
           console.log("GO BACK from DECK pile to COLUMN pile");
+          dispatch(columnActions.undoMoveToColumn(target));
+          setSourceBack("deckPile");
         }
       } else if (source.indexOf("column") === 0) {
         if (target.indexOf("column") === 0) {
@@ -56,6 +63,8 @@ function UndoButton() {
       } else if (source.indexOf("goal") === 0) {
         if (target.indexOf("column") === 0) {
           console.log("GO BACK from GOAL pile to COLUMN pile");
+          dispatch(columnActions.undoMoveToColumn(target));
+          setSourceBack(source);
         } else if (target.indexOf("goal") === 0) {
           console.log("GO BACK from GOAL pile to GOAL pile");
           dispatch(goalActions.unswapGoals(source, target));
@@ -68,6 +77,16 @@ function UndoButton() {
       dispatch(gameBoardActions.removeGameMove());
     }
   };
+
+  const resolveUndoFromColumn = () => {
+    if (sourceBack.indexOf("deckPile") === 0) {
+      dispatch(deckActions.undoToFlipped(columnCardUndo));
+    } else if (sourceBack.indexOf("goal") === 0) {
+      dispatch(goalActions.undoToGoal(columnCardUndo, sourceBack));
+    }
+  };
+
+  useEffect(resolveUndoFromColumn, [columnCardUndo]);
 
   return <StepBackwardOutlined onClick={handleUndo} />;
 }

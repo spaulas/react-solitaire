@@ -47,6 +47,14 @@ const undoSwapColumns = (
 });
 
 // ********************************************************
+// UNDO ACTIONS
+
+const undoMoveToColumn = (columnId: string) => ({
+  type: ColumnActionTypes.UNDO_MOVE_TO_COLUMN,
+  columnId
+});
+
+// ********************************************************
 // DRAGGING ACTIONS
 
 /**
@@ -95,6 +103,7 @@ const actionsCreators = Object.freeze({
   setInitialColumns,
   swapColumns,
   undoSwapColumns,
+  undoMoveToColumn,
   dragColumnCards,
   resetCardDragging,
   addDraggingCardsToColumn,

@@ -228,6 +228,8 @@ function GameBoard() {
         dispatch(deckActions.removeFlippedCard());
       } else {
         const finalSource = goalSource || columnSource;
+        console.log("FINAL SOURCE (should be a column) = ", finalSource);
+        console.log("TARGET (should be a goal) = ", columnDropedTo);
         // add game move
         dispatch(gameBoardActions.addGameMove(finalSource, columnDropedTo));
 

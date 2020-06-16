@@ -5,6 +5,7 @@ import {
   removeCard,
   setCardDragging,
   swapColumns,
+  undoMoveToColumn,
   undoSwapColumns
 } from "./columns.utils";
 import { ActionsCreators } from "./columns.actions";
@@ -23,6 +24,7 @@ export interface InitialColumns {
   };
   cardDragging?: Array<CardType>;
   cardDraggingCol?: string;
+  cardUndo?: CardType;
   sendBack?: boolean;
   movementWithFlip?: boolean;
 }
@@ -39,6 +41,7 @@ const INITIAL_COLUMNS: InitialColumns = {
   },
   cardDragging: undefined,
   cardDraggingCol: undefined,
+  cardUndo: undefined,
   sendBack: undefined,
   movementWithFlip: undefined
 };
@@ -80,6 +83,15 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         action.movementWithFlip
       );
       return { ...state, ...resultUnswap };
+
+    // ********************************************************
+    // UNDO ACTIONS
+
+    case ColumnsActionTypes.UNDO_MOVE_TO_COLUMN:
+      const resultUndo = undoMoveToColumn(state.columns, action.columnId);
+      // eslint-disable-next-line no-console
+      console.log("UNDO_MOVE_TO_COLUMN resultUndo= ", resultUndo);
+      return { ...state, ...resultUndo };
 
     // ********************************************************
     // DRAGGING ACTIONS
