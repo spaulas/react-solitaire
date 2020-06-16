@@ -207,7 +207,11 @@ function GameBoard() {
             movementWithFlip
           )
         );
-        dispatch(goalActions.removeGoalCard());
+
+        // only remove goal card if it came from one goal pile
+        if (isGoal) {
+          dispatch(goalActions.removeGoalCard());
+        }
       }
       dispatch(columnsActions.resetCardDragging());
     }
