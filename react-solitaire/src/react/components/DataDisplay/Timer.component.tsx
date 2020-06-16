@@ -13,7 +13,7 @@ function Timer() {
 
     // get timer flag from the GameBoard redux state
     const { timerFlag } = useSelector(({ GameBoard }: RootReducerState) => ({
-      timerFlag: GameBoard.timerFlag
+      timerFlag: GameBoard.gameFlag
     }));
 
     // update the timer at every 1 second

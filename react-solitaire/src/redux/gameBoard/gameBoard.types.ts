@@ -1,7 +1,8 @@
 // Game Board Actions
 const GameBoardActionTypes = {
   CREATE_GAME: "CREATE_GAME",
-  TOGGLE_TIMER_FLAG: "TOGGLE_TIMER_FLAG"
+  TOGGLE_GAME_FLAG: "TOGGLE_GAME_FLAG",
+  ADD_GAME_MOVE: "ADD_GAME_MOVE"
 };
 
 // number of the initial cards of each field of the game
