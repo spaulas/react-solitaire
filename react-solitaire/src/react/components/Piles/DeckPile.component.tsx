@@ -5,6 +5,7 @@ import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import { RootReducerState } from "../../../global";
 import SimplePile from "./SimplePile.component";
 import deckActions from "../../../redux/deck/deck.actions";
+import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 
 /**
  * Component that consists of a pile (3d) of unflipped cards that can be flipped one by one (with a translation)
@@ -25,6 +26,8 @@ function DeckPile() {
     // wait for the css animation to end
     setTimeout(() => {
       dispatch(deckActions.flipDeckPile(cardId));
+      // add one movement of the game
+      dispatch(gameBoardActions.addGameMove());
     }, 600);
   };
 

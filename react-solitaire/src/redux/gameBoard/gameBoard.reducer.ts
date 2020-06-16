@@ -37,9 +37,13 @@ const gameBoardReducer = (
 ) => {
   switch (action.type) {
     case GameBoardActionTypes.CREATE_GAME:
-      return { ...createRandomGame(), timerFlag: !state.gameFlag };
+      return {
+        ...createRandomGame(),
+        gameFlag: !state.gameFlag,
+        gameMoves: 0
+      };
     case GameBoardActionTypes.TOGGLE_GAME_FLAG:
-      return { ...state, timerFlag: !state.gameFlag };
+      return { ...state, gameFlag: !state.gameFlag, gameMoves: 0 };
     case GameBoardActionTypes.ADD_GAME_MOVE:
       return { ...state, gameMoves: state.gameMoves + 1 };
     default:

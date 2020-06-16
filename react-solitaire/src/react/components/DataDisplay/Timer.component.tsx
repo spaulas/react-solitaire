@@ -1,7 +1,11 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
 import { RootReducerState } from "../../../global";
 import { useSelector } from "react-redux";
 
+/**
+ * Component that displays the time of the game
+ */
 function Timer() {
   // creates a setInterval with respective clearInterval
   // returns the number of hours, minutes and seconds it has passed

@@ -6,6 +6,7 @@ import { RedoOutlined } from "@ant-design/icons";
 import { RootReducerState } from "../../../global";
 import _debounce from "lodash.debounce";
 import deckActions from "../../../redux/deck/deck.actions";
+import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 
 /**
  * Base Layout with all the empty card spots
@@ -51,16 +52,20 @@ function BaseEmptySpots() {
     };
   });
 
+  const handleResetDeck = () => {
+    // resets the deck
+    dispatch(deckActions.resetDeck());
+    // adds one movement to the game
+    dispatch(gameBoardActions.addGameMove());
+  };
+
   return (
     <div className="baseEmptySpots">
       <Row gutter={6} className="boardDeckRow" align="middle">
         {/* Deck and Flipped piles */}
         <CardSpot ref={deckRef} offset={2} className="deckCardSpot">
           {/* Button to reset deck */}
-          <Button
-            className="redoDeckButton"
-            onClick={() => dispatch(deckActions.resetDeck())}
-          >
+          <Button className="redoDeckButton" onClick={handleResetDeck}>
             <RedoOutlined />
           </Button>
         </CardSpot>

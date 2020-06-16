@@ -184,19 +184,18 @@ function GameBoard() {
 
   // handle a deck exchange
   const removeDeckCard = () => {
-    console.log("REMOVE DECK CARD sendBack = ", sendBack);
     if (sendBack === false) {
       if (isDeck) {
-        console.log(
-          "the card came from deckPile and is going to ",
-          columnDropedTo
-        );
+        // to the undo and redo part:
+        // sender: deckPile
+        // receiver: columnDropedTo
+        dispatch(gameBoardActions.addGameMove());
         dispatch(deckActions.removeFlippedCard());
       } else {
-        console.log(
-          "the card came from goal??? and is going to ",
-          columnDropedTo
-        );
+        // to the undo and redo part:
+        // sender: some column pile :/
+        // receiver: columnDropedTo
+        dispatch(gameBoardActions.addGameMove());
         dispatch(goalActions.removeGoalCard());
       }
       dispatch(columnsActions.resetCardDragging());
@@ -207,7 +206,6 @@ function GameBoard() {
 
   // handle a column to goal exchange
   const removeColumnCard = () => {
-    console.log("REMOVE COLUMN CARD sendBackGoal = ", sendBackGoal);
     if (sendBackGoal === false) {
       if (isDeck) {
         // to the undo and redo part:
@@ -216,10 +214,10 @@ function GameBoard() {
         dispatch(gameBoardActions.addGameMove());
         dispatch(deckActions.removeFlippedCard());
       } else {
-        console.log(
-          "the card came from goal??? and is going to ",
-          columnDropedTo
-        );
+        // to the undo and redo part:
+        // sender: some goal pile :/
+        // receiver: columnDropedTo
+        dispatch(gameBoardActions.addGameMove());
         dispatch(columnsActions.removeCard());
       }
     }
