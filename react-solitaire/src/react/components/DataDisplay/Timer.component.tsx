@@ -69,13 +69,11 @@ function Timer() {
   const { seconds, minutes, hours } = useTimer();
 
   return (
-    <div className="infoDisplay timeDisplay">
-      <span>
-        {hours > 0 ? `${hours}:` : null}
-        {minutes < 10 ? `0${minutes}` : minutes}:
-        {seconds < 10 ? `0${seconds}` : seconds}
-      </span>
-    </div>
+    <span>
+      {hours > 0 ? `${hours}:` : null}
+      {minutes < 10 ? `0${minutes}` : minutes}:
+      {seconds < 10 ? `0${seconds}` : seconds}
+    </span>
   );
 }
 

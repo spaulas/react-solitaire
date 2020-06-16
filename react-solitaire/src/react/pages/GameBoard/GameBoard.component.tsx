@@ -115,6 +115,7 @@ function GameBoard() {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [columnDropedTo, setColumnDroppedTo] = useState<string>();
 
   // handle the drop of a card

@@ -1,3 +1,4 @@
+import BarDisplay from "../UIComponents/BarDisplay.component";
 import GameMoves from "../DataDisplay/GameMoves.component";
 import React from "react";
 import { Row } from "antd";
@@ -7,8 +8,10 @@ import Timer from "../DataDisplay/Timer.component";
 function GamePlayInfo() {
   return (
     <Row className="boardInfoRow" align="middle" justify="center">
-      <Timer />
-      <GameMoves />
+      <BarDisplay>
+        <Timer />
+        <GameMoves />
+      </BarDisplay>
     </Row>
   );
 }

@@ -1,3 +1,4 @@
+import BarDisplay from "../UIComponents/BarDisplay.component";
 import NewGameButton from "../Buttons/NewGameButton.component";
 import PauseGameButton from "../Buttons/PauseGameButton.component";
 import React from "react";
@@ -8,9 +9,11 @@ import { Row } from "antd";
 function GameOptions() {
   return (
     <Row className="boardOptionsRow" align="middle" justify="center">
-      <NewGameButton />
-      <RestartGameButton />
-      <PauseGameButton />
+      <BarDisplay>
+        <NewGameButton />
+        <PauseGameButton />
+        <RestartGameButton />
+      </BarDisplay>
     </Row>
   );
 }
