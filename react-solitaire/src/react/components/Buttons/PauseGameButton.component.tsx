@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { PauseCircleOutlined } from "@ant-design/icons";
+import { PauseOutlined } from "@ant-design/icons";
 import PausedGameModal from "../Modals/PausedGameModal.component";
 import React from "react";
 import { RootReducerState } from "../../../global";
@@ -18,7 +18,7 @@ function PauseGameButton() {
 
   return (
     <>
-      <PauseCircleOutlined onClick={timeGame} />
+      <PauseOutlined onClick={timeGame} />
       <PausedGameModal visible={gamePaused} closeModal={timeGame} />
     </>
   );

@@ -1,4 +1,7 @@
-import { Button, Modal } from "antd";
+/* eslint-disable react/forbid-component-props */
+/* eslint-disable react/forbid-dom-props */
+import { Modal } from "antd";
+import { PlaySquareOutlined } from "@ant-design/icons";
 import React from "react";
 
 interface PausedGameModalProps {
@@ -6,15 +9,32 @@ interface PausedGameModalProps {
   closeModal: () => void;
 }
 
+// @todo solve problem with classname!
 function PausedGameModal({ visible, closeModal }: PausedGameModalProps) {
   return (
     <Modal
-      title="Game Paused"
+      title={
+        <div
+          style={{
+            width: "100%",
+            textAlign: "center",
+            color: "#660000"
+          }}
+        >
+          Game Paused
+        </div>
+      }
       centered
       visible={visible}
-      footer={<Button onClick={closeModal}>Ok</Button>}
+      footer={null}
+      closeIcon={[]}
+      width="200px"
     >
-      Paused Game
+      <PlaySquareOutlined
+        style={{ fontSize: "150px", color: "#660000" }}
+        className="pauseIcon"
+        onClick={closeModal}
+      />
     </Modal>
   );
 }
