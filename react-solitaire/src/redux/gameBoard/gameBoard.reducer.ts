@@ -66,7 +66,11 @@ const gameBoardReducer = (
         gameMoves: state.gameMoves + 1,
         gamePreviousMoves: [
           ...state.gamePreviousMoves,
-          { source: action.source, target: action.target }
+          {
+            source: action.source,
+            target: action.target,
+            nCards: action.nCards
+          }
         ]
       };
     case GameBoardActionTypes.TIME_GAME:

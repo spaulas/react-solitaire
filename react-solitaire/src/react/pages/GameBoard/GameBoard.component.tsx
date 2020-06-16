@@ -197,7 +197,13 @@ function GameBoard() {
         dispatch(deckActions.removeFlippedCard());
       } else {
         // add game move
-        dispatch(gameBoardActions.addGameMove(columnSource, columnDropedTo));
+        dispatch(
+          gameBoardActions.addGameMove(
+            columnSource,
+            columnDropedTo,
+            cardDragging.length
+          )
+        );
         dispatch(goalActions.removeGoalCard());
       }
       dispatch(columnsActions.resetCardDragging());

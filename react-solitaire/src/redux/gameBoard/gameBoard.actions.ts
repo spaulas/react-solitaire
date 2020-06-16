@@ -18,10 +18,11 @@ const toggleGameFlag = () => ({
 /**
  * Adds a move to the total moves of the game
  */
-const addGameMove = (source: string, target: string) => ({
+const addGameMove = (source: string, target: string, nCards = 0) => ({
   type: GameBoardActionTypes.ADD_GAME_MOVE,
   source,
-  target
+  target,
+  nCards
 });
 
 /**
