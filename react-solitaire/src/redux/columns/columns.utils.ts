@@ -99,9 +99,9 @@ export const swapColumns = (
         columns: {
           ...columns,
           [cardInitialColId]: initialCol,
-          [finalId]: finalCol,
-          sendBack: false
-        }
+          [finalId]: finalCol
+        },
+        sendBack: false
       };
     }
 
@@ -110,9 +110,9 @@ export const swapColumns = (
       columns: {
         ...columns,
         [finalId]: finalCol,
-        [cardInitialColId]: initialCol,
-        sendBack: false
-      }
+        [cardInitialColId]: initialCol
+      },
+      sendBack: false
     };
   }
 
@@ -124,9 +124,9 @@ export const swapColumns = (
     columns: {
       ...columns,
       [cardInitialColId]: initialCol,
-      cardsDragging: undefined,
-      sendBack: true
-    }
+      cardsDragging: undefined
+    },
+    sendBack: true
   };
 };
 

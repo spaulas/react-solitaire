@@ -49,7 +49,7 @@ function RestartGameButton() {
       })
     );
     // toggle the timer flag
-    dispatch(gameBoardActions.toggleTimerFlag());
+    dispatch(gameBoardActions.toggleGameFlag());
   };
 
   return (

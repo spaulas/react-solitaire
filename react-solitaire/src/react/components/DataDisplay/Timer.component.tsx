@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { RootReducerState } from "../../../global";
 import { useSelector } from "react-redux";
 
+/**
+ * Component that displays the time of the game
+ */
 function Timer() {
   // creates a setInterval with respective clearInterval
   // returns the number of hours, minutes and seconds it has passed
@@ -13,7 +16,7 @@ function Timer() {
 
     // get timer flag from the GameBoard redux state
     const { timerFlag } = useSelector(({ GameBoard }: RootReducerState) => ({
-      timerFlag: GameBoard.timerFlag
+      timerFlag: GameBoard.gameFlag
     }));
 
     // update the timer at every 1 second
@@ -60,7 +63,7 @@ function Timer() {
   const { seconds, minutes, hours } = useTimer();
 
   return (
-    <div className="timerBox">
+    <div className="infoDisplay timeDisplay">
       <span>
         {hours > 0 ? `${hours}:` : null}
         {minutes < 10 ? `0${minutes}` : minutes}:
