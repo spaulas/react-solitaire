@@ -16,6 +16,8 @@ interface InitialGameBoard {
   gameFlag: boolean;
   gameMoves: number;
   gamePaused: boolean;
+  gamePreviousMoves: Array<{ source: string; target: string }>;
+  gameNextMoves: Array<{ source: string; target: string }>;
 }
 
 const INITIAL_GAME_BOARD: InitialGameBoard = {
@@ -30,7 +32,9 @@ const INITIAL_GAME_BOARD: InitialGameBoard = {
   column7Pile: [],
   gameFlag: false,
   gameMoves: 0,
-  gamePaused: false
+  gamePaused: false,
+  gamePreviousMoves: [],
+  gameNextMoves: []
 };
 
 const gameBoardReducer = (
@@ -43,17 +47,28 @@ const gameBoardReducer = (
         ...createRandomGame(),
         gameFlag: !state.gameFlag,
         gameMoves: 0,
-        gamePaused: false
+        gamePaused: false,
+        gamePreviousMoves: [],
+        gameNextMoves: []
       };
     case GameBoardActionTypes.TOGGLE_GAME_FLAG:
       return {
         ...state,
         gameFlag: !state.gameFlag,
         gameMoves: 0,
-        gamePaused: false
+        gamePaused: false,
+        gamePreviousMoves: [],
+        gameNextMoves: []
       };
     case GameBoardActionTypes.ADD_GAME_MOVE:
-      return { ...state, gameMoves: state.gameMoves + 1 };
+      return {
+        ...state,
+        gameMoves: state.gameMoves + 1,
+        gamePreviousMoves: [
+          ...state.gamePreviousMoves,
+          { source: action.source, target: action.target }
+        ]
+      };
     case GameBoardActionTypes.TIME_GAME:
       return { ...state, gamePaused: !state.gamePaused };
     default:

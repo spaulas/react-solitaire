@@ -56,7 +56,7 @@ function BaseEmptySpots() {
     // resets the deck
     dispatch(deckActions.resetDeck());
     // adds one movement to the game
-    dispatch(gameBoardActions.addGameMove());
+    dispatch(gameBoardActions.addGameMove("flippedPile", "deckPile"));
   };
 
   return (

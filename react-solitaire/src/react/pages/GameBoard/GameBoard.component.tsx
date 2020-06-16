@@ -38,7 +38,9 @@ function GameBoard() {
     isDeck,
     isGoal,
     sendBack,
-    sendBackGoal
+    sendBackGoal,
+    columnSource,
+    goalSource
   } = useSelector(({ GameBoard, Columns, Deck, Goal }: RootReducerState) => ({
     deckPile: GameBoard.deckPile,
     column1Pile: GameBoard.column1Pile,
@@ -52,7 +54,10 @@ function GameBoard() {
     isGoal: !!Goal.cardDragging,
     sendBack: Columns.sendBack,
     sendBackGoal: Goal.sendBack,
-    cardDragging: Columns.cardDragging || Deck.cardDragging || Goal.cardDragging
+    cardDragging:
+      Columns.cardDragging || Deck.cardDragging || Goal.cardDragging,
+    columnSource: Columns.cardDraggingCol,
+    goalSource: Goal.cardDraggingGoal
   }));
 
   // ---------------------------------------------------------
@@ -116,13 +121,13 @@ function GameBoard() {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [columnDropedTo, setColumnDroppedTo] = useState<string>();
+  const [columnDropedTo, setColumnDroppedTo] = useState<string>("");
 
   // handle the drop of a card
   const onDrop = (card: ExplicitAny, monitor: ExplicitAny) => {
     // get the id of the column the card is going to
     const columnDropedToTemp = getColumnToDrop(monitor.getClientOffset());
-    setColumnDroppedTo(columnDropedToTemp);
+    setColumnDroppedTo(columnDropedToTemp || "");
 
     if (!!columnDropedToTemp) {
       // if the card came from the deck
@@ -187,16 +192,12 @@ function GameBoard() {
   const removeDeckCard = () => {
     if (sendBack === false) {
       if (isDeck) {
-        // to the undo and redo part:
-        // sender: deckPile
-        // receiver: columnDropedTo
-        dispatch(gameBoardActions.addGameMove());
+        // add game move
+        dispatch(gameBoardActions.addGameMove("deckPile", columnDropedTo));
         dispatch(deckActions.removeFlippedCard());
       } else {
-        // to the undo and redo part:
-        // sender: some column pile :/
-        // receiver: columnDropedTo
-        dispatch(gameBoardActions.addGameMove());
+        // add game move
+        dispatch(gameBoardActions.addGameMove(columnSource, columnDropedTo));
         dispatch(goalActions.removeGoalCard());
       }
       dispatch(columnsActions.resetCardDragging());
@@ -209,16 +210,12 @@ function GameBoard() {
   const removeColumnCard = () => {
     if (sendBackGoal === false) {
       if (isDeck) {
-        // to the undo and redo part:
-        // sender: deckPile
-        // receiver: columnDropedTo
-        dispatch(gameBoardActions.addGameMove());
+        // add game move
+        dispatch(gameBoardActions.addGameMove("deckPile", columnDropedTo));
         dispatch(deckActions.removeFlippedCard());
       } else {
-        // to the undo and redo part:
-        // sender: some goal pile :/
-        // receiver: columnDropedTo
-        dispatch(gameBoardActions.addGameMove());
+        // add game move
+        dispatch(gameBoardActions.addGameMove(goalSource, columnDropedTo));
         dispatch(columnsActions.removeCard());
       }
     }
