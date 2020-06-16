@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
 import { RootReducerState } from "../../../global";
 import { useSelector } from "react-redux";
