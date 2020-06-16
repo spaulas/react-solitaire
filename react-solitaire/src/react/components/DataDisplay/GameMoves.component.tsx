@@ -22,7 +22,7 @@ function GameMoves() {
     return gameMoves;
   };
 
-  return <div className="infoDisplay movesDisplay">{printGameMoves()}</div>;
+  return <span>{printGameMoves()}</span>;
 }
 
 export default GameMoves;

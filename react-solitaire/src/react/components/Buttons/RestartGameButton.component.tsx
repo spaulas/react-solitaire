@@ -1,6 +1,7 @@
-import { Button, Popconfirm } from "antd";
 import { useDispatch, useSelector } from "react-redux";
+import { Popconfirm } from "antd";
 import React from "react";
+import { RedoOutlined } from "@ant-design/icons";
 import { RootReducerState } from "../../../global";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
@@ -60,7 +61,7 @@ function RestartGameButton() {
       okText="Yes"
       cancelText="No"
     >
-      <Button className="optionsButton">Restart Game</Button>
+      <RedoOutlined />
     </Popconfirm>
   );
 }

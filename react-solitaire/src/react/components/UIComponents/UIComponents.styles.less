@@ -1,22 +1,28 @@
-.infoDisplay {
+.barDisplay {
   background-color: white;
   height: 40px;
   font-size: 20px;
-  border-radius: 20px;
   padding: 5px 10px;
   color: @secondaryColor;
   min-width: 100px;
   text-align: center;
-}
-
-.timeDisplay {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  margin-left: 2px;
   margin-right: 2px;
 }
+// left display
+.barDisplay:first-child {
+  border-radius: 20px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
 
-.movesDisplay {
+// right display
+.barDisplay:last-child {
+  border-radius: 20px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  margin-left: 2px;
+}
+
+.barDisplayContainer {
+  display: flex;
 }

@@ -22,10 +22,18 @@ const addGameMove = () => ({
   type: GameBoardActionTypes.ADD_GAME_MOVE
 });
 
+/**
+ * Pauses and Resumes the game
+ */
+const timeGame = () => ({
+  type: GameBoardActionTypes.TIME_GAME
+});
+
 const actionsCreators = Object.freeze({
   createGame,
   toggleGameFlag,
-  addGameMove
+  addGameMove,
+  timeGame
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

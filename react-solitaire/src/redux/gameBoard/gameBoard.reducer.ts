@@ -15,6 +15,7 @@ interface InitialGameBoard {
   column7Pile: Array<CardType>;
   gameFlag: boolean;
   gameMoves: number;
+  gamePaused: boolean;
 }
 
 const INITIAL_GAME_BOARD: InitialGameBoard = {
@@ -28,7 +29,8 @@ const INITIAL_GAME_BOARD: InitialGameBoard = {
   column6Pile: [],
   column7Pile: [],
   gameFlag: false,
-  gameMoves: 0
+  gameMoves: 0,
+  gamePaused: false
 };
 
 const gameBoardReducer = (
@@ -40,12 +42,20 @@ const gameBoardReducer = (
       return {
         ...createRandomGame(),
         gameFlag: !state.gameFlag,
-        gameMoves: 0
+        gameMoves: 0,
+        gamePaused: false
       };
     case GameBoardActionTypes.TOGGLE_GAME_FLAG:
-      return { ...state, gameFlag: !state.gameFlag, gameMoves: 0 };
+      return {
+        ...state,
+        gameFlag: !state.gameFlag,
+        gameMoves: 0,
+        gamePaused: false
+      };
     case GameBoardActionTypes.ADD_GAME_MOVE:
       return { ...state, gameMoves: state.gameMoves + 1 };
+    case GameBoardActionTypes.TIME_GAME:
+      return { ...state, gamePaused: !state.gamePaused };
     default:
       return state;
   }

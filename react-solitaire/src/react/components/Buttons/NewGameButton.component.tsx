@@ -1,4 +1,5 @@
-import { Button, Popconfirm } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Popconfirm } from "antd";
 import React from "react";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 import { useDispatch } from "react-redux";
@@ -16,7 +17,7 @@ function NewGameButton() {
       okText="Yes"
       cancelText="No"
     >
-      <Button className="optionsButton">New Game</Button>
+      <PlusOutlined />
     </Popconfirm>
   );
 }
