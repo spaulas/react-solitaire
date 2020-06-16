@@ -61,25 +61,25 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
 
     case ColumnsActionTypes.SWAP_COLUMNS:
       if (!action.finalId.includes(state.cardDraggingCol)) {
-        const result = swapColumns(
+        const resultSwap = swapColumns(
           state.columns,
           state.cardDragging,
           state.cardDraggingCol,
           action.finalId
         );
-        return { ...state, ...result };
+        return { ...state, ...resultSwap };
       }
       return state;
 
     case ColumnsActionTypes.UNDO_SWAP_COLUMNS:
-      const result = undoSwapColumns(
+      const resultUnswap = undoSwapColumns(
         state.columns,
         action.target,
         action.source,
         action.nCards,
         action.movementWithFlip
       );
-      return { ...state, ...result };
+      return { ...state, ...resultUnswap };
 
     // ********************************************************
     // DRAGGING ACTIONS

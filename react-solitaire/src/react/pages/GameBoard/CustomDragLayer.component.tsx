@@ -24,8 +24,9 @@ function CustomDragLayer() {
 
   // get the cards that are dragging from the redux (can be from the deck or form the columns)
   const { cardDragging } = useSelector(
-    ({ Columns, Deck }: RootReducerState) => ({
-      cardDragging: Columns.cardDragging || Deck.cardDragging || []
+    ({ Columns, Deck, Goal }: RootReducerState) => ({
+      cardDragging:
+        Columns.cardDragging || Deck.cardDragging || Goal.cardDragging || []
     })
   );
 

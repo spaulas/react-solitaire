@@ -1,5 +1,10 @@
 /* eslint-disable indent */
-import { addToGoal, setCardDragging, swapGoals } from "./goal.utils";
+import {
+  addToGoal,
+  setCardDragging,
+  swapGoals,
+  unswapGoals
+} from "./goal.utils";
 import { ActionsCreators } from "./goal.actions";
 import { CardType } from "../gameBoard/gameBoard.types";
 import { ExplicitAny } from "../../global";
@@ -35,13 +40,22 @@ const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
     // SWAPPING ACTIONS
 
     case GoalActionTypes.SWAP_GOALS:
-      const result = swapGoals(
+      const swapResult = swapGoals(
         state.goals,
         state.cardDragging,
         state.cardDraggingGoal,
         action.finalId
       );
-      return { ...state, ...result };
+
+      return { ...state, ...swapResult };
+
+    case GoalActionTypes.UNSWAP_GOALS:
+      const unswapResult = unswapGoals(
+        state.goals,
+        action.target,
+        action.source
+      );
+      return { ...state, ...unswapResult };
 
     // ********************************************************
     // DRAGGING ACTIONS

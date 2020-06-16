@@ -118,9 +118,9 @@ export const swapGoals = (
       goals: {
         ...goals,
         [finalId]: finalGoal,
-        [cardInitialGoalId]: initialGoal,
-        sendBack: false
-      }
+        [cardInitialGoalId]: initialGoal
+      },
+      sendBack: false
     };
   }
 
@@ -131,9 +131,30 @@ export const swapGoals = (
   return {
     goals: {
       ...goals,
-      [cardInitialGoalId]: initialGoal,
-      cardsDragging: undefined,
-      sendBack: true
-    }
+      [cardInitialGoalId]: initialGoal
+    },
+    cardsDragging: undefined,
+    sendBack: true
+  };
+};
+
+export const unswapGoals = (
+  goals: Record<string, Array<CardType>>,
+  initialGoalId: string,
+  finalGoalId: string
+) => {
+  // get copy of the initial goal
+  const initialGoal = [...goals[initialGoalId]];
+  // get copy of the final goal
+  const finalGoal = [...goals[finalGoalId]];
+
+  // get top cards from the initial goal pile
+  const cardsSwapping = initialGoal.pop();
+
+  // add it to the final goal pile
+  finalGoal.push({ ...cardsSwapping, cardField: finalGoalId } as CardType);
+
+  return {
+    goals: { ...goals, [initialGoalId]: initialGoal, [finalGoalId]: finalGoal }
   };
 };

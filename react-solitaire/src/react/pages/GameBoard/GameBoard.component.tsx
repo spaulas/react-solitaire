@@ -201,7 +201,7 @@ function GameBoard() {
         // add game move
         dispatch(
           gameBoardActions.addGameMove(
-            columnSource,
+            columnSource || goalSource,
             columnDropedTo,
             cardDragging.length,
             movementWithFlip
@@ -227,9 +227,13 @@ function GameBoard() {
         dispatch(gameBoardActions.addGameMove("deckPile", columnDropedTo));
         dispatch(deckActions.removeFlippedCard());
       } else {
+        const finalSource = goalSource || columnSource;
         // add game move
-        dispatch(gameBoardActions.addGameMove(goalSource, columnDropedTo));
-        dispatch(columnsActions.removeCard());
+        dispatch(gameBoardActions.addGameMove(finalSource, columnDropedTo));
+
+        if (finalSource.indexOf("column") === 0) {
+          dispatch(columnsActions.removeCard());
+        }
       }
     }
     dispatch(goalActions.resetCardDragging());

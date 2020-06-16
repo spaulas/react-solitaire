@@ -6,6 +6,7 @@ import { StepBackwardOutlined } from "@ant-design/icons";
 import columnActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
+import goalActions from "../../../redux/goal/goal.actions";
 
 /**
  * Option to undo a game move
@@ -30,6 +31,7 @@ function UndoButton() {
 
       if (source.indexOf("deckPile") === 0) {
         if (target.indexOf("flippedPile") === 0) {
+          console.log("GO BACK from DECK pile to FLIPPED pile");
           // call deck function to send back a flipped card to the deck pile
           dispatch(deckActions.unflipDeckPile());
         } else if (target.indexOf("goal") === 0) {
@@ -39,6 +41,7 @@ function UndoButton() {
         }
       } else if (source.indexOf("column") === 0) {
         if (target.indexOf("column") === 0) {
+          console.log("GO BACK from COLUMN pile to COLUMN pile");
           dispatch(
             columnActions.undoSwapColumns(
               source,
@@ -55,6 +58,7 @@ function UndoButton() {
           console.log("GO BACK from GOAL pile to COLUMN pile");
         } else if (target.indexOf("goal") === 0) {
           console.log("GO BACK from GOAL pile to GOAL pile");
+          dispatch(goalActions.unswapGoals(source, target));
         }
       } else {
         console.log("GO BACK from FLIPPED pile to DECK pile");
