@@ -47,6 +47,13 @@ const flipDeckPile = (cardId: number) => ({
 });
 
 /**
+ * Flips one card back from the flipped pile to the deck pile
+ */
+const unflipDeckPile = () => ({
+  type: DeckActionTypes.UNFLIP_DECK_PILE
+});
+
+/**
  * Resets the deck, setting all the flipped cards back to the deck
  */
 const resetDeck = () => ({
@@ -85,6 +92,7 @@ const actionsCreators = Object.freeze({
   setRefs,
   setTranslation,
   flipDeckPile,
+  unflipDeckPile,
   resetDeck,
   dragFlippedCard,
   resetCardDragging,

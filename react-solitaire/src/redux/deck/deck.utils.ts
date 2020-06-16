@@ -28,6 +28,33 @@ export const flipDeckCard = (
 };
 
 /**
+ * Flips one deck card to the flipped pile
+ * @param deckPile
+ * @param flippedPile
+ */
+export const unflipDeckCard = (
+  deckPile: Array<CardType>,
+  flippedPile: Array<CardType>
+) => {
+  // create copy of the flipped pile
+  const tempFlippedPile = [...flippedPile];
+  // get the top card of the flipped pile
+  const cardFlipped = tempFlippedPile.pop();
+  // get copy of the deck pile
+  const tempDeckPile = [...deckPile];
+
+  // if there was indeed a card to be flipped, then add it to the deck pile
+  if (cardFlipped) {
+    tempDeckPile.push(cardFlipped);
+  }
+
+  return {
+    deckPile: tempDeckPile,
+    flippedPile: tempFlippedPile
+  };
+};
+
+/**
  * Gets the top card of the flipped pile
  * @param flippedPile
  */

@@ -40,6 +40,7 @@ function GameBoard() {
     sendBack,
     sendBackGoal,
     columnSource,
+    movementWithFlip,
     goalSource
   } = useSelector(({ GameBoard, Columns, Deck, Goal }: RootReducerState) => ({
     deckPile: GameBoard.deckPile,
@@ -57,6 +58,7 @@ function GameBoard() {
     cardDragging:
       Columns.cardDragging || Deck.cardDragging || Goal.cardDragging,
     columnSource: Columns.cardDraggingCol,
+    movementWithFlip: Columns.movementWithFlip,
     goalSource: Goal.cardDraggingGoal
   }));
 
@@ -201,7 +203,8 @@ function GameBoard() {
           gameBoardActions.addGameMove(
             columnSource,
             columnDropedTo,
-            cardDragging.length
+            cardDragging.length,
+            movementWithFlip
           )
         );
         dispatch(goalActions.removeGoalCard());

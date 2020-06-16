@@ -69,10 +69,21 @@ const gameBoardReducer = (
           {
             source: action.source,
             target: action.target,
-            nCards: action.nCards
+            nCards: action.nCards,
+            movementWithFlip: action.movementWithFlip
           }
         ]
       };
+    case GameBoardActionTypes.REMOVE_GAME_MOVE:
+      const tempGamePreviousMoves = [...state.gamePreviousMoves];
+      tempGamePreviousMoves.pop();
+
+      return {
+        ...state,
+        gamePreviousMoves: tempGamePreviousMoves,
+        gameMoves: state.gameMoves + 1
+      };
+
     case GameBoardActionTypes.TIME_GAME:
       return { ...state, gamePaused: !state.gamePaused };
     default:

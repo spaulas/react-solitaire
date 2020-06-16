@@ -4,7 +4,8 @@ import {
   createColumns,
   removeCard,
   setCardDragging,
-  swapColumns
+  swapColumns,
+  undoSwapColumns
 } from "./columns.utils";
 import { ActionsCreators } from "./columns.actions";
 import { CardType } from "../gameBoard/gameBoard.types";
@@ -23,6 +24,7 @@ export interface InitialColumns {
   cardDragging?: Array<CardType>;
   cardDraggingCol?: string;
   sendBack?: boolean;
+  movementWithFlip?: boolean;
 }
 
 const INITIAL_COLUMNS: InitialColumns = {
@@ -37,7 +39,8 @@ const INITIAL_COLUMNS: InitialColumns = {
   },
   cardDragging: undefined,
   cardDraggingCol: undefined,
-  sendBack: undefined
+  sendBack: undefined,
+  movementWithFlip: undefined
 };
 
 const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
@@ -67,6 +70,16 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         return { ...state, ...result };
       }
       return state;
+
+    case ColumnsActionTypes.UNDO_SWAP_COLUMNS:
+      const result = undoSwapColumns(
+        state.columns,
+        action.target,
+        action.source,
+        action.nCards,
+        action.movementWithFlip
+      );
+      return { ...state, ...result };
 
     // ********************************************************
     // DRAGGING ACTIONS
@@ -100,7 +113,8 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         cardDragging: undefined,
         cardDraggingCol: undefined,
         cardDraggingPosition: undefined,
-        sendBack: undefined
+        sendBack: undefined,
+        movementWithFlip: undefined
       };
 
     case ColumnsActionTypes.REMOVE_CARD:

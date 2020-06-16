@@ -18,11 +18,24 @@ const toggleGameFlag = () => ({
 /**
  * Adds a move to the total moves of the game
  */
-const addGameMove = (source: string, target: string, nCards = 0) => ({
+const addGameMove = (
+  source: string,
+  target: string,
+  nCards = 0,
+  movementWithFlip?: boolean
+) => ({
   type: GameBoardActionTypes.ADD_GAME_MOVE,
   source,
   target,
-  nCards
+  nCards,
+  movementWithFlip
+});
+
+/**
+ * Removes a move from the list of game moves
+ */
+const removeGameMove = () => ({
+  type: GameBoardActionTypes.REMOVE_GAME_MOVE
 });
 
 /**
@@ -36,6 +49,7 @@ const actionsCreators = Object.freeze({
   createGame,
   toggleGameFlag,
   addGameMove,
+  removeGameMove,
   timeGame
 });
 

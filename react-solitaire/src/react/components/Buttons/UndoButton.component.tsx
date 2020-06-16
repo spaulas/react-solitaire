@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import { RootReducerState } from "../../../global";
 import { StepBackwardOutlined } from "@ant-design/icons";
+import columnActions from "../../../redux/columns/columns.actions";
+import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 
 /**
@@ -20,14 +22,16 @@ function UndoButton() {
 
   const handleUndo = () => {
     const nMoves = gamePreviousMoves.length;
-    console.log("gamePreviousMoves = ", gamePreviousMoves);
     // can only undo when there are moves to go back
     if (nMoves > 0) {
-      const { source, target, nCards } = gamePreviousMoves[nMoves - 1];
+      const { source, target, nCards, movementWithFlip } = gamePreviousMoves[
+        nMoves - 1
+      ];
 
       if (source.indexOf("deckPile") === 0) {
         if (target.indexOf("flippedPile") === 0) {
-          console.log("GO BACK from DECK pile to FLIPPED pile");
+          // call deck function to send back a flipped card to the deck pile
+          dispatch(deckActions.unflipDeckPile());
         } else if (target.indexOf("goal") === 0) {
           console.log("GO BACK from DECK pile to GOAL pile");
         } else if (target.indexOf("column") === 0) {
@@ -35,7 +39,14 @@ function UndoButton() {
         }
       } else if (source.indexOf("column") === 0) {
         if (target.indexOf("column") === 0) {
-          console.log("GO BACK from COLUMN pile to COLUMN pile");
+          dispatch(
+            columnActions.undoSwapColumns(
+              source,
+              target,
+              nCards,
+              movementWithFlip
+            )
+          );
         } else if (target.indexOf("goal") === 0) {
           console.log("GO BACK from COLUMN pile to GOAL pile");
         }
@@ -48,6 +59,9 @@ function UndoButton() {
       } else {
         console.log("GO BACK from FLIPPED pile to DECK pile");
       }
+
+      // remove the movement from the moves array
+      dispatch(gameBoardActions.removeGameMove());
     }
   };
 

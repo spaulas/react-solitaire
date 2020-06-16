@@ -1,6 +1,11 @@
 /* eslint-disable indent */
 import { CardType, cardsConfigurations } from "../gameBoard/gameBoard.types";
-import { flipDeckCard, getTranslationY, popFlippedCard } from "./deck.utils";
+import {
+  flipDeckCard,
+  getTranslationY,
+  popFlippedCard,
+  unflipDeckCard
+} from "./deck.utils";
 import { ActionsCreators } from "./deck.actions";
 import DeckActionTypes from "./deck.types";
 import { ExplicitAny } from "../../global";
@@ -56,6 +61,14 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
         ...state,
         ...flipResult,
         translationY
+      };
+
+    case DeckActionTypes.UNFLIP_DECK_PILE:
+      const unflipResult = unflipDeckCard(state.deckPile, state.flippedPile);
+
+      return {
+        ...state,
+        ...unflipResult
       };
 
     case DeckActionTypes.RESET_DECK:

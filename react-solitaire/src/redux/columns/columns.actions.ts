@@ -27,6 +27,25 @@ const swapColumns = (finalId: string) => ({
   finalId
 });
 
+/**
+ * Undo swap of columns, sends back nCards from the target to the source columns
+ * @param source column where the cards originally came from
+ * @param target column where the cards originally were sent to
+ * @param nCards number of cards that were swapped
+ */
+const undoSwapColumns = (
+  source: string,
+  target: string,
+  nCards: number,
+  movementWithFlip: boolean
+) => ({
+  type: ColumnActionTypes.UNDO_SWAP_COLUMNS,
+  source,
+  target,
+  nCards,
+  movementWithFlip
+});
+
 // ********************************************************
 // DRAGGING ACTIONS
 
@@ -75,6 +94,7 @@ const removeCard = () => ({
 const actionsCreators = Object.freeze({
   setInitialColumns,
   swapColumns,
+  undoSwapColumns,
   dragColumnCards,
   resetCardDragging,
   addDraggingCardsToColumn,

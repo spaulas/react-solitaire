@@ -62,6 +62,7 @@ export const swapColumns = (
   cardInitialColId = "column1Pile",
   finalId: string
 ) => {
+  let movementWithFlip = false;
   // create copy of the column the cards come from
   const initialCol = [...columns[cardInitialColId]];
   const indexToDelete = initialCol.length - cardsDragging.length;
@@ -92,6 +93,7 @@ export const swapColumns = (
           ...initialCol[lastCard],
           flipped: true
         };
+        movementWithFlip = true;
       }
 
       // return all the changes made in the initial and final columns
@@ -101,7 +103,8 @@ export const swapColumns = (
           [cardInitialColId]: initialCol,
           [finalId]: finalCol
         },
-        sendBack: false
+        sendBack: false,
+        movementWithFlip
       };
     }
 
@@ -112,7 +115,8 @@ export const swapColumns = (
         [finalId]: finalCol,
         [cardInitialColId]: initialCol
       },
-      sendBack: false
+      sendBack: false,
+      movementWithFlip
     };
   }
 
@@ -126,7 +130,42 @@ export const swapColumns = (
       [cardInitialColId]: initialCol,
       cardsDragging: undefined
     },
-    sendBack: true
+    sendBack: true,
+    movementWithFlip
+  };
+};
+
+export const undoSwapColumns = (
+  columns: Record<string, Array<CardType>>,
+  initialColId: string,
+  finalColId: string,
+  nCards: number,
+  cardFlipped: boolean
+) => {
+  // create a copy of the initial column
+  const initialCol = [...columns[initialColId]];
+  // create a copy of the final column
+  const finalCol = [...columns[finalColId]];
+
+  // check if the finalCol has more cards
+  if (cardFlipped) {
+    const nFinalCol = finalCol.length;
+    finalCol[nFinalCol - 1] = { ...finalCol[nFinalCol - 1], flipped: false };
+  }
+
+  // get the cards to swap
+  const cardsToSwap = initialCol.splice(-nCards, nCards);
+  // add the swapped cards to the final column
+  cardsToSwap.map((card: CardType) =>
+    finalCol.push({ ...card, flipped: true, cardField: finalColId })
+  );
+
+  return {
+    columns: {
+      ...columns,
+      [initialColId]: initialCol,
+      [finalColId]: finalCol
+    }
   };
 };
 
