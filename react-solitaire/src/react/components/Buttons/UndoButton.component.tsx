@@ -84,7 +84,9 @@ function UndoButton() {
           dispatch(goalActions.unswapGoals(source, target));
         }
       } else {
-        console.log("GO BACK from FLIPPED pile to DECK pile");
+        // undo a deck flipped
+        // flipped pile -> deck pile
+        dispatch(deckActions.unResetDeck());
       }
 
       // remove the movement from the moves array

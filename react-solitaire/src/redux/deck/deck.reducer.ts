@@ -80,6 +80,15 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
         flippedPile: []
       };
 
+    case DeckActionTypes.UNRESET_DECK:
+      // set the deck pile to have the flipped pile cards and reset the flipped pile
+      return {
+        ...state,
+        deckPile: [],
+        translationY: state.deckPile.length,
+        flippedPile: state.deckPile.reverse()
+      };
+
     // ********************************************************
     // UNDO ACTIONS
 

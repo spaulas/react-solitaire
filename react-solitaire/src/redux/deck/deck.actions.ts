@@ -60,6 +60,13 @@ const resetDeck = () => ({
   type: DeckActionTypes.RESET_DECK
 });
 
+/**
+ * Undoes the deck reset, setting all the deck cards to the flipped pile
+ */
+const unResetDeck = () => ({
+  type: DeckActionTypes.UNRESET_DECK
+});
+
 // ********************************************************
 // UNDO ACTIONS
 
@@ -103,6 +110,7 @@ const actionsCreators = Object.freeze({
   unflipDeckPile,
   undoToFlipped,
   resetDeck,
+  unResetDeck,
   dragFlippedCard,
   resetCardDragging,
   removeFlippedCard
