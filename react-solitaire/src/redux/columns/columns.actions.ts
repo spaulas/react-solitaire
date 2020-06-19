@@ -49,8 +49,14 @@ const undoSwapColumns = (
 // ********************************************************
 // UNDO ACTIONS
 
-const undoMoveToColumn = (columnId: string) => ({
-  type: ColumnActionTypes.UNDO_MOVE_TO_COLUMN,
+const sendUndoCardToColumn = (card: CardType, columnId: string) => ({
+  type: ColumnActionTypes.SEND_UNDO_CARDS_TO_COLUMN,
+  card,
+  columnId
+});
+
+const setUndoColumnCards = (columnId: string) => ({
+  type: ColumnActionTypes.SET_UNDO_COLUMN_CARDS,
   columnId
 });
 
@@ -103,7 +109,8 @@ const actionsCreators = Object.freeze({
   setInitialColumns,
   swapColumns,
   undoSwapColumns,
-  undoMoveToColumn,
+  sendUndoCardToColumn,
+  setUndoColumnCards,
   dragColumnCards,
   resetCardDragging,
   addDraggingCardsToColumn,

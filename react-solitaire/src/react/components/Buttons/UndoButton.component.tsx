@@ -17,10 +17,11 @@ function UndoButton() {
   const [sourceBack, setSourceBack] = useState("");
 
   // get gameMoves from redux
-  const { gamePreviousMoves, columnCardUndo } = useSelector(
-    ({ GameBoard, Columns }: RootReducerState) => ({
+  const { gamePreviousMoves, columnCardUndo, goalCardUndo } = useSelector(
+    ({ GameBoard, Columns, Goal }: RootReducerState) => ({
       gamePreviousMoves: GameBoard.gamePreviousMoves,
-      columnCardUndo: Columns.cardUndo
+      columnCardUndo: Columns.cardUndo,
+      goalCardUndo: Goal.cardUndo
     })
   );
 
@@ -32,23 +33,31 @@ function UndoButton() {
         nMoves - 1
       ];
 
-      console.log("gamePreviousMoves = ", gamePreviousMoves);
-
-      if (source.indexOf("deckPile") === 0) {
-        if (target.indexOf("flippedPile") === 0) {
-          console.log("GO BACK from DECK pile to FLIPPED pile");
+      // undo moves that were from the deck pile to another pile
+      // basically, send the card back from that pile to the deck pile
+      if (source === "deckPile") {
+        if (target === "flippedPile") {
+          // flipped -> deck
           // call deck function to send back a flipped card to the deck pile
           dispatch(deckActions.unflipDeckPile());
-        } else if (target.indexOf("goal") === 0) {
-          console.log("GO BACK from DECK pile to GOAL pile");
-        } else if (target.indexOf("column") === 0) {
-          console.log("GO BACK from DECK pile to COLUMN pile");
-          dispatch(columnActions.undoMoveToColumn(target));
-          setSourceBack("deckPile");
+        } else if (target.includes("goal")) {
+          // goal pile -> deck
+          // call goal function to remove card from the goal and send it to its redux cardUndo state
+          dispatch(goalActions.setUndoGoalCards(target));
+        } else if (target.includes("column")) {
+          // column pile -> deck
+          // call column function to remove card from the goal and send it to its redux cardUndo state
+          dispatch(columnActions.setUndoColumnCards(target));
         }
-      } else if (source.indexOf("column") === 0) {
-        if (target.indexOf("column") === 0) {
-          console.log("GO BACK from COLUMN pile to COLUMN pile");
+        // set the source of the original movement to be the deck pile
+        setSourceBack("deckPile");
+        // -------------------------------------------------------------------------------
+        // undo moves that were from a column pile to another pile
+        // basically, send the card back from that pile to the corresponding column pile
+      } else if (source.includes("column")) {
+        if (target.includes("column")) {
+          // column pile -> column pile
+          // call column function to remove card from one card pile to another directly
           dispatch(
             columnActions.undoSwapColumns(
               source,
@@ -57,16 +66,21 @@ function UndoButton() {
               movementWithFlip
             )
           );
-        } else if (target.indexOf("goal") === 0) {
-          console.log("GO BACK from COLUMN pile to GOAL pile");
+        } else if (target.includes("goal")) {
+          // goal pile -> column pile
+          // call goal function to remove card from the goal and send it to its redux cardUndo state
+          dispatch(goalActions.setUndoGoalCards(target));
+          setSourceBack(source);
         }
       } else if (source.indexOf("goal") === 0) {
         if (target.indexOf("column") === 0) {
-          console.log("GO BACK from GOAL pile to COLUMN pile");
-          dispatch(columnActions.undoMoveToColumn(target));
+          // column pile -> goal pile
+          // call goal function to remove card from the column and send it to its redux cardUndo state
+          dispatch(columnActions.setUndoColumnCards(target));
           setSourceBack(source);
         } else if (target.indexOf("goal") === 0) {
-          console.log("GO BACK from GOAL pile to GOAL pile");
+          // goal pile -> goal pile
+          // call column function to remove card from one goal pile to another directly
           dispatch(goalActions.unswapGoals(source, target));
         }
       } else {
@@ -82,11 +96,22 @@ function UndoButton() {
     if (sourceBack.indexOf("deckPile") === 0) {
       dispatch(deckActions.undoToFlipped(columnCardUndo));
     } else if (sourceBack.indexOf("goal") === 0) {
-      dispatch(goalActions.undoToGoal(columnCardUndo, sourceBack));
+      dispatch(goalActions.sendUndoCardToGoal(columnCardUndo, sourceBack));
     }
   };
 
   useEffect(resolveUndoFromColumn, [columnCardUndo]);
+
+  const resolveUndoFromGoal = () => {
+    if (sourceBack === "deckPile") {
+      dispatch(deckActions.undoToFlipped(goalCardUndo));
+    }
+    if (sourceBack.includes("column")) {
+      dispatch(columnActions.sendUndoCardToColumn(goalCardUndo, sourceBack));
+    }
+  };
+
+  useEffect(resolveUndoFromGoal, [goalCardUndo]);
 
   return <StepBackwardOutlined onClick={handleUndo} />;
 }

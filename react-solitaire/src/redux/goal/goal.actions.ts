@@ -28,9 +28,14 @@ const unswapGoals = (source: string, target: string) => ({
 // ********************************************************
 // UNDO ACTIONS
 
-const undoToGoal = (card: CardType, goalId: string) => ({
-  type: GoalActionTypes.UNDO_TO_GOAL,
+const sendUndoCardToGoal = (card: CardType, goalId: string) => ({
+  type: GoalActionTypes.SEND_UNDO_CARDS_TO_GOAL,
   card,
+  goalId
+});
+
+const setUndoGoalCards = (goalId: string) => ({
+  type: GoalActionTypes.SET_UNDO_GOAL_CARDS,
   goalId
 });
 
@@ -79,7 +84,8 @@ const resetCardDragging = () => ({
 const actionsCreators = Object.freeze({
   swapGoals,
   unswapGoals,
-  undoToGoal,
+  sendUndoCardToGoal,
+  setUndoGoalCards,
   dragGoalCards,
   addDraggingCardsToGoal,
   removeGoalCard,

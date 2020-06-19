@@ -222,10 +222,12 @@ export const setCardDragging = (
   // get the cards that will swap and also remove them from the initial column
   const cardsToSwap = initialCol.splice(indexToDelete, nCards);
 
+  const movementWithFlip =
+    initialCol.length > 1 && !initialCol[indexToDelete - 1].flipped;
   return {
     cardDragging: cardsToSwap,
-    cardDraggingCol: columnId
-    // columns: { ...columns, [columnId]: initialCol } @todo check if this change can be completely deleted!
+    cardDraggingCol: columnId,
+    movementWithFlip
   };
 };
 
@@ -262,12 +264,10 @@ export const removeCard = (
  * @param columns state current columns object
  * @param columnId id of the column to remove the top card
  */
-export const undoMoveToColumn = (
+export const setUndoGoalCards = (
   columns: Record<string, Array<CardType>>,
   columnId: string
 ) => {
-  // eslint-disable-next-line no-console
-  console.log("columnId = ", columnId);
   // get copy of the column
   const column = [...columns[columnId]];
   // get card to be removed
@@ -279,5 +279,31 @@ export const undoMoveToColumn = (
       [columnId]: column
     },
     cardUndo
+  };
+};
+
+export const sendUndoCardsToColumun = (
+  columns: Record<string, Array<CardType>>,
+  columnId: string,
+  card: CardType
+) => {
+  // create a copy of the column
+  const column = [...columns[columnId]];
+
+  // check if the column has more cards
+
+  const nCards = column.length;
+  if (nCards > 0) {
+    column[nCards - 1] = { ...column[nCards - 1], flipped: false };
+  }
+
+  // add the swapped cards to the final column
+  column.push({ ...card, flipped: true, cardField: columnId });
+
+  return {
+    columns: {
+      ...columns,
+      [columnId]: column
+    }
   };
 };

@@ -2,6 +2,7 @@
 import {
   addToGoal,
   setCardDragging,
+  setUndoGoalCards,
   swapGoals,
   unswapGoals
 } from "./goal.utils";
@@ -19,6 +20,7 @@ export interface InitialGoal {
   };
   cardDragging?: Array<CardType>;
   cardDraggingGoal?: string;
+  cardUndo?: CardType;
   gameOver: boolean;
 }
 
@@ -31,6 +33,7 @@ const INITIAL_GOAL: InitialGoal = {
   },
   cardDragging: undefined,
   cardDraggingGoal: undefined,
+  cardUndo: undefined,
   gameOver: false
 };
 
@@ -60,16 +63,25 @@ const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
     // ********************************************************
     // UNDO ACTIONS
 
-    case GoalActionTypes.UNDO_TO_GOAL:
+    case GoalActionTypes.SEND_UNDO_CARDS_TO_GOAL:
       return {
         ...state,
         goals: {
           ...state.goals,
           [action.goalId]: [
-            ...action.goalId,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            ...(state.goals as any)[action.goalId],
             { ...action.card, cardField: action.goalId }
           ]
         }
+      };
+
+    case GoalActionTypes.SET_UNDO_GOAL_CARDS:
+      const undoGoalCardsResult = setUndoGoalCards(state.goals, action.goalId);
+
+      return {
+        ...state,
+        ...undoGoalCardsResult
       };
 
     // ********************************************************

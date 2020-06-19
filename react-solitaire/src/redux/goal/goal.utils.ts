@@ -158,3 +158,26 @@ export const unswapGoals = (
     goals: { ...goals, [initialGoalId]: initialGoal, [finalGoalId]: finalGoal }
   };
 };
+
+/**
+ * Remove the top card of a column and store it in the cardUndo state
+ * @param goals state current columns object
+ * @param goalId id of the column to remove the top card
+ */
+export const setUndoGoalCards = (
+  goals: Record<string, Array<CardType>>,
+  goalId: string
+) => {
+  // get copy of the column
+  const goal = [...goals[goalId]];
+  // get card to be removed
+  const cardUndo = goal.pop();
+
+  return {
+    goals: {
+      ...goals,
+      [goalId]: goal
+    },
+    cardUndo
+  };
+};

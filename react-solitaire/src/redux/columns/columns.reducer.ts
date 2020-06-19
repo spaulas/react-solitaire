@@ -3,9 +3,10 @@ import {
   addToColumn,
   createColumns,
   removeCard,
+  sendUndoCardsToColumun,
   setCardDragging,
+  setUndoGoalCards,
   swapColumns,
-  undoMoveToColumn,
   undoSwapColumns
 } from "./columns.utils";
 import { ActionsCreators } from "./columns.actions";
@@ -87,11 +88,20 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
     // ********************************************************
     // UNDO ACTIONS
 
-    case ColumnsActionTypes.UNDO_MOVE_TO_COLUMN:
-      const resultUndo = undoMoveToColumn(state.columns, action.columnId);
-      // eslint-disable-next-line no-console
-      console.log("UNDO_MOVE_TO_COLUMN resultUndo= ", resultUndo);
+    case ColumnsActionTypes.SET_UNDO_COLUMN_CARDS:
+      const resultUndo = setUndoGoalCards(state.columns, action.columnId);
       return { ...state, ...resultUndo };
+
+    case ColumnsActionTypes.SEND_UNDO_CARDS_TO_COLUMN:
+      const sendUndoResult = sendUndoCardsToColumun(
+        state.columns,
+        action.columnId,
+        action.card
+      );
+      return {
+        ...state,
+        ...sendUndoResult
+      };
 
     // ********************************************************
     // DRAGGING ACTIONS

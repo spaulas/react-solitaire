@@ -214,6 +214,7 @@ function GameBoard() {
         }
       }
       dispatch(columnsActions.resetCardDragging());
+      dispatch(goalActions.resetCardDragging());
     }
   };
   // when the sendBack card changes, check if it is false
@@ -228,16 +229,22 @@ function GameBoard() {
         dispatch(deckActions.removeFlippedCard());
       } else {
         const finalSource = goalSource || columnSource;
-        console.log("FINAL SOURCE (should be a column) = ", finalSource);
-        console.log("TARGET (should be a goal) = ", columnDropedTo);
         // add game move
-        dispatch(gameBoardActions.addGameMove(finalSource, columnDropedTo));
+        dispatch(
+          gameBoardActions.addGameMove(
+            finalSource,
+            columnDropedTo,
+            1,
+            movementWithFlip
+          )
+        );
 
         if (finalSource.indexOf("column") === 0) {
           dispatch(columnsActions.removeCard());
         }
       }
     }
+    dispatch(columnsActions.resetCardDragging());
     dispatch(goalActions.resetCardDragging());
   };
   // when the sendBack card changes, check if it is false
