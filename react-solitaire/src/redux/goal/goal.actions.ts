@@ -68,7 +68,7 @@ const addDraggingCardsToGoal = (
 /**
  * Resets the currently saved card that was been dragged, its position and initial goal ids
  */
-const removeGoalCard = () => ({
+const removeGoalCard = (goalId?: string) => ({
   type: GoalActionTypes.REMOVE_GOAL_CARD
 });
 

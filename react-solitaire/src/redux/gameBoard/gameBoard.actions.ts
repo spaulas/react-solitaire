@@ -1,3 +1,4 @@
+import { CardType } from "antd/lib/card";
 import GameBoardActionTypes from "./gameBoard.types";
 import { ValueOf } from "../../global";
 
@@ -21,13 +22,13 @@ const toggleGameFlag = () => ({
 const addGameMove = (
   source: string,
   target: string,
-  nCards = 0,
+  cards?: Array<CardType>,
   movementWithFlip?: boolean
 ) => ({
   type: GameBoardActionTypes.ADD_GAME_MOVE,
   source,
   target,
-  nCards,
+  cards,
   movementWithFlip
 });
 
@@ -36,6 +37,13 @@ const addGameMove = (
  */
 const removeGameMove = () => ({
   type: GameBoardActionTypes.REMOVE_GAME_MOVE
+});
+
+/**
+ * Adds a move that was redone to the list of game moves
+ */
+const reAddGameMove = () => ({
+  type: GameBoardActionTypes.RE_ADD_GAME_MOVE
 });
 
 /**
@@ -50,6 +58,7 @@ const actionsCreators = Object.freeze({
   toggleGameFlag,
   addGameMove,
   removeGameMove,
+  reAddGameMove,
   timeGame
 });
 

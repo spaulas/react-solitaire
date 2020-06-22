@@ -41,7 +41,7 @@ const setTranslation = (translation: number) => ({
  * Flips one card from the deck pile to the flipped pile
  * @param cardId id of the card to be flipped
  */
-const flipDeckPile = (cardId: number) => ({
+const flipDeckPile = (cardId?: number) => ({
   type: DeckActionTypes.FLIP_DECK_PILE,
   cardId
 });

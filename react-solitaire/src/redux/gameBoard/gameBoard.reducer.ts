@@ -69,18 +69,31 @@ const gameBoardReducer = (
           {
             source: action.source,
             target: action.target,
-            nCards: action.nCards,
+            cards: action.cards,
             movementWithFlip: action.movementWithFlip
           }
-        ]
+        ],
+        gameNextMoves: []
       };
     case GameBoardActionTypes.REMOVE_GAME_MOVE:
       const tempGamePreviousMoves = [...state.gamePreviousMoves];
-      tempGamePreviousMoves.pop();
+      const moveUndone = tempGamePreviousMoves.pop();
 
       return {
         ...state,
         gamePreviousMoves: tempGamePreviousMoves,
+        gameNextMoves: [...state.gameNextMoves, moveUndone],
+        gameMoves: state.gameMoves + 1
+      };
+
+    case GameBoardActionTypes.RE_ADD_GAME_MOVE:
+      const tempGameNextMoves = [...state.gameNextMoves];
+      const moveRedone = tempGameNextMoves.pop();
+
+      return {
+        ...state,
+        gameNextMoves: tempGameNextMoves,
+        gamePreviousMoves: [...state.gamePreviousMoves, moveRedone],
         gameMoves: state.gameMoves + 1
       };
 

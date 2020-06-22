@@ -49,15 +49,31 @@ const undoSwapColumns = (
 // ********************************************************
 // UNDO ACTIONS
 
-const sendUndoCardToColumn = (card: CardType, columnId: string) => ({
+const sendUndoCardToColumn = (
+  card: CardType,
+  columnId: string,
+  flip = true
+) => ({
   type: ColumnActionTypes.SEND_UNDO_CARDS_TO_COLUMN,
   card,
-  columnId
+  columnId,
+  flip
 });
 
 const setUndoColumnCards = (columnId: string) => ({
   type: ColumnActionTypes.SET_UNDO_COLUMN_CARDS,
   columnId
+});
+
+const removeNCards = (
+  columnId: string,
+  nCards: number,
+  movementWithFlip: boolean
+) => ({
+  type: ColumnActionTypes.REMOVE_N_CARDS,
+  columnId,
+  nCards,
+  movementWithFlip
 });
 
 // ********************************************************
@@ -114,7 +130,8 @@ const actionsCreators = Object.freeze({
   dragColumnCards,
   resetCardDragging,
   addDraggingCardsToColumn,
-  removeCard
+  removeCard,
+  removeNCards
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

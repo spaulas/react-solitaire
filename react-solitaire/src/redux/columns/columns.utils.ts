@@ -38,6 +38,10 @@ export const createColumns = (columns: Record<string, Array<CardType>>) => {
  * @param finalCard
  */
 export const isValidMovement = (firstCard: CardType, finalCard: CardType) => {
+  // eslint-disable-next-line no-console
+  console.log("IS VALID MOVEMENT final card - ", finalCard);
+  // eslint-disable-next-line no-console
+  console.log("IS VALID MOVEMENT finfirstCardal card - ", firstCard);
   // if the column has no cards, then simply return true
   if (!finalCard) {
     return true;
@@ -259,6 +263,36 @@ export const removeCard = (
   };
 };
 
+export const removeNCards = (
+  columns: Record<string, Array<CardType>>,
+  columnId: string,
+  nCards: number,
+  movementWithFlip: boolean
+) => {
+  // create copy of the column
+  const tempCol = [...columns[columnId]];
+  // remove the last card
+  tempCol.splice(-nCards, 1);
+
+  // get index of last card
+  const lastCard = tempCol.length - 1;
+
+  // if the last card has flipped = false, then make it true
+  if (lastCard >= 0 && movementWithFlip) {
+    tempCol[lastCard] = {
+      ...tempCol[lastCard],
+      flipped: true
+    };
+  }
+
+  return {
+    columns: {
+      ...columns,
+      [columnId]: tempCol
+    }
+  };
+};
+
 /**
  * Remove the top card of a column and store it in the cardUndo state
  * @param columns state current columns object
@@ -285,15 +319,15 @@ export const setUndoGoalCards = (
 export const sendUndoCardsToColumun = (
   columns: Record<string, Array<CardType>>,
   columnId: string,
-  card: CardType
+  card: CardType,
+  flip?: true
 ) => {
   // create a copy of the column
   const column = [...columns[columnId]];
 
   // check if the column has more cards
-
   const nCards = column.length;
-  if (nCards > 0) {
+  if (nCards > 0 && flip) {
     column[nCards - 1] = { ...column[nCards - 1], flipped: false };
   }
 

@@ -118,7 +118,9 @@ const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
 
     case GoalActionTypes.REMOVE_GOAL_CARD:
       const goalPile = [
-        ...(state.goals as ExplicitAny)[state.cardDraggingGoal || "goal1Pile"]
+        ...(state.goals as ExplicitAny)[
+          action.goalId || state.cardDraggingGoal || "goal1Pile"
+        ]
       ];
       goalPile.splice(-1, 1);
       return {
@@ -127,7 +129,7 @@ const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
         cardDraggingGoal: undefined,
         goals: {
           ...state.goals,
-          [state.cardDraggingGoal || "goal1Pile"]: goalPile
+          [action.goalId || state.cardDraggingGoal || "goal1Pile"]: goalPile
         }
       };
 

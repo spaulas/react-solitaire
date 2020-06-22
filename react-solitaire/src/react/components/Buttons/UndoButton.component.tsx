@@ -72,7 +72,9 @@ function UndoButton() {
           dispatch(goalActions.setUndoGoalCards(target));
           setSourceBack(source);
         }
-      } else if (source.indexOf("goal") === 0) {
+      }
+      // -------------------------------------------------------------------------------
+      else if (source.indexOf("goal") === 0) {
         if (target.indexOf("column") === 0) {
           // column pile -> goal pile
           // call goal function to remove card from the column and send it to its redux cardUndo state

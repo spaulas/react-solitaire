@@ -3,6 +3,7 @@ import {
   addToColumn,
   createColumns,
   removeCard,
+  removeNCards,
   sendUndoCardsToColumun,
   setCardDragging,
   setUndoGoalCards,
@@ -96,11 +97,24 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
       const sendUndoResult = sendUndoCardsToColumun(
         state.columns,
         action.columnId,
-        action.card
+        action.card,
+        action.flip
       );
       return {
         ...state,
         ...sendUndoResult
+      };
+
+    case ColumnsActionTypes.REMOVE_N_CARDS:
+      const removeNCardsResult = removeNCards(
+        state.columns,
+        action.columnId,
+        action.nCards,
+        action.movementWithFlip
+      );
+      return {
+        ...state,
+        ...removeNCardsResult
       };
 
     // ********************************************************
