@@ -78,12 +78,12 @@ function RedoButton() {
             columnActions.sendUndoCardToColumn(
               cards[0],
               target,
-              movementWithFlip
+              Boolean(movementWithFlip)
             )
           );
         } else if (target.indexOf("goal") === 0) {
           // goal pile -> goal pile
-          dispatch(goalActions.unswapGoals(source, target));
+          dispatch(goalActions.unswapGoals(target, source));
         }
       } else {
         // undo a deck flipped
