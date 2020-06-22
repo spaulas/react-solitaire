@@ -90,7 +90,7 @@ function RedoButton() {
         // flipped pile -> deck pile
         dispatch(deckActions.resetDeck());
       }
-      dispatch(gameBoardActions.addGameMove(target, source, cards));
+      dispatch(gameBoardActions.reAddGameMove());
     }
   };
   return <StepForwardOutlined onClick={handleRedo} />;
