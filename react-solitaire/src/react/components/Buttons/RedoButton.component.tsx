@@ -20,7 +20,6 @@ function RedoButton() {
   }));
 
   const handleRedo = () => {
-    console.log("HANDLE REDO =- ", gameNextMoves);
     const nMoves = gameNextMoves.length;
     // can only undo when there are moves to go back
     if (nMoves > 0) {
