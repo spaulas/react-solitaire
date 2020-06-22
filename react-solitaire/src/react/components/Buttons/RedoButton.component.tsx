@@ -38,13 +38,13 @@ function RedoButton() {
           // remove card from flipped pile
           dispatch(deckActions.removeFlippedCard());
           // add removed card to the corresponding column
-          dispatch(columnActions.sendUndoCardToColumn(cards, target, false));
+          dispatch(columnActions.sendUndoCardToColumn(cards[0], target, false));
         } else if (target.includes("goal")) {
           // deckPile -> goal pile
           // remove card from flipped pile
           dispatch(deckActions.removeFlippedCard());
           // add removed card to the corresponding goal
-          dispatch(goalActions.sendUndoCardToGoal(cards, target));
+          dispatch(goalActions.sendUndoCardToGoal(cards[0], target));
         }
       } // -------------------------------------------------------------------------------
       // undo moves that were from a column pile to another pile

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable indent */
 import { CardType, cardsConfigurations } from "../gameBoard/gameBoard.types";
 import {

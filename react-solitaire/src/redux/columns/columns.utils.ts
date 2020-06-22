@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { CardType } from "../gameBoard/gameBoard.types";
 
 /**
@@ -38,10 +39,6 @@ export const createColumns = (columns: Record<string, Array<CardType>>) => {
  * @param finalCard
  */
 export const isValidMovement = (firstCard: CardType, finalCard: CardType) => {
-  // eslint-disable-next-line no-console
-  console.log("IS VALID MOVEMENT final card - ", finalCard);
-  // eslint-disable-next-line no-console
-  console.log("IS VALID MOVEMENT finfirstCardal card - ", firstCard);
   // if the column has no cards, then simply return true
   if (!finalCard) {
     return true;
