@@ -29,7 +29,7 @@ function UndoButton() {
     const nMoves = gamePreviousMoves.length;
     // can only undo when there are moves to go back
     if (nMoves > 0) {
-      const { source, target, nCards, movementWithFlip } = gamePreviousMoves[
+      const { source, target, cards, movementWithFlip } = gamePreviousMoves[
         nMoves - 1
       ];
 
@@ -62,7 +62,7 @@ function UndoButton() {
             columnActions.undoSwapColumns(
               source,
               target,
-              nCards,
+              cards.length,
               movementWithFlip
             )
           );

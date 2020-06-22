@@ -54,19 +54,19 @@ function RedoButton() {
           // column pile -> column pile
           dispatch(
             columnActions.undoSwapColumns(
-              source,
               target,
-              cards.nCards,
+              source,
+              cards.length,
               movementWithFlip
             )
           );
         } else if (target.includes("goal")) {
           // column pile -> goal pile
           dispatch(
-            columnActions.removeNCards(source, cards.nCards, movementWithFlip)
+            columnActions.removeNCards(source, cards.length, movementWithFlip)
           );
           // add removed card to the corresponding goal
-          dispatch(goalActions.sendUndoCardToGoal(cards, target));
+          dispatch(goalActions.sendUndoCardToGoal(cards[0], target));
         }
       }
       // -------------------------------------------------------------------------------
@@ -75,7 +75,11 @@ function RedoButton() {
           // goal pile -> column pile
           dispatch(goalActions.removeGoalCard(source));
           dispatch(
-            columnActions.sendUndoCardToColumn(cards, target, movementWithFlip)
+            columnActions.sendUndoCardToColumn(
+              cards[0],
+              target,
+              movementWithFlip
+            )
           );
         } else if (target.indexOf("goal") === 0) {
           // goal pile -> goal pile
