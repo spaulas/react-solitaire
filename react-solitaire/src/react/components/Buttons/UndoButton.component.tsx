@@ -1,6 +1,5 @@
-/* eslint-disable no-console */
-import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { RootReducerState } from "../../../global";
 import { StepBackwardOutlined } from "@ant-design/icons";
 import columnActions from "../../../redux/columns/columns.actions";
@@ -14,14 +13,10 @@ import goalActions from "../../../redux/goal/goal.actions";
 function UndoButton() {
   const dispatch = useDispatch();
 
-  const [sourceBack, setSourceBack] = useState("");
-
   // get gameMoves from redux
-  const { gamePreviousMoves, columnCardUndo, goalCardUndo } = useSelector(
-    ({ GameBoard, Columns, Goal }: RootReducerState) => ({
-      gamePreviousMoves: GameBoard.gamePreviousMoves,
-      columnCardUndo: Columns.cardUndo,
-      goalCardUndo: Goal.cardUndo
+  const { gamePreviousMoves } = useSelector(
+    ({ GameBoard }: RootReducerState) => ({
+      gamePreviousMoves: GameBoard.gamePreviousMoves
     })
   );
 
@@ -42,15 +37,19 @@ function UndoButton() {
           dispatch(deckActions.unflipDeckPile());
         } else if (target.includes("goal")) {
           // goal pile -> deck
-          // call goal function to remove card from the goal and send it to its redux cardUndo state
-          dispatch(goalActions.setUndoGoalCards(target));
+          // call goal function to remove card from the respective goal pile
+          dispatch(goalActions.removeGoalCard(target));
+          // then add it to the flipped pile
+          dispatch(deckActions.undoToFlipped(cards[0]));
         } else if (target.includes("column")) {
           // column pile -> deck
-          // call column function to remove card from the goal and send it to its redux cardUndo state
-          dispatch(columnActions.setUndoColumnCards(target));
+          // call column function to remove card from the respective column pile
+          dispatch(
+            columnActions.removeNCards(target, cards.length, movementWithFlip)
+          );
+          // then add it to the flipped pile
+          dispatch(deckActions.undoToFlipped(cards[0]));
         }
-        // set the source of the original movement to be the deck pile
-        setSourceBack("deckPile");
         // -------------------------------------------------------------------------------
         // undo moves that were from a column pile to another pile
         // basically, send the card back from that pile to the corresponding column pile
@@ -68,21 +67,30 @@ function UndoButton() {
           );
         } else if (target.includes("goal")) {
           // goal pile -> column pile
-          // call goal function to remove card from the goal and send it to its redux cardUndo state
-          dispatch(goalActions.setUndoGoalCards(target));
-          setSourceBack(source);
+          // call goal function to remove card from the respective goal pile
+          dispatch(goalActions.removeGoalCard(target));
+          dispatch(
+            columnActions.sendUndoCardToColumn(
+              cards[0],
+              source,
+              Boolean(movementWithFlip)
+            )
+          );
         }
       }
       // -------------------------------------------------------------------------------
       else if (source.indexOf("goal") === 0) {
         if (target.indexOf("column") === 0) {
           // column pile -> goal pile
-          // call goal function to remove card from the column and send it to its redux cardUndo state
-          dispatch(columnActions.setUndoColumnCards(target));
-          setSourceBack(source);
+          // call goal function to remove card from the repective column pile
+          dispatch(
+            columnActions.removeNCards(target, cards.length, movementWithFlip)
+          );
+          // add removed card to the corresponding goal
+          dispatch(goalActions.sendUndoCardToGoal(cards[0], source));
         } else if (target.indexOf("goal") === 0) {
           // goal pile -> goal pile
-          // call column function to remove card from one goal pile to another directly
+          // call goal function to remove card from one goal pile to another directly
           dispatch(goalActions.unswapGoals(source, target));
         }
       } else {
@@ -95,27 +103,6 @@ function UndoButton() {
       dispatch(gameBoardActions.removeGameMove());
     }
   };
-
-  const resolveUndoFromColumn = () => {
-    if (sourceBack.indexOf("deckPile") === 0) {
-      dispatch(deckActions.undoToFlipped(columnCardUndo));
-    } else if (sourceBack.indexOf("goal") === 0) {
-      dispatch(goalActions.sendUndoCardToGoal(columnCardUndo, sourceBack));
-    }
-  };
-
-  useEffect(resolveUndoFromColumn, [columnCardUndo]);
-
-  const resolveUndoFromGoal = () => {
-    if (sourceBack === "deckPile") {
-      dispatch(deckActions.undoToFlipped(goalCardUndo));
-    }
-    if (sourceBack.includes("column")) {
-      dispatch(columnActions.sendUndoCardToColumn(goalCardUndo, sourceBack));
-    }
-  };
-
-  useEffect(resolveUndoFromGoal, [goalCardUndo]);
 
   return <StepBackwardOutlined onClick={handleUndo} />;
 }
