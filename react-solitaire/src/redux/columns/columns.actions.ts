@@ -18,9 +18,8 @@ const setInitialColumns = (columns: Record<string, Array<CardType>>) => ({
 // SWAPPING ACTIONS
 
 /**
- * Swapping N cards from one column to the other
+ * Swapping N cards (number of cards that were being dragged) from one column (id store at drag) to the other (finalId)
  * @param finalId id of the destination column
- * @param nCards number of cards to be swapped
  */
 const swapColumns = (finalId: string) => ({
   type: ColumnActionTypes.SWAP_COLUMNS,
@@ -28,64 +27,35 @@ const swapColumns = (finalId: string) => ({
 });
 
 /**
- * Undo swap of columns, sends back nCards from the target to the source columns
+ * Undo swap of columns, sends back nCards from the target column to the source column
  * @param source column where the cards originally came from
  * @param target column where the cards originally were sent to
  * @param nCards number of cards that were swapped
+ * @param flip previous swap caused a flip of the other column card
+ * @param typeRedoMovement if true, than the type of movement is redo (could have been undo)
  */
 const undoSwapColumns = (
   source: string,
   target: string,
   nCards: number,
-  movementWithFlip: boolean,
-  redoMovement?: boolean
+  flip: boolean,
+  typeRedoMovement?: boolean
 ) => ({
   type: ColumnActionTypes.UNDO_SWAP_COLUMNS,
   source,
   target,
   nCards,
-  movementWithFlip,
-  redoMovement
-});
-
-// ********************************************************
-// UNDO ACTIONS
-
-const sendUndoCardToColumn = (
-  card: CardType,
-  columnId: string,
-  flip = true
-) => ({
-  type: ColumnActionTypes.SEND_UNDO_CARDS_TO_COLUMN,
-  card,
-  columnId,
-  flip
-});
-
-const setUndoColumnCards = (columnId: string) => ({
-  type: ColumnActionTypes.SET_UNDO_COLUMN_CARDS,
-  columnId
-});
-
-const removeNCards = (
-  columnId: string,
-  nCards: number,
-  movementWithFlip: boolean
-) => ({
-  type: ColumnActionTypes.REMOVE_N_CARDS,
-  columnId,
-  nCards,
-  movementWithFlip
+  flip,
+  typeRedoMovement
 });
 
 // ********************************************************
 // DRAGGING ACTIONS
 
 /**
- * Starts dragging N cards and saves its initial column and position
+ * Starts dragging N cards and saves its initial column id
  * @param nCards cards that are being dragged
  * @param columnId columns which the cards come from
- * @param position the initial position of the cards
  */
 const dragColumnCards = (nCards: number, columnId: string) => ({
   type: ColumnActionTypes.DRAG_COLUMN_CARDS,
@@ -122,18 +92,50 @@ const removeCard = () => ({
 });
 
 // ********************************************************
+// REMOVE/ADD CARDS ACTIONS
+
+/**
+ * Sends a card to a column pile
+ * @param card card to be added to a column pile
+ * @param columnId id of the column that will receive the card
+ * @param flip previous move caused a flip of the column
+ */
+const addCardToColumn = (card: CardType, columnId: string, flip = true) => ({
+  type: ColumnActionTypes.ADD_CARD_TO_COLUMN,
+  card,
+  columnId,
+  flip
+});
+
+/**
+ * Removes N cards from a column pile
+ * @param columnId id of the column that will be reduced of cards
+ * @param nCards number of cards to remove
+ * @param flip previous move caused a flip of the column
+ */
+const removeNCardsFromColumn = (
+  columnId: string,
+  nCards: number,
+  flip: boolean
+) => ({
+  type: ColumnActionTypes.REMOVE_N_CARDS_FROM_COLUMN,
+  columnId,
+  nCards,
+  flip
+});
+
+// ********************************************************
 
 const actionsCreators = Object.freeze({
   setInitialColumns,
   swapColumns,
   undoSwapColumns,
-  sendUndoCardToColumn,
-  setUndoColumnCards,
+  addCardToColumn,
   dragColumnCards,
   resetCardDragging,
   addDraggingCardsToColumn,
   removeCard,
-  removeNCards
+  removeNCardsFromColumn
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

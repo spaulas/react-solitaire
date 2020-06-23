@@ -45,7 +45,11 @@ function UndoButton() {
           // column pile -> deck
           // call column function to remove card from the respective column pile
           dispatch(
-            columnActions.removeNCards(target, cards.length, movementWithFlip)
+            columnActions.removeNCardsFromColumn(
+              target,
+              cards.length,
+              movementWithFlip
+            )
           );
           // then add it to the flipped pile
           dispatch(deckActions.undoToFlipped(cards[0]));
@@ -70,7 +74,7 @@ function UndoButton() {
           // call goal function to remove card from the respective goal pile
           dispatch(goalActions.removeGoalCard(target));
           dispatch(
-            columnActions.sendUndoCardToColumn(
+            columnActions.addCardToColumn(
               cards[0],
               source,
               Boolean(movementWithFlip)
@@ -84,7 +88,11 @@ function UndoButton() {
           // column pile -> goal pile
           // call goal function to remove card from the repective column pile
           dispatch(
-            columnActions.removeNCards(target, cards.length, movementWithFlip)
+            columnActions.removeNCardsFromColumn(
+              target,
+              cards.length,
+              movementWithFlip
+            )
           );
           // add removed card to the corresponding goal
           dispatch(goalActions.sendUndoCardToGoal(cards[0], source));

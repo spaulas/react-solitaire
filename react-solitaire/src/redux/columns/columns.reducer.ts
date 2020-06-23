@@ -1,13 +1,11 @@
-/* eslint-disable no-console */
 /* eslint-disable indent */
 import {
-  addToColumn,
+  addCardToColumn,
+  addDragginCardsToColumn,
   createColumns,
   removeCard,
-  removeNCards,
-  sendUndoCardsToColumun,
+  removeNCardsFromColumn,
   setCardDragging,
-  setUndoGoalCards,
   swapColumns,
   undoSwapColumns
 } from "./columns.utils";
@@ -17,6 +15,7 @@ import ColumnsActionTypes from "./columns.types";
 
 export interface InitialColumns {
   columns: {
+    // cards array of each column
     column1Pile: Array<CardType>;
     column2Pile: Array<CardType>;
     column3Pile: Array<CardType>;
@@ -25,11 +24,10 @@ export interface InitialColumns {
     column6Pile: Array<CardType>;
     column7Pile: Array<CardType>;
   };
-  cardDragging?: Array<CardType>;
-  cardDraggingCol?: string;
-  cardUndo?: CardType;
-  sendBack?: boolean;
-  movementWithFlip?: boolean;
+  cardDragging?: Array<CardType>; // cards original from the columns that are being dragged
+  cardDraggingCol?: string; // id of the cards dragging's column
+  sendBack?: boolean; // flag that announces if the movement to the column, was invalid
+  movementWithFlip?: boolean; // indicates if the movement to or from the column caused a card to be flipped
 }
 
 const INITIAL_COLUMNS: InitialColumns = {
@@ -44,7 +42,6 @@ const INITIAL_COLUMNS: InitialColumns = {
   },
   cardDragging: undefined,
   cardDraggingCol: undefined,
-  cardUndo: undefined,
   sendBack: undefined,
   movementWithFlip: undefined
 };
@@ -54,6 +51,11 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
     // ********************************************************
     // INITIAL SETTINGS ACTIONS
 
+    /**
+     * Stores the initial columns in the Redux State:
+     *    - stores the column object created at createColumns function
+     *    - resets cardDragging, cardDraggingCol and sendBack;
+     */
     case ColumnsActionTypes.SET_INITIAL_COLUMNS:
       return {
         columns: createColumns(action.columns),
@@ -65,7 +67,14 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
     // ********************************************************
     // SWAPPING ACTIONS
 
+    /**
+     * Swapping N cards (number of cards that were being dragged) from one column (id store at drag) to the other (finalId)
+     *    - saves the changes in the initialCol and finalCol;
+     *    - if the movement is not valid, then sendBack is set to true, if not, to false;
+     *    - if the movement is valid and a card was flipped, than movementWithFlip is set to true, if not, to false;
+     */
     case ColumnsActionTypes.SWAP_COLUMNS:
+      // only if the finalId is not the same id of the cards that are being dragged, that the swapping can happen
       if (!action.finalId.includes(state.cardDraggingCol)) {
         const resultSwap = swapColumns(
           state.columns,
@@ -75,53 +84,35 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         );
         return { ...state, ...resultSwap };
       }
+      // if the finalId is the same id of the cards that are being dragged,
+      // then simply return the state, because no changes were caused
       return state;
 
+    /**
+     * Undo swap of columns, sends back nCards from the target column to the source column
+     *    - apply the necessary changes to the cards fields, according to the type of movement (undo or redo) and if a card was flipped
+     *    - save the changes done at the source and target columns
+     */
     case ColumnsActionTypes.UNDO_SWAP_COLUMNS:
       const resultUnswap = undoSwapColumns(
         state.columns,
         action.target,
         action.source,
         action.nCards,
-        action.movementWithFlip,
-        action.redoMovement
+        action.flip,
+        action.typeRedoMovement
       );
       return { ...state, ...resultUnswap };
 
     // ********************************************************
-    // UNDO ACTIONS
-
-    case ColumnsActionTypes.SET_UNDO_COLUMN_CARDS:
-      const resultUndo = setUndoGoalCards(state.columns, action.columnId);
-      return { ...state, ...resultUndo };
-
-    case ColumnsActionTypes.SEND_UNDO_CARDS_TO_COLUMN:
-      const sendUndoResult = sendUndoCardsToColumun(
-        state.columns,
-        action.columnId,
-        action.card,
-        action.flip
-      );
-      return {
-        ...state,
-        ...sendUndoResult
-      };
-
-    case ColumnsActionTypes.REMOVE_N_CARDS:
-      const removeNCardsResult = removeNCards(
-        state.columns,
-        action.columnId,
-        action.nCards,
-        action.movementWithFlip
-      );
-      return {
-        ...state,
-        ...removeNCardsResult
-      };
-
-    // ********************************************************
     // DRAGGING ACTIONS
 
+    /**
+     * Starts dragging N cards and saves its initial column id
+     *    - gets the cards that are being dragged from the column and save it in the cardsDragging state;
+     *    - save the id of the column in the cardsDraggingCol state;
+     *    - save if the movement caused a flip in the movementWithFlip state;
+     */
     case ColumnsActionTypes.DRAG_COLUMN_CARDS:
       const draggingResult = setCardDragging(
         state.columns,
@@ -133,8 +124,16 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         ...draggingResult
       };
 
+    /**
+     * Adds the cards that were being dragged to the selected column
+     *    - if the movement was valid, then:
+     *        - add the cards to the corresponding column pile;
+     *        - sets sendBack to false;
+     *        - resets cardsDragging;
+     *    - if the movement was invalid, then simply set the sendBack value to true;
+     */
     case ColumnsActionTypes.ADD_DRAGGING_CARDS_TO_COLUMN:
-      const addResult = addToColumn(
+      const addResult = addDragginCardsToColumn(
         state.columns,
         action.finalId,
         action.cardDragging
@@ -166,6 +165,40 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         cardDragging: undefined
       };
 
+    // ********************************************************
+    // REMOVE/ADD CARDS ACTIONS
+
+    /**
+     * Sends a card to a column pile
+     *    - adds the card to the correspoding column, flipping or not the cards on top
+     */
+    case ColumnsActionTypes.ADD_CARD_TO_COLUMN:
+      const sendUndoResult = addCardToColumn(
+        state.columns,
+        action.columnId,
+        action.card,
+        action.flip
+      );
+      return {
+        ...state,
+        ...sendUndoResult
+      };
+
+    /**
+     * Removes N cards from a column pile
+     *    - removes N cards from a column and, if the top cards were not flipped, then will flip them
+     */
+    case ColumnsActionTypes.REMOVE_N_CARDS_FROM_COLUMN:
+      const removeNCardsResult = removeNCardsFromColumn(
+        state.columns,
+        action.columnId,
+        action.nCards,
+        action.flip
+      );
+      return {
+        ...state,
+        ...removeNCardsResult
+      };
     // ********************************************************
 
     default:

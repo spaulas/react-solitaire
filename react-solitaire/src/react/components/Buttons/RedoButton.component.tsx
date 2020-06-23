@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import { RootReducerState } from "../../../global";
@@ -37,7 +36,7 @@ function RedoButton() {
           // remove card from flipped pile
           dispatch(deckActions.removeFlippedCard());
           // add removed card to the corresponding column
-          dispatch(columnActions.sendUndoCardToColumn(cards[0], target, false));
+          dispatch(columnActions.addCardToColumn(cards[0], target, false));
         } else if (target.includes("goal")) {
           // deckPile -> goal pile
           // remove card from flipped pile
@@ -63,7 +62,11 @@ function RedoButton() {
         } else if (target.includes("goal")) {
           // column pile -> goal pile
           dispatch(
-            columnActions.removeNCards(source, cards.length, movementWithFlip)
+            columnActions.removeNCardsFromColumn(
+              source,
+              cards.length,
+              movementWithFlip
+            )
           );
           // add removed card to the corresponding goal
           dispatch(goalActions.sendUndoCardToGoal(cards[0], target));
@@ -75,7 +78,7 @@ function RedoButton() {
           // goal pile -> column pile
           dispatch(goalActions.removeGoalCard(source));
           dispatch(
-            columnActions.sendUndoCardToColumn(
+            columnActions.addCardToColumn(
               cards[0],
               target,
               Boolean(movementWithFlip)
