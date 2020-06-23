@@ -36,7 +36,7 @@ function RedoButton() {
           // remove card from flipped pile
           dispatch(deckActions.removeFlippedCard());
           // add removed card to the corresponding column
-          dispatch(columnActions.addCardToColumn(cards[0], target, false));
+          dispatch(columnActions.addCardToColumn(target, cards[0], false));
         } else if (target.includes("goal")) {
           // deckPile -> goal pile
           // remove card from flipped pile
@@ -79,8 +79,8 @@ function RedoButton() {
           dispatch(goalActions.removeGoalCard(source));
           dispatch(
             columnActions.addCardToColumn(
-              cards[0],
               target,
+              cards[0],
               Boolean(movementWithFlip)
             )
           );

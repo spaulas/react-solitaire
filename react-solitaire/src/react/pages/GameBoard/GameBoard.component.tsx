@@ -138,8 +138,8 @@ function GameBoard() {
           // call the column action that adds the dragging cards to the column
           dispatch(
             columnsActions.addDraggingCardsToColumn(
-              cardDragging,
-              columnDropedToTemp
+              columnDropedToTemp,
+              cardDragging
             )
           );
         } else {
@@ -157,8 +157,8 @@ function GameBoard() {
           // call the column action that adds the dragging cards to the column
           dispatch(
             columnsActions.addDraggingCardsToColumn(
-              cardDragging,
-              columnDropedToTemp
+              columnDropedToTemp,
+              cardDragging
             )
           );
         } else {

@@ -54,27 +54,27 @@ const undoSwapColumns = (
 
 /**
  * Starts dragging N cards and saves its initial column id
- * @param nCards cards that are being dragged
  * @param columnId columns which the cards come from
+ * @param nCards cards that are being dragged
  */
-const dragColumnCards = (nCards: number, columnId: string) => ({
+const dragColumnCards = (columnId: string, nCards: number) => ({
   type: ColumnActionTypes.DRAG_COLUMN_CARDS,
-  nCards,
-  columnId
+  columnId,
+  nCards
 });
 
 /**
  * Adds the cards that were being dragged to the selected column
- * @param cardDragging cards that were being dragged
  * @param finalId id of the destination column
+ * @param cardDragging cards that were being dragged
  */
 const addDraggingCardsToColumn = (
-  cardDragging: Array<CardType>,
-  finalId: string
+  finalId: string,
+  cardDragging: Array<CardType>
 ) => ({
   type: ColumnActionTypes.ADD_DRAGGING_CARDS_TO_COLUMN,
-  cardDragging,
-  finalId
+  finalId,
+  cardDragging
 });
 
 /**
@@ -96,14 +96,14 @@ const removeCard = () => ({
 
 /**
  * Sends a card to a column pile
- * @param card card to be added to a column pile
  * @param columnId id of the column that will receive the card
+ * @param card card to be added to a column pile
  * @param flip previous move caused a flip of the column
  */
-const addCardToColumn = (card: CardType, columnId: string, flip = true) => ({
+const addCardToColumn = (columnId: string, card: CardType, flip = true) => ({
   type: ColumnActionTypes.ADD_CARD_TO_COLUMN,
-  card,
   columnId,
+  card,
   flip
 });
 

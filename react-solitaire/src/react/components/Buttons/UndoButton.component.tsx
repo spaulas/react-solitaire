@@ -75,8 +75,8 @@ function UndoButton() {
           dispatch(goalActions.removeGoalCard(target));
           dispatch(
             columnActions.addCardToColumn(
-              cards[0],
               source,
+              cards[0],
               Boolean(movementWithFlip)
             )
           );

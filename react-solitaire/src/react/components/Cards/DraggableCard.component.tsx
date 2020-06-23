@@ -56,7 +56,7 @@ function DraggableCard({ card, nCards, index = 0 }: DraggableCardProps) {
         break;
       default:
         // if it is a card from the columns, then call the column action that saves what is being dragged
-        dispatch(columnActions.dragColumnCards(nCards, card.cardField));
+        dispatch(columnActions.dragColumnCards(card.cardField, nCards));
     }
   };
 
