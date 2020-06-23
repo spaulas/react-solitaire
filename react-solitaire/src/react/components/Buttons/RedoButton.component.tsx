@@ -56,7 +56,8 @@ function RedoButton() {
               target,
               source,
               cards.length,
-              movementWithFlip
+              movementWithFlip,
+              true
             )
           );
         } else if (target.includes("goal")) {

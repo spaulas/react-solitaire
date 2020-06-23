@@ -37,13 +37,15 @@ const undoSwapColumns = (
   source: string,
   target: string,
   nCards: number,
-  movementWithFlip: boolean
+  movementWithFlip: boolean,
+  redoMovement?: boolean
 ) => ({
   type: ColumnActionTypes.UNDO_SWAP_COLUMNS,
   source,
   target,
   nCards,
-  movementWithFlip
+  movementWithFlip,
+  redoMovement
 });
 
 // ********************************************************

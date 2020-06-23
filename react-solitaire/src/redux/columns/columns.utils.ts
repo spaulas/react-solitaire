@@ -141,7 +141,8 @@ export const undoSwapColumns = (
   initialColId: string,
   finalColId: string,
   nCards: number,
-  cardFlipped: boolean
+  cardFlipped: boolean,
+  flipInitial?: boolean
 ) => {
   // create a copy of the initial column
   const initialCol = [...columns[initialColId]];
@@ -150,8 +151,17 @@ export const undoSwapColumns = (
 
   // check if the finalCol has more cards
   if (cardFlipped) {
-    const nFinalCol = finalCol.length;
-    finalCol[nFinalCol - 1] = { ...finalCol[nFinalCol - 1], flipped: false };
+    // should flip the card from the pile the card came from
+    if (flipInitial) {
+      const nInitialCol = initialCol.length;
+      finalCol[nInitialCol - 1] = {
+        ...initialCol[nInitialCol - 1],
+        flipped: false
+      };
+    } else {
+      const nFinalCol = finalCol.length;
+      finalCol[nFinalCol - 1] = { ...finalCol[nFinalCol - 1], flipped: false };
+    }
   }
 
   // get the cards to swap

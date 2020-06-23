@@ -83,7 +83,8 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         action.target,
         action.source,
         action.nCards,
-        action.movementWithFlip
+        action.movementWithFlip,
+        action.redoMovement
       );
       return { ...state, ...resultUnswap };
 
