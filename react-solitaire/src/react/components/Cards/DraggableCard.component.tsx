@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CardFrame from "./CardFrame.component";
 import CardImage from "./CardImage.component";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import columnActions from "../../../redux/columns/columns.actions";
+import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import goalActions from "../../../redux/goal/goal.actions";
@@ -56,7 +56,7 @@ function DraggableCard({ card, nCards, index = 0 }: DraggableCardProps) {
         break;
       default:
         // if it is a card from the columns, then call the column action that saves what is being dragged
-        dispatch(columnActions.dragColumnCards(card.cardField, nCards));
+        dispatch(columnsActions.dragColumnCards(card.cardField, nCards));
     }
   };
 

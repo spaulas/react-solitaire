@@ -78,19 +78,18 @@ const addDraggingCardsToColumn = (
 });
 
 /**
- * Resets the currently saved card that was been dragged, its position and initial column ids
+ * When a dragging operation from a column is successful, then remove the cards that were dragged from that column
+ */
+const removeDraggedCardsFromColumn = () => ({
+  type: ColumnActionTypes.REMOVE_DRAGGED_CARDS_FROM_COLUMN
+});
+
+/**
+ * Resets the currently saved card that was been dragge and its initial column id
  */
 const resetCardDragging = () => ({
   type: ColumnActionTypes.RESET_COLUMN_CARD_DRAGGING
 });
-
-/**
- * Resets the currently saved card that was been dragged, its position and initial column ids
- */
-const removeCard = () => ({
-  type: ColumnActionTypes.REMOVE_CARD
-});
-
 // ********************************************************
 // REMOVE/ADD CARDS ACTIONS
 
@@ -132,8 +131,8 @@ const actionsCreators = Object.freeze({
   undoSwapColumns,
   dragColumnCards,
   addDraggingCardsToColumn,
+  removeDraggedCardsFromColumn,
   resetCardDragging,
-  removeCard,
   addCardToColumn,
   removeNCardsFromColumn
 });

@@ -3,7 +3,7 @@ import {
   addCardToColumn,
   addDragginCardsToColumn,
   createColumns,
-  removeCard,
+  removeDraggedCard,
   removeNCardsFromColumn,
   setCardDragging,
   swapColumns,
@@ -140,8 +140,17 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
       );
       return {
         ...state,
-        cardDragging: undefined,
         ...addResult
+      };
+
+    case ColumnsActionTypes.REMOVE_DRAGGED_CARDS_FROM_COLUMN:
+      const removeResult = removeDraggedCard(
+        state.columns,
+        state.cardDraggingCol as string
+      );
+      return {
+        ...state,
+        ...removeResult
       };
 
     case ColumnsActionTypes.RESET_COLUMN_CARD_DRAGGING:
@@ -149,20 +158,8 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         ...state,
         cardDragging: undefined,
         cardDraggingCol: undefined,
-        cardDraggingPosition: undefined,
         sendBack: undefined,
         movementWithFlip: undefined
-      };
-
-    case ColumnsActionTypes.REMOVE_CARD:
-      const removeResult = removeCard(
-        state.columns,
-        state.cardDraggingCol as string
-      );
-      return {
-        ...state,
-        ...removeResult,
-        cardDragging: undefined
       };
 
     // ********************************************************

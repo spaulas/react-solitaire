@@ -219,6 +219,7 @@ function GameBoard() {
           dispatch(goalActions.removeCardFromGoal());
         }
       }
+      // then reset
       dispatch(columnsActions.resetCardDragging());
       dispatch(goalActions.resetCardDragging());
     }
@@ -252,10 +253,11 @@ function GameBoard() {
         );
 
         if (finalSource.indexOf("column") === 0) {
-          dispatch(columnsActions.removeCard());
+          dispatch(columnsActions.removeDraggedCardsFromColumn());
         }
       }
     }
+    // then reset
     dispatch(columnsActions.resetCardDragging());
     dispatch(goalActions.resetCardDragging());
   };

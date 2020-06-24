@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import { RootReducerState } from "../../../global";
 import { StepForwardOutlined } from "@ant-design/icons";
-import columnActions from "../../../redux/columns/columns.actions";
+import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../redux/goal/goal.actions";
@@ -36,7 +36,7 @@ function RedoButton() {
           // remove card from flipped pile
           dispatch(deckActions.removeFlippedCard());
           // add removed card to the corresponding column
-          dispatch(columnActions.addCardToColumn(target, cards[0], false));
+          dispatch(columnsActions.addCardToColumn(target, cards[0], false));
         } else if (target.includes("goal")) {
           // deckPile -> goal pile
           // remove card from flipped pile
@@ -51,7 +51,7 @@ function RedoButton() {
         if (target.includes("column")) {
           // column pile -> column pile
           dispatch(
-            columnActions.undoSwapColumns(
+            columnsActions.undoSwapColumns(
               target,
               source,
               cards.length,
@@ -62,7 +62,7 @@ function RedoButton() {
         } else if (target.includes("goal")) {
           // column pile -> goal pile
           dispatch(
-            columnActions.removeNCardsFromColumn(
+            columnsActions.removeNCardsFromColumn(
               source,
               cards.length,
               movementWithFlip
@@ -78,7 +78,7 @@ function RedoButton() {
           // goal pile -> column pile
           dispatch(goalActions.removeCardFromGoal(source));
           dispatch(
-            columnActions.addCardToColumn(
+            columnsActions.addCardToColumn(
               target,
               cards[0],
               Boolean(movementWithFlip)
