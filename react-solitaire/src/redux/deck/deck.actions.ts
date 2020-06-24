@@ -76,17 +76,17 @@ const dragFlippedCard = () => ({
 });
 
 /**
- * Resets the currently saved card that was been dragged and its position
+ * After a successful action, remove the top card of the flipped card pile
  */
-const resetCardDragging = () => ({
-  type: DeckActionTypes.RESET_FLIPPED_CARD_DRAGGING
+const removeCardFromFlipped = () => ({
+  type: DeckActionTypes.REMOVE_CARD_FROM_FLIPPED
 });
 
 /**
- * After a successful action, pop the top card of the flipped card pile
+ * Resets the currently saved card that was being dragged
  */
-const removeFlippedCard = () => ({
-  type: DeckActionTypes.REMOVE_FLIPPED_CARD
+const resetCardDragging = () => ({
+  type: DeckActionTypes.RESET_FLIPPED_CARD_DRAGGING
 });
 
 // ********************************************************
@@ -113,8 +113,8 @@ const actionsCreators = Object.freeze({
   resetDeck,
   undoResetDeck,
   dragFlippedCard,
-  resetCardDragging,
-  removeFlippedCard
+  removeCardFromFlipped,
+  resetCardDragging
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

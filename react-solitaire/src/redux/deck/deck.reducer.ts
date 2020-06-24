@@ -136,19 +136,25 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
         ...dragResult
       };
 
-    case DeckActionTypes.RESET_FLIPPED_CARD_DRAGGING:
-      return {
-        ...state,
-        cardDragging: undefined,
-        cardDraggingPosition: undefined
-      };
-
-    case DeckActionTypes.REMOVE_FLIPPED_CARD:
+    /**
+     * After a successful action, remove the top card of the flipped card pile
+     */
+    case DeckActionTypes.REMOVE_CARD_FROM_FLIPPED:
       const tempFlipped = [...state.flippedPile];
       tempFlipped.splice(-1, 1);
       return {
         ...state,
         flippedPile: tempFlipped
+      };
+
+    /**
+     * Resets the currently saved card that was being dragged
+     */
+    case DeckActionTypes.RESET_FLIPPED_CARD_DRAGGING:
+      return {
+        ...state,
+        cardDragging: undefined,
+        cardDraggingPosition: undefined
       };
     // ********************************************************
     // ADD ACTIONS

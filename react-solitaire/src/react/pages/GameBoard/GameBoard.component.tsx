@@ -202,7 +202,7 @@ function GameBoard() {
             cards: cardDragging
           })
         );
-        dispatch(deckActions.removeFlippedCard());
+        dispatch(deckActions.removeCardFromFlipped());
       } else {
         // add game move
         dispatch(
@@ -239,7 +239,7 @@ function GameBoard() {
             cards: cardDragging
           })
         );
-        dispatch(deckActions.removeFlippedCard());
+        dispatch(deckActions.removeCardFromFlipped());
       } else {
         const finalSource = goalSource || columnSource;
         // add game move

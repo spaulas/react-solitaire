@@ -34,13 +34,13 @@ function RedoButton() {
         } else if (target.includes("column")) {
           // deckPile -> column pile
           // remove card from flipped pile
-          dispatch(deckActions.removeFlippedCard());
+          dispatch(deckActions.removeCardFromFlipped());
           // add removed card to the corresponding column
           dispatch(columnsActions.addCardToColumn(target, cards[0], false));
         } else if (target.includes("goal")) {
           // deckPile -> goal pile
           // remove card from flipped pile
-          dispatch(deckActions.removeFlippedCard());
+          dispatch(deckActions.removeCardFromFlipped());
           // add removed card to the corresponding goal
           dispatch(goalActions.addCardToGoal(target, cards[0]));
         }
