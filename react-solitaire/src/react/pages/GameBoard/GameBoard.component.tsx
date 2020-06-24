@@ -145,7 +145,7 @@ function GameBoard() {
         } else {
           // call the goal action that adds the dragging cards to the goal
           dispatch(
-            goalActions.addDraggingCardsToGoal(cardDragging, columnDropedToTemp)
+            goalActions.addDraggingCardsToGoal(columnDropedToTemp, cardDragging)
           );
         }
         // then reset the values at the deck redux
@@ -179,7 +179,7 @@ function GameBoard() {
         } else {
           // call the goal action that adds the dragging cards to the goal
           dispatch(
-            goalActions.addDraggingCardsToGoal(cardDragging, columnDropedToTemp)
+            goalActions.addDraggingCardsToGoal(columnDropedToTemp, cardDragging)
           );
         }
       }
@@ -212,7 +212,7 @@ function GameBoard() {
 
         // only remove goal card if it came from one goal pile
         if (isGoal) {
-          dispatch(goalActions.removeGoalCard());
+          dispatch(goalActions.removeCardFromGoal());
         }
       }
       dispatch(columnsActions.resetCardDragging());

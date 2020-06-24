@@ -13,7 +13,6 @@ export const isValidMovement = (firstCard: CardType, finalCard: CardType) => {
   if (!finalCard) {
     return true;
   }
-
   // if the cards have the same color, then return false
   if (firstCard.cardColor === finalCard.cardColor) {
     return false;
@@ -132,6 +131,7 @@ export const swapColumns = (
   }
 
   // if the movement was invalid, no changes were made
+  // so simply return the send back flag signaling that the movement was not done
   return {
     sendBack: true
   };
@@ -324,7 +324,7 @@ export const addCardToColumn = (
     column[nCards - 1] = { ...column[nCards - 1], flipped: false };
   }
 
-  // add the swapped cards to the final column
+  // add the cards to the final column
   column.push({ ...card, flipped: true, cardField: columnId });
 
   // return the changes in the column

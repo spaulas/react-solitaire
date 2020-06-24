@@ -68,7 +68,7 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
     // SWAPPING ACTIONS
 
     /**
-     * Swapping N cards (number of cards that were being dragged) from one column (id store at drag) to the other (finalId)
+     * Swap N cards (number of cards that were being dragged) from one column (id store at drag) to the other (finalId)
      *    - saves the changes in the initialCol and finalCol;
      *    - if the movement is not valid, then sendBack is set to true, if not, to false;
      *    - if the movement is valid and a card was flipped, than movementWithFlip is set to true, if not, to false;

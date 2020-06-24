@@ -38,7 +38,7 @@ function UndoButton() {
         } else if (target.includes("goal")) {
           // goal pile -> deck
           // call goal function to remove card from the respective goal pile
-          dispatch(goalActions.removeGoalCard(target));
+          dispatch(goalActions.removeCardFromGoal(target));
           // then add it to the flipped pile
           dispatch(deckActions.undoToFlipped(cards[0]));
         } else if (target.includes("column")) {
@@ -72,7 +72,7 @@ function UndoButton() {
         } else if (target.includes("goal")) {
           // goal pile -> column pile
           // call goal function to remove card from the respective goal pile
-          dispatch(goalActions.removeGoalCard(target));
+          dispatch(goalActions.removeCardFromGoal(target));
           dispatch(
             columnActions.addCardToColumn(
               source,
@@ -95,11 +95,11 @@ function UndoButton() {
             )
           );
           // add removed card to the corresponding goal
-          dispatch(goalActions.sendUndoCardToGoal(cards[0], source));
+          dispatch(goalActions.addCardToGoal(source, cards[0]));
         } else if (target.indexOf("goal") === 0) {
           // goal pile -> goal pile
           // call goal function to remove card from one goal pile to another directly
-          dispatch(goalActions.unswapGoals(source, target));
+          dispatch(goalActions.undoSwapGoals(source, target));
         }
       } else {
         // undo a deck flipped

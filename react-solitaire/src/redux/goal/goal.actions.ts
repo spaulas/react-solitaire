@@ -6,7 +6,7 @@ import { ValueOf } from "../../global";
 // SWAPPING ACTIONS
 
 /**
- * Swapping 1 card from one goal to the other
+ * Swap 1 card from one goal to the other
  * @param finalId id of the destination goal pile
  */
 const swapGoals = (finalId: string) => ({
@@ -15,28 +15,14 @@ const swapGoals = (finalId: string) => ({
 });
 
 /**
- * Unswapping 1 card from one goal to the other
- * @param finalId id of the destination column
- * @param nCards number of cards to be swapped
+ * Undo swap of goals, sends back 1 card from the target goal to the source goal
+ * @param source goal where the cards originally came from
+ * @param target goal where the cards originally were sent to
  */
-const unswapGoals = (source: string, target: string) => ({
+const undoSwapGoals = (source: string, target: string) => ({
   type: GoalActionTypes.UNSWAP_GOALS,
   source,
   target
-});
-
-// ********************************************************
-// UNDO ACTIONS
-
-const sendUndoCardToGoal = (card: CardType, goalId: string) => ({
-  type: GoalActionTypes.SEND_UNDO_CARDS_TO_GOAL,
-  card,
-  goalId
-});
-
-const setUndoGoalCards = (goalId: string) => ({
-  type: GoalActionTypes.SET_UNDO_GOAL_CARDS,
-  goalId
 });
 
 // ********************************************************
@@ -53,24 +39,16 @@ const dragGoalCards = (goalId: string) => ({
 
 /**
  * Adds the cards that were being dragged to the selected goal
- * @param cardDragging cards that were being dragged
  * @param finalId id of the destination goal
+ * @param cardDragging cards that were being dragged
  */
 const addDraggingCardsToGoal = (
-  cardDragging: Array<CardType>,
-  finalId: string
+  finalId: string,
+  cardDragging: Array<CardType>
 ) => ({
   type: GoalActionTypes.ADD_DRAGGING_CARDS_TO_GOAL,
-  cardDragging,
-  finalId
-});
-
-/**
- * Resets the currently saved card that was been dragged, its position and initial goal ids
- */
-const removeGoalCard = (goalId?: string) => ({
-  type: GoalActionTypes.REMOVE_GOAL_CARD,
-  goalId
+  finalId,
+  cardDragging
 });
 
 /**
@@ -81,16 +59,37 @@ const resetCardDragging = () => ({
 });
 
 // ********************************************************
+// REMOVE/ADD CARDS ACTIONS
+
+/**
+ * Sends a card to a goal pile
+ * @param goalId id of the goal that will receive the card
+ * @param card card to be added to a goal pile
+ */
+const addCardToGoal = (goalId: string, card: CardType) => ({
+  type: GoalActionTypes.ADD_CARD_TO_GOAL,
+  goalId,
+  card
+});
+
+/**
+ * Removes 1 cards from a goal pile
+ * @param goalId id of the column that will be reduced of cards
+ */
+const removeCardFromGoal = (goalId?: string) => ({
+  type: GoalActionTypes.REMOVE_CARD_FROM_GOAL,
+  goalId
+});
+// ********************************************************
 
 const actionsCreators = Object.freeze({
   swapGoals,
-  unswapGoals,
-  sendUndoCardToGoal,
-  setUndoGoalCards,
+  undoSwapGoals,
   dragGoalCards,
   addDraggingCardsToGoal,
-  removeGoalCard,
-  resetCardDragging
+  resetCardDragging,
+  addCardToGoal,
+  removeCardFromGoal
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

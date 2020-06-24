@@ -18,7 +18,7 @@ const setInitialColumns = (columns: Record<string, Array<CardType>>) => ({
 // SWAPPING ACTIONS
 
 /**
- * Swapping N cards (number of cards that were being dragged) from one column (id store at drag) to the other (finalId)
+ * Swap N cards (number of cards that were being dragged) from one column (id store at drag) to the other (finalId)
  * @param finalId id of the destination column
  */
 const swapColumns = (finalId: string) => ({
@@ -130,11 +130,11 @@ const actionsCreators = Object.freeze({
   setInitialColumns,
   swapColumns,
   undoSwapColumns,
-  addCardToColumn,
   dragColumnCards,
-  resetCardDragging,
   addDraggingCardsToColumn,
+  resetCardDragging,
   removeCard,
+  addCardToColumn,
   removeNCardsFromColumn
 });
 
