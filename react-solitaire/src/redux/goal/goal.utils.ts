@@ -194,7 +194,7 @@ export const addDragginCardsToGoal = (
  * Adds back to a goal, a card from a undo/redo movement
  * @param goals
  * @param goalId id of the goal to add the card to
- * @param card card that will be added
+ * @param card card to be added
  */
 export const addCardToGoal = (
   goals: Record<string, Array<CardType>>,

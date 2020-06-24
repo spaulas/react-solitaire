@@ -63,7 +63,7 @@ const resetCardDragging = () => ({
 
 /**
  * Sends a card to a goal pile
- * @param goalId id of the goal that will receive the card
+ * @param goalId id of the goal receiving the card
  * @param card card to be added to a goal pile
  */
 const addCardToGoal = (goalId: string, card: CardType) => ({
@@ -74,7 +74,7 @@ const addCardToGoal = (goalId: string, card: CardType) => ({
 
 /**
  * Removes 1 cards from a goal pile
- * @param goalId id of the column that will be reduced of cards
+ * @param goalId id of the column to be reduced of cards
  */
 const removeCardFromGoal = (goalId?: string) => ({
   type: GoalActionTypes.REMOVE_CARD_FROM_GOAL,

@@ -215,7 +215,7 @@ export const setCardDragging = (
   const initialCol = [...columns[columnId]];
   // get from what index to slice
   const indexToDelete = initialCol.length - nCards;
-  // get the cards that will swap and also remove them from the initial column
+  // get the cards to swap and also remove them from the initial column
   const cardsToSwap = initialCol.splice(indexToDelete, nCards);
 
   // check if the movement may cause a flip
@@ -304,7 +304,7 @@ export const removeCard = (
  * Adds back to a column, a card from a undo/redo movement
  * @param columns
  * @param columnId id of the column to add the card to
- * @param card card that will be added
+ * @param card card to be added
  * @param movementWithFlip true if the move caused a card flip
  */
 export const addCardToColumn = (

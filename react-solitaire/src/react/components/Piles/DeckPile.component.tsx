@@ -25,7 +25,7 @@ function DeckPile() {
   const handleDeckSwap = async (cardId: number) => {
     // wait for the css animation to end
     setTimeout(() => {
-      dispatch(deckActions.flipDeckPile(cardId));
+      dispatch(deckActions.flipDeckPile());
       // add one movement of the game
       dispatch(gameBoardActions.addGameMove("deckPile", "flippedPile"));
     }, 600);

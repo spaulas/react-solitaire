@@ -39,18 +39,16 @@ const setTranslation = (translation: number) => ({
 
 /**
  * Flips one card from the deck pile to the flipped pile
- * @param cardId id of the card to be flipped
  */
-const flipDeckPile = (cardId?: number) => ({
-  type: DeckActionTypes.FLIP_DECK_PILE,
-  cardId
+const flipDeckPile = () => ({
+  type: DeckActionTypes.FLIP_DECK_PILE
 });
 
 /**
  * Flips one card back from the flipped pile to the deck pile
  */
-const unflipDeckPile = () => ({
-  type: DeckActionTypes.UNFLIP_DECK_PILE
+const undoFlipDeckPile = () => ({
+  type: DeckActionTypes.UNDO_FLIP_DECK_PILE
 });
 
 /**
@@ -63,16 +61,8 @@ const resetDeck = () => ({
 /**
  * Undoes the deck reset, setting all the deck cards to the flipped pile
  */
-const unResetDeck = () => ({
-  type: DeckActionTypes.UNRESET_DECK
-});
-
-// ********************************************************
-// UNDO ACTIONS
-
-const undoToFlipped = (card: CardType) => ({
-  type: DeckActionTypes.UNDO_TO_FLIPPED,
-  card
+const undoResetDeck = () => ({
+  type: DeckActionTypes.UNDO_RESET_DECK
 });
 
 // ********************************************************
@@ -80,7 +70,6 @@ const undoToFlipped = (card: CardType) => ({
 
 /**
  * Starts dragging the top card of the flipped pile
- * @param position initial position of the flipped pile (in case it is send to an invalid place)
  */
 const dragFlippedCard = () => ({
   type: DeckActionTypes.DRAG_FLIPPED_CARD
@@ -101,16 +90,28 @@ const removeFlippedCard = () => ({
 });
 
 // ********************************************************
+// ADD ACTIONS
+
+/**
+ * Sends a card to a flipped pile
+ * @param card card to be added to the flipepd pile
+ */
+const addCardToFlipped = (card: CardType) => ({
+  type: DeckActionTypes.ADD_CARD_TO_FLIPPED,
+  card
+});
+
+// ********************************************************
 
 const actionsCreators = Object.freeze({
   setInitialDeck,
   setRefs,
   setTranslation,
   flipDeckPile,
-  unflipDeckPile,
-  undoToFlipped,
+  undoFlipDeckPile,
+  addCardToFlipped,
   resetDeck,
-  unResetDeck,
+  undoResetDeck,
   dragFlippedCard,
   resetCardDragging,
   removeFlippedCard

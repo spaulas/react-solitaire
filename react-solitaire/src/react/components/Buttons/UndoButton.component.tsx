@@ -34,13 +34,13 @@ function UndoButton() {
         if (target === "flippedPile") {
           // flipped -> deck
           // call deck function to send back a flipped card to the deck pile
-          dispatch(deckActions.unflipDeckPile());
+          dispatch(deckActions.undoFlipDeckPile());
         } else if (target.includes("goal")) {
           // goal pile -> deck
           // call goal function to remove card from the respective goal pile
           dispatch(goalActions.removeCardFromGoal(target));
           // then add it to the flipped pile
-          dispatch(deckActions.undoToFlipped(cards[0]));
+          dispatch(deckActions.addCardToFlipped(cards[0]));
         } else if (target.includes("column")) {
           // column pile -> deck
           // call column function to remove card from the respective column pile
@@ -52,7 +52,7 @@ function UndoButton() {
             )
           );
           // then add it to the flipped pile
-          dispatch(deckActions.undoToFlipped(cards[0]));
+          dispatch(deckActions.addCardToFlipped(cards[0]));
         }
         // -------------------------------------------------------------------------------
         // undo moves that were from a column pile to another pile
@@ -104,7 +104,7 @@ function UndoButton() {
       } else {
         // undo a deck flipped
         // flipped pile -> deck pile
-        dispatch(deckActions.unResetDeck());
+        dispatch(deckActions.undoResetDeck());
       }
 
       // remove the movement from the moves array

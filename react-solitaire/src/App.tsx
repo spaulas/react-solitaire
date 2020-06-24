@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default */
 import "./styles/index.less";
 import React, { memo } from "react";
-import BaseApplication from "./react/index";
+import BaseApplication from "./react/App/index";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 

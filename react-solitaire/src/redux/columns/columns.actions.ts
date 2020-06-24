@@ -96,7 +96,7 @@ const removeCard = () => ({
 
 /**
  * Sends a card to a column pile
- * @param columnId id of the column that will receive the card
+ * @param columnId id of the column receiving the card
  * @param card card to be added to a column pile
  * @param flip previous move caused a flip of the column
  */
@@ -109,7 +109,7 @@ const addCardToColumn = (columnId: string, card: CardType, flip = true) => ({
 
 /**
  * Removes N cards from a column pile
- * @param columnId id of the column that will be reduced of cards
+ * @param columnId id of the column to remove the cards from
  * @param nCards number of cards to remove
  * @param flip previous move caused a flip of the column
  */
