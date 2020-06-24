@@ -2,12 +2,18 @@ import { CardType } from "antd/lib/card";
 import GameBoardActionTypes from "./gameBoard.types";
 import { ValueOf } from "../../global";
 
+// ********************************************************
+// INITIAL SETTINGS ACTIONS
+
 /**
  * Creates an initial distribution of the cards
  */
 const createGame = () => ({
   type: GameBoardActionTypes.CREATE_GAME
 });
+
+// ********************************************************
+// GAME COMMANDS ACTIONS
 
 /**
  * Toggles the game flag to reset the game
@@ -17,19 +23,30 @@ const toggleGameFlag = () => ({
 });
 
 /**
- * Adds a move to the total moves of the game
+ * Pauses and Resumes the game
  */
-const addGameMove = (
-  source: string,
-  target: string,
-  cards?: Array<CardType>,
-  movementWithFlip?: boolean
-) => ({
+const timeGame = () => ({
+  type: GameBoardActionTypes.TIME_GAME
+});
+
+// ********************************************************
+// GAME MOVES' HISTORY ACTIONS
+
+/**
+ * Adds a move to the total moves of the game
+ * @param source field where the move started
+ * @param target field where the move ended
+ * @param cards cards that where exchanged (can be undefined for deck reset moves)
+ * @param movementWithFlip flag indicating if the move caused a card to flip
+ */
+const addGameMove = (move: {
+  source: string;
+  target: string;
+  cards?: Array<CardType>;
+  movementWithFlip?: boolean;
+}) => ({
   type: GameBoardActionTypes.ADD_GAME_MOVE,
-  source,
-  target,
-  cards,
-  movementWithFlip
+  move
 });
 
 /**
@@ -46,20 +63,15 @@ const reAddGameMove = () => ({
   type: GameBoardActionTypes.RE_ADD_GAME_MOVE
 });
 
-/**
- * Pauses and Resumes the game
- */
-const timeGame = () => ({
-  type: GameBoardActionTypes.TIME_GAME
-});
+// ********************************************************
 
 const actionsCreators = Object.freeze({
   createGame,
   toggleGameFlag,
+  timeGame,
   addGameMove,
   removeGameMove,
-  reAddGameMove,
-  timeGame
+  reAddGameMove
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

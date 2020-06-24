@@ -27,7 +27,12 @@ function DeckPile() {
     setTimeout(() => {
       dispatch(deckActions.flipDeckPile());
       // add one movement of the game
-      dispatch(gameBoardActions.addGameMove("deckPile", "flippedPile"));
+      dispatch(
+        gameBoardActions.addGameMove({
+          source: "deckPile",
+          target: "flippedPile"
+        })
+      );
     }, 600);
   };
 

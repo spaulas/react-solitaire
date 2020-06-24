@@ -196,18 +196,22 @@ function GameBoard() {
       if (isDeck) {
         // add game move
         dispatch(
-          gameBoardActions.addGameMove("deckPile", columnDropedTo, cardDragging)
+          gameBoardActions.addGameMove({
+            source: "deckPile",
+            target: columnDropedTo,
+            cards: cardDragging
+          })
         );
         dispatch(deckActions.removeFlippedCard());
       } else {
         // add game move
         dispatch(
-          gameBoardActions.addGameMove(
-            columnSource || goalSource,
-            columnDropedTo,
-            cardDragging,
+          gameBoardActions.addGameMove({
+            source: columnSource || goalSource,
+            target: columnDropedTo,
+            cards: cardDragging,
             movementWithFlip
-          )
+          })
         );
 
         // only remove goal card if it came from one goal pile
@@ -228,19 +232,23 @@ function GameBoard() {
       if (isDeck) {
         // add game move
         dispatch(
-          gameBoardActions.addGameMove("deckPile", columnDropedTo, cardDragging)
+          gameBoardActions.addGameMove({
+            source: "deckPile",
+            target: columnDropedTo,
+            cards: cardDragging
+          })
         );
         dispatch(deckActions.removeFlippedCard());
       } else {
         const finalSource = goalSource || columnSource;
         // add game move
         dispatch(
-          gameBoardActions.addGameMove(
-            finalSource,
-            columnDropedTo,
-            cardDragging,
+          gameBoardActions.addGameMove({
+            source: finalSource,
+            target: columnDropedTo,
+            cards: cardDragging,
             movementWithFlip
-          )
+          })
         );
 
         if (finalSource.indexOf("column") === 0) {
