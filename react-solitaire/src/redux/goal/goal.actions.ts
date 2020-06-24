@@ -52,7 +52,7 @@ const addDraggingCardsToGoal = (
 });
 
 /**
- * Resets the currently saved card that was been dragged, its position and initial goal ids
+ * Resets the currently saved card that was being dragged and its initial goal id
  */
 const resetCardDragging = () => ({
   type: GoalActionTypes.RESET_GOAL_CARD_DRAGGING

@@ -103,6 +103,9 @@ const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
         ...addResult
       };
 
+    /**
+     * Resets the currently saved card that was being dragged and its initial goal id
+     */
     case GoalActionTypes.RESET_GOAL_CARD_DRAGGING:
       return {
         ...state,
