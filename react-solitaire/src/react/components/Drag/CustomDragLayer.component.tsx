@@ -1,9 +1,9 @@
 /* eslint-disable indent */
-import { CardFrame, CardImage } from "../../components/Cards/Cards.items";
+import { CardFrame, CardImage } from "../Cards/Cards.items";
 import { ExplicitAny, RootReducerState } from "../../../global";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import React from "react";
-import { SimplePile } from "../../components/Piles/Piles.items";
+import { SimplePile } from "../Piles/Piles.items";
 import { useDragLayer } from "react-dnd";
 import { useSelector } from "react-redux";
 
