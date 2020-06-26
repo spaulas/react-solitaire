@@ -9,7 +9,7 @@ import {
 import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { memo, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import DropHandler from "../../components/Drop/DropHandler.component";
+import DropHandler from "../../components/DropHoc/DropHandler.component";
 import GameOverModal from "../../components/Modals/GameOverModal.component";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
