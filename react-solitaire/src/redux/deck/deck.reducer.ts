@@ -141,10 +141,11 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
      */
     case DeckActionTypes.REMOVE_CARD_FROM_FLIPPED:
       const tempFlipped = [...state.flippedPile];
-      tempFlipped.splice(-1, 1);
+      tempFlipped.pop();
       return {
         ...state,
-        flippedPile: tempFlipped
+        flippedPile: tempFlipped,
+        cardDragging: undefined
       };
 
     /**

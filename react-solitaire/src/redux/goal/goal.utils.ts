@@ -234,6 +234,8 @@ export const removeCardFromGoal = (
     goals: {
       ...goals,
       [goalId]: goal
-    }
+    },
+    cardDragging: undefined,
+    cardDraggingGoal: undefined
   };
 };
