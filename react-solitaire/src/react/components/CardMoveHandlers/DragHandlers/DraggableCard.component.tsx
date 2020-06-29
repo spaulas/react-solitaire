@@ -1,14 +1,14 @@
 /* eslint-disable indent */
-import { ExplicitAny, RootReducerState } from "../../../global";
+import { ExplicitAny, RootReducerState } from "../../../../global";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CardFrame from "./CardFrame.component";
-import CardImage from "./CardImage.component";
-import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import columnsActions from "../../../redux/columns/columns.actions";
-import deckActions from "../../../redux/deck/deck.actions";
+import CardFrame from "../../Cards/CardFrame.component";
+import CardImage from "../../Cards/CardImage.component";
+import { CardType } from "../../../../redux/gameBoard/gameBoard.types";
+import columnsActions from "../../../../redux/columns/columns.actions";
+import deckActions from "../../../../redux/deck/deck.actions";
 import { getEmptyImage } from "react-dnd-html5-backend";
-import goalActions from "../../../redux/goal/goal.actions";
+import goalActions from "../../../../redux/goal/goal.actions";
 import { useDrag } from "react-dnd";
 const type = "cardframe";
 

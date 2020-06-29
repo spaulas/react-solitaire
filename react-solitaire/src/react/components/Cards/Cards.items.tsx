@@ -3,7 +3,7 @@ import CardFrame from "./CardFrame.component";
 import CardImage from "./CardImage.component";
 import CardPreview from "./CardPreview.component";
 import CardSpot from "./CardSpot.component";
-import DraggableCard from "./DraggableCard.component";
+import DraggableCard from "../CardMoveHandlers/DragHandlers/DraggableCard.component";
 
 export {
   CardFlippable,
