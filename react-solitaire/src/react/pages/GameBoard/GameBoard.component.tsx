@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   BoardEmptySpots,
   GameColumnWrapper,
@@ -9,7 +8,8 @@ import {
 import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { memo, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import DropHandler from "../../components/DropHoc/DropHandler.component";
+import CustomDragLayer from "../../components/CardMoveHandlers/DragHandlers/CustomDragLayer.component";
+import DropHandler from "../../components/CardMoveHandlers/DropHandlers/DropHandler.component";
 import GameOverModal from "../../components/Modals/GameOverModal.component";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
@@ -90,6 +90,8 @@ function GameBoard() {
       {/* bottom row of the game, includes all the 7 columns */}
       <GameColumnWrapper />
       <GameOptions />
+      {/* preview of the card being dragged */}
+      <CustomDragLayer />
     </DropHandler>
   );
 }
