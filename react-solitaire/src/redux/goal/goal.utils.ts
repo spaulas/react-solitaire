@@ -71,7 +71,9 @@ export const swapGoals = (
         [finalId]: finalGoal,
         [initialId]: initialGoal
       },
-      sendBack: false
+      sendBack: false,
+      cardDragging: undefined,
+      cardDraggingGoal: undefined
     };
   }
 
@@ -81,8 +83,9 @@ export const swapGoals = (
   // no changes were made in the initial and final goal piles
   // so simply return the send back flag signaling that the movement was not done
   return {
-    cardsDragging: undefined,
-    sendBack: true
+    sendBack: true,
+    cardDragging: undefined,
+    cardDraggingGoal: undefined
   };
 };
 
@@ -174,8 +177,6 @@ export const addDragginCardsToGoal = (
     // returns the changes in the destination goal pile and, since the movement was valid, there is no need to send them back
     return {
       goals: { ...goals, [finalId]: finalGoal },
-      cardDragging: undefined,
-      cardDraggingGoal: undefined,
       sendBack: false,
       gameOver
     };
@@ -234,8 +235,6 @@ export const removeCardFromGoal = (
     goals: {
       ...goals,
       [goalId]: goal
-    },
-    cardDragging: undefined,
-    cardDraggingGoal: undefined
+    }
   };
 };

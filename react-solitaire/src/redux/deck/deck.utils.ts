@@ -41,10 +41,8 @@ export const flipDeckCard = (
   // get copy of the flipped pile
   const tempFlippedPile = [...flippedPile];
 
-  // if there was indeed a card to be flipped, then add it to the flipped pile
-  if (cardFlipped) {
-    tempFlippedPile.push(cardFlipped);
-  }
+  // add it to the flipped pile
+  tempFlippedPile.push(cardFlipped as CardType);
 
   // get the new value for the translation y
   const translationY = getTranslationY(tempDeckPile, tempFlippedPile);

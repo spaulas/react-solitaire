@@ -127,16 +127,16 @@ export const swapColumns = (
         [finalId]: finalCol
       },
       sendBack: false,
-      movementWithFlip
+      movementWithFlip,
+      cardDragging: undefined,
+      cardDraggingCol: undefined
     };
   }
 
   // if the movement was invalid, no changes were made
   // so simply return the send back flag signaling that the movement was not done and reset the cardDragging states
   return {
-    sendBack: true,
-    cardDragging: undefined,
-    cardDraggingCol: undefined
+    sendBack: true
   };
 };
 
@@ -260,17 +260,13 @@ export const addDragginCardsToColumn = (
     // reset the cardDragging and cardDraggingCol
     return {
       columns: { ...columns, [finalId]: finalCol },
-      cardDragging: undefined,
-      cardDraggingCol: undefined,
       sendBack: false
     };
   }
 
   // since the movement was invalid, it is necessary to send the card back to the correct place
   return {
-    sendBack: true,
-    cardDragging: undefined,
-    cardDraggingCol: undefined
+    sendBack: true
   };
 };
 
@@ -298,9 +294,7 @@ export const removeDraggedCard = (
     columns: {
       ...columns,
       [columnId]: tempCol
-    },
-    cardDragging: undefined,
-    cardDraggingCol: undefined
+    }
   };
 };
 

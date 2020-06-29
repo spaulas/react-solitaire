@@ -144,8 +144,7 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
       tempFlipped.pop();
       return {
         ...state,
-        flippedPile: tempFlipped,
-        cardDragging: undefined
+        flippedPile: tempFlipped
       };
 
     /**

@@ -53,7 +53,7 @@ function CustomDragLayer() {
         return (
           <SimplePile
             pileId="dragging"
-            getCards={getCards}
+            pileCards={getCards()}
             pileClassName="deckPile"
             insideClassName="columnPile"
           />

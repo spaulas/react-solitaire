@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import { ExplicitAny, RootReducerState } from "../../../../global";
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CardFrame from "../../Cards/CardFrame.component";
 import CardImage from "../../Cards/CardImage.component";
@@ -89,4 +89,4 @@ function DraggableCard({ card, nCards, index = 0 }: DraggableCardProps) {
   );
 }
 
-export default DraggableCard;
+export default memo(DraggableCard);

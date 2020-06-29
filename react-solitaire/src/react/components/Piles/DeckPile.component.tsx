@@ -55,7 +55,7 @@ function DeckPile() {
   return (
     <SimplePile
       pileId="deckPile"
-      getCards={getCards}
+      pileCards={getCards()}
       offset={2}
       pileClassName="deckPileIndex flippedPile"
       insideClassName="columnPile"

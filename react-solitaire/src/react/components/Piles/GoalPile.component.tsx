@@ -32,7 +32,7 @@ function GoalPile({ goalId, offset }: GoalPileProps) {
     <SimplePile
       offset={offset}
       pileId={goalId}
-      getCards={getCards}
+      pileCards={getCards()}
       pileClassName="deckPile flippedPile"
       insideClassName="columnPile"
     />
