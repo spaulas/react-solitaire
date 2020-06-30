@@ -132,10 +132,15 @@ const handleDoubleClick = (columnId: string, nCards: number) => ({
   nCards
 });
 
-const checkDoubleClickValid = (sourceId: string, nCards: number) => ({
-  type: ColumnActionTypes.CHECK_DOUBLE_CLICK_VALID,
+const checkColumnSwapDoubleClickValid = (sourceId: string, nCards: number) => ({
+  type: ColumnActionTypes.CHECK_COLUM_SWAP_DOUBLE_CLICK_VALID,
   sourceId,
   nCards
+});
+
+const checkDoubleClickValid = (card: CardType) => ({
+  type: ColumnActionTypes.CHECK_DOUBLE_CLICK_VALID,
+  card
 });
 
 // ********************************************************
@@ -151,6 +156,7 @@ const actionsCreators = Object.freeze({
   addCardToColumn,
   removeNCardsFromColumn,
   handleDoubleClick,
+  checkColumnSwapDoubleClickValid,
   checkDoubleClickValid
 });
 

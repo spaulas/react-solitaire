@@ -241,20 +241,44 @@ export const removeCardFromGoal = (
 // ********************************************************
 // DOUBLE CLICK FUNCTIONS
 
-export const checkDoubleClickValid = (
+export const getValidTarget = (
   goals: Record<string, Array<CardType>>,
-  card: CardType,
-  doubleClickTarget?: boolean | string
+  card: CardType
 ) => {
-  const result = Object.keys(goals).find((goal: string) => {
+  return Object.keys(goals).find((goal: string) => {
     const goalCards = goals[goal].length - 1;
     return isValidMovement(
       card,
       goalCards < 0 ? undefined : goals[goal][goalCards]
     );
   });
+};
+
+export const checkDoubleClickValid = (
+  goals: Record<string, Array<CardType>>,
+  card: CardType,
+  doubleClickTarget?: boolean | string
+) => {
+  const targetId = getValidTarget(goals, card);
 
   return {
-    doubleClickTarget: result === undefined ? !doubleClickTarget : result
+    doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId
+  };
+};
+
+export const checkGoalSwapDoubleClickValid = (
+  goals: Record<string, Array<CardType>>,
+  sourceId: string,
+  card: CardType,
+  doubleClickTarget?: boolean | string
+) => {
+  const targetId = getValidTarget(goals, card);
+  let swapResult = {};
+  if (targetId) {
+    swapResult = swapGoals(goals, [card], sourceId, targetId);
+  }
+  return {
+    doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId,
+    ...swapResult
   };
 };

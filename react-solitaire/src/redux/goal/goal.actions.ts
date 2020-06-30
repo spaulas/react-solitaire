@@ -88,6 +88,12 @@ const checkDoubleClickValid = (card: CardType) => ({
   type: GoalActionTypes.CHECK_DOUBLE_CLICK_VALID,
   card
 });
+
+const checkGoalSwapDoubleClickValid = (sourceId: string, card: CardType) => ({
+  type: GoalActionTypes.CHECK_GOAL_SWAP_DOUBLE_CLICK_VALID,
+  sourceId,
+  card
+});
 // ********************************************************
 
 const actionsCreators = Object.freeze({
@@ -98,7 +104,8 @@ const actionsCreators = Object.freeze({
   resetCardDragging,
   addCardToGoal,
   removeCardFromGoal,
-  checkDoubleClickValid
+  checkDoubleClickValid,
+  checkGoalSwapDoubleClickValid
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

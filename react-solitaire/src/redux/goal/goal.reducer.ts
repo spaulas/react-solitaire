@@ -3,6 +3,7 @@ import {
   addCardToGoal,
   addDragginCardsToGoal,
   checkDoubleClickValid,
+  checkGoalSwapDoubleClickValid,
   removeCardFromGoal,
   setCardDragging,
   swapGoals,
@@ -155,6 +156,16 @@ const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
       );
 
       return { ...state, ...checkDoubleClickResult };
+
+    case GoalActionTypes.CHECK_GOAL_SWAP_DOUBLE_CLICK_VALID:
+      const checkGoalSwapDoubleClickResult = checkGoalSwapDoubleClickValid(
+        state.goals,
+        action.goalId,
+        action.card,
+        state.doubleClickTarget
+      );
+
+      return { ...state, ...checkGoalSwapDoubleClickResult };
 
     // ********************************************************
 

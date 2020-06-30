@@ -382,7 +382,20 @@ export const handleDoubleClick = (
   return {};
 };
 
-export const checkDoubleClickValid = (
+export const getValidTarget = (
+  columns: Record<string, Array<CardType>>,
+  firstCard: CardType
+) => {
+  return Object.keys(columns).find((column: string) => {
+    const targetLastIndex = columns[column].length - 1;
+    return isValidMovement(
+      firstCard,
+      targetLastIndex < 0 ? undefined : columns[column][targetLastIndex]
+    );
+  });
+};
+
+export const checkColumnSwapDoubleClickValid = (
   columns: Record<string, Array<CardType>>,
   sourceId: string,
   nCards: number,
@@ -394,13 +407,7 @@ export const checkDoubleClickValid = (
   const sourceLastIndex = copy.length;
   // get the cards that are moving
   const cardsMoving = copy.splice(sourceLastIndex - nCards, nCards);
-  const targetId = Object.keys(columns).find((column: string) => {
-    const targetLastIndex = columns[column].length - 1;
-    return isValidMovement(
-      cardsMoving[0],
-      targetLastIndex < 0 ? undefined : columns[column][targetLastIndex]
-    );
-  });
+  const targetId = getValidTarget(columns, cardsMoving[0]);
   let swapResult = {};
   if (targetId) {
     swapResult = swapColumns(columns, cardsMoving, sourceId, targetId);
@@ -410,5 +417,17 @@ export const checkDoubleClickValid = (
     doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId,
     movingCards: targetId === undefined ? undefined : cardsMoving,
     ...swapResult
+  };
+};
+
+export const checkDoubleClickValid = (
+  columns: Record<string, Array<CardType>>,
+  cardMoving: CardType,
+  doubleClickTarget?: boolean | string
+) => {
+  const targetId = getValidTarget(columns, cardMoving);
+
+  return {
+    doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId
   };
 };

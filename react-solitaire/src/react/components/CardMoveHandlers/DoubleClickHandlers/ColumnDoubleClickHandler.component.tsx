@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardType } from "../../../../redux/gameBoard/gameBoard.types";
 import DraggableCard from "../DragHandlers/DraggableCard.component";
@@ -21,7 +21,8 @@ function ColumnDoubleClickHandler({
   index
 }: ColumnDoubleClickHandlerProps) {
   const dispatch = useDispatch();
-  const handlingMove = useRef(false);
+
+  const [handlingMove, setHandlingMove] = useState<boolean>(false);
 
   const {
     goalMoveTarget,
@@ -40,18 +41,23 @@ function ColumnDoubleClickHandler({
    * If there is only one card for the move, then first try to move it to a valid goal pile
    * If there is more cards, then try to move it to a valid column
    */
-  const doubleClick = () => {
-    handlingMove.current = true;
-    // if only one card was clicked
-    if (nCards === 1) {
-      // then check first if it can go to a goal pile
-      dispatch(goalActions.checkDoubleClickValid(card));
-    } else {
-      // if there is more than one, then check if it can go to a column pile
-      // this function handles the swap of columns as well
-      dispatch(columnsActions.checkDoubleClickValid(columnId, nCards));
+  const handleDoubleClick = () => {
+    if (handlingMove) {
+      // if only one card was clicked
+      if (nCards === 1) {
+        // then check first if it can go to a goal pile
+        dispatch(goalActions.checkDoubleClickValid(card));
+      } else {
+        // if there is more than one, then check if it can go to a column pile
+        // this function handles the swap of columns as well
+        dispatch(
+          columnsActions.checkColumnSwapDoubleClickValid(columnId, nCards)
+        );
+      }
     }
   };
+
+  useEffect(handleDoubleClick, [handlingMove]);
 
   /**
    * Checks the value of the goal move result
@@ -59,7 +65,7 @@ function ColumnDoubleClickHandler({
    * Anything else is read as a unsuccessful result, trying this time to move the card to a valid column pile
    */
   const handleGoalDoubleClickResult = () => {
-    if (handlingMove.current) {
+    if (handlingMove) {
       // if the move to a goal was valid (result is the target goal id)
       if (typeof goalMoveTarget === "string") {
         // remove card from column
@@ -76,11 +82,13 @@ function ColumnDoubleClickHandler({
             movementWithFlip: true
           })
         );
-        handlingMove.current = false;
+        setHandlingMove(false);
       } // if the move to a goal was not valid
       else {
         // check if can move to another column (and do the swapping)
-        dispatch(columnsActions.checkDoubleClickValid(columnId, nCards));
+        dispatch(
+          columnsActions.checkColumnSwapDoubleClickValid(columnId, nCards)
+        );
       }
     }
   };
@@ -92,20 +100,22 @@ function ColumnDoubleClickHandler({
    * Anything else is ignored
    */
   const handleColumnDoubleClickResult = () => {
-    // if the move to a column was valid (result is the target column id) and the card moving field is the same as the columnId
-    if (
-      typeof columnMoveTarget === "string" &&
-      columnMoveCards[0].cardField === columnId
-    ) {
-      // add game move
-      dispatch(
-        gameBoardActions.addGameMove({
-          source: columnId,
-          target: columnMoveTarget,
-          cards: columnMoveCards,
-          movementWithFlip
-        })
-      );
+    if (handlingMove) {
+      // if the move to a column was valid (result is the target column id) and the card moving field is the same as the columnId
+      if (
+        typeof columnMoveTarget === "string" &&
+        columnMoveCards[0].cardField === columnId
+      ) {
+        // add game move
+        dispatch(
+          gameBoardActions.addGameMove({
+            source: columnId,
+            target: columnMoveTarget,
+            cards: columnMoveCards,
+            movementWithFlip
+          })
+        );
+      }
     }
   };
   useEffect(handleColumnDoubleClickResult, [columnMoveTarget]);
@@ -116,7 +126,7 @@ function ColumnDoubleClickHandler({
       card={card}
       nCards={nCards}
       index={index}
-      onDoubleClick={doubleClick}
+      onDoubleClick={() => setHandlingMove(true)}
     />
   );
 }

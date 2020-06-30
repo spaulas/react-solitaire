@@ -2,6 +2,7 @@
 import {
   addCardToColumn,
   addDragginCardsToColumn,
+  checkColumnSwapDoubleClickValid,
   checkDoubleClickValid,
   createColumns,
   handleDoubleClick,
@@ -214,11 +215,20 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
 
       return { ...state, ...doubleClickResult };
 
-    case ColumnsActionTypes.CHECK_DOUBLE_CLICK_VALID:
-      const checkDoubleClickResult = checkDoubleClickValid(
+    case ColumnsActionTypes.CHECK_COLUM_SWAP_DOUBLE_CLICK_VALID:
+      const checkColumnSwapDoubleClickResult = checkColumnSwapDoubleClickValid(
         state.columns,
         action.sourceId,
         action.nCards,
+        state.doubleClickTarget
+      );
+
+      return { ...state, ...checkColumnSwapDoubleClickResult };
+
+    case ColumnsActionTypes.CHECK_DOUBLE_CLICK_VALID:
+      const checkDoubleClickResult = checkDoubleClickValid(
+        state.columns,
+        action.card,
         state.doubleClickTarget
       );
 
