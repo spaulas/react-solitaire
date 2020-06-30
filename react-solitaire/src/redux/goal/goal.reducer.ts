@@ -23,7 +23,7 @@ export interface InitialGoal {
   cardDragging?: Array<CardType>; // cards original from the goals that are being dragged
   cardDraggingGoal?: string; // id of the cards dragging's goal
   sendBack?: boolean; // flag that announces if the movement to the column, was invalid
-  doubleClickTarget?: string;
+  doubleClickTarget?: boolean | string;
   gameOver: boolean; // flag to announce when the game has ended
 }
 
@@ -150,7 +150,8 @@ const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
     case GoalActionTypes.CHECK_DOUBLE_CLICK_VALID:
       const checkDoubleClickResult = checkDoubleClickValid(
         state.goals,
-        action.card
+        action.card,
+        state.doubleClickTarget
       );
 
       return { ...state, ...checkDoubleClickResult };

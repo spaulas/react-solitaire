@@ -390,7 +390,7 @@ export const checkDoubleClickValid = (
   // create copy of the source column
   const copy = [...columns[sourceId]];
   // get the index of the last card
-  const sourceLastIndex = copy.length - 1;
+  const sourceLastIndex = copy.length;
   // get the cards that are moving
   const cardsMoving = copy.splice(sourceLastIndex - nCards, nCards);
   const targetId = Object.keys(columns).find((column: string) => {

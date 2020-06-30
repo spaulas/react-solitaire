@@ -35,11 +35,9 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
     setCardMove({ card, nCards });
     // if only one card was clicked
     if (nCards === 1) {
-      console.log("TRY GOAL");
       // then check first if it can go to a goal pile
       dispatch(goalActions.checkDoubleClickValid(card));
     } else {
-      console.log("TRY COLUMN");
       // if there is more than one, then check if it can go to a column pile
       // this function handles the swap of columns as well
       dispatch(columnsActions.checkDoubleClickValid(card.cardField, nCards));
@@ -47,10 +45,8 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
   };
 
   const handleDoubleClickResult = () => {
-    console.log("goalMoveTarget =- ", goalMoveTarget);
     if (cardMove) {
-      if (!goalMoveTarget) {
-        console.log("GOAL NOT SUCCESSFUL = TRY COLUMN");
+      if (typeof goalMoveTarget !== "string") {
         // add animation to shake the card
         dispatch(
           columnsActions.checkDoubleClickValid(
@@ -59,7 +55,6 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
           )
         );
       } else {
-        console.log("GOAL SUCCESSFUL");
         // remove card from column
         dispatch(
           columnsActions.removeNCardsFromColumn(
@@ -71,6 +66,8 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
         // add removed card to the corresponding goal
         dispatch(goalActions.addCardToGoal(goalMoveTarget, cardMove.card));
       }
+
+      setCardMove(undefined);
     }
   };
 

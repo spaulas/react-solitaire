@@ -243,7 +243,8 @@ export const removeCardFromGoal = (
 
 export const checkDoubleClickValid = (
   goals: Record<string, Array<CardType>>,
-  card: CardType
+  card: CardType,
+  doubleClickTarget?: boolean | string
 ) => {
   const result = Object.keys(goals).find((goal: string) => {
     const goalCards = goals[goal].length - 1;
@@ -254,6 +255,6 @@ export const checkDoubleClickValid = (
   });
 
   return {
-    doubleClickTarget: Boolean(result)
+    doubleClickTarget: result === undefined ? !doubleClickTarget : result
   };
 };

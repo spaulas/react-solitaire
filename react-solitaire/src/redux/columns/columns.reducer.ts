@@ -213,7 +213,7 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
     case ColumnsActionTypes.CHECK_DOUBLE_CLICK_VALID:
       const checkDoubleClickResult = checkDoubleClickValid(
         state.columns,
-        action.columnId,
+        action.sourceId,
         action.nCards
       );
 

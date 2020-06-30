@@ -132,9 +132,9 @@ const handleDoubleClick = (columnId: string, nCards: number) => ({
   nCards
 });
 
-const checkDoubleClickValid = (columnId: string, nCards: number) => ({
+const checkDoubleClickValid = (sourceId: string, nCards: number) => ({
   type: ColumnActionTypes.CHECK_DOUBLE_CLICK_VALID,
-  columnId,
+  sourceId,
   nCards
 });
 
