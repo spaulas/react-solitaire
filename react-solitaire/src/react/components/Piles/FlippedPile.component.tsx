@@ -19,7 +19,17 @@ function FlippedPile() {
     <SimplePile
       pileId="flippedPile"
       pileCards={flippedPile.map((card: CardType) => (
-        <DraggableCard card={card} nCards={1} key={card.id} />
+        <DraggableCard
+          card={card}
+          nCards={1}
+          key={card.id}
+          onDoubleClick={() =>
+            // eslint-disable-next-line no-console
+            console.log(
+              "call redux function to hanle flipped pile double click!"
+            )
+          }
+        />
       ))}
       pileClassName="deckPile flippedPile"
       insideClassName="columnPile"

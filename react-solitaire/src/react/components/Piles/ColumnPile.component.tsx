@@ -24,6 +24,10 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
             card={card}
             nCards={columnCards.length - index}
             index={index}
+            onDoubleClick={() =>
+              // eslint-disable-next-line no-console
+              console.log("call redux function to hanle Column double click!")
+            }
           />
         );
       }

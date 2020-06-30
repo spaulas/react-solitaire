@@ -22,7 +22,15 @@ function GoalPile({ goalId, offset }: GoalPileProps) {
   // renders cards components that can be dragged
   const getCards = () => {
     const cardsArray = goalPile.map((card: CardType) => (
-      <DraggableCard card={card} nCards={1} key={card.id} />
+      <DraggableCard
+        card={card}
+        nCards={1}
+        key={card.id}
+        onDoubleClick={() =>
+          // eslint-disable-next-line no-console
+          console.log("call redux function to hanle goal pile double click!")
+        }
+      />
     ));
     return cardsArray;
   };

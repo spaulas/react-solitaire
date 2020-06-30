@@ -15,13 +15,19 @@ const type = "cardframe";
 interface DraggableCardProps {
   card: CardType; // card info
   nCards: number; // number of cards being dragged (this card and all bellow)
+  onDoubleClick?: () => void;
   index?: number;
 }
 
 /**
  * Component that adds the drag functionality to a card and the cards bellow it
  */
-function DraggableCard({ card, nCards, index = 0 }: DraggableCardProps) {
+function DraggableCard({
+  card,
+  nCards,
+  onDoubleClick,
+  index = 0
+}: DraggableCardProps) {
   const dispatch = useDispatch();
 
   // get the cards that are dragging from the redux (can be from the deck or form the columns)
@@ -77,6 +83,7 @@ function DraggableCard({ card, nCards, index = 0 }: DraggableCardProps) {
   return (
     <CardFrame
       ref={drag}
+      onDoubleClick={onDoubleClick}
       cardContainerClassName={`${index > 0 ? "cardContainerColumns" : ""}`}
       zIndex={999}
     >
