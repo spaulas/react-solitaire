@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { CardFlippable, DraggableCard } from "../Cards/Cards.items";
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +5,7 @@ import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import { RootReducerState } from "../../../global";
 import SimplePile from "./SimplePile.component";
 import columnsActions from "../../../redux/columns/columns.actions";
+import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../redux/goal/goal.actions";
 
 interface ColumnPileProps {
@@ -20,12 +20,17 @@ interface ColumnPileProps {
 function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
   const dispatch = useDispatch();
 
-  const { goalMoveTarget /* , columnMoveValid */ } = useSelector(
-    ({ Goal, Columns }: RootReducerState) => ({
-      goalMoveTarget: Goal.doubleClickTarget,
-      columnMoveValid: Columns.doubleClickValid
-    })
-  );
+  const {
+    goalMoveTarget,
+    columnMoveTarget,
+    columnMoveCards,
+    movementWithFlip
+  } = useSelector(({ Goal, Columns }: RootReducerState) => ({
+    goalMoveTarget: Goal.doubleClickTarget,
+    columnMoveTarget: Columns.doubleClickTarget,
+    columnMoveCards: Columns.movingCards,
+    movementWithFlip: Columns.movementWithFlip
+  }));
 
   const [cardMove, setCardMove] = useState<
     { card: CardType; nCards: number } | undefined
@@ -46,15 +51,17 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
 
   const handleDoubleClickResult = () => {
     if (cardMove) {
+      // if the move to a goal was not valid
       if (typeof goalMoveTarget !== "string") {
-        // add animation to shake the card
+        // check if can move to another column (and do the swapping)
         dispatch(
           columnsActions.checkDoubleClickValid(
             cardMove.card.cardField,
             cardMove.nCards
           )
         );
-      } else {
+      } // if the move to a goal was valid
+      else {
         // remove card from column
         dispatch(
           columnsActions.removeNCardsFromColumn(
@@ -65,13 +72,40 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
         );
         // add removed card to the corresponding goal
         dispatch(goalActions.addCardToGoal(goalMoveTarget, cardMove.card));
-      }
 
+        // add game move
+        dispatch(
+          gameBoardActions.addGameMove({
+            source: cardMove.card.cardField,
+            target: goalMoveTarget,
+            cards: [cardMove.card],
+            movementWithFlip
+          })
+        );
+        // reset move state
+        setCardMove(undefined);
+      }
+    }
+  };
+  useEffect(handleDoubleClickResult, [goalMoveTarget]);
+
+  const handleSwapResult = () => {
+    if (typeof columnMoveTarget === "string" && cardMove) {
+      // add game move
+      dispatch(
+        gameBoardActions.addGameMove({
+          source: cardMove.card.cardField,
+          target: columnMoveTarget,
+          cards: columnMoveCards,
+          movementWithFlip
+        })
+      );
+
+      // reset move state
       setCardMove(undefined);
     }
   };
-
-  useEffect(handleDoubleClickResult, [goalMoveTarget]);
+  useEffect(handleSwapResult, [columnMoveTarget]);
 
   // renders cards components accordingly if it is flipped or not
   const getCards = () => {

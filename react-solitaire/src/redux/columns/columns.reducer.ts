@@ -30,6 +30,8 @@ export interface InitialColumns {
   cardDraggingCol?: string; // id of the cards dragging's column
   sendBack?: boolean; // flag that announces if the movement to the column, was invalid
   movementWithFlip?: boolean; // indicates if the movement to or from the column caused a card to be flipped
+  doubleClickTarget?: boolean | string;
+  movingCards?: Array<CardType>;
 }
 
 const INITIAL_COLUMNS: InitialColumns = {
@@ -45,7 +47,9 @@ const INITIAL_COLUMNS: InitialColumns = {
   cardDragging: undefined,
   cardDraggingCol: undefined,
   sendBack: undefined,
-  movementWithFlip: undefined
+  movementWithFlip: undefined,
+  doubleClickTarget: undefined,
+  movingCards: undefined
 };
 
 const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
@@ -214,7 +218,8 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
       const checkDoubleClickResult = checkDoubleClickValid(
         state.columns,
         action.sourceId,
-        action.nCards
+        action.nCards,
+        state.doubleClickTarget
       );
 
       return { ...state, ...checkDoubleClickResult };

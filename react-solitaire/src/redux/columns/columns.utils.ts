@@ -385,7 +385,8 @@ export const handleDoubleClick = (
 export const checkDoubleClickValid = (
   columns: Record<string, Array<CardType>>,
   sourceId: string,
-  nCards: number
+  nCards: number,
+  doubleClickTarget?: boolean | string
 ) => {
   // create copy of the source column
   const copy = [...columns[sourceId]];
@@ -406,7 +407,8 @@ export const checkDoubleClickValid = (
   }
 
   return {
-    doubleClickTarget: targetId,
+    doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId,
+    movingCards: targetId === undefined ? undefined : cardsMoving,
     ...swapResult
   };
 };
