@@ -1,5 +1,3 @@
-/* eslint-disable react/forbid-component-props */
-/* eslint-disable react/forbid-dom-props */
 import { Modal } from "antd";
 import { PlaySquareOutlined } from "@ant-design/icons";
 import React from "react";
@@ -15,6 +13,7 @@ function PausedGameModal({ visible, closeModal }: PausedGameModalProps) {
     <Modal
       title={
         <div
+          // eslint-disable-next-line react/forbid-dom-props
           style={{
             width: "100%",
             textAlign: "center",
@@ -31,6 +30,7 @@ function PausedGameModal({ visible, closeModal }: PausedGameModalProps) {
       width="200px"
     >
       <PlaySquareOutlined
+        // eslint-disable-next-line react/forbid-component-props
         style={{ fontSize: "150px", color: "#660000" }}
         className="pauseIcon"
         onClick={closeModal}
