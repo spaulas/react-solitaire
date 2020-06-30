@@ -30,7 +30,8 @@ function DeckPile() {
       dispatch(
         gameBoardActions.addGameMove({
           source: "deckPile",
-          target: "flippedPile"
+          target: "flippedPile",
+          cards: []
         })
       );
     }, 600);

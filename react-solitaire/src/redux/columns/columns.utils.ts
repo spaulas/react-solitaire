@@ -127,9 +127,7 @@ export const swapColumns = (
         [finalId]: finalCol
       },
       sendBack: false,
-      movementWithFlip,
-      cardDragging: undefined,
-      cardDraggingCol: undefined
+      movementWithFlip
     };
   }
 

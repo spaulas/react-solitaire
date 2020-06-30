@@ -1,19 +1,9 @@
-import {
-  CardType,
-  GameMove
-} from "../../../../redux/gameBoard/gameBoard.types";
 import { Dispatch } from "redux/index";
+import { GameMove } from "../../../../redux/gameBoard/gameBoard.types";
 import columnsActions from "../../../../redux/columns/columns.actions";
 import deckActions from "../../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../../redux/goal/goal.actions";
-
-interface CardMove {
-  source: string;
-  target: string;
-  card: Array<CardType>;
-  movementWithFlip?: boolean;
-}
 
 class GoalDrop {
   dispatch: Dispatch;
@@ -27,9 +17,8 @@ class GoalDrop {
    * @param move the card move that was initiated
    * @param fieldDropedTo field the card was dropped to (should be a goal field)
    */
-  onDrop(move: CardMove, fieldDropedTo: string) {
-    const cardsDragging = move.card || [];
-    if (cardsDragging[0].cardField.includes("goal")) {
+  onDrop(move: GameMove, fieldDropedTo: string) {
+    if (move.cards[0]?.cardField.includes("goal")) {
       // goal -> goal
       // if it was a goal swap, then swap the cards from one column to the other
       this.dispatch(goalActions.swapGoals(fieldDropedTo));
@@ -41,7 +30,7 @@ class GoalDrop {
       // deck -> goal | column -> goal
       // call the goal action that adds the dragging cards to the goal
       this.dispatch(
-        goalActions.addDraggingCardsToGoal(fieldDropedTo, cardsDragging)
+        goalActions.addDraggingCardsToGoal(fieldDropedTo, move.cards)
       );
 
       // then reset the values at the deck redux
@@ -60,7 +49,7 @@ class GoalDrop {
   */
   handleRemoveCard(finalMove: GameMove) {
     // if the card came from the deck pile
-    if (finalMove.card && finalMove.card?.cardField === "deckPile") {
+    if (finalMove.cards[0]?.cardField === "deckPile") {
       // then remove the card that still is in the flipped pile and clear cardDragging state
       this.dispatch(deckActions.removeCardFromFlipped());
     } else {

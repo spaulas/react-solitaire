@@ -1,19 +1,9 @@
-import {
-  CardType,
-  GameMove
-} from "../../../../redux/gameBoard/gameBoard.types";
 import { Dispatch } from "redux/index";
+import { GameMove } from "../../../../redux/gameBoard/gameBoard.types";
 import columnsActions from "../../../../redux/columns/columns.actions";
 import deckActions from "../../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../../redux/goal/goal.actions";
-
-interface CardMove {
-  source: string;
-  target: string;
-  card: Array<CardType>;
-  movementWithFlip?: boolean;
-}
 
 class ColumnDrop {
   dispatch: Dispatch;
@@ -27,9 +17,8 @@ class ColumnDrop {
    * @param move the card move that was initiated
    * @param fieldDropedTo field the card was dropped to (should be a goal field)
    */
-  onDrop(move: CardMove, fieldDropedToTemp: string) {
-    const cardsDragging = move.card || [];
-    if (cardsDragging[0].cardField.includes("column")) {
+  onDrop(move: GameMove, fieldDropedToTemp: string) {
+    if (move.cards[0]?.cardField.includes("column")) {
       // if it was a column swap, then swap the cards from one column to the other
       this.dispatch(columnsActions.swapColumns(fieldDropedToTemp));
       // then reset
@@ -40,10 +29,7 @@ class ColumnDrop {
       // deck -> column | goal -> column
       // call the goal action that adds the dragging cards to the goal
       this.dispatch(
-        columnsActions.addDraggingCardsToColumn(
-          fieldDropedToTemp,
-          cardsDragging
-        )
+        columnsActions.addDraggingCardsToColumn(fieldDropedToTemp, move.cards)
       );
 
       // then reset the values at the deck redux
@@ -62,14 +48,16 @@ class ColumnDrop {
   */
   handleRemoveCard(finalMove: GameMove) {
     // if the card came from the deck pile
-    if (finalMove.card && finalMove.card?.cardField === "deckPile") {
+    if (finalMove.cards[0]?.cardField === "deckPile") {
       // then remove the card that still is in the flipped pile and clear cardDragging state
       this.dispatch(deckActions.removeCardFromFlipped());
     } else {
       // if the card came from a goal
-      if (finalMove.card && finalMove.card?.cardField.includes("goal")) {
+      if (finalMove.cards[0]?.cardField.includes("goal")) {
         // then remove the card that still is in the goal pile and clear cardDragging state
-        this.dispatch(goalActions.removeCardFromGoal());
+        this.dispatch(
+          goalActions.removeCardFromGoal(finalMove.cards[0]?.cardField)
+        );
       }
       // the column -> column move is handled at the goal redux
     }

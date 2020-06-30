@@ -34,7 +34,7 @@ export interface CardType {
 export interface GameMove {
   source: string;
   target: string;
-  card?: CardType;
+  cards: Array<CardType>;
   movementWithFlip?: boolean;
 }
 

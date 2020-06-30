@@ -109,7 +109,9 @@ const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
     case GoalActionTypes.RESET_GOAL_CARD_DRAGGING:
       return {
         ...state,
-        sendBack: undefined
+        sendBack: undefined,
+        cardsDragging: undefined,
+        cardDraggingGoal: undefined
       };
 
     // ********************************************************

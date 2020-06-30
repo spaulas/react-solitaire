@@ -71,9 +71,7 @@ export const swapGoals = (
         [finalId]: finalGoal,
         [initialId]: initialGoal
       },
-      sendBack: false,
-      cardDragging: undefined,
-      cardDraggingGoal: undefined
+      sendBack: false
     };
   }
 

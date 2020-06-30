@@ -1,5 +1,4 @@
-import { CardType } from "antd/lib/card";
-import GameBoardActionTypes from "./gameBoard.types";
+import GameBoardActionTypes, { GameMove } from "./gameBoard.types";
 import { ValueOf } from "../../global";
 
 // ********************************************************
@@ -39,12 +38,7 @@ const timeGame = () => ({
  * @param cards cards that where exchanged (can be undefined for deck reset moves)
  * @param movementWithFlip flag indicating if the move caused a card to flip
  */
-const addGameMove = (move: {
-  source: string;
-  target: string;
-  cards?: Array<CardType>;
-  movementWithFlip?: boolean;
-}) => ({
+const addGameMove = (move: GameMove) => ({
   type: GameBoardActionTypes.ADD_GAME_MOVE,
   move
 });

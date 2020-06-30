@@ -59,7 +59,8 @@ function BaseEmptySpots() {
     dispatch(
       gameBoardActions.addGameMove({
         source: "flippedPile",
-        target: "deckPile"
+        target: "deckPile",
+        cards: []
       })
     );
   };

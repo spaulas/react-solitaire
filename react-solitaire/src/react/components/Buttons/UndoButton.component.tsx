@@ -88,11 +88,7 @@ function UndoButton() {
           // column pile -> goal pile
           // call goal function to remove card from the repective column pile
           dispatch(
-            columnsActions.removeNCardsFromColumn(
-              target,
-              cards.length,
-              movementWithFlip
-            )
+            columnsActions.removeNCardsFromColumn(target, 1, movementWithFlip)
           );
           // add removed card to the corresponding goal
           dispatch(goalActions.addCardToGoal(source, cards[0]));

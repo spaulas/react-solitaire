@@ -6,13 +6,6 @@ import GoalDrop from "./GoalDrop";
 import { RootReducerState } from "../../../../global";
 import { useDrop } from "react-dnd";
 
-export interface CardMove {
-  source: string;
-  target: string;
-  card: Array<CardType>;
-  movementWithFlip?: boolean;
-}
-
 interface DropHandlerProps {
   className?: string;
 }
@@ -33,12 +26,17 @@ const DropHandler = ({
     ({ Columns, Deck, Goal }: RootReducerState) => {
       const source =
         Columns.cardDraggingCol || Goal.cardDraggingGoal || "deckPile";
-      const card =
-        Columns.cardDragging || Deck.cardDragging || Goal.cardDragging;
-      const movementWithFlip = Columns.movementWithFlip;
+      const cards =
+        Columns.cardDragging || Deck.cardDragging || Goal.cardDragging || [];
+      const movementWithFlip = Boolean(Columns.movementWithFlip);
 
       return {
-        move: { source, card, movementWithFlip, target: "" },
+        move: {
+          source,
+          cards: cards as Array<CardType>,
+          movementWithFlip,
+          target: ""
+        },
         sendBackColumn: Columns.sendBack,
         sendBackGoal: Goal.sendBack
       };
@@ -103,10 +101,8 @@ const DropHandler = ({
    * It is called when the sendBack value changes
    */
   const handleSendBack = () => {
-    const finalCard = typeof move.card === "object" ? move.card[0] : move.card;
     const finalMove = {
       ...move,
-      card: finalCard,
       target: fieldDropedTo as string
     };
     // if the movement to the column pile was successful
