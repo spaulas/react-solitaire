@@ -19,6 +19,7 @@ interface InitialDeck {
   translationX: number; // x translation for the animation
   translationY: number; // y translation for the animation
   cardDragging?: Array<CardType>; // cards original from the flipped pile that are being dragged
+  doubleClickTarget?: string;
 }
 
 const INITIAL_DECK: InitialDeck = {
@@ -28,7 +29,8 @@ const INITIAL_DECK: InitialDeck = {
   flippedPile: [],
   translationX: 243.75,
   translationY: cardsConfigurations.deck,
-  cardDragging: undefined
+  cardDragging: undefined,
+  doubleClickTarget: undefined
 };
 
 const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {

@@ -8,7 +8,7 @@ import { CardType } from "../gameBoard/gameBoard.types";
  * @param firstCard first card of the pile to add to a column
  * @param finalCard final card of the column to add the first card
  */
-export const isValidMovement = (firstCard: CardType, finalCard: CardType) => {
+export const isValidMovement = (firstCard: CardType, finalCard?: CardType) => {
   // if the column has no cards, then simply return true
   if (!finalCard) {
     return true;
@@ -368,5 +368,45 @@ export const removeNCardsFromColumn = (
       ...columns,
       [columnId]: tempCol
     }
+  };
+};
+
+// ********************************************************
+// DOUBLE CLICK FUNCTIONS
+
+export const handleDoubleClick = (
+  columns: Record<string, Array<CardType>>,
+  columnId: string,
+  nCards: number
+) => {
+  return {};
+};
+
+export const checkDoubleClickValid = (
+  columns: Record<string, Array<CardType>>,
+  sourceId: string,
+  nCards: number
+) => {
+  // create copy of the source column
+  const copy = [...columns[sourceId]];
+  // get the index of the last card
+  const sourceLastIndex = copy.length - 1;
+  // get the cards that are moving
+  const cardsMoving = copy.splice(sourceLastIndex - nCards, nCards);
+  const targetId = Object.keys(columns).find((column: string) => {
+    const targetLastIndex = columns[column].length - 1;
+    return isValidMovement(
+      cardsMoving[0],
+      targetLastIndex < 0 ? undefined : columns[column][targetLastIndex]
+    );
+  });
+  let swapResult = {};
+  if (targetId) {
+    swapResult = swapColumns(columns, cardsMoving, sourceId, targetId);
+  }
+
+  return {
+    doubleClickTarget: targetId,
+    ...swapResult
   };
 };

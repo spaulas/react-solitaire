@@ -2,7 +2,9 @@
 import {
   addCardToColumn,
   addDragginCardsToColumn,
+  checkDoubleClickValid,
   createColumns,
+  handleDoubleClick,
   removeDraggedCard,
   removeNCardsFromColumn,
   setCardDragging,
@@ -196,6 +198,26 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         ...state,
         ...removeNCardsResult
       };
+
+    // ********************************************************
+    // DOUBLE CLICK ACTIONS
+    case ColumnsActionTypes.HANDLE_DOUBLE_CLICK:
+      const doubleClickResult = handleDoubleClick(
+        state.columns,
+        action.columnId,
+        action.nCards
+      );
+
+      return { ...state, ...doubleClickResult };
+
+    case ColumnsActionTypes.CHECK_DOUBLE_CLICK_VALID:
+      const checkDoubleClickResult = checkDoubleClickValid(
+        state.columns,
+        action.columnId,
+        action.nCards
+      );
+
+      return { ...state, ...checkDoubleClickResult };
     // ********************************************************
 
     default:

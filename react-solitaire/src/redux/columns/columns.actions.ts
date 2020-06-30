@@ -124,6 +124,21 @@ const removeNCardsFromColumn = (
 });
 
 // ********************************************************
+// DOUBLE CLICK ACTIONS
+
+const handleDoubleClick = (columnId: string, nCards: number) => ({
+  type: ColumnActionTypes.HANDLE_DOUBLE_CLICK,
+  columnId,
+  nCards
+});
+
+const checkDoubleClickValid = (columnId: string, nCards: number) => ({
+  type: ColumnActionTypes.CHECK_DOUBLE_CLICK_VALID,
+  columnId,
+  nCards
+});
+
+// ********************************************************
 
 const actionsCreators = Object.freeze({
   setInitialColumns,
@@ -134,7 +149,9 @@ const actionsCreators = Object.freeze({
   removeDraggedCardsFromColumn,
   resetCardDragging,
   addCardToColumn,
-  removeNCardsFromColumn
+  removeNCardsFromColumn,
+  handleDoubleClick,
+  checkDoubleClickValid
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;
