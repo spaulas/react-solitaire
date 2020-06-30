@@ -25,9 +25,15 @@ function DeckPile() {
   const handleDeckSwap = async (cardId: number) => {
     // wait for the css animation to end
     setTimeout(() => {
-      dispatch(deckActions.flipDeckPile(cardId));
+      dispatch(deckActions.flipDeckPile());
       // add one movement of the game
-      dispatch(gameBoardActions.addGameMove());
+      dispatch(
+        gameBoardActions.addGameMove({
+          source: "deckPile",
+          target: "flippedPile",
+          cards: []
+        })
+      );
     }, 600);
   };
 
@@ -50,7 +56,7 @@ function DeckPile() {
   return (
     <SimplePile
       pileId="deckPile"
-      getCards={getCards}
+      pileCards={getCards()}
       offset={2}
       pileClassName="deckPileIndex flippedPile"
       insideClassName="columnPile"

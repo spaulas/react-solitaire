@@ -1,9 +1,9 @@
 /* eslint-disable indent */
-import { CardFrame, CardImage } from "../../components/Cards/Cards.items";
-import { ExplicitAny, RootReducerState } from "../../../global";
-import { CardType } from "../../../redux/gameBoard/gameBoard.types";
+import { CardFrame, CardImage } from "../../Cards/Cards.items";
+import { ExplicitAny, RootReducerState } from "../../../../global";
+import { CardType } from "../../../../redux/gameBoard/gameBoard.types";
 import React from "react";
-import { SimplePile } from "../../components/Piles/Piles.items";
+import { SimplePile } from "../../Piles/Piles.items";
 import { useDragLayer } from "react-dnd";
 import { useSelector } from "react-redux";
 
@@ -24,8 +24,9 @@ function CustomDragLayer() {
 
   // get the cards that are dragging from the redux (can be from the deck or form the columns)
   const { cardDragging } = useSelector(
-    ({ Columns, Deck }: RootReducerState) => ({
-      cardDragging: Columns.cardDragging || Deck.cardDragging || []
+    ({ Columns, Deck, Goal }: RootReducerState) => ({
+      cardDragging:
+        Columns.cardDragging || Deck.cardDragging || Goal.cardDragging || []
     })
   );
 
@@ -52,7 +53,7 @@ function CustomDragLayer() {
         return (
           <SimplePile
             pileId="dragging"
-            getCards={getCards}
+            pileCards={getCards()}
             pileClassName="deckPile"
             insideClassName="columnPile"
           />

@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { CardType, cardsConfigurations } from "./gameBoard.types";
+import { CardType, GameMove, cardsConfigurations } from "./gameBoard.types";
 
 // part of the CardType interface
 interface RawCardType {
@@ -9,7 +9,77 @@ interface RawCardType {
   image: CardType["image"];
 }
 
-// creates all the cards and randomly distributes them throughout the game fields
+// ********************************************************
+// HELPER FUNCTIONS
+
+/**
+ * Creates an array of objects for each card
+ */
+export const getAllCards = () => {
+  // array for the suits available
+  const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
+  // array that will contain all the cards
+  const cards = [];
+
+  // for each suit available
+  for (let i = 0; i < suits.length; i++) {
+    // and for each card number
+    for (let j = 1; j <= 13; j++) {
+      cards.push({
+        cardColor: i < 2 ? "red" : "black", // for i = 0 and i = 1, the suits are red, the are two are black
+        cardSuit: suits[i],
+        cardNumber: j,
+        image: `${suits[i]}/${suits[i].toLowerCase()}${
+          j < 10 ? `0${j}` : j
+        }.png` // get the corresponding image for the card created
+      } as const);
+    }
+  }
+
+  return cards;
+};
+
+/**
+ * Randomly shuffles the cards created
+ */
+export const shuffle = (array: Array<RawCardType>) => {
+  for (
+    let j, temp, i = array.length;
+    i;
+    j = Math.floor(Math.random() * i),
+      temp = array[--i],
+      array[i] = array[j],
+      array[j] = temp
+  );
+  return array;
+};
+
+/**
+ * Separates the cards array in parts from min to max and adds its id
+ */
+export const createCardsArray = (
+  cardsRawArray: Array<RawCardType>,
+  cardField: string,
+  min: number,
+  max: number
+) => {
+  const cardsArray: Array<CardType> = [];
+  for (let i = min; i < max; i++) {
+    cardsArray.push({
+      id: i,
+      cardField,
+      ...cardsRawArray[i]
+    });
+  }
+  return cardsArray;
+};
+
+// ********************************************************
+// INITIAL SETTINGS FUNCTIONS
+
+/**
+ * Creates all the cards and randomly distributes them throughout the game fields
+ */
 export const createRandomGame = () => {
   // get all the cards images and shuffle them
   const cardsImages = shuffle(getAllCards());
@@ -50,58 +120,69 @@ export const createRandomGame = () => {
   return finalResult;
 };
 
-// creates an array of objects for each card
-export const getAllCards = () => {
-  // array for the suits available
-  const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
-  // array that will contain all the cards
-  const cards = [];
-
-  // for each suit available
-  for (let i = 0; i < suits.length; i++) {
-    // and for each card number
-    for (let j = 1; j <= 13; j++) {
-      cards.push({
-        cardColor: i < 2 ? "red" : "black", // for i = 0 and i = 1, the suits are red, the are two are black
-        cardSuit: suits[i],
-        cardNumber: j,
-        image: `${suits[i]}/${suits[i].toLowerCase()}${
-          j < 10 ? `0${j}` : j
-        }.png` // get the corresponding image for the card created
-      } as const);
-    }
-  }
-
-  return cards;
+/**
+ * When a game starts, it is necessary to reset a few states
+ * @param gameFlag current game flag (to be toggled)
+ */
+export const resetGameStatus = (gameFlag: boolean) => {
+  return {
+    gameFlag: !gameFlag, // toggle game flag
+    gameMoves: 0, // resets the counting of moves
+    gamePaused: false, // the game is not paused at start
+    gamePreviousMoves: [], // there are no moves to be undone
+    gameNextMoves: [] // there are  no moves to be redone
+  };
 };
 
-// randomly shuffles the cards created
-export const shuffle = (array: Array<RawCardType>) => {
-  for (
-    let j, temp, i = array.length;
-    i;
-    j = Math.floor(Math.random() * i),
-      temp = array[--i],
-      array[i] = array[j],
-      array[j] = temp
-  );
-  return array;
-};
+// ********************************************************
+// GAME MOVES' HISTORY FUNCTIONS
 
-// separates the cards array in parts from min to max and adds its id
-export const createCardsArray = (
-  cardsRawArray: Array<RawCardType>,
-  cardField: string,
-  min: number,
-  max: number
+/**
+ * Adds a move to the list of previous moves
+ * @param gamePreviousMoves list of previous moves stored
+ * @param move game move to add
+ * @param gameMoves current count of game moves
+ */
+export const addGameMove = (
+  gamePreviousMoves: Array<GameMove>,
+  move: GameMove,
+  gameMoves: number
 ) => {
-  const cardsArray: Array<CardType> = [];
-  for (let i = min; i < max; i++) {
-    cardsArray.push({
-      id: i,
-      cardField,
-      ...cardsRawArray[i]
-    });
-  }
-  return cardsArray;
+  // add the move to the list of previous moves
+  const tempPreviousMoves = [...gamePreviousMoves];
+  tempPreviousMoves.push(move);
+
+  return {
+    gamePreviousMoves: tempPreviousMoves,
+    gameMoves: gameMoves + 1, // add a new game move
+    gameNextMoves: [] // reset the game next moves
+  };
+};
+
+/**
+ * Remove a move from a source list to the target list
+ * @param gameMoveSource
+ * @param gameMoveTarget
+ * @param gameMoves
+ */
+export const removeGameMove = (
+  sourceId: string,
+  targetId: string,
+  gameMoveSource: Array<GameMove>,
+  gameMoveTarget: Array<GameMove>,
+  gameMoves: number
+) => {
+  // create copy of the list of moves
+  const tempGameMoveSource = [...gameMoveSource];
+  const tempGameMoveTarget = [...gameMoveTarget];
+  // remove the top move of the source list
+  const moveUndone = tempGameMoveSource.pop();
+  // add that move to the target list
+  tempGameMoveTarget.push(moveUndone as GameMove);
+
+  return {
+    [sourceId]: tempGameMoveSource,
+    [targetId]: tempGameMoveTarget,
+    gameMoves: gameMoves + 1 // add a new game move
+  };
 };

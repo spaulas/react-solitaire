@@ -39,11 +39,16 @@ const setTranslation = (translation: number) => ({
 
 /**
  * Flips one card from the deck pile to the flipped pile
- * @param cardId id of the card to be flipped
  */
-const flipDeckPile = (cardId: number) => ({
-  type: DeckActionTypes.FLIP_DECK_PILE,
-  cardId
+const flipDeckPile = () => ({
+  type: DeckActionTypes.FLIP_DECK_PILE
+});
+
+/**
+ * Flips one card back from the flipped pile to the deck pile
+ */
+const undoFlipDeckPile = () => ({
+  type: DeckActionTypes.UNDO_FLIP_DECK_PILE
 });
 
 /**
@@ -53,29 +58,47 @@ const resetDeck = () => ({
   type: DeckActionTypes.RESET_DECK
 });
 
+/**
+ * Undoes the deck reset, setting all the deck cards to the flipped pile
+ */
+const undoResetDeck = () => ({
+  type: DeckActionTypes.UNDO_RESET_DECK
+});
+
 // ********************************************************
 // DRAGGING ACTIONS
 
 /**
  * Starts dragging the top card of the flipped pile
- * @param position initial position of the flipped pile (in case it is send to an invalid place)
  */
 const dragFlippedCard = () => ({
   type: DeckActionTypes.DRAG_FLIPPED_CARD
 });
 
 /**
- * Resets the currently saved card that was been dragged and its position
+ * After a successful action, remove the top card of the flipped card pile
+ */
+const removeCardFromFlipped = () => ({
+  type: DeckActionTypes.REMOVE_CARD_FROM_FLIPPED
+});
+
+/**
+ * Resets the currently saved card that was being dragged
  */
 const resetCardDragging = () => ({
   type: DeckActionTypes.RESET_FLIPPED_CARD_DRAGGING
 });
 
+// ********************************************************
+// ADD ACTIONS
+
 /**
- * After a successful action, pop the top card of the flipped card pile
+ * Sends a card to a flipped pile
+ * @param card card to be added to the flipepd pile
  */
-const removeFlippedCard = () => ({
-  type: DeckActionTypes.REMOVE_FLIPPED_CARD
+const addCardToFlipped = (card: CardType) => ({
+  type: DeckActionTypes.ADD_CARD_TO_FLIPPED,
+  card
 });
 
 // ********************************************************
@@ -85,10 +108,13 @@ const actionsCreators = Object.freeze({
   setRefs,
   setTranslation,
   flipDeckPile,
+  undoFlipDeckPile,
+  addCardToFlipped,
   resetDeck,
+  undoResetDeck,
   dragFlippedCard,
-  resetCardDragging,
-  removeFlippedCard
+  removeCardFromFlipped,
+  resetCardDragging
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

@@ -1,7 +1,7 @@
 import ApplicationRouter from "./ApplicationRouter";
 import { BrowserRouter } from "react-router-dom";
 import { DndProvider } from "react-dnd";
-import { ExplicitAny } from "../global";
+import { ExplicitAny } from "../../global";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Layout } from "antd";
 import React from "react";

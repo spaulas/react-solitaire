@@ -3,7 +3,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 /**
- * Button that will start the game, by redirecting to the /game location
+ * Button to start the game, by redirecting to the /game location
  */
 
 function StartButton() {

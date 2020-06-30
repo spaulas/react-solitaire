@@ -1,9 +1,15 @@
 /* eslint-disable indent */
-import GameBoardActionTypes, { CardType } from "./gameBoard.types";
+import GameBoardActionTypes, { CardType, GameMove } from "./gameBoard.types";
+import {
+  addGameMove,
+  createRandomGame,
+  removeGameMove,
+  resetGameStatus
+} from "./gameBoard.utils";
 import { ActionsCreators } from "./gameBoard.actions";
-import { createRandomGame } from "./gameBoard.utils";
 
 interface InitialGameBoard {
+  // initial cards of each pile
   deckPile: Array<CardType>;
   flippedPile: Array<CardType>;
   column1Pile: Array<CardType>;
@@ -13,9 +19,11 @@ interface InitialGameBoard {
   column5Pile: Array<CardType>;
   column6Pile: Array<CardType>;
   column7Pile: Array<CardType>;
-  gameFlag: boolean;
-  gameMoves: number;
-  gamePaused: boolean;
+  gameFlag: boolean; // is toggled when a new game starts
+  gameMoves: number; // number of moves a player has done throughout the game
+  gamePaused: boolean; // flag indicating if the game is paused
+  gamePreviousMoves: Array<GameMove>; // list of moves that can be undone
+  gameNextMoves: Array<GameMove>; // list of moves that can be redone
 }
 
 const INITIAL_GAME_BOARD: InitialGameBoard = {
@@ -30,7 +38,9 @@ const INITIAL_GAME_BOARD: InitialGameBoard = {
   column7Pile: [],
   gameFlag: false,
   gameMoves: 0,
-  gamePaused: false
+  gamePaused: false,
+  gamePreviousMoves: [],
+  gameNextMoves: []
 };
 
 const gameBoardReducer = (
@@ -38,24 +48,82 @@ const gameBoardReducer = (
   action: ActionsCreators
 ) => {
   switch (action.type) {
+    // ********************************************************
+    // INITIAL SETTINGS ACTIONS
+
+    /**
+     * Creates an initial distribution of the cards and reset the game status
+     */
     case GameBoardActionTypes.CREATE_GAME:
       return {
         ...createRandomGame(),
-        gameFlag: !state.gameFlag,
-        gameMoves: 0,
-        gamePaused: false
+        ...resetGameStatus(state.gameFlag)
       };
+
+    // ********************************************************
+    // GAME COMMANDS ACTIONS
+
+    /**
+     *  Resets the game and resets all the game values
+     */
     case GameBoardActionTypes.TOGGLE_GAME_FLAG:
       return {
         ...state,
-        gameFlag: !state.gameFlag,
-        gameMoves: 0,
-        gamePaused: false
+        ...resetGameStatus(state.gameFlag)
       };
-    case GameBoardActionTypes.ADD_GAME_MOVE:
-      return { ...state, gameMoves: state.gameMoves + 1 };
+
+    /**
+     * Toggles the game paused flag (to pause/resume the game)
+     */
     case GameBoardActionTypes.TIME_GAME:
       return { ...state, gamePaused: !state.gamePaused };
+
+    // ********************************************************
+    // GAME MOVES' HISTORY ACTIONS
+
+    /**
+     * Adds a move to the list of previous moves and reset the list of next moves
+     */
+    case GameBoardActionTypes.ADD_GAME_MOVE:
+      const addResult = addGameMove(
+        state.gamePreviousMoves,
+        action.move,
+        state.gameMoves
+      );
+
+      return {
+        ...state,
+        ...addResult
+      };
+
+    /**
+     * Adds the top move from the list of previous moves to the list of next moves
+     */
+    case GameBoardActionTypes.REMOVE_GAME_MOVE:
+      const removeResult = removeGameMove(
+        "gamePreviousMoves",
+        "gameNextMoves",
+        state.gamePreviousMoves,
+        state.gameNextMoves,
+        state.gameMoves
+      );
+      return { ...state, ...removeResult };
+
+    /**
+     * Adds the top move from the list of next moves to the list of previous moves
+     */
+    case GameBoardActionTypes.RE_ADD_GAME_MOVE:
+      const reAddResult = removeGameMove(
+        "gameNextMoves",
+        "gamePreviousMoves",
+        state.gameNextMoves,
+        state.gamePreviousMoves,
+        state.gameMoves
+      );
+      return { ...state, ...reAddResult };
+
+    // ********************************************************
+
     default:
       return state;
   }

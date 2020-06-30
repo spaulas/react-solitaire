@@ -1,6 +1,6 @@
 import React, { forwardRef, memo } from "react";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import DraggableCard from "../Cards/DraggableCard.component";
+import DraggableCard from "../CardMoveHandlers/DragHandlers/DraggableCard.component";
 import { RootReducerState } from "../../../global";
 import SimplePile from "./SimplePile.component";
 import { useSelector } from "react-redux";
@@ -32,7 +32,7 @@ function GoalPile({ goalId, offset }: GoalPileProps) {
     <SimplePile
       offset={offset}
       pileId={goalId}
-      getCards={getCards}
+      pileCards={getCards()}
       pileClassName="deckPile flippedPile"
       insideClassName="columnPile"
     />

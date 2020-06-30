@@ -1,14 +1,14 @@
 /* eslint-disable indent */
-import { ExplicitAny, RootReducerState } from "../../../global";
-import React, { useEffect } from "react";
+import { ExplicitAny, RootReducerState } from "../../../../global";
+import React, { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CardFrame from "./CardFrame.component";
-import CardImage from "./CardImage.component";
-import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import columnActions from "../../../redux/columns/columns.actions";
-import deckActions from "../../../redux/deck/deck.actions";
+import CardFrame from "../../Cards/CardFrame.component";
+import CardImage from "../../Cards/CardImage.component";
+import { CardType } from "../../../../redux/gameBoard/gameBoard.types";
+import columnsActions from "../../../../redux/columns/columns.actions";
+import deckActions from "../../../../redux/deck/deck.actions";
 import { getEmptyImage } from "react-dnd-html5-backend";
-import goalActions from "../../../redux/goal/goal.actions";
+import goalActions from "../../../../redux/goal/goal.actions";
 import { useDrag } from "react-dnd";
 const type = "cardframe";
 
@@ -56,7 +56,7 @@ function DraggableCard({ card, nCards, index = 0 }: DraggableCardProps) {
         break;
       default:
         // if it is a card from the columns, then call the column action that saves what is being dragged
-        dispatch(columnActions.dragColumnCards(nCards, card.cardField));
+        dispatch(columnsActions.dragColumnCards(card.cardField, nCards));
     }
   };
 
@@ -89,4 +89,4 @@ function DraggableCard({ card, nCards, index = 0 }: DraggableCardProps) {
   );
 }
 
-export default DraggableCard;
+export default memo(DraggableCard);

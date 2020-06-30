@@ -1,8 +1,8 @@
 import React, { memo } from "react";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import ErrorPage from "./pages/ErrorPage/ErrorPage.component";
-import GameBoard from "./pages/GameBoard/GameBoard.component";
-import StartingPage from "./pages/StartingPage/StartingPage.component";
+import ErrorPage from "../pages/ErrorPage/ErrorPage.component";
+import GameBoard from "../pages/GameBoard/GameBoard.component";
+import StartingPage from "../pages/StartingPage/StartingPage.component";
 
 /**
  * App available routes and corresponding pages
