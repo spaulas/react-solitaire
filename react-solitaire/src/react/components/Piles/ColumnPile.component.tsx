@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { CardFlippable } from "../Cards/Cards.items";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import ColumDoubleClickHandler from "../CardMoveHandlers/DoubleClickHandlers/ColumnDoubleClickHandler.component";
+import ColumDoubleClickHandler from "../CardMoveHandlers/DoubleClickHandlers/ColumnDoubleClickHandler";
 import DraggableClickableCard from "../CardMoveHandlers/DoubleClickHandlers/DoubleClickHandler.component";
 import SimplePile from "./SimplePile.component";
 import { useDispatch } from "react-redux";

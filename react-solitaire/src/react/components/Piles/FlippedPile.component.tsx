@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import DeckDoubleClickHandler from "../CardMoveHandlers/DoubleClickHandlers/DeckDoubleClickHandler.component";
+import DeckDoubleClickHandler from "../CardMoveHandlers/DoubleClickHandlers/DeckDoubleClickHandler";
 import DraggableClickableCard from "../CardMoveHandlers/DoubleClickHandlers/DoubleClickHandler.component";
 import { RootReducerState } from "../../../global";
 import SimplePile from "./SimplePile.component";

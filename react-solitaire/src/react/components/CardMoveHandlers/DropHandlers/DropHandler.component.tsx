@@ -1,8 +1,8 @@
 import React, { PropsWithChildren, memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardType } from "../../../../redux/gameBoard/gameBoard.types";
-import ColumnDrop from "./ColumnDrop";
-import GoalDrop from "./GoalDrop";
+import ColumnDrop from "./ColumnDropHandler";
+import GoalDrop from "./GoalDropHandler";
 import { RootReducerState } from "../../../../global";
 import { useDrop } from "react-dnd";
 
