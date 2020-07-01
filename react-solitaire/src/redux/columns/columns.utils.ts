@@ -386,13 +386,28 @@ export const getValidTarget = (
   columns: Record<string, Array<CardType>>,
   firstCard: CardType
 ) => {
-  return Object.keys(columns).find((column: string) => {
+  // get all the valid spots
+  const validSpots = Object.keys(columns).filter((column: string) => {
     const targetLastIndex = columns[column].length - 1;
     return isValidMovement(
       firstCard,
       targetLastIndex < 0 ? undefined : columns[column][targetLastIndex]
     );
   });
+
+  // if there is none or only one, return it
+  if (validSpots.length <= 1) {
+    return validSpots[0];
+  } else {
+    // if there are more, find the first not empty column
+    const validNotEmptySpot = validSpots.find((spot: string) => {
+      return columns[spot].length > 0;
+    });
+
+    // if a valid not empty column was found, return it
+    // if not, return the first valid empty column
+    return validNotEmptySpot || validSpots[0];
+  }
 };
 
 export const checkColumnSwapDoubleClickValid = (
