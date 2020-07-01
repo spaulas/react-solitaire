@@ -124,6 +124,29 @@ const removeNCardsFromColumn = (
 });
 
 // ********************************************************
+// DOUBLE CLICK ACTIONS
+
+/**
+ * Checks if there is a column pile a card from another type of pile can be moved to
+ * @param card card from the other type pile to be moved
+ */
+const checkDoubleClickValid = (card: CardType) => ({
+  type: ColumnActionTypes.CHECK_DOUBLE_CLICK_VALID,
+  card
+});
+
+/**
+ * Checks if there is a column pile a column pile card can be moved to and do the swapping
+ * @param sourceId id of the source column
+ * @param nCards number of cards from the source column to be swapped\
+ */
+const checkColumnSwapDoubleClickValid = (sourceId: string, nCards: number) => ({
+  type: ColumnActionTypes.CHECK_COLUM_SWAP_DOUBLE_CLICK_VALID,
+  sourceId,
+  nCards
+});
+
+// ********************************************************
 
 const actionsCreators = Object.freeze({
   setInitialColumns,
@@ -134,7 +157,9 @@ const actionsCreators = Object.freeze({
   removeDraggedCardsFromColumn,
   resetCardDragging,
   addCardToColumn,
-  removeNCardsFromColumn
+  removeNCardsFromColumn,
+  checkColumnSwapDoubleClickValid,
+  checkDoubleClickValid
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

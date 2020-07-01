@@ -1,8 +1,8 @@
 import React, { PropsWithChildren, memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardType } from "../../../../redux/gameBoard/gameBoard.types";
-import ColumnDrop from "./ColumnDrop";
-import GoalDrop from "./GoalDrop";
+import ColumnDrop from "./ColumnDropHandler";
+import GoalDrop from "./GoalDropHandler";
 import { RootReducerState } from "../../../../global";
 import { useDrop } from "react-dnd";
 
@@ -101,15 +101,18 @@ const DropHandler = ({
    * It is called when the sendBack value changes
    */
   const handleSendBack = () => {
-    const finalMove = {
-      ...move,
-      target: fieldDropedTo as string
-    };
-    // if the movement to the column pile was successful
-    if (sendBackColumn === false) {
-      ColumnInstance.handleRemoveCard(finalMove);
-    } else if (sendBackGoal === false) {
-      GoalInstance.handleRemoveCard(finalMove);
+    // if the field is not undefined, then can add move (if one of the sendBack variables is false)
+    if (fieldDropedTo) {
+      const finalMove = {
+        ...move,
+        target: fieldDropedTo
+      };
+      // if the movement to the column pile was successful
+      if (sendBackColumn === false) {
+        ColumnInstance.handleRemoveCard(finalMove);
+      } else if (sendBackGoal === false) {
+        GoalInstance.handleRemoveCard(finalMove);
+      }
     }
   };
   useEffect(handleSendBack, [sendBackColumn, sendBackGoal]);

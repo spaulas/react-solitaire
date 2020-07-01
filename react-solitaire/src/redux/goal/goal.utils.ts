@@ -8,7 +8,7 @@ import { CardType } from "../gameBoard/gameBoard.types";
  * @param firstCard card of the pile to add to a goal
  * @param finalCard top card of the goal to add the first card
  */
-export const isValidMovement = (firstCard: CardType, finalCard: CardType) => {
+export const isValidMovement = (firstCard: CardType, finalCard?: CardType) => {
   // if the goal has no cards, then it should be the first number
   if (!finalCard) {
     if (firstCard.cardNumber === 1) {
@@ -211,7 +211,8 @@ export const addCardToGoal = (
     goals: {
       ...goals,
       [goalId]: goal
-    }
+    },
+    doubleClickTarget: undefined
   };
 };
 
@@ -234,5 +235,50 @@ export const removeCardFromGoal = (
       ...goals,
       [goalId]: goal
     }
+  };
+};
+
+// ********************************************************
+// DOUBLE CLICK FUNCTIONS
+
+export const getValidTarget = (
+  goals: Record<string, Array<CardType>>,
+  card: CardType
+) => {
+  return Object.keys(goals).find((goal: string) => {
+    const goalCards = goals[goal].length - 1;
+    return isValidMovement(
+      card,
+      goalCards < 0 ? undefined : goals[goal][goalCards]
+    );
+  });
+};
+
+export const checkDoubleClickValid = (
+  goals: Record<string, Array<CardType>>,
+  card: CardType,
+  doubleClickTarget?: boolean | string
+) => {
+  const targetId = getValidTarget(goals, card);
+
+  return {
+    doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId
+  };
+};
+
+export const checkGoalSwapDoubleClickValid = (
+  goals: Record<string, Array<CardType>>,
+  sourceId: string,
+  card: CardType,
+  doubleClickTarget?: boolean | string
+) => {
+  const targetId = getValidTarget(goals, card);
+  let swapResult = {};
+  if (targetId) {
+    swapResult = swapGoals(goals, [card], sourceId, targetId);
+  }
+  return {
+    doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId,
+    ...swapResult
   };
 };

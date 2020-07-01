@@ -2,6 +2,8 @@
 import {
   addCardToColumn,
   addDragginCardsToColumn,
+  checkColumnSwapDoubleClickValid,
+  checkDoubleClickValid,
   createColumns,
   removeDraggedCard,
   removeNCardsFromColumn,
@@ -28,6 +30,8 @@ export interface InitialColumns {
   cardDraggingCol?: string; // id of the cards dragging's column
   sendBack?: boolean; // flag that announces if the movement to the column, was invalid
   movementWithFlip?: boolean; // indicates if the movement to or from the column caused a card to be flipped
+  doubleClickTarget?: boolean | string;
+  movingCards?: Array<CardType>;
 }
 
 const INITIAL_COLUMNS: InitialColumns = {
@@ -43,7 +47,9 @@ const INITIAL_COLUMNS: InitialColumns = {
   cardDragging: undefined,
   cardDraggingCol: undefined,
   sendBack: undefined,
-  movementWithFlip: undefined
+  movementWithFlip: undefined,
+  doubleClickTarget: undefined,
+  movingCards: undefined
 };
 
 const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
@@ -196,6 +202,40 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         ...state,
         ...removeNCardsResult
       };
+
+    // ********************************************************
+    // DOUBLE CLICK ACTIONS
+
+    /**
+     * Checks if there is a column pile a card from another type of pile can be moved to
+     *    - check if there is any valid spot (if more than one option is available, first choice is a not empty pile)
+     *    - save the target column id result
+     *    - if there were no possible moves, the target result works as a flag
+     */
+    case ColumnsActionTypes.CHECK_DOUBLE_CLICK_VALID:
+      const checkDoubleClickResult = checkDoubleClickValid(
+        state.columns,
+        action.card,
+        state.doubleClickTarget
+      );
+      return { ...state, ...checkDoubleClickResult };
+
+    /**
+     * Checks if there is a column pile a column pile card can be moved to:
+     *    - check if there is any valid spot (if more than one option is available, first choice is a not empty pile)
+     *    - if there is a possible move, then swap the cards
+     *    - save the target column id result, the cards that were swapped and the swapping result
+     *    - if there were no possible moves, the target result works as a flag
+     */
+    case ColumnsActionTypes.CHECK_COLUM_SWAP_DOUBLE_CLICK_VALID:
+      const checkColumnSwapDoubleClickResult = checkColumnSwapDoubleClickValid(
+        state.columns,
+        action.sourceId,
+        action.nCards,
+        state.doubleClickTarget
+      );
+      return { ...state, ...checkColumnSwapDoubleClickResult };
+
     // ********************************************************
 
     default:

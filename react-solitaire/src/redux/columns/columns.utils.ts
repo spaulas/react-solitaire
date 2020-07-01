@@ -8,7 +8,7 @@ import { CardType } from "../gameBoard/gameBoard.types";
  * @param firstCard first card of the pile to add to a column
  * @param finalCard final card of the column to add the first card
  */
-export const isValidMovement = (firstCard: CardType, finalCard: CardType) => {
+export const isValidMovement = (firstCard: CardType, finalCard?: CardType) => {
   // if the column has no cards, then simply return true
   if (!finalCard) {
     return true;
@@ -368,5 +368,99 @@ export const removeNCardsFromColumn = (
       ...columns,
       [columnId]: tempCol
     }
+  };
+};
+
+// ********************************************************
+// DOUBLE CLICK FUNCTIONS
+
+/**
+ * Get the first valid target column, give preferance to a not empty column
+ * @param columns
+ * @param firstCard first card of the cards to move
+ */
+export const getValidTarget = (
+  columns: Record<string, Array<CardType>>,
+  firstCard: CardType
+) => {
+  // get all the valid spots
+  const validSpots = Object.keys(columns).filter((column: string) => {
+    const targetLastIndex = columns[column].length - 1;
+    return isValidMovement(
+      firstCard,
+      targetLastIndex < 0 ? undefined : columns[column][targetLastIndex]
+    );
+  });
+
+  // if there is none or only one, return it
+  if (validSpots.length <= 1) {
+    return validSpots[0];
+  } else {
+    // if there are more, find the first not empty column
+    const validNotEmptySpot = validSpots.find((spot: string) => {
+      return columns[spot].length > 0;
+    });
+
+    // if a valid not empty column was found, return it
+    // if not, return the first valid empty column
+    return validNotEmptySpot || validSpots[0];
+  }
+};
+
+/**
+ * Checks if there is a valid move to a column
+ * @param columns
+ * @param cardMoving card to be moved
+ * @param doubleClickTarget current value store at the doubleClickTarget state
+ */
+export const checkDoubleClickValid = (
+  columns: Record<string, Array<CardType>>,
+  cardMoving: CardType,
+  doubleClickTarget?: boolean | string
+) => {
+  // get the first possible target column id
+  const targetId = getValidTarget(columns, cardMoving);
+
+  // if there is no valid target column, toggle the doubleClickTarget
+  // if there is a valid target column, save its id
+  return {
+    doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId
+  };
+};
+
+/**
+ * Checks if there is a valid move to another column, if so swap the cards
+ * @param columns
+ * @param sourceId id of the source column
+ * @param nCards number of cards to swap
+ * @param doubleClickTarget current value store at the doubleClickTarget state
+ */
+export const checkColumnSwapDoubleClickValid = (
+  columns: Record<string, Array<CardType>>,
+  sourceId: string,
+  nCards: number,
+  doubleClickTarget?: boolean | string
+) => {
+  // create copy of the source column
+  const copy = [...columns[sourceId]];
+  // get the index of the last card
+  const sourceLastIndex = copy.length;
+  // get the cards that are moving
+  const cardsMoving = copy.splice(sourceLastIndex - nCards, nCards);
+  // get the first possible target column id
+  const targetId = getValidTarget(columns, cardsMoving[0]);
+  // saves the result of the column piles that will be swapped
+  let swapResult = {};
+  // if there is a valid column target do the swap of columns
+  if (targetId) {
+    swapResult = swapColumns(columns, cardsMoving, sourceId, targetId);
+  }
+
+  // if there is no valid target column, toggle the doubleClickTarget and reset the moving cards (the swap result holds nothing)
+  // if there is a valid target column, then save it, the cards that were swapped and the respective columns final result
+  return {
+    doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId,
+    movingCards: targetId === undefined ? undefined : cardsMoving,
+    ...swapResult
   };
 };
