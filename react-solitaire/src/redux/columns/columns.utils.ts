@@ -375,7 +375,7 @@ export const removeNCardsFromColumn = (
 // DOUBLE CLICK FUNCTIONS
 
 /**
- * Get the first valid target column, give preferance to a not empty column
+ * Get the first valid target column, give preference to a not empty column
  * @param columns
  * @param firstCard first card of the cards to move
  */
