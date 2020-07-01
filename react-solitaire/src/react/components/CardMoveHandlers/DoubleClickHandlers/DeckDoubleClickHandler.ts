@@ -5,9 +5,12 @@ import deckActions from "../../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../../redux/goal/goal.actions";
 
+/**
+ * Class for the deck pile double click handler
+ */
 class DeckDoubleClickHandler {
-  dispatch: Dispatch;
-  card: CardType;
+  dispatch: Dispatch; // dispatch function
+  card: CardType; // card that is being double clicked
 
   constructor(dispatch: Dispatch, card: CardType) {
     this.dispatch = dispatch;
@@ -16,20 +19,18 @@ class DeckDoubleClickHandler {
 
   /**
    * Function called when the draggable card is double clicked
-   * If there is only one card for the move, then first try to move it to a valid goal pile
-   * If there is more cards, then try to move it to a valid column
+   * Try to move it to a goal pile first
    */
   handleDoubleClick() {
-    // try to move the card to a valid column
-    // check if can move to another column (and do the swapping)
-    // then check first if it can go to a goal pile
+    // check first if it can go to a goal pile
     this.dispatch(goalActions.checkDoubleClickValid(this.card));
   }
 
   /**
    * Checks the value of the goal move result
-   * If it is a string (the target goal pile id), then remove the card from the column and send it to the respective goal
-   * Anything else is read as a unsuccessful result, trying this time to move the card to a valid column pile
+   * If it is a string (the target goal pile id), then remove the card from the deck pile and send it to the respective goal
+   * Anything else is read as a unsuccessful result, therefore try to move the card to a column pile
+   * @param goalMoveTarget check result for a goal pile
    */
   handleGoalDoubleClickResult(goalMoveTarget?: string | boolean) {
     // if the move to a goal was valid (result is the target goal id)
@@ -47,18 +48,21 @@ class DeckDoubleClickHandler {
           cards: [this.card]
         })
       );
+      // sets the move as over
       return true;
-    } // if the move to a goal was not valid
+    }
+    // if the move to a goal was not valid
     else {
-      // check if can move to another column (and do the swapping)
+      // check if can move to a column
       this.dispatch(columnsActions.checkDoubleClickValid(this.card));
     }
   }
 
   /**
    * Checks the value of the column move result
-   * If it is a string (the target column pile id), then simply add the game move to the history, since it was already done at the redux
+   * If it is a string (the target column pile id), then remove the deck card and add to the respective column
    * Anything else is ignored
+   * @param columnMoveTarget check result for a column pile
    */
   handleColumnDoubleClickResult(columnMoveTarget?: string) {
     // if the move to a column was valid (result is the target column id) and the card moving field is the same as the columnId
@@ -77,6 +81,7 @@ class DeckDoubleClickHandler {
           cards: [this.card]
         })
       );
+      // sets the move as over
       return true;
     }
   }

@@ -4,11 +4,14 @@ import columnsActions from "../../../../redux/columns/columns.actions";
 import gameBoardActions from "../../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../../redux/goal/goal.actions";
 
+/**
+ * Class for the column pile double click handler
+ */
 class ColumnDoubleClickHandler {
-  dispatch: Dispatch;
-  columnId: string;
-  card: CardType;
-  nCards: number;
+  dispatch: Dispatch; // dispatch function
+  columnId: string; // id of the source column
+  card: CardType; // card that is being double clicked
+  nCards: number; // number of cards to move
 
   constructor(
     dispatch: Dispatch,
@@ -47,7 +50,8 @@ class ColumnDoubleClickHandler {
   /**
    * Checks the value of the goal move result
    * If it is a string (the target goal pile id), then remove the card from the column and send it to the respective goal
-   * Anything else is read as a unsuccessful result, trying this time to move the card to a valid column pile
+   * Anything else is read as a unsuccessful result, therefore try to move the card to a valid column pile
+   * @param goalMoveTarget check result for a goal pile
    */
   handleGoalDoubleClickResult(goalMoveTarget?: string | boolean) {
     // if the move to a goal was valid (result is the target goal id)
@@ -68,8 +72,10 @@ class ColumnDoubleClickHandler {
           movementWithFlip: true
         })
       );
+      // sets the move as over
       return true;
-    } // if the move to a goal was not valid
+    }
+    // if the move to a goal was not valid
     else {
       // check if can move to another column (and do the swapping)
       this.dispatch(
@@ -85,6 +91,9 @@ class ColumnDoubleClickHandler {
    * Checks the value of the column move result
    * If it is a string (the target column pile id), then simply add the game move to the history, since it was already done at the redux
    * Anything else is ignored
+   * @param columnMoveTarget check result for a column pile
+   * @param columnMoveCards cards that were moved during the colum swap
+   * @param movementWithFlip move resulted in a flip or not
    */
   handleColumnDoubleClickResult(
     columnMoveTarget?: string | boolean,
@@ -106,6 +115,7 @@ class ColumnDoubleClickHandler {
           movementWithFlip
         })
       );
+      // sets the move as over
       return true;
     }
   }

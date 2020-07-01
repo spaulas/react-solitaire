@@ -11,6 +11,9 @@ interface DoubleClickHandlerProps {
   index?: number;
 }
 
+/**
+ * Component that handles the flow of a double click
+ */
 function DoubleClickHandler({
   handler,
   card,
@@ -39,7 +42,7 @@ function DoubleClickHandler({
   };
   useEffect(handleDoubleClick, [handlingMove]);
 
-  // if the columnTarget changed, call the function which deals with that change
+  // if the columnTarget changed, call the function which deals with it
   const handleColumnDoubleClickResult = () => {
     if (handlingMove) {
       const result = handler.handleColumnDoubleClickResult(
@@ -54,6 +57,7 @@ function DoubleClickHandler({
   };
   useEffect(handleColumnDoubleClickResult, [columnMoveTarget]);
 
+  // if the goalMoveTarget changed, call the function which deals with it
   const handleGoalDoubleClickResult = () => {
     if (handlingMove) {
       const result = handler.handleGoalDoubleClickResult(goalMoveTarget);
