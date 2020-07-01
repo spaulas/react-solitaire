@@ -23,7 +23,7 @@ export interface InitialGoal {
   };
   cardDragging?: Array<CardType>; // cards original from the goals that are being dragged
   cardDraggingGoal?: string; // id of the cards dragging's goal
-  sendBack?: boolean; // flag that announces if the movement to the column, was invalid
+  sendBack?: boolean; // flag that announces if the movement to the goal, was invalid
   doubleClickTarget?: boolean | string;
   gameOver: boolean; // flag to announce when the game has ended
 }
@@ -148,15 +148,28 @@ const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
 
     // ********************************************************
     // DOUBLE CLICK ACTIONS
+
+    /**
+     * Checks if there is a goal pile a card from another type of pile can be moved to
+     *    - check if there is any valid spot
+     *    - save the target goal id result
+     *    - if there were no possible moves, the target result works as a flag
+     */
     case GoalActionTypes.CHECK_DOUBLE_CLICK_VALID:
       const checkDoubleClickResult = checkDoubleClickValid(
         state.goals,
         action.card,
         state.doubleClickTarget
       );
-
       return { ...state, ...checkDoubleClickResult };
 
+    /**
+     * Checks if there is a goal pile a goal pile card can be moved to:
+     *    - check if there is any valid spot
+     *    - if there is a possible move, then swap the cards
+     *    - save the target goal id result, the cards that were swapped and the swapping result
+     *    - if there were no possible moves, the target result works as a flag
+     */
     case GoalActionTypes.CHECK_GOAL_SWAP_DOUBLE_CLICK_VALID:
       const checkGoalSwapDoubleClickResult = checkGoalSwapDoubleClickValid(
         state.goals,

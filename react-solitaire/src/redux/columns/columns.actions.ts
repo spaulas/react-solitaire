@@ -158,8 +158,8 @@ const actionsCreators = Object.freeze({
   resetCardDragging,
   addCardToColumn,
   removeNCardsFromColumn,
-  checkColumnSwapDoubleClickValid,
-  checkDoubleClickValid
+  checkDoubleClickValid,
+  checkColumnSwapDoubleClickValid
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

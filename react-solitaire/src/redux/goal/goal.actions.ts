@@ -84,11 +84,20 @@ const removeCardFromGoal = (goalId?: string) => ({
 // ********************************************************
 // DOUBLE CLICK ACTIONS
 
+/**
+ * Checks if there is a goal pile a card from another type of pile can be moved to
+ * @param card card from the other type pile to be moved
+ */
 const checkDoubleClickValid = (card: CardType) => ({
   type: GoalActionTypes.CHECK_DOUBLE_CLICK_VALID,
   card
 });
 
+/**
+ * Checks if there is a goal pile a goal pile card can be moved to and do the swapping
+ * @param sourceId id of the source goal
+ * @param card cards from the source goal to be swapped
+ */
 const checkGoalSwapDoubleClickValid = (sourceId: string, card: CardType) => ({
   type: GoalActionTypes.CHECK_GOAL_SWAP_DOUBLE_CLICK_VALID,
   sourceId,

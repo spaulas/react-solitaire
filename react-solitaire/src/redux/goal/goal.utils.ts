@@ -47,7 +47,7 @@ export const swapGoals = (
 ) => {
   // create copy of the goal pile the cards come from
   const initialGoal = [...goals[initialId]];
-  // get the index of the column "break"
+  // get the index of the goal "break"
   const indexToDelete = initialGoal.length - 1;
   // remove the cards from the initial goal
   initialGoal.splice(indexToDelete, 1);
@@ -121,7 +121,7 @@ export const undoSwapGoals = (
 /**
  * Sets the cards that are currently being dragged
  * @param goals
- * @param goalId id of the column the cards come from
+ * @param goalId id of the goal the cards come from
  */
 export const setCardDragging = (
   goals: Record<string, Array<CardType>>,
@@ -219,7 +219,7 @@ export const addCardToGoal = (
 /**
  * Removes back 1 card from a goal (the cards are from a undo-redo movement)
  * @param goals
- * @param goalId id of the column the cards will be removed from
+ * @param goalId id of the goal the cards will be removed from
  */
 export const removeCardFromGoal = (
   goals: Record<string, Array<CardType>>,
@@ -241,10 +241,16 @@ export const removeCardFromGoal = (
 // ********************************************************
 // DOUBLE CLICK FUNCTIONS
 
+/**
+ * Get the first valid target goal
+ * @param goals
+ * @param card card to move
+ */
 export const getValidTarget = (
   goals: Record<string, Array<CardType>>,
   card: CardType
 ) => {
+  // get the first valid spot
   return Object.keys(goals).find((goal: string) => {
     const goalCards = goals[goal].length - 1;
     return isValidMovement(
@@ -254,29 +260,51 @@ export const getValidTarget = (
   });
 };
 
+/**
+ * Checks if there is a valid move to a goal
+ * @param goals
+ * @param card card to be moved
+ * @param doubleClickTarget current value store at the doubleClickTarget state
+ */
 export const checkDoubleClickValid = (
   goals: Record<string, Array<CardType>>,
   card: CardType,
   doubleClickTarget?: boolean | string
 ) => {
+  // get the first possible target goal id
   const targetId = getValidTarget(goals, card);
 
+  // if there is no valid target goal, toggle the doubleClickTarget
+  // if there is a valid target goal, save its id
   return {
     doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId
   };
 };
 
+/**
+ * Checks if there is a valid move to another goal, if so swap the cards
+ * @param goals
+ * @param sourceId id of the source goal
+ * @param card card to swap
+ * @param doubleClickTarget current value store at the doubleClickTarget state
+ */
 export const checkGoalSwapDoubleClickValid = (
   goals: Record<string, Array<CardType>>,
   sourceId: string,
   card: CardType,
   doubleClickTarget?: boolean | string
 ) => {
+  // get the first possible target goal id
   const targetId = getValidTarget(goals, card);
+  // saves the result of the goal piles that will be swapped
   let swapResult = {};
+  // if there is a valid goal target do the swap of goals
   if (targetId) {
     swapResult = swapGoals(goals, [card], sourceId, targetId);
   }
+
+  // if there is no valid target goal and toggle the doubleClickTarget  (the swap result holds nothing)
+  // if there is a valid target goal, then save it, the cards that were swapped and the respective goals final result
   return {
     doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId,
     ...swapResult
