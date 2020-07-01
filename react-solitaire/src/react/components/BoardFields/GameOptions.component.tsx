@@ -1,4 +1,5 @@
 import BarDisplay from "../UIComponents/BarDisplay.component";
+import HintButton from "../Buttons/HintButton.component";
 import NewGameButton from "../Buttons/NewGameButton.component";
 import PauseGameButton from "../Buttons/PauseGameButton.component";
 import React from "react";
@@ -13,9 +14,10 @@ function GameOptions() {
     <Row className="boardOptionsRow" align="middle" justify="center">
       <BarDisplay>
         <UndoButton />
+        <RestartGameButton />
         <NewGameButton />
         <PauseGameButton />
-        <RestartGameButton />
+        <HintButton />
         <RedoButton />
       </BarDisplay>
     </Row>
