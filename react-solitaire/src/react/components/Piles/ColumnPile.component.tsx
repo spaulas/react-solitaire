@@ -1,8 +1,10 @@
 import React, { memo } from "react";
 import { CardFlippable } from "../Cards/Cards.items";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import DraggableClickableCard from "../CardMoveHandlers/DoubleClickHandlers/ColumnDoubleClickHandler.component";
+import ColumDoubleClickHandler from "../CardMoveHandlers/DoubleClickHandlers/ColumnDoubleClickHandler.component";
+import DraggableClickableCard from "../CardMoveHandlers/DoubleClickHandlers/DoubleClickHandler.component";
 import SimplePile from "./SimplePile.component";
+import { useDispatch } from "react-redux";
 
 interface ColumnPileProps {
   offset?: number; // column offset
@@ -14,15 +16,22 @@ interface ColumnPileProps {
  * Component that renders a column of cards, some are hidden and some are flipped
  */
 function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
+  const dispatch = useDispatch();
   // renders cards components accordingly if it is flipped or not
   const getCards = () => {
     const cardsArray = columnCards.map((card: CardType, index: number) => {
       // if the card is flipped, then the card image is shown and it can be dragged
       if (card.flipped) {
         const nCards = columnCards.length - index;
+        const handler = new ColumDoubleClickHandler(
+          dispatch,
+          columnId,
+          card,
+          nCards
+        );
         return (
           <DraggableClickableCard
-            columnId={columnId}
+            handler={handler}
             card={card}
             nCards={nCards}
             index={index}
