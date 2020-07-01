@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import DraggableCard from "../CardMoveHandlers/DragHandlers/DraggableCard.component";
+import DraggableClickableCard from "../CardMoveHandlers/DoubleClickHandlers/DeckDoubleClickHandler.component";
 import { RootReducerState } from "../../../global";
 import SimplePile from "./SimplePile.component";
 import { useSelector } from "react-redux";
@@ -19,17 +19,7 @@ function FlippedPile() {
     <SimplePile
       pileId="flippedPile"
       pileCards={flippedPile.map((card: CardType) => (
-        <DraggableCard
-          card={card}
-          nCards={1}
-          key={card.id}
-          onDoubleClick={() =>
-            // eslint-disable-next-line no-console
-            console.log(
-              "call redux function to hanle flipped pile double click!"
-            )
-          }
-        />
+        <DraggableClickableCard key={card.id} card={card} />
       ))}
       pileClassName="deckPile flippedPile"
       insideClassName="columnPile"
