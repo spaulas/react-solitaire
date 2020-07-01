@@ -2,7 +2,7 @@ import React, { ReactNode, forwardRef, memo } from "react";
 import { ExplicitAny } from "../../../global";
 
 interface CardFrameProps {
-  onDoubleClick?: () => void;
+  onDoubleClick?: () => void; // function called when card is double clicked
   cardContainerClassName?: string; // additional classname for the container
   cardContentClassName?: string; // additional classname for the content
   zIndex?: number; // z-index to be applied

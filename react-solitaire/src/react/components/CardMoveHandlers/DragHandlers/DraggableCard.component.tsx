@@ -15,7 +15,7 @@ const type = "cardframe";
 interface DraggableCardProps {
   card: CardType; // card info
   nCards: number; // number of cards being dragged (this card and all bellow)
-  onDoubleClick?: () => void;
+  onDoubleClick?: () => void; // function called when card is double clicked
   index?: number;
 }
 
