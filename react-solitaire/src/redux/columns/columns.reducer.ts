@@ -207,6 +207,20 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
     // DOUBLE CLICK ACTIONS
 
     /**
+     * Checks if there is a column pile a card from another type of pile can be moved to
+     *    - check if there is any valid spot (if more than one option is available, first choice is a not empty pile)
+     *    - save the target column id result
+     *    - if there were no possible moves, the target result works as a flag
+     */
+    case ColumnsActionTypes.CHECK_DOUBLE_CLICK_VALID:
+      const checkDoubleClickResult = checkDoubleClickValid(
+        state.columns,
+        action.card,
+        state.doubleClickTarget
+      );
+      return { ...state, ...checkDoubleClickResult };
+
+    /**
      * Checks if there is a column pile a column pile card can be moved to:
      *    - check if there is any valid spot (if more than one option is available, first choice is a not empty pile)
      *    - if there is a possible move, then swap the cards
@@ -222,19 +236,6 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
       );
       return { ...state, ...checkColumnSwapDoubleClickResult };
 
-    /**
-     * Checks if there is a column pile a card from another type of pile can be moved to
-     *    - check if there is any valid spot (if more than one option is available, first choice is a not empty pile)
-     *    - save the target column id result
-     *    - if there were no possible moves, the target result works as a flag
-     */
-    case ColumnsActionTypes.CHECK_DOUBLE_CLICK_VALID:
-      const checkDoubleClickResult = checkDoubleClickValid(
-        state.columns,
-        action.card,
-        state.doubleClickTarget
-      );
-      return { ...state, ...checkDoubleClickResult };
     // ********************************************************
 
     default:

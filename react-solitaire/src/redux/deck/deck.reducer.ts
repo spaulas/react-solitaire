@@ -29,8 +29,7 @@ const INITIAL_DECK: InitialDeck = {
   flippedPile: [],
   translationX: 243.75,
   translationY: cardsConfigurations.deck,
-  cardDragging: undefined,
-  doubleClickTarget: undefined
+  cardDragging: undefined
 };
 
 const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {

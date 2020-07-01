@@ -408,6 +408,27 @@ export const getValidTarget = (
 };
 
 /**
+ * Checks if there is a valid move to a column
+ * @param columns
+ * @param cardMoving card to be moved
+ * @param doubleClickTarget current value store at the doubleClickTarget state
+ */
+export const checkDoubleClickValid = (
+  columns: Record<string, Array<CardType>>,
+  cardMoving: CardType,
+  doubleClickTarget?: boolean | string
+) => {
+  // get the first possible target column id
+  const targetId = getValidTarget(columns, cardMoving);
+
+  // if there is no valid target column, toggle the doubleClickTarget
+  // if there is a valid target column, save its id
+  return {
+    doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId
+  };
+};
+
+/**
  * Checks if there is a valid move to another column, if so swap the cards
  * @param columns
  * @param sourceId id of the source column
@@ -441,26 +462,5 @@ export const checkColumnSwapDoubleClickValid = (
     doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId,
     movingCards: targetId === undefined ? undefined : cardsMoving,
     ...swapResult
-  };
-};
-
-/**
- * Checks if there is a valid move to a column
- * @param columns
- * @param cardMoving card to be moved
- * @param doubleClickTarget current value store at the doubleClickTarget state
- */
-export const checkDoubleClickValid = (
-  columns: Record<string, Array<CardType>>,
-  cardMoving: CardType,
-  doubleClickTarget?: boolean | string
-) => {
-  // get the first possible target column id
-  const targetId = getValidTarget(columns, cardMoving);
-
-  // if there is no valid target column, toggle the doubleClickTarget
-  // if there is a valid target column, save its id
-  return {
-    doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId
   };
 };
