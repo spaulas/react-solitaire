@@ -331,7 +331,8 @@ export const addCardToColumn = (
     columns: {
       ...columns,
       [columnId]: column
-    }
+    },
+    doubleClickTarget: undefined
   };
 };
 
