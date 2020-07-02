@@ -2,7 +2,8 @@ import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import DeckDoubleClickHandler from "../CardMoveHandlers/DoubleClickHandlers/DeckDoubleClickHandler";
-import DraggableClickableCard from "../CardMoveHandlers/DoubleClickHandlers/DoubleClickHandler.component";
+import DoubleClickHandler from "../CardMoveHandlers/DoubleClickHandlers/DoubleClickHandler.component";
+import { DraggableCard } from "../Cards/Cards.items";
 import { RootReducerState } from "../../../global";
 import SimplePile from "./SimplePile.component";
 
@@ -20,7 +21,9 @@ function FlippedPile() {
     return flippedPile.map((card: CardType) => {
       const handler = new DeckDoubleClickHandler(dispatch, card);
       return (
-        <DraggableClickableCard handler={handler} key={card.id} card={card} />
+        <DoubleClickHandler key={card.id} handler={handler} doubleClick>
+          <DraggableCard card={card} nCards={1} />
+        </DoubleClickHandler>
       );
     });
   };

@@ -1,8 +1,8 @@
+import { CardFlippable, DraggableCard } from "../Cards/Cards.items";
 import React, { memo } from "react";
-import { CardFlippable } from "../Cards/Cards.items";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import ColumDoubleClickHandler from "../CardMoveHandlers/DoubleClickHandlers/ColumnDoubleClickHandler";
-import DraggableClickableCard from "../CardMoveHandlers/DoubleClickHandlers/DoubleClickHandler.component";
+import DoubleClickHandler from "../CardMoveHandlers/DoubleClickHandlers/DoubleClickHandler.component";
 import SimplePile from "./SimplePile.component";
 import { useDispatch } from "react-redux";
 
@@ -30,12 +30,9 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
           nCards
         );
         return (
-          <DraggableClickableCard
-            handler={handler}
-            card={card}
-            nCards={nCards}
-            index={index}
-          />
+          <DoubleClickHandler handler={handler} doubleClick>
+            <DraggableCard card={card} nCards={nCards} index={index} />
+          </DoubleClickHandler>
         );
       }
 

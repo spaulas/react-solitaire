@@ -146,6 +146,10 @@ const checkColumnSwapDoubleClickValid = (sourceId: string, nCards: number) => ({
   nCards
 });
 
+const checkMoveFromAnyColumn = () => ({
+  type: ColumnActionTypes.CHECK_MOVE_FROM_ANY_COLUMN
+});
+
 // ********************************************************
 
 const actionsCreators = Object.freeze({
@@ -159,7 +163,8 @@ const actionsCreators = Object.freeze({
   addCardToColumn,
   removeNCardsFromColumn,
   checkDoubleClickValid,
-  checkColumnSwapDoubleClickValid
+  checkColumnSwapDoubleClickValid,
+  checkMoveFromAnyColumn
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

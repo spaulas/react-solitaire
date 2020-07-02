@@ -1,7 +1,8 @@
 import React, { forwardRef, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
-import DraggableClickableCard from "../CardMoveHandlers/DoubleClickHandlers/DoubleClickHandler.component";
+import DoubleClickHandler from "../CardMoveHandlers/DoubleClickHandlers/DoubleClickHandler.component";
+import { DraggableCard } from "../Cards/Cards.items";
 import GoalDoubleClickHandler from "../CardMoveHandlers/DoubleClickHandlers/GoalDoubleClickHandler";
 import { RootReducerState } from "../../../global";
 import SimplePile from "./SimplePile.component";
@@ -26,7 +27,9 @@ function GoalPile({ goalId, offset }: GoalPileProps) {
     const cardsArray = goalPile.map((card: CardType) => {
       const handler = new GoalDoubleClickHandler(dispatch, goalId, card);
       return (
-        <DraggableClickableCard handler={handler} key={card.id} card={card} />
+        <DoubleClickHandler key={card.id} handler={handler} doubleClick>
+          <DraggableCard card={card} nCards={1} />
+        </DoubleClickHandler>
       );
     });
     return cardsArray;

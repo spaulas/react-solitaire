@@ -103,6 +103,11 @@ const checkGoalSwapDoubleClickValid = (sourceId: string, card: CardType) => ({
   sourceId,
   card
 });
+
+const checkMoveFromAnyColumn = (columns: Record<string, Array<CardType>>) => ({
+  type: GoalActionTypes.CHECK_MOVE_FROM_ANY_COLUMN,
+  columns
+});
 // ********************************************************
 
 const actionsCreators = Object.freeze({
@@ -114,7 +119,8 @@ const actionsCreators = Object.freeze({
   addCardToGoal,
   removeCardFromGoal,
   checkDoubleClickValid,
-  checkGoalSwapDoubleClickValid
+  checkGoalSwapDoubleClickValid,
+  checkMoveFromAnyColumn
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

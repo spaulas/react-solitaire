@@ -310,3 +310,37 @@ export const checkGoalSwapDoubleClickValid = (
     ...swapResult
   };
 };
+
+export const checkMoveFromAnyColumns = (
+  goals: Record<string, Array<CardType>>,
+  columns: Record<string, Array<CardType>>,
+  doubleClickTarget?: boolean | string
+) => {
+  let validTargetResult;
+  // for each column
+  const firstValidMoveAvailable = Object.keys(columns).find(
+    (columnId: string) => {
+      // get the first flipped card
+      const firstFlippedCard = columns[columnId].find(
+        (card: CardType) => card.flipped
+      );
+      // if it is not undefined
+      if (firstFlippedCard) {
+        validTargetResult = getValidTarget(goals, firstFlippedCard);
+        return validTargetResult !== undefined;
+      }
+      return false;
+    }
+  );
+
+  return {
+    doubleClickTarget:
+      firstValidMoveAvailable === undefined
+        ? !doubleClickTarget
+        : validTargetResult,
+    hintSource:
+      firstValidMoveAvailable === undefined
+        ? undefined
+        : firstValidMoveAvailable
+  };
+};

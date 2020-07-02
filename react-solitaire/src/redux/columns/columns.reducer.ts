@@ -4,6 +4,7 @@ import {
   addDragginCardsToColumn,
   checkColumnSwapDoubleClickValid,
   checkDoubleClickValid,
+  checkMoveFromAnyColumn,
   createColumns,
   removeDraggedCard,
   removeNCardsFromColumn,
@@ -31,6 +32,7 @@ export interface InitialColumns {
   sendBack?: boolean; // flag that announces if the movement to the column, was invalid
   movementWithFlip?: boolean; // indicates if the movement to or from the column caused a card to be flipped
   doubleClickTarget?: boolean | string;
+  hintSource?: boolean | string;
   movingCards?: Array<CardType>;
 }
 
@@ -49,6 +51,7 @@ const INITIAL_COLUMNS: InitialColumns = {
   sendBack: undefined,
   movementWithFlip: undefined,
   doubleClickTarget: undefined,
+  hintSource: undefined,
   movingCards: undefined
 };
 
@@ -235,6 +238,13 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         state.doubleClickTarget
       );
       return { ...state, ...checkColumnSwapDoubleClickResult };
+
+    case ColumnsActionTypes.CHECK_MOVE_FROM_ANY_COLUMN:
+      const checkMoveFromAnyColumnResult = checkMoveFromAnyColumn(
+        state.columns,
+        state.doubleClickTarget
+      );
+      return { ...state, ...checkMoveFromAnyColumnResult };
 
     // ********************************************************
 

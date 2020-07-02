@@ -465,3 +465,36 @@ export const checkColumnSwapDoubleClickValid = (
     ...swapResult
   };
 };
+
+export const checkMoveFromAnyColumn = (
+  columns: Record<string, Array<CardType>>,
+  doubleClickTarget?: boolean | string
+) => {
+  let validTargetResult;
+  // for each column
+  const firstValidMoveAvailable = Object.keys(columns).find(
+    (columnId: string) => {
+      // get the first flipped card
+      const firstFlippedCard = columns[columnId].find(
+        (card: CardType) => card.flipped
+      );
+      // if it is not undefined
+      if (firstFlippedCard) {
+        validTargetResult = getValidTarget(columns, firstFlippedCard);
+        return validTargetResult !== undefined;
+      }
+      return false;
+    }
+  );
+
+  return {
+    doubleClickTarget:
+      firstValidMoveAvailable === undefined
+        ? !doubleClickTarget
+        : validTargetResult,
+    hintSource:
+      firstValidMoveAvailable === undefined
+        ? undefined
+        : firstValidMoveAvailable
+  };
+};

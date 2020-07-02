@@ -4,6 +4,7 @@ import {
   addDragginCardsToGoal,
   checkDoubleClickValid,
   checkGoalSwapDoubleClickValid,
+  checkMoveFromAnyColumns,
   removeCardFromGoal,
   setCardDragging,
   swapGoals,
@@ -25,6 +26,7 @@ export interface InitialGoal {
   cardDraggingGoal?: string; // id of the cards dragging's goal
   sendBack?: boolean; // flag that announces if the movement to the goal, was invalid
   doubleClickTarget?: boolean | string;
+  hintSource?: boolean | string;
   gameOver: boolean; // flag to announce when the game has ended
 }
 
@@ -39,6 +41,7 @@ const INITIAL_GOAL: InitialGoal = {
   cardDraggingGoal: undefined,
   sendBack: undefined,
   doubleClickTarget: undefined,
+  hintSource: undefined,
   gameOver: false
 };
 
@@ -179,6 +182,14 @@ const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
       );
 
       return { ...state, ...checkGoalSwapDoubleClickResult };
+
+    case GoalActionTypes.CHECK_MOVE_FROM_ANY_COLUMN:
+      const checkMoveFromColumnsResult = checkMoveFromAnyColumns(
+        state.goals,
+        action.columns,
+        state.doubleClickTarget
+      );
+      return { ...state, ...checkMoveFromColumnsResult };
 
     // ********************************************************
 
