@@ -38,7 +38,7 @@ function HintButton() {
     gameHints
   );
   return (
-    <Badge count={nHints} offset={[-5, 15]}>
+    <Badge count={nHints} offset={[7, 25]}>
       <DoubleClickHandler handler={handler} doubleClick={false}>
         <StarFilled className="iconButton" />
       </DoubleClickHandler>

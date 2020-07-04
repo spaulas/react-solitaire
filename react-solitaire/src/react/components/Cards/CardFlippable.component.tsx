@@ -11,6 +11,7 @@ interface CardFlippableProps {
   image: string; // image of the card
   disabled?: boolean; // if disabled, cannot flip
   shake?: boolean;
+  increase?: boolean;
 }
 
 /**
@@ -24,7 +25,8 @@ function CardFlippable(
     removeCard,
     image,
     disabled,
-    shake
+    shake,
+    increase
   }: CardFlippableProps,
   ref: ExplicitAny
 ) {
@@ -49,7 +51,12 @@ function CardFlippable(
   };
 
   return (
-    <CardFrame ref={ref} cardContainerClassName={className} shake={shake}>
+    <CardFrame
+      ref={ref}
+      cardContainerClassName={className}
+      shake={shake}
+      increase={increase}
+    >
       <div
         className="cardFlipContainer"
         // eslint-disable-next-line react/forbid-dom-props

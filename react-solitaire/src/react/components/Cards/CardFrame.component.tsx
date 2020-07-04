@@ -8,6 +8,7 @@ interface CardFrameProps {
   cardContentClassName?: string; // additional classname for the content
   children?: ReactNode; // children
   shake?: boolean;
+  increase?: boolean;
 }
 
 /**
@@ -19,6 +20,7 @@ function CardFrame(
     cardContainerClassName = "",
     cardContentClassName = "",
     shake,
+    increase,
     children
   }: CardFrameProps,
   ref: ExplicitAny
@@ -28,7 +30,7 @@ function CardFrame(
       ref={ref}
       className={`cardContainer ${cardContainerClassName} ${
         shake ? "shakeAnimation" : ""
-      }`}
+      } ${increase ? "increaseAnimation" : ""}`}
       onDoubleClick={() => onDoubleClick !== undefined && onDoubleClick()}
     >
       {/* eslint-disable-next-line react/forbid-dom-props */}

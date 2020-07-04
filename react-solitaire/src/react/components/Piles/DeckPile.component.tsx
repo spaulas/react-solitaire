@@ -45,7 +45,7 @@ function DeckPile() {
 
   // renders cards components that can be flipped (with translation)
   const getCards = () => {
-    const shake =
+    const increase =
       lastHint &&
       lastHint.source === "deckPile" &&
       lastHint.target === undefined;
@@ -54,7 +54,7 @@ function DeckPile() {
       <CardFlippable
         key={`deck_${card.id}`}
         image={card.image}
-        shake={shake}
+        increase={increase}
         removeCard={() => handleDeckSwap(card.id)}
         translationX={translationX}
         translationY={translationY}
