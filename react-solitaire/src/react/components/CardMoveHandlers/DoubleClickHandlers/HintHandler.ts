@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { CardType } from "../../../../redux/gameBoard/gameBoard.types";
 import { Dispatch } from "redux/index";
 import columnsActions from "../../../../redux/columns/columns.actions";
@@ -10,18 +11,18 @@ class HintHandler {
   dispatch: Dispatch; // dispatch function
   columns: Record<string, Array<CardType>>;
   goals: Record<string, Array<CardType>>;
-  firstDeckCard?: CardType;
+  flippedPile: Array<CardType>;
 
   constructor(
     dispatch: Dispatch,
     columns: Record<string, Array<CardType>>,
     goals: Record<string, Array<CardType>>,
-    firstDeckCard?: CardType
+    flippedPile: Array<CardType>
   ) {
     this.dispatch = dispatch;
     this.columns = columns;
     this.goals = goals;
-    this.firstDeckCard = firstDeckCard;
+    this.flippedPile = flippedPile;
   }
 
   /**
@@ -29,8 +30,14 @@ class HintHandler {
    * First try to move a column card to a goal pile
    */
   handleDoubleClick() {
+    console.log("-----> try goal");
     // then check first if it can go to a goal pile
-    this.dispatch(goalActions.checkMoveFromAnyColumn(this.columns));
+    this.dispatch(
+      goalActions.checkMoveFromAnyColumn({
+        ...this.columns,
+        deckPile: this.flippedPile
+      })
+    );
   }
 
   handleGoalDoubleClickResult(
@@ -43,12 +50,14 @@ class HintHandler {
       console.log("GOAL MOVE SOURCE = ", hintSource);
       // eslint-disable-next-line no-console
       console.log("GOAL MOVE TARGET = ", goalMoveTarget);
+      this.dispatch(goalActions.resetCardDragging());
       // sets the move as over
       return true;
     }
     // if there was no move from a column to a goal, try moving from one column to another
     else {
-      this.dispatch(columnsActions.checkMoveFromAnyColumn());
+      console.log("----> try column");
+      this.dispatch(columnsActions.checkMoveFromAnyColumn(this.flippedPile));
     }
   }
 
@@ -64,9 +73,8 @@ class HintHandler {
       console.log("COLUMN MOVE SOURCE = ", hintSource);
       // eslint-disable-next-line no-console
       console.log("COLUMN MOVE TARGET = ", columnMoveTarget);
-      // sets the move as over
-      return true;
-    }
+    } // sets the move as over
+    return true;
   }
 }
 

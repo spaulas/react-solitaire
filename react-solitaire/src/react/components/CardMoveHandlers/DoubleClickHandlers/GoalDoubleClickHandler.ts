@@ -82,9 +82,9 @@ class GoalDoubleClickHandler {
           movementWithFlip: true
         })
       );
-      // sets the move as over
-      return true;
     }
+    // sets the move as over
+    return true;
   }
 }
 

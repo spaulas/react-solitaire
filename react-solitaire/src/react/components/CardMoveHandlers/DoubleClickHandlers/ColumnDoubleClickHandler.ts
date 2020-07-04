@@ -115,9 +115,9 @@ class ColumnDoubleClickHandler {
           movementWithFlip
         })
       );
-      // sets the move as over
-      return true;
     }
+    // sets the move as over
+    return true;
   }
 }
 

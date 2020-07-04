@@ -8,7 +8,11 @@ import { useHistory } from "react-router-dom";
 
 function StartButton() {
   const history = useHistory();
-  return <Button onClick={() => history.push("/game")}>Start Game</Button>;
+  return (
+    <Button className="iconButton" onClick={() => history.push("/game")}>
+      Start Game
+    </Button>
+  );
 }
 
 export default StartButton;

@@ -61,7 +61,7 @@ function RestartGameButton() {
       okText="Yes"
       cancelText="No"
     >
-      <RedoOutlined />
+      <RedoOutlined className="iconButton" />
     </Popconfirm>
   );
 }

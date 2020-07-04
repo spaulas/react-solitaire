@@ -108,6 +108,6 @@ function UndoButton() {
     }
   };
 
-  return <StepBackwardOutlined onClick={handleUndo} />;
+  return <StepBackwardOutlined className="iconButton" onClick={handleUndo} />;
 }
 export default UndoButton;

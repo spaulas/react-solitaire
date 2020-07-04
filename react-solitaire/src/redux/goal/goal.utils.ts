@@ -317,6 +317,8 @@ export const checkMoveFromAnyColumns = (
   doubleClickTarget?: boolean | string
 ) => {
   let validTargetResult;
+  // eslint-disable-next-line no-console
+  console.log("GOALS COLUMNS = ", columns);
   // for each column
   const firstValidMoveAvailable = Object.keys(columns).find(
     (columnId: string) => {
@@ -324,6 +326,8 @@ export const checkMoveFromAnyColumns = (
       const firstFlippedCard = columns[columnId].find(
         (card: CardType) => card.flipped
       );
+      // eslint-disable-next-line no-console
+      console.log("first fl;ipped card = ", firstFlippedCard);
       // if it is not undefined
       if (firstFlippedCard) {
         validTargetResult = getValidTarget(goals, firstFlippedCard);

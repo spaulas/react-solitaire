@@ -81,9 +81,9 @@ class DeckDoubleClickHandler {
           cards: [this.card]
         })
       );
-      // sets the move as over
-      return true;
     }
+    // sets the move as over
+    return true;
   }
 }
 

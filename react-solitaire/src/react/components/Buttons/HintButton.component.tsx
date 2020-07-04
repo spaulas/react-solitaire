@@ -8,22 +8,27 @@ import { StarFilled } from "@ant-design/icons";
 function HintButton() {
   const dispatch = useDispatch();
 
-  const { columns, goals, firstDeckCard } = useSelector(
+  const { columns, goals, flippedPile } = useSelector(
     ({ Deck, Columns, Goal }: RootReducerState) => {
-      const flippedPile = Deck.flippedPile;
       return {
         columns: Columns.columns,
         goals: Goal.goals,
-        firstDeckCard:
-          flippedPile[flippedPile.length === 0 ? 0 : flippedPile.length - 1]
+        flippedPile: Deck.flippedPile
       };
     }
   );
 
-  const handler = new HintHandler(dispatch, columns, goals, firstDeckCard);
+  const flippedCopy = [...flippedPile];
+
+  const handler = new HintHandler(
+    dispatch,
+    columns,
+    goals,
+    flippedCopy.reverse()
+  );
   return (
     <DoubleClickHandler handler={handler} doubleClick={false}>
-      <StarFilled />
+      <StarFilled className="iconButton" />
     </DoubleClickHandler>
   );
 }

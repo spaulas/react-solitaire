@@ -118,7 +118,8 @@ const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
         ...state,
         sendBack: undefined,
         cardsDragging: undefined,
-        cardDraggingGoal: undefined
+        cardDraggingGoal: undefined,
+        doubleClickTarget: !state.doubleClickTarget
       };
 
     // ********************************************************

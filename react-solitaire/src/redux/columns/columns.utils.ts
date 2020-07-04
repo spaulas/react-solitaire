@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { CardType } from "../gameBoard/gameBoard.types";
 
 // ********************************************************
@@ -468,16 +469,21 @@ export const checkColumnSwapDoubleClickValid = (
 
 export const checkMoveFromAnyColumn = (
   columns: Record<string, Array<CardType>>,
+  deckPile: Array<CardType>,
   doubleClickTarget?: boolean | string
 ) => {
   let validTargetResult;
+  const finalObject: Record<string, Array<CardType>> = { ...columns, deckPile };
   // for each column
-  const firstValidMoveAvailable = Object.keys(columns).find(
+  const firstValidMoveAvailable = Object.keys(finalObject).find(
     (columnId: string) => {
+      console.log("colum i d ' ", columnId);
       // get the first flipped card
-      const firstFlippedCard = columns[columnId].find(
+      const firstFlippedCard = finalObject[columnId].find(
         (card: CardType) => card.flipped
       );
+      console.log("firstFlippedCard ' ", firstFlippedCard);
+      console.log("deckPile ' ", deckPile);
       // if it is not undefined
       if (firstFlippedCard) {
         validTargetResult = getValidTarget(columns, firstFlippedCard);
