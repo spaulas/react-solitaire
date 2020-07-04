@@ -129,6 +129,7 @@ export const resetGameStatus = (gameFlag: boolean) => {
     gameFlag: !gameFlag, // toggle game flag
     gameMoves: 0, // resets the counting of moves
     gamePaused: false, // the game is not paused at start
+    gameHints: 0,
     gamePreviousMoves: [], // there are no moves to be undone
     gameNextMoves: [] // there are  no moves to be redone
   };

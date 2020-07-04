@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { Badge } from "antd";
 import DoubleClickHandler from "../CardMoveHandlers/DoubleClickHandlers/DoubleClickHandler.component";
 import HintHandler from "../CardMoveHandlers/DoubleClickHandlers/HintHandler";
 import React from "react";
@@ -8,12 +9,13 @@ import { StarFilled } from "@ant-design/icons";
 function HintButton() {
   const dispatch = useDispatch();
 
-  const { columns, goals, flippedPile } = useSelector(
-    ({ Deck, Columns, Goal }: RootReducerState) => {
+  const { columns, goals, flippedPile, hints } = useSelector(
+    ({ Deck, Columns, Goal, GameBoard }: RootReducerState) => {
       return {
         columns: Columns.columns,
         goals: Goal.goals,
-        flippedPile: Deck.flippedPile
+        flippedPile: Deck.flippedPile,
+        hints: GameBoard.gameHints
       };
     }
   );
@@ -27,9 +29,11 @@ function HintButton() {
     flippedCopy.reverse()
   );
   return (
-    <DoubleClickHandler handler={handler} doubleClick={false}>
-      <StarFilled className="iconButton" />
-    </DoubleClickHandler>
+    <Badge count={hints} offset={[-5, 15]}>
+      <DoubleClickHandler handler={handler} doubleClick={false}>
+        <StarFilled className="iconButton" />
+      </DoubleClickHandler>
+    </Badge>
   );
 }
 

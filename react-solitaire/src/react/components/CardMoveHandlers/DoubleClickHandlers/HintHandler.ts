@@ -2,6 +2,7 @@
 import { CardType } from "../../../../redux/gameBoard/gameBoard.types";
 import { Dispatch } from "redux/index";
 import columnsActions from "../../../../redux/columns/columns.actions";
+import gameBoardActions from "../../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../../redux/goal/goal.actions";
 
 /**
@@ -31,6 +32,8 @@ class HintHandler {
    */
   handleDoubleClick() {
     console.log("-----> try goal");
+    // add a hint
+    this.dispatch(gameBoardActions.addGameHint());
     // then check first if it can go to a goal pile
     this.dispatch(
       goalActions.checkMoveFromAnyColumn({

@@ -12,7 +12,7 @@ const createGame = () => ({
 });
 
 // ********************************************************
-// GAME COMMANDS ACTIONS
+// GAME INFO/OPTIONS ACTIONS
 
 /**
  * Toggles the game flag to reset the game
@@ -26,6 +26,13 @@ const toggleGameFlag = () => ({
  */
 const timeGame = () => ({
   type: GameBoardActionTypes.TIME_GAME
+});
+
+/**
+ * Counts the number of hints given in a game
+ */
+const addGameHint = () => ({
+  type: GameBoardActionTypes.ADD_GAME_HINT
 });
 
 // ********************************************************
@@ -63,6 +70,7 @@ const actionsCreators = Object.freeze({
   createGame,
   toggleGameFlag,
   timeGame,
+  addGameHint,
   addGameMove,
   removeGameMove,
   reAddGameMove
