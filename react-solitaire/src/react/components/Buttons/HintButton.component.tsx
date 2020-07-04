@@ -9,13 +9,14 @@ import { StarFilled } from "@ant-design/icons";
 function HintButton() {
   const dispatch = useDispatch();
 
-  const { columns, goals, flippedPile, hints } = useSelector(
+  const { columns, goals, deckPile, flippedPile, nHints } = useSelector(
     ({ Deck, Columns, Goal, GameBoard }: RootReducerState) => {
       return {
         columns: Columns.columns,
         goals: Goal.goals,
+        deckPile: Deck.deckPile,
         flippedPile: Deck.flippedPile,
-        hints: GameBoard.gameHints
+        nHints: GameBoard.nHints
       };
     }
   );
@@ -26,10 +27,11 @@ function HintButton() {
     dispatch,
     columns,
     goals,
+    deckPile,
     flippedCopy.reverse()
   );
   return (
-    <Badge count={hints} offset={[-5, 15]}>
+    <Badge count={nHints} offset={[-5, 15]}>
       <DoubleClickHandler handler={handler} doubleClick={false}>
         <StarFilled className="iconButton" />
       </DoubleClickHandler>

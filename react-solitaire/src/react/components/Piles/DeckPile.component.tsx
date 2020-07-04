@@ -43,7 +43,6 @@ function DeckPile() {
       <CardFlippable
         key={`deck_${card.id}`}
         image={card.image}
-        zIndex={999}
         removeCard={() => handleDeckSwap(card.id)}
         translationX={translationX}
         translationY={translationY}

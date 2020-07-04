@@ -31,8 +31,10 @@ const timeGame = () => ({
 /**
  * Counts the number of hints given in a game
  */
-const addGameHint = () => ({
-  type: GameBoardActionTypes.ADD_GAME_HINT
+const addGameHint = (source?: string, target?: string) => ({
+  type: GameBoardActionTypes.ADD_GAME_HINT,
+  source,
+  target
 });
 
 // ********************************************************

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { CardType } from "../gameBoard/gameBoard.types";
 
 // ********************************************************
@@ -477,13 +476,10 @@ export const checkMoveFromAnyColumn = (
   // for each column
   const firstValidMoveAvailable = Object.keys(finalObject).find(
     (columnId: string) => {
-      console.log("colum i d ' ", columnId);
       // get the first flipped card
       const firstFlippedCard = finalObject[columnId].find(
         (card: CardType) => card.flipped
       );
-      console.log("firstFlippedCard ' ", firstFlippedCard);
-      console.log("deckPile ' ", deckPile);
       // if it is not undefined
       if (firstFlippedCard) {
         validTargetResult = getValidTarget(columns, firstFlippedCard);

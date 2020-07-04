@@ -21,7 +21,6 @@ function CardSpot(
     <Col span={3} offset={offset} className="cardSpotCol">
       <CardFrame
         ref={ref}
-        zIndex={1}
         cardContainerClassName={cardContainerColumns}
         cardContentClassName={`cardSpot ${className}`}
       >

@@ -9,7 +9,6 @@ interface CardFlippableProps {
   translationY?: number; // flip with y translation
   removeCard?: () => void; // function called after the movement
   image: string; // image of the card
-  zIndex?: number; // zIndex to add
   disabled?: boolean; // if disabled, cannot flip
 }
 
@@ -23,8 +22,7 @@ function CardFlippable(
     translationY = 0,
     removeCard,
     image,
-    disabled,
-    zIndex
+    disabled
   }: CardFlippableProps,
   ref: ExplicitAny
 ) {
@@ -49,7 +47,7 @@ function CardFlippable(
   };
 
   return (
-    <CardFrame ref={ref} zIndex={zIndex} cardContainerClassName={className}>
+    <CardFrame ref={ref} cardContainerClassName={className}>
       <div
         className="cardFlipContainer"
         // eslint-disable-next-line react/forbid-dom-props
