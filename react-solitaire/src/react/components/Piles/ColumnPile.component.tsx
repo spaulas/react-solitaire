@@ -22,8 +22,6 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
   const { lastHint } = useSelector(({ GameBoard }: RootReducerState) => {
     const gameHints = GameBoard.gameHints;
     const lastIndex = gameHints.length - 1;
-    // eslint-disable-next-line no-console
-    console.log("gameHints = ", gameHints);
     return {
       lastHint: lastIndex >= 0 ? gameHints[lastIndex] : undefined
     };
@@ -46,12 +44,8 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
           (card.cardField === lastHint.source ||
             card.cardField === lastHint.target);
 
-        // eslint-disable-next-line no-console
-        console.log("LAST HINT = ", lastHint);
-        // eslint-disable-next-line no-console
-        console.log("SHAKE = ", shake);
         return (
-          <DoubleClickHandler handler={handler} doubleClick>
+          <DoubleClickHandler handler={handler} doubleClick card={card}>
             <DraggableCard
               card={card}
               nCards={nCards}

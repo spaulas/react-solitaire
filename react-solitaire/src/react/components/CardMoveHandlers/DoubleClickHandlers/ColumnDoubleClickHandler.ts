@@ -115,6 +115,7 @@ class ColumnDoubleClickHandler {
           movementWithFlip
         })
       );
+      this.dispatch(columnsActions.resetCardDragging());
     }
     // sets the move as over
     return true;

@@ -168,7 +168,8 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         cardDragging: undefined,
         cardDraggingCol: undefined,
         sendBack: undefined,
-        movementWithFlip: undefined
+        movementWithFlip: undefined,
+        doubleClickTarget: undefined
       };
 
     // ********************************************************

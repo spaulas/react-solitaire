@@ -7,11 +7,13 @@ import React, {
   useEffect,
   useState
 } from "react";
+import { CardType } from "../../../../redux/gameBoard/gameBoard.types";
 import { useSelector } from "react-redux";
 
 interface DoubleClickHandlerProps {
   handler: ExplicitAny;
   doubleClick: boolean;
+  card?: CardType;
 }
 
 /**
@@ -20,9 +22,10 @@ interface DoubleClickHandlerProps {
 function DoubleClickHandler({
   handler,
   doubleClick,
-  children
+  children,
+  card
 }: PropsWithChildren<DoubleClickHandlerProps>) {
-  const [handlingMove, setHandlingMove] = useState<boolean>(false);
+  const [handlingMove, setHandlingMove] = useState<boolean>();
 
   const {
     goalMoveTarget,
@@ -48,7 +51,10 @@ function DoubleClickHandler({
 
   // if the columnTarget changed, call the function which deals with it
   const handleColumnDoubleClickResult = () => {
-    if (handlingMove) {
+    if (
+      handlingMove ||
+      (columnMoveCards && card?.cardField === columnMoveCards[0].cardField)
+    ) {
       const result = handler.handleColumnDoubleClickResult(
         columnMoveTarget,
         columnMoveCards,

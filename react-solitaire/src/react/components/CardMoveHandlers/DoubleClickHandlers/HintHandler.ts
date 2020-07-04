@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { CardType } from "../../../../redux/gameBoard/gameBoard.types";
 import { Dispatch } from "redux/index";
 import columnsActions from "../../../../redux/columns/columns.actions";
@@ -50,12 +49,7 @@ class HintHandler {
   ) {
     // if a move from a column to a goal is possible
     if (typeof goalMoveTarget === "string" && hintSource) {
-      // eslint-disable-next-line no-console
-      console.log("GOAL MOVE SOURCE = ", hintSource);
-      // eslint-disable-next-line no-console
-      console.log("GOAL MOVE TARGET = ", goalMoveTarget);
       // add a hint
-      console.log("GOAL MOVE SOURCE = ", hintSource);
       this.dispatch(gameBoardActions.addGameHint(hintSource, goalMoveTarget));
       // reset goal states
       this.dispatch(goalActions.resetCardDragging());
@@ -76,17 +70,12 @@ class HintHandler {
   ) {
     // if the move to a column was valid (result is the target column id) and the card moving field is the same as the columnId
     if (typeof columnMoveTarget === "string" && hintSource) {
-      // eslint-disable-next-line no-console
-      console.log("COLUMN MOVE SOURCE = ", hintSource);
-      // eslint-disable-next-line no-console
-      console.log("COLUMN MOVE TARGET = ", columnMoveTarget);
       // add a hint
       this.dispatch(gameBoardActions.addGameHint(hintSource, columnMoveTarget));
     } // sets the move as over
     else if (this.deckPile.length > 0 || this.flippedPile.length > 0) {
       // if there are cards to flip (even if it is a deck reset)
       // add a hint to flip the deck
-      console.log("FLIP DECK!");
       this.dispatch(gameBoardActions.addGameHint("deckPile"));
     } else {
       // send a notification
