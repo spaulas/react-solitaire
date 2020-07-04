@@ -382,14 +382,22 @@ export const removeNCardsFromColumn = (
  */
 export const getValidTarget = (
   columns: Record<string, Array<CardType>>,
-  firstCard: CardType
+  firstCard: CardType,
+  previousHints: Array<Record<string, string>> = []
 ) => {
   // get all the valid spots
   const validSpots = Object.keys(columns).filter((column: string) => {
     const targetLastIndex = columns[column].length - 1;
-    return isValidMovement(
-      firstCard,
-      targetLastIndex < 0 ? undefined : columns[column][targetLastIndex]
+    return (
+      isValidMovement(
+        firstCard,
+        targetLastIndex < 0 ? undefined : columns[column][targetLastIndex]
+      ) &&
+      !previousHints.some(
+        (hint: any) =>
+          hint.source === firstCard.cardField &&
+          (targetLastIndex >= 0 ? hint.target === column : true)
+      )
     );
   });
 
@@ -469,6 +477,7 @@ export const checkColumnSwapDoubleClickValid = (
 export const checkMoveFromAnyColumn = (
   columns: Record<string, Array<CardType>>,
   flippedPile: Array<CardType>,
+  previousHints: Array<Record<string, string>>,
   doubleClickTarget?: boolean | string
 ) => {
   let validTargetResult;
@@ -485,7 +494,11 @@ export const checkMoveFromAnyColumn = (
       );
       // if it is not undefined
       if (firstFlippedCard) {
-        validTargetResult = getValidTarget(columns, firstFlippedCard);
+        validTargetResult = getValidTarget(
+          columns,
+          firstFlippedCard,
+          previousHints
+        );
         return validTargetResult !== undefined;
       }
       return false;

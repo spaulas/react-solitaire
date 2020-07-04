@@ -104,9 +104,13 @@ const checkGoalSwapDoubleClickValid = (sourceId: string, card: CardType) => ({
   card
 });
 
-const checkMoveFromAnyColumn = (columns: Record<string, Array<CardType>>) => ({
+const checkMoveFromAnyColumn = (
+  columns: Record<string, Array<CardType>>,
+  previousHints: Array<Record<string, string>> = []
+) => ({
   type: GoalActionTypes.CHECK_MOVE_FROM_ANY_COLUMN,
-  columns
+  columns,
+  previousHints
 });
 // ********************************************************
 

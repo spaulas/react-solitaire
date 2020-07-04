@@ -188,6 +188,7 @@ const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
       const checkMoveFromColumnsResult = checkMoveFromAnyColumns(
         state.goals,
         action.columns,
+        action.previousHints,
         state.doubleClickTarget
       );
       return { ...state, ...checkMoveFromColumnsResult };

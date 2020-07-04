@@ -14,19 +14,22 @@ class HintHandler {
   goals: Record<string, Array<CardType>>;
   deckPile: Array<CardType>;
   flippedPile: Array<CardType>;
+  previousHints: Array<Record<string, string>>;
 
   constructor(
     dispatch: Dispatch,
     columns: Record<string, Array<CardType>>,
     goals: Record<string, Array<CardType>>,
     deckPile: Array<CardType>,
-    flippedPile: Array<CardType>
+    flippedPile: Array<CardType>,
+    previousHints: Array<Record<string, string>>
   ) {
     this.dispatch = dispatch;
     this.columns = columns;
     this.goals = goals;
     this.deckPile = deckPile;
     this.flippedPile = flippedPile;
+    this.previousHints = previousHints;
   }
 
   /**
@@ -36,10 +39,13 @@ class HintHandler {
   handleDoubleClick() {
     // then check first if it can go to a goal pile
     this.dispatch(
-      goalActions.checkMoveFromAnyColumn({
-        ...this.columns,
-        flippedPile: this.flippedPile
-      })
+      goalActions.checkMoveFromAnyColumn(
+        {
+          ...this.columns,
+          flippedPile: this.flippedPile
+        },
+        this.previousHints
+      )
     );
   }
 
@@ -58,7 +64,12 @@ class HintHandler {
     }
     // if there was no move from a column to a goal, try moving from one column to another
     else {
-      this.dispatch(columnsActions.checkMoveFromAnyColumn(this.flippedPile));
+      this.dispatch(
+        columnsActions.checkMoveFromAnyColumn(
+          this.flippedPile,
+          this.previousHints
+        )
+      );
     }
   }
 
@@ -73,7 +84,12 @@ class HintHandler {
       // add a hint
       this.dispatch(gameBoardActions.addGameHint(hintSource, columnMoveTarget));
     } // sets the move as over
-    else if (this.deckPile.length > 0 || this.flippedPile.length > 0) {
+    else if (
+      (this.deckPile.length > 0 || this.flippedPile.length > 0) &&
+      !this.previousHints.some(
+        (hint: any) => hint.source === "deckPile" && hint.target === undefined
+      )
+    ) {
       // if there are cards to flip (even if it is a deck reset)
       // add a hint to flip the deck
       this.dispatch(gameBoardActions.addGameHint("deckPile"));

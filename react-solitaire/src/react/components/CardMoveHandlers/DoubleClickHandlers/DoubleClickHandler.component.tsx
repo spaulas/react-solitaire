@@ -43,11 +43,9 @@ function DoubleClickHandler({
 
   // call the first handler of the double click when the handling move changes to true
   const handleDoubleClick = () => {
-    if (handlingMove) {
-      handler.handleDoubleClick();
-    }
+    setHandlingMove(true);
+    handler.handleDoubleClick();
   };
-  useEffect(handleDoubleClick, [handlingMove]);
 
   // if the columnTarget changed, call the function which deals with it
   const handleColumnDoubleClickResult = () => {
@@ -86,8 +84,7 @@ function DoubleClickHandler({
     <>
       {Children.map(children, (child: ExplicitAny) => {
         return cloneElement(child, {
-          [doubleClick ? "onDoubleClick" : "onClick"]: () =>
-            setHandlingMove(true)
+          [doubleClick ? "onDoubleClick" : "onClick"]: () => handleDoubleClick()
         });
       })}
     </>

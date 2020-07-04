@@ -248,14 +248,23 @@ export const removeCardFromGoal = (
  */
 export const getValidTarget = (
   goals: Record<string, Array<CardType>>,
-  card: CardType
+  card: CardType,
+  previousHints: Array<Record<string, string>> = []
 ) => {
   // get the first valid spot
   return Object.keys(goals).find((goal: string) => {
     const goalCards = goals[goal].length - 1;
-    return isValidMovement(
-      card,
-      goalCards < 0 ? undefined : goals[goal][goalCards]
+
+    return (
+      isValidMovement(
+        card,
+        goalCards < 0 ? undefined : goals[goal][goalCards]
+      ) &&
+      !previousHints.some(
+        (hint: any) =>
+          hint.source === card.cardField &&
+          (goalCards >= 0 ? hint.target === goal : true)
+      )
     );
   });
 };
@@ -314,6 +323,7 @@ export const checkGoalSwapDoubleClickValid = (
 export const checkMoveFromAnyColumns = (
   goals: Record<string, Array<CardType>>,
   columns: Record<string, Array<CardType>>,
+  previousHints: Array<Record<string, string>>,
   doubleClickTarget?: boolean | string
 ) => {
   let validTargetResult;
@@ -326,7 +336,11 @@ export const checkMoveFromAnyColumns = (
       );
       // if it is not undefined
       if (firstFlippedCard) {
-        validTargetResult = getValidTarget(goals, firstFlippedCard);
+        validTargetResult = getValidTarget(
+          goals,
+          firstFlippedCard,
+          previousHints
+        );
         return validTargetResult !== undefined;
       }
       return false;

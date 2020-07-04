@@ -146,9 +146,13 @@ const checkColumnSwapDoubleClickValid = (sourceId: string, nCards: number) => ({
   nCards
 });
 
-const checkMoveFromAnyColumn = (deckPile: Array<CardType>) => ({
+const checkMoveFromAnyColumn = (
+  deckPile: Array<CardType>,
+  previousHints: Array<Record<string, string>> = []
+) => ({
   type: ColumnActionTypes.CHECK_MOVE_FROM_ANY_COLUMN,
-  deckPile
+  deckPile,
+  previousHints
 });
 
 // ********************************************************

@@ -244,6 +244,7 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
       const checkMoveFromAnyColumnResult = checkMoveFromAnyColumn(
         state.columns,
         action.deckPile,
+        action.previousHints,
         state.doubleClickTarget
       );
       return { ...state, ...checkMoveFromAnyColumnResult };
