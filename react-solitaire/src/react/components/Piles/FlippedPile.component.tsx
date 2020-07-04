@@ -13,16 +13,24 @@ import SimplePile from "./SimplePile.component";
 function FlippedPile() {
   const dispatch = useDispatch();
   // get piles from redux
-  const { flippedPile } = useSelector(({ Deck }: RootReducerState) => ({
-    flippedPile: Deck.flippedPile
-  }));
+  const { flippedPile, lastHint } = useSelector(
+    ({ Deck, GameBoard }: RootReducerState) => {
+      const gameHints = GameBoard.gameHints;
+      const lastIndex = gameHints.length - 1;
+      return {
+        flippedPile: Deck.flippedPile,
+        lastHint: lastIndex >= 0 ? gameHints[lastIndex] : undefined
+      };
+    }
+  );
 
   const getCards = () => {
     return flippedPile.map((card: CardType) => {
       const handler = new DeckDoubleClickHandler(dispatch, card);
+      const shake = lastHint && lastHint.source === "flippedPile";
       return (
         <DoubleClickHandler key={card.id} handler={handler} doubleClick>
-          <DraggableCard card={card} nCards={1} />
+          <DraggableCard card={card} nCards={1} shake={shake} />
         </DoubleClickHandler>
       );
     });

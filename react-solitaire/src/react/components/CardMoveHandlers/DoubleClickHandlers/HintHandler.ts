@@ -38,7 +38,7 @@ class HintHandler {
     this.dispatch(
       goalActions.checkMoveFromAnyColumn({
         ...this.columns,
-        deckPile: this.flippedPile
+        flippedPile: this.flippedPile
       })
     );
   }

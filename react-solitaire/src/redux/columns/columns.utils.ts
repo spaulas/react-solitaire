@@ -468,11 +468,14 @@ export const checkColumnSwapDoubleClickValid = (
 
 export const checkMoveFromAnyColumn = (
   columns: Record<string, Array<CardType>>,
-  deckPile: Array<CardType>,
+  flippedPile: Array<CardType>,
   doubleClickTarget?: boolean | string
 ) => {
   let validTargetResult;
-  const finalObject: Record<string, Array<CardType>> = { ...columns, deckPile };
+  const finalObject: Record<string, Array<CardType>> = {
+    ...columns,
+    flippedPile
+  };
   // for each column
   const firstValidMoveAvailable = Object.keys(finalObject).find(
     (columnId: string) => {

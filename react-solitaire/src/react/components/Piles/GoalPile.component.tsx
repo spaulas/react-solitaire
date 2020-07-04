@@ -18,17 +18,29 @@ interface GoalPileProps {
 function GoalPile({ goalId, offset }: GoalPileProps) {
   const dispatch = useDispatch();
   // get piles from redux
-  const { goalPile } = useSelector(({ Goal }: RootReducerState) => ({
-    goalPile: Goal.goals[goalId]
-  }));
+  const { goalPile, lastHint } = useSelector(
+    ({ Goal, GameBoard }: RootReducerState) => {
+      const gameHints = GameBoard.gameHints;
+      const lastIndex = gameHints.length - 1;
+      return {
+        goalPile: Goal.goals[goalId],
+        lastHint: lastIndex >= 0 ? gameHints[lastIndex] : undefined
+      };
+    }
+  );
 
   // renders cards components that can be dragged
   const getCards = () => {
     const cardsArray = goalPile.map((card: CardType) => {
       const handler = new GoalDoubleClickHandler(dispatch, goalId, card);
+
+      const shake =
+        lastHint &&
+        (card.cardField === lastHint.source ||
+          card.cardField === lastHint.target);
       return (
         <DoubleClickHandler key={card.id} handler={handler} doubleClick>
-          <DraggableCard card={card} nCards={1} />
+          <DraggableCard card={card} nCards={1} shake={shake} />
         </DoubleClickHandler>
       );
     });
