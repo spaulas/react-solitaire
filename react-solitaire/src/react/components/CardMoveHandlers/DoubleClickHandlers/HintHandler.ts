@@ -83,6 +83,8 @@ class HintHandler {
     if (typeof columnMoveTarget === "string" && hintSource) {
       // add a hint
       this.dispatch(gameBoardActions.addGameHint(hintSource, columnMoveTarget));
+      // reset goal states
+      this.dispatch(columnsActions.resetCardDragging());
     } // sets the move as over
     else if (
       (this.deckPile.length > 0 || this.flippedPile.length > 0) &&
@@ -97,8 +99,7 @@ class HintHandler {
       // send a notification
       this.dispatch(gameBoardActions.addGameHint());
       notification.error({
-        message: "No more moves to do",
-        description: "Either go back, restart this game or start a new one",
+        message: "No more hints to give",
         duration: 5
       });
     }
