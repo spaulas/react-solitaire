@@ -63,6 +63,8 @@ class ColumnDoubleClickHandler {
       // add removed card to the corresponding goal
       this.dispatch(goalActions.addCardToGoal(goalMoveTarget, this.card));
 
+      // eslint-disable-next-line no-console
+      console.log("COLUMN TO GOAL - ADDING MOVE");
       // add game move
       this.dispatch(
         gameBoardActions.addGameMove({
@@ -115,7 +117,14 @@ class ColumnDoubleClickHandler {
           movementWithFlip
         })
       );
-      this.dispatch(columnsActions.resetCardDragging());
+
+      this.dispatch(
+        columnsActions.swapDoubleClick(
+          this.columnId,
+          columnMoveTarget,
+          columnMoveCards
+        )
+      );
     }
     // sets the move as over
     return true;

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { CardType } from "../gameBoard/gameBoard.types";
 
 // ********************************************************
@@ -458,19 +459,18 @@ export const checkColumnSwapDoubleClickValid = (
   const cardsMoving = copy.splice(sourceLastIndex - nCards, nCards);
   // get the first possible target column id
   const targetId = getValidTarget(columns, cardsMoving[0]);
-  // saves the result of the column piles that will be swapped
-  let swapResult = {};
-  // if there is a valid column target do the swap of columns
-  if (targetId) {
-    swapResult = swapColumns(columns, cardsMoving, sourceId, targetId);
-  }
 
-  // if there is no valid target column, toggle the doubleClickTarget and reset the moving cards (the swap result holds nothing)
   // if there is a valid target column, then save it, the cards that were swapped and the respective columns final result
+  if (targetId) {
+    return {
+      doubleClickTarget: targetId,
+      movingCards: cardsMoving
+    };
+  }
+  // if there is no valid target column, toggle the doubleClickTarget and reset the moving cards (the swap result holds nothing)
   return {
-    doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId,
-    movingCards: targetId === undefined ? undefined : cardsMoving,
-    ...swapResult
+    doubleClickTarget: !doubleClickTarget,
+    movingCards: undefined
   };
 };
 
