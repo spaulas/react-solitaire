@@ -2,7 +2,9 @@ import React, { memo } from "react";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import ErrorPage from "../pages/ErrorPage/ErrorPage.component";
 import GameBoard from "../pages/GameBoard/GameBoard.component";
+import ScoresPage from "../pages/ScoresPage/ScoresPage.component";
 import StartingPage from "../pages/StartingPage/StartingPage.component";
+import StatisticsPage from "../pages/StatisticsPage/StatisticsPage.component";
 
 /**
  * App available routes and corresponding pages
@@ -23,6 +25,14 @@ function ApplicationRouter() {
       {/* Game Play Page */}
       <Route exact path={`${url}/game`}>
         <GameBoard />
+      </Route>
+      {/* Scores Page */}
+      <Route exact path={`${url}/scores`}>
+        <ScoresPage />
+      </Route>
+      {/* Statistics Page */}
+      <Route exact path={`${url}/statistics`}>
+        <StatisticsPage />
       </Route>
       {/* Anything else, should be sent to the error page */}
       <Route>

@@ -1,6 +1,6 @@
+import MenuButton from "../../components/Buttons/MenuButton.component";
 import React from "react";
 import { Row } from "antd";
-import StartButton from "../../components/Buttons/StartButton.component";
 
 function StartingPage() {
   return (
@@ -13,7 +13,19 @@ function StartingPage() {
         />
       </Row>
       <Row align="middle" justify="center">
-        <StartButton className="startButton" />
+        <MenuButton location="/game" className="startButton">
+          <span>Start Game</span>
+        </MenuButton>
+      </Row>
+      <Row className="buttonSpaceRow" align="middle" justify="center">
+        <MenuButton location="/scores" className="startButton">
+          <span>Scores</span>
+        </MenuButton>
+      </Row>
+      <Row className="buttonSpaceRow" align="middle" justify="center">
+        <MenuButton location="/statistics" className="startButton">
+          <span>Statistics</span>
+        </MenuButton>
       </Row>
     </div>
   );
