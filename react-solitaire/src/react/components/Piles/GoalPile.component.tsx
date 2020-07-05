@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from "react";
+import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardType } from "../../../redux/gameBoard/gameBoard.types";
 import DoubleClickHandler from "../CardMoveHandlers/DoubleClickHandlers/DoubleClickHandler.component";
@@ -59,4 +59,4 @@ function GoalPile({ goalId, offset }: GoalPileProps) {
   );
 }
 
-export default memo(forwardRef(GoalPile));
+export default memo(GoalPile);
