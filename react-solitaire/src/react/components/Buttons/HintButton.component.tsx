@@ -27,8 +27,10 @@ function HintButton() {
     };
   });
 
+  // create copy of the flipped pile to then send it reversed to the handler
   const flippedCopy = [...flippedPile];
 
+  // create the hint handler
   const handler = new HintHandler(
     dispatch,
     columns,
@@ -37,6 +39,7 @@ function HintButton() {
     flippedCopy.reverse(),
     gameHints
   );
+  // return the button with the double click handler and wrapped in a badge with the current number of hints given
   return (
     <Badge count={nHints} offset={[7, 25]}>
       <DoubleClickHandler handler={handler} doubleClick={false}>

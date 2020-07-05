@@ -72,6 +72,7 @@ function BaseEmptySpots() {
     );
   };
 
+  // if the last hint as deckPile as source and no target, then the hint is to reset the deck
   const shake =
     lastHint && lastHint.source === "deckPile" && lastHint.target === undefined;
 

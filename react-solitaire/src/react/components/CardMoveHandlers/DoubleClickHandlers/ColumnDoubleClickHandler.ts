@@ -63,8 +63,6 @@ class ColumnDoubleClickHandler {
       // add removed card to the corresponding goal
       this.dispatch(goalActions.addCardToGoal(goalMoveTarget, this.card));
 
-      // eslint-disable-next-line no-console
-      console.log("COLUMN TO GOAL - ADDING MOVE");
       // add game move
       this.dispatch(
         gameBoardActions.addGameMove({
@@ -91,7 +89,7 @@ class ColumnDoubleClickHandler {
 
   /**
    * Checks the value of the column move result
-   * If it is a string (the target column pile id), then simply add the game move to the history, since it was already done at the redux
+   * If it is a string (the target column pile id), then add the game move to the history and swap the columns
    * Anything else is ignored
    * @param columnMoveTarget check result for a column pile
    * @param columnMoveCards cards that were moved during the colum swap
@@ -118,6 +116,7 @@ class ColumnDoubleClickHandler {
         })
       );
 
+      // exchange column cards
       this.dispatch(
         columnsActions.swapDoubleClick(
           this.columnId,
