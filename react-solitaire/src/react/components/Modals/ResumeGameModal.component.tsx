@@ -19,7 +19,7 @@ function ResumeGameModal() {
 
   if (gamePaused && gameMoves > 0) {
     return (
-      <div className="resumeGameFullDiv">
+      <div className="gameFullDiv">
         <div
           className={`animatedButton divButton resumeGameAnimatedButton`}
           onClick={timeGame}
