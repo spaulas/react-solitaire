@@ -3,14 +3,43 @@
   text-align: center;
 }
 
-.pauseIcon {
-  font-size: 150px;
-  color: @secondaryColor;
+.resumeGameFullDiv {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.7);
+  filter: brightness(80%);
+  z-index: 1000;
+  animation: appearSlowly 1s 1;
+  animation-fill-mode: forwards;
 }
 
-.pausedGameModal {
-  .pauseIcon {
-    font-size: 150px;
-    color: @secondaryColor;
+@keyframes appearSlowly {
+  0% {
+    opacity: 0;
   }
+  100% {
+    opacity: 1;
+  }
+}
+
+.resumeGameAnimatedButton {
+  align-self: center;
+  width: 100%;
+  color: dimgray;
+  font-weight: bold;
+}
+
+.resumeGameAnimatedButton::after {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.resumeGameAnimatedButton::before {
+  border-top-color: rgba(0, 0, 0, 0.5);
+  border-bottom-color: rgba(0, 0, 0, 0.5);
 }

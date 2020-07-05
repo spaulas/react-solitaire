@@ -13,7 +13,7 @@ function StartButton({ className }: StartButtonProps) {
   const history = useHistory();
   return (
     <div
-      className={`startButton divButton ${className}`}
+      className={`animatedButton divButton ${className}`}
       onClick={() => history.push("/game")}
     >
       <span>Start Game</span>

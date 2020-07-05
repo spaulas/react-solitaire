@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomDragLayer from "../../components/CardMoveHandlers/DragHandlers/CustomDragLayer.component";
 import DropHandler from "../../components/CardMoveHandlers/DropHandlers/DropHandler.component";
 import GameOverModal from "../../components/Modals/GameOverModal.component";
+import ResumeGameModal from "../../components/Modals/ResumeGameModal.component";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
@@ -81,6 +82,7 @@ function GameBoard() {
 
   return (
     <DropHandler className="gameBoard">
+      <ResumeGameModal />
       <GameOverModal />
       <GamePlayInfo />
       {/* empty spots */}
