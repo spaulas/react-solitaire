@@ -45,7 +45,7 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
             card.cardField === lastHint.target);
 
         return (
-          <DoubleClickHandler handler={handler} doubleClick card={card}>
+          <DoubleClickHandler handler={handler} doubleClick>
             <DraggableCard
               card={card}
               nCards={nCards}

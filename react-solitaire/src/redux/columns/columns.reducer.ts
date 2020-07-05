@@ -245,19 +245,22 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
       return { ...state, ...checkColumnSwapDoubleClickResult };
 
     case ColumnsActionTypes.SWAP_DOUBLE_CLICK:
-      const swapColumnsDoubleClick = swapColumns(
-        state.columns,
-        action.movingCards,
-        action.sourceId,
-        action.targetId
-      );
+      if (state.movingCards) {
+        const swapColumnsDoubleClick = swapColumns(
+          state.columns,
+          action.movingCards,
+          action.sourceId,
+          action.targetId
+        );
 
-      return {
-        ...state,
-        ...swapColumnsDoubleClick,
-        doubleClickTarget: undefined,
-        movingCards: undefined
-      };
+        return {
+          ...state,
+          ...swapColumnsDoubleClick,
+          doubleClickTarget: undefined,
+          movingCards: undefined
+        };
+      }
+      return state;
 
     case ColumnsActionTypes.CHECK_MOVE_FROM_ANY_COLUMN:
       const checkMoveFromAnyColumnResult = checkMoveFromAnyColumn(
