@@ -17,7 +17,7 @@ function NewGameButton() {
       okText="Yes"
       cancelText="No"
     >
-      <PlusOutlined />
+      <PlusOutlined className="iconButton" />
     </Popconfirm>
   );
 }

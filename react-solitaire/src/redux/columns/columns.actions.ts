@@ -146,6 +146,26 @@ const checkColumnSwapDoubleClickValid = (sourceId: string, nCards: number) => ({
   nCards
 });
 
+const swapDoubleClick = (
+  sourceId: string,
+  targetId: string,
+  movingCards: Array<CardType>
+) => ({
+  type: ColumnActionTypes.SWAP_DOUBLE_CLICK,
+  sourceId,
+  targetId,
+  movingCards
+});
+
+const checkMoveFromAnyColumn = (
+  deckPile: Array<CardType>,
+  previousHints: Array<Record<string, string>> = []
+) => ({
+  type: ColumnActionTypes.CHECK_MOVE_FROM_ANY_COLUMN,
+  deckPile,
+  previousHints
+});
+
 // ********************************************************
 
 const actionsCreators = Object.freeze({
@@ -159,7 +179,9 @@ const actionsCreators = Object.freeze({
   addCardToColumn,
   removeNCardsFromColumn,
   checkDoubleClickValid,
-  checkColumnSwapDoubleClickValid
+  checkColumnSwapDoubleClickValid,
+  swapDoubleClick,
+  checkMoveFromAnyColumn
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

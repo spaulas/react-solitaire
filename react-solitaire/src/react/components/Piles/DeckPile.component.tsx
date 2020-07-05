@@ -13,12 +13,18 @@ import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 function DeckPile() {
   const dispatch = useDispatch();
   // get piles from redux
-  const { deckPile, translationX, translationY } = useSelector(
-    ({ Deck }: RootReducerState) => ({
-      deckPile: Deck.deckPile,
-      translationX: Deck.translationX,
-      translationY: Deck.translationY
-    })
+  const { deckPile, translationX, translationY, lastHint } = useSelector(
+    ({ Deck, GameBoard }: RootReducerState) => {
+      const gameHints = GameBoard.gameHints;
+      const lastIndex = gameHints.length - 1;
+
+      return {
+        deckPile: Deck.deckPile,
+        translationX: Deck.translationX,
+        translationY: Deck.translationY,
+        lastHint: lastIndex >= 0 ? gameHints[lastIndex] : undefined
+      };
+    }
   );
 
   // swap from deck to flipped pile
@@ -39,11 +45,16 @@ function DeckPile() {
 
   // renders cards components that can be flipped (with translation)
   const getCards = () => {
+    const increase =
+      lastHint &&
+      lastHint.source === "deckPile" &&
+      lastHint.target === undefined;
+
     const cardsArray = deckPile.map((card: CardType) => (
       <CardFlippable
         key={`deck_${card.id}`}
         image={card.image}
-        zIndex={999}
+        increase={increase}
         removeCard={() => handleDeckSwap(card.id)}
         translationX={translationX}
         translationY={translationY}

@@ -42,7 +42,7 @@ export const flipDeckCard = (
   const tempFlippedPile = [...flippedPile];
 
   // add it to the flipped pile
-  tempFlippedPile.push(cardFlipped as CardType);
+  tempFlippedPile.push({ ...cardFlipped, flipped: true } as CardType);
 
   // get the new value for the translation y
   const translationY = getTranslationY(tempDeckPile, tempFlippedPile);
@@ -72,7 +72,7 @@ export const unflipDeckCard = (
 
   // if there was indeed a card to be flipped, then add it to the deck pile
   if (cardFlipped) {
-    tempDeckPile.push(cardFlipped);
+    tempDeckPile.push({ ...cardFlipped, flipped: true });
   }
 
   // get the new value for the translation y
@@ -96,9 +96,13 @@ export const resetDeck = (
   targetId: string,
   source: Array<CardType>
 ) => {
+  const final = source.map((card: CardType) => ({
+    ...card,
+    flipped: targetId === "flippedPile"
+  }));
   return {
     translationY: source.length,
-    [targetId]: source.reverse(),
+    [targetId]: final.reverse(),
     [sourceId]: []
   };
 };

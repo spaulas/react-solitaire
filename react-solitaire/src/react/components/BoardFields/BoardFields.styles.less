@@ -25,6 +25,29 @@
   transform: scale(1.5);
 }
 
+.shakeAnimationButton {
+  animation: shakeButton 0.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shakeButton {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(30deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-30deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
 // ----------------------------------
 // Game Column Wrapper
 .gameColumnsRow {

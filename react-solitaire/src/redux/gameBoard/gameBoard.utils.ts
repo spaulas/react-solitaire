@@ -129,8 +129,30 @@ export const resetGameStatus = (gameFlag: boolean) => {
     gameFlag: !gameFlag, // toggle game flag
     gameMoves: 0, // resets the counting of moves
     gamePaused: false, // the game is not paused at start
+    gameHints: [],
+    nHints: 0,
     gamePreviousMoves: [], // there are no moves to be undone
     gameNextMoves: [] // there are  no moves to be redone
+  };
+};
+
+// ********************************************************
+// GAME INFO/OPTIONS
+
+export const addGameHint = (
+  gameHints: Array<Record<string, string>>,
+  nHints: number,
+  source?: string,
+  target?: string
+) => {
+  if (source) {
+    return {
+      gameHints: [...gameHints, { source, target }],
+      nHints: nHints + 1
+    };
+  }
+  return {
+    nHints: nHints + 1
   };
 };
 
@@ -155,7 +177,8 @@ export const addGameMove = (
   return {
     gamePreviousMoves: tempPreviousMoves,
     gameMoves: gameMoves + 1, // add a new game move
-    gameNextMoves: [] // reset the game next moves
+    gameNextMoves: [], // reset the game next moves
+    gameHints: []
   };
 };
 
@@ -183,6 +206,7 @@ export const removeGameMove = (
   return {
     [sourceId]: tempGameMoveSource,
     [targetId]: tempGameMoveTarget,
-    gameMoves: gameMoves + 1 // add a new game move
+    gameMoves: gameMoves + 1, // add a new game move
+    gameHints: []
   };
 };

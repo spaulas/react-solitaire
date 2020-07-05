@@ -96,6 +96,6 @@ function RedoButton() {
       dispatch(gameBoardActions.reAddGameMove());
     }
   };
-  return <StepForwardOutlined onClick={handleRedo} />;
+  return <StepForwardOutlined className="iconButton" onClick={handleRedo} />;
 }
 export default RedoButton;

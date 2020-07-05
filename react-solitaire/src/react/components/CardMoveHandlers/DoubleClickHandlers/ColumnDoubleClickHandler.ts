@@ -89,7 +89,7 @@ class ColumnDoubleClickHandler {
 
   /**
    * Checks the value of the column move result
-   * If it is a string (the target column pile id), then simply add the game move to the history, since it was already done at the redux
+   * If it is a string (the target column pile id), then add the game move to the history and swap the columns
    * Anything else is ignored
    * @param columnMoveTarget check result for a column pile
    * @param columnMoveCards cards that were moved during the colum swap
@@ -115,9 +115,18 @@ class ColumnDoubleClickHandler {
           movementWithFlip
         })
       );
-      // sets the move as over
-      return true;
+
+      // exchange column cards
+      this.dispatch(
+        columnsActions.swapDoubleClick(
+          this.columnId,
+          columnMoveTarget,
+          columnMoveCards
+        )
+      );
     }
+    // sets the move as over
+    return true;
   }
 }
 

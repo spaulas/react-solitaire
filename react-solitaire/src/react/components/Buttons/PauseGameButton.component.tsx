@@ -18,7 +18,7 @@ function PauseGameButton() {
 
   return (
     <>
-      <PauseOutlined onClick={timeGame} />
+      <PauseOutlined className="iconButton" onClick={timeGame} />
       <PausedGameModal visible={gamePaused} closeModal={timeGame} />
     </>
   );

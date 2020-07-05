@@ -1,4 +1,5 @@
 import { CardType } from "../gameBoard/gameBoard.types";
+import { ExplicitAny } from "../../global";
 
 // ********************************************************
 // HELPER FUNCTIONS
@@ -248,14 +249,23 @@ export const removeCardFromGoal = (
  */
 export const getValidTarget = (
   goals: Record<string, Array<CardType>>,
-  card: CardType
+  card: CardType,
+  previousHints: Array<Record<string, string>> = []
 ) => {
   // get the first valid spot
   return Object.keys(goals).find((goal: string) => {
     const goalCards = goals[goal].length - 1;
-    return isValidMovement(
-      card,
-      goalCards < 0 ? undefined : goals[goal][goalCards]
+
+    return (
+      isValidMovement(
+        card,
+        goalCards < 0 ? undefined : goals[goal][goalCards]
+      ) &&
+      !previousHints.some(
+        (hint: ExplicitAny) =>
+          hint.source === card.cardField &&
+          (goalCards >= 0 ? hint.target === goal : true)
+      )
     );
   });
 };
@@ -308,5 +318,44 @@ export const checkGoalSwapDoubleClickValid = (
   return {
     doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId,
     ...swapResult
+  };
+};
+
+export const checkMoveFromAnyColumns = (
+  goals: Record<string, Array<CardType>>,
+  columns: Record<string, Array<CardType>>,
+  previousHints: Array<Record<string, string>>,
+  doubleClickTarget?: boolean | string
+) => {
+  let validTargetResult;
+  // for each column
+  const firstValidMoveAvailable = Object.keys(columns).find(
+    (columnId: string) => {
+      // get the first flipped card
+      const firstFlippedCard = columns[columnId].find(
+        (card: CardType) => card.flipped
+      );
+      // if it is not undefined
+      if (firstFlippedCard) {
+        validTargetResult = getValidTarget(
+          goals,
+          firstFlippedCard,
+          previousHints
+        );
+        return validTargetResult !== undefined;
+      }
+      return false;
+    }
+  );
+
+  return {
+    doubleClickTarget:
+      firstValidMoveAvailable === undefined
+        ? !doubleClickTarget
+        : validTargetResult,
+    hintSource:
+      firstValidMoveAvailable === undefined
+        ? undefined
+        : firstValidMoveAvailable
   };
 };

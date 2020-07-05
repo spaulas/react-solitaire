@@ -14,10 +14,17 @@ import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 function BaseEmptySpots() {
   const dispatch = useDispatch();
   // get refs from redux
-  const { deckRef, flippedRef } = useSelector(({ Deck }: RootReducerState) => ({
-    deckRef: Deck.deckRef,
-    flippedRef: Deck.flippedRef
-  }));
+  const { deckRef, flippedRef, lastHint } = useSelector(
+    ({ Deck, GameBoard }: RootReducerState) => {
+      const gameHints = GameBoard.gameHints;
+      const lastIndex = gameHints.length - 1;
+      return {
+        deckRef: Deck.deckRef,
+        flippedRef: Deck.flippedRef,
+        lastHint: lastIndex >= 0 ? gameHints[lastIndex] : undefined
+      };
+    }
+  );
 
   /**
    * Sets a new translation value for the deck cards to the flipped pile
@@ -65,13 +72,20 @@ function BaseEmptySpots() {
     );
   };
 
+  // if the last hint as deckPile as source and no target, then the hint is to reset the deck
+  const shake =
+    lastHint && lastHint.source === "deckPile" && lastHint.target === undefined;
+
   return (
     <div className="baseEmptySpots">
       <Row gutter={6} className="boardDeckRow" align="middle">
         {/* Deck and Flipped piles */}
         <CardSpot ref={deckRef} offset={2} className="deckCardSpot">
           {/* Button to reset deck */}
-          <Button className="redoDeckButton" onClick={handleResetDeck}>
+          <Button
+            className={`redoDeckButton ${shake ? "shakeAnimationButton" : ""}`}
+            onClick={handleResetDeck}
+          >
             <RedoOutlined />
           </Button>
         </CardSpot>

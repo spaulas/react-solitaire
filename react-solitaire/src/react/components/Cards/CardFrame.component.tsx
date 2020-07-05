@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-dom-props */
 import React, { ReactNode, forwardRef, memo } from "react";
 import { ExplicitAny } from "../../../global";
 
@@ -5,8 +6,9 @@ interface CardFrameProps {
   onDoubleClick?: () => void; // function called when card is double clicked
   cardContainerClassName?: string; // additional classname for the container
   cardContentClassName?: string; // additional classname for the content
-  zIndex?: number; // z-index to be applied
   children?: ReactNode; // children
+  shake?: boolean;
+  increase?: boolean;
 }
 
 /**
@@ -17,7 +19,8 @@ function CardFrame(
     onDoubleClick,
     cardContainerClassName = "",
     cardContentClassName = "",
-    zIndex = 1,
+    shake,
+    increase,
     children
   }: CardFrameProps,
   ref: ExplicitAny
@@ -25,11 +28,13 @@ function CardFrame(
   return (
     <div
       ref={ref}
-      className={`cardContainer ${cardContainerClassName}`}
+      className={`cardContainer ${cardContainerClassName} ${
+        shake ? "shakeAnimation" : ""
+      } ${increase ? "increaseAnimation" : ""}`}
       onDoubleClick={() => onDoubleClick !== undefined && onDoubleClick()}
     >
       {/* eslint-disable-next-line react/forbid-dom-props */}
-      <div className="cardAspectRatio" style={{ zIndex }}>
+      <div className="cardAspectRatio">
         <div className={`cardContent ${cardContentClassName}`}>{children}</div>
       </div>
     </div>

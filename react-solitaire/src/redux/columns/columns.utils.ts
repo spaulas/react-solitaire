@@ -1,4 +1,6 @@
+/* eslint-disable max-lines */
 import { CardType } from "../gameBoard/gameBoard.types";
+import { ExplicitAny } from "../../global";
 
 // ********************************************************
 // HELPER FUNCTIONS
@@ -331,7 +333,8 @@ export const addCardToColumn = (
     columns: {
       ...columns,
       [columnId]: column
-    }
+    },
+    doubleClickTarget: undefined
   };
 };
 
@@ -381,14 +384,22 @@ export const removeNCardsFromColumn = (
  */
 export const getValidTarget = (
   columns: Record<string, Array<CardType>>,
-  firstCard: CardType
+  firstCard: CardType,
+  previousHints: Array<Record<string, string>> = []
 ) => {
   // get all the valid spots
   const validSpots = Object.keys(columns).filter((column: string) => {
     const targetLastIndex = columns[column].length - 1;
-    return isValidMovement(
-      firstCard,
-      targetLastIndex < 0 ? undefined : columns[column][targetLastIndex]
+    return (
+      isValidMovement(
+        firstCard,
+        targetLastIndex < 0 ? undefined : columns[column][targetLastIndex]
+      ) &&
+      !previousHints.some(
+        (hint: ExplicitAny) =>
+          hint.source === firstCard.cardField &&
+          (targetLastIndex >= 0 ? hint.target === column : true)
+      )
     );
   });
 
@@ -449,18 +460,60 @@ export const checkColumnSwapDoubleClickValid = (
   const cardsMoving = copy.splice(sourceLastIndex - nCards, nCards);
   // get the first possible target column id
   const targetId = getValidTarget(columns, cardsMoving[0]);
-  // saves the result of the column piles that will be swapped
-  let swapResult = {};
-  // if there is a valid column target do the swap of columns
-  if (targetId) {
-    swapResult = swapColumns(columns, cardsMoving, sourceId, targetId);
-  }
 
-  // if there is no valid target column, toggle the doubleClickTarget and reset the moving cards (the swap result holds nothing)
   // if there is a valid target column, then save it, the cards that were swapped and the respective columns final result
+  if (targetId) {
+    return {
+      doubleClickTarget: targetId,
+      movingCards: cardsMoving
+    };
+  }
+  // if there is no valid target column, toggle the doubleClickTarget and reset the moving cards (the swap result holds nothing)
   return {
-    doubleClickTarget: targetId === undefined ? !doubleClickTarget : targetId,
-    movingCards: targetId === undefined ? undefined : cardsMoving,
-    ...swapResult
+    doubleClickTarget: !doubleClickTarget,
+    movingCards: undefined
+  };
+};
+
+export const checkMoveFromAnyColumn = (
+  columns: Record<string, Array<CardType>>,
+  flippedPile: Array<CardType>,
+  previousHints: Array<Record<string, string>>,
+  doubleClickTarget?: boolean | string
+) => {
+  let validTargetResult;
+  const finalObject: Record<string, Array<CardType>> = {
+    ...columns,
+    flippedPile
+  };
+  // for each column
+  const firstValidMoveAvailable = Object.keys(finalObject).find(
+    (columnId: string) => {
+      // get the first flipped card
+      const firstFlippedCard = finalObject[columnId].find(
+        (card: CardType) => card.flipped
+      );
+      // if it is not undefined
+      if (firstFlippedCard) {
+        validTargetResult = getValidTarget(
+          columns,
+          firstFlippedCard,
+          previousHints
+        );
+        return validTargetResult !== undefined;
+      }
+      return false;
+    }
+  );
+
+  return {
+    doubleClickTarget:
+      firstValidMoveAvailable === undefined
+        ? !doubleClickTarget
+        : validTargetResult,
+    hintSource:
+      firstValidMoveAvailable === undefined
+        ? undefined
+        : firstValidMoveAvailable
   };
 };

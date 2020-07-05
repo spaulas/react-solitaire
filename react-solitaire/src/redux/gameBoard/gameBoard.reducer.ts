@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 import GameBoardActionTypes, { CardType, GameMove } from "./gameBoard.types";
 import {
+  addGameHint,
   addGameMove,
   createRandomGame,
   removeGameMove,
@@ -22,6 +23,8 @@ interface InitialGameBoard {
   gameFlag: boolean; // is toggled when a new game starts
   gameMoves: number; // number of moves a player has done throughout the game
   gamePaused: boolean; // flag indicating if the game is paused
+  gameHints: Array<Record<string, string>>;
+  nHints: number;
   gamePreviousMoves: Array<GameMove>; // list of moves that can be undone
   gameNextMoves: Array<GameMove>; // list of moves that can be redone
 }
@@ -39,6 +42,8 @@ const INITIAL_GAME_BOARD: InitialGameBoard = {
   gameFlag: false,
   gameMoves: 0,
   gamePaused: false,
+  gameHints: [],
+  nHints: 0,
   gamePreviousMoves: [],
   gameNextMoves: []
 };
@@ -61,7 +66,7 @@ const gameBoardReducer = (
       };
 
     // ********************************************************
-    // GAME COMMANDS ACTIONS
+    //  GAME INFO/OPTIONS ACTIONS
 
     /**
      *  Resets the game and resets all the game values
@@ -77,6 +82,18 @@ const gameBoardReducer = (
      */
     case GameBoardActionTypes.TIME_GAME:
       return { ...state, gamePaused: !state.gamePaused };
+
+    /**
+     * Adds a hint
+     */
+    case GameBoardActionTypes.ADD_GAME_HINT:
+      const addGameHintResult = addGameHint(
+        state.gameHints,
+        state.nHints,
+        action.source,
+        action.target
+      );
+      return { ...state, ...addGameHintResult };
 
     // ********************************************************
     // GAME MOVES' HISTORY ACTIONS

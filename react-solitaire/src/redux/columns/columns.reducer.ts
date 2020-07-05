@@ -4,6 +4,7 @@ import {
   addDragginCardsToColumn,
   checkColumnSwapDoubleClickValid,
   checkDoubleClickValid,
+  checkMoveFromAnyColumn,
   createColumns,
   removeDraggedCard,
   removeNCardsFromColumn,
@@ -31,7 +32,9 @@ export interface InitialColumns {
   sendBack?: boolean; // flag that announces if the movement to the column, was invalid
   movementWithFlip?: boolean; // indicates if the movement to or from the column caused a card to be flipped
   doubleClickTarget?: boolean | string;
+  hintSource?: boolean | string;
   movingCards?: Array<CardType>;
+  columnMoveSource?: string;
 }
 
 const INITIAL_COLUMNS: InitialColumns = {
@@ -49,7 +52,9 @@ const INITIAL_COLUMNS: InitialColumns = {
   sendBack: undefined,
   movementWithFlip: undefined,
   doubleClickTarget: undefined,
-  movingCards: undefined
+  hintSource: undefined,
+  movingCards: undefined,
+  columnMoveSource: undefined
 };
 
 const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
@@ -165,7 +170,10 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         cardDragging: undefined,
         cardDraggingCol: undefined,
         sendBack: undefined,
-        movementWithFlip: undefined
+        movementWithFlip: undefined,
+        doubleClickTarget: undefined,
+        movingCards: undefined,
+        columnMoveSource: undefined
       };
 
     // ********************************************************
@@ -235,6 +243,33 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
         state.doubleClickTarget
       );
       return { ...state, ...checkColumnSwapDoubleClickResult };
+
+    case ColumnsActionTypes.SWAP_DOUBLE_CLICK:
+      if (state.movingCards) {
+        const swapColumnsDoubleClick = swapColumns(
+          state.columns,
+          action.movingCards,
+          action.sourceId,
+          action.targetId
+        );
+
+        return {
+          ...state,
+          ...swapColumnsDoubleClick,
+          doubleClickTarget: undefined,
+          movingCards: undefined
+        };
+      }
+      return state;
+
+    case ColumnsActionTypes.CHECK_MOVE_FROM_ANY_COLUMN:
+      const checkMoveFromAnyColumnResult = checkMoveFromAnyColumn(
+        state.columns,
+        action.deckPile,
+        action.previousHints,
+        state.doubleClickTarget
+      );
+      return { ...state, ...checkMoveFromAnyColumnResult };
 
     // ********************************************************
 

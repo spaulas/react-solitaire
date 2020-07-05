@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-component-props */
 /* eslint-disable indent */
 import { ExplicitAny, RootReducerState } from "../../../../global";
 import React, { memo, useEffect } from "react";
@@ -17,6 +18,7 @@ interface DraggableCardProps {
   nCards: number; // number of cards being dragged (this card and all bellow)
   onDoubleClick?: () => void; // function called when card is double clicked
   index?: number;
+  shake?: boolean;
 }
 
 /**
@@ -26,7 +28,8 @@ function DraggableCard({
   card,
   nCards,
   onDoubleClick,
-  index = 0
+  index = 0,
+  shake
 }: DraggableCardProps) {
   const dispatch = useDispatch();
 
@@ -85,7 +88,7 @@ function DraggableCard({
       ref={drag}
       onDoubleClick={onDoubleClick}
       cardContainerClassName={`${index > 0 ? "cardContainerColumns" : ""}`}
-      zIndex={999}
+      shake={shake}
     >
       <CardImage
         additionalClassName={hideCard ? "cardIsDragging" : ""}
