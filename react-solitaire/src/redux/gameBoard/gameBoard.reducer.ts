@@ -41,7 +41,7 @@ const INITIAL_GAME_BOARD: InitialGameBoard = {
   column7Pile: [],
   gameFlag: false,
   gameMoves: 0,
-  gamePaused: false,
+  gamePaused: true,
   gameHints: [],
   nHints: 0,
   gamePreviousMoves: [],

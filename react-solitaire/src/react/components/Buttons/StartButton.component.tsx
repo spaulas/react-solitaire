@@ -1,4 +1,3 @@
-import { Button } from "antd";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
@@ -6,12 +5,19 @@ import { useHistory } from "react-router-dom";
  * Button to start the game, by redirecting to the /game location
  */
 
-function StartButton() {
+interface StartButtonProps {
+  className?: string;
+}
+
+function StartButton({ className }: StartButtonProps) {
   const history = useHistory();
   return (
-    <Button className="iconButton" onClick={() => history.push("/game")}>
-      Start Game
-    </Button>
+    <div
+      className={`animatedButton divButton ${className}`}
+      onClick={() => history.push("/game")}
+    >
+      <span>Start Game</span>
+    </div>
   );
 }
 

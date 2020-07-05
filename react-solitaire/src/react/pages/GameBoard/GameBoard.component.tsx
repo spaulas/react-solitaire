@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomDragLayer from "../../components/CardMoveHandlers/DragHandlers/CustomDragLayer.component";
 import DropHandler from "../../components/CardMoveHandlers/DropHandlers/DropHandler.component";
 import GameOverModal from "../../components/Modals/GameOverModal.component";
+import { Prompt } from "react-router";
+import ResumeGameModal from "../../components/Modals/ResumeGameModal.component";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
@@ -24,6 +26,7 @@ function GameBoard() {
 
   // get all necessary elements from redux
   const {
+    gameOver,
     deckPile,
     column1Pile,
     column2Pile,
@@ -33,6 +36,7 @@ function GameBoard() {
     column6Pile,
     column7Pile
   } = useSelector(({ GameBoard }: RootReducerState) => ({
+    gameOver: GameBoard.gameOver,
     deckPile: GameBoard.deckPile,
     column1Pile: GameBoard.column1Pile,
     column2Pile: GameBoard.column2Pile,
@@ -80,19 +84,23 @@ function GameBoard() {
   // ---------------------------------------------------------
 
   return (
-    <DropHandler className="gameBoard">
-      <GameOverModal />
-      <GamePlayInfo />
-      {/* empty spots */}
-      <BoardEmptySpots />
-      {/* top row of the game, includes the deck and the 4 goal spots */}
-      <GameTopRow />
-      {/* bottom row of the game, includes all the 7 columns */}
-      <GameColumnWrapper />
-      <GameOptions />
-      {/* preview of the card being dragged */}
-      <CustomDragLayer />
-    </DropHandler>
+    <>
+      <Prompt when={!gameOver} message="If you leave the game will be a lost" />
+      <DropHandler className="gameBoard">
+        <ResumeGameModal />
+        <GameOverModal />
+        <GamePlayInfo />
+        {/* empty spots */}
+        <BoardEmptySpots />
+        {/* top row of the game, includes the deck and the 4 goal spots */}
+        <GameTopRow />
+        {/* bottom row of the game, includes all the 7 columns */}
+        <GameColumnWrapper />
+        <GameOptions />
+        {/* preview of the card being dragged */}
+        <CustomDragLayer />
+      </DropHandler>
+    </>
   );
 }
 
