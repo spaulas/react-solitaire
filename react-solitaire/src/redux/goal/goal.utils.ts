@@ -1,4 +1,5 @@
 import { CardType } from "../gameBoard/gameBoard.types";
+import { ExplicitAny } from "../../global";
 
 // ********************************************************
 // HELPER FUNCTIONS
@@ -261,7 +262,7 @@ export const getValidTarget = (
         goalCards < 0 ? undefined : goals[goal][goalCards]
       ) &&
       !previousHints.some(
-        (hint: any) =>
+        (hint: ExplicitAny) =>
           hint.source === card.cardField &&
           (goalCards >= 0 ? hint.target === goal : true)
       )

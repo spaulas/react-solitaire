@@ -1,5 +1,6 @@
 import { CardType } from "../../../../redux/gameBoard/gameBoard.types";
 import { Dispatch } from "redux/index";
+import { ExplicitAny } from "../../../../global";
 import columnsActions from "../../../../redux/columns/columns.actions";
 import gameBoardActions from "../../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../../redux/goal/goal.actions";
@@ -89,7 +90,8 @@ class HintHandler {
     else if (
       (this.deckPile.length > 0 || this.flippedPile.length > 0) &&
       !this.previousHints.some(
-        (hint: any) => hint.source === "deckPile" && hint.target === undefined
+        (hint: ExplicitAny) =>
+          hint.source === "deckPile" && hint.target === undefined
       )
     ) {
       // if there are cards to flip (even if it is a deck reset)

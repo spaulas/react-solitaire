@@ -1,5 +1,6 @@
 /* eslint-disable max-lines */
 import { CardType } from "../gameBoard/gameBoard.types";
+import { ExplicitAny } from "../../global";
 
 // ********************************************************
 // HELPER FUNCTIONS
@@ -395,7 +396,7 @@ export const getValidTarget = (
         targetLastIndex < 0 ? undefined : columns[column][targetLastIndex]
       ) &&
       !previousHints.some(
-        (hint: any) =>
+        (hint: ExplicitAny) =>
           hint.source === firstCard.cardField &&
           (targetLastIndex >= 0 ? hint.target === column : true)
       )
