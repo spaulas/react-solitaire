@@ -30,9 +30,9 @@ function GameOverModal() {
       case "Time":
         return <ClockCircleFilled />;
       case "Moves":
-        return <StarFilled />;
-      case "Hints":
         return <NumberOutlined />;
+      case "Hints":
+        return <StarFilled />;
       default:
         return <CheckOutlined />;
     }
