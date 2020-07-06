@@ -1,14 +1,16 @@
 /* eslint-disable indent */
 /* eslint-disable react/no-multi-comp */
 import {
+  CalendarFilled,
   CheckOutlined,
   ClockCircleFilled,
   NumberOutlined,
   StarFilled
 } from "@ant-design/icons";
+import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { useState } from "react";
 import { List } from "antd";
-import { RootReducerState } from "../../../global";
+import moment from "moment";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -27,35 +29,26 @@ function GameOverModal() {
 
   const getIcon = (item: string) => {
     switch (item) {
-      case "Time":
+      case "date":
+        return <CalendarFilled />;
+      case "time":
         return <ClockCircleFilled />;
-      case "Moves":
+      case "moves":
         return <NumberOutlined />;
-      case "Hints":
+      case "nHints":
         return <StarFilled />;
       default:
         return <CheckOutlined />;
     }
   };
 
-  const gameStatistics = [
-    {
-      title: "Time",
-      data: gameMoves
-    },
-    {
-      title: "Moves",
-      data: gameMoves
-    },
-    {
-      title: "Hints",
-      data: nHints
-    },
-    {
-      title: "Final Score",
-      data: gameMoves + nHints * 5
-    }
-  ];
+  const gameStatistics: ExplicitAny = {
+    date: moment().format("D MMM, YYYY"),
+    time: gameMoves,
+    moves: gameMoves,
+    nHints: nHints,
+    finalScore: gameMoves + nHints * 5
+  };
 
   const handleCloseModal = () => {
     // @todo after a user is created at the firebase, add condition here to select where to store the info
@@ -64,25 +57,25 @@ function GameOverModal() {
       ? JSON.parse(currentLocal)
       : { history: [] };
     // add current statistic to user history
-    offlineUser.history = [...offlineUser?.history, ...gameStatistics];
+    offlineUser.history = [...offlineUser?.history, gameStatistics];
     localStorage.setItem("offlineUser", JSON.stringify(offlineUser));
 
     setVisible(false);
     history.push("/");
   };
 
-  if (gameOver && visible) {
+  if (!gameOver && visible) {
     return (
       <div className="gameFullDiv">
         <div className="gameOverStatistics">
           <span>Game Statistics</span>
           <List
-            dataSource={gameStatistics}
-            renderItem={({ title, data }: { title: string; data: number }) => (
-              <List.Item key={title} className="gameStatisticsList">
-                {getIcon(title)}
-                <List.Item.Meta title={title} />
-                <span>{data}</span>
+            dataSource={Object.keys(gameStatistics)}
+            renderItem={(item: string) => (
+              <List.Item key={item} className="gameStatisticsList">
+                {getIcon(item)}
+                <List.Item.Meta title={item} />
+                <span>{gameStatistics[item].toString()}</span>
               </List.Item>
             )}
           />
