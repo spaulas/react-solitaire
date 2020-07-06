@@ -29,7 +29,7 @@ function ScoresPage() {
         className="scoresTable"
         dataSource={offlineUser?.history}
         rowKey="date"
-        pagination={{ pageSize: 10 }}
+        pagination={{ pageSize: 3 }}
       >
         <Column
           className={
