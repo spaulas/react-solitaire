@@ -1,7 +1,9 @@
+import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ExpandTableIcon from "./ExpandTableIcon.component";
-import { ExplicitAny } from "../../../global";
 import { Table } from "antd";
+import pagesActions from "../../../redux/pages/pages.actions";
 import { useHistory } from "react-router-dom";
 
 const { Column } = Table;
@@ -18,6 +20,17 @@ function ScoresPage() {
   const [offlineUser, setOfflineUser] = useState<ExplicitAny>({});
   const [expandTable, setExpandTable] = useState(false);
   const history = useHistory();
+
+  const dispatch = useDispatch();
+  const { showAnimation } = useSelector(({ Pages }: RootReducerState) => ({
+    showAnimation: Pages.scoresPageAnimation
+  }));
+  const removeAnimation = () => {
+    // after animation is over, set showAnimation to false
+    setTimeout(() => dispatch(pagesActions.setStartPageAnimation(false)), 2500);
+  };
+  useEffect(removeAnimation, []);
+
   useEffect(() => {
     const currentLocal = localStorage.getItem("offlineUser");
     setOfflineUser(currentLocal ? JSON.parse(currentLocal) : { history: [] });

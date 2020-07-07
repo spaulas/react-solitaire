@@ -12,7 +12,7 @@ function StartingPage() {
   }));
   const removeAnimation = () => {
     // after animation is over, set showAnimation to false
-    setTimeout(() => dispatch(pagesActions.setAnimation()), 2500);
+    setTimeout(() => dispatch(pagesActions.setStartPageAnimation(false)), 2500);
   };
   useEffect(removeAnimation, []);
   return (
