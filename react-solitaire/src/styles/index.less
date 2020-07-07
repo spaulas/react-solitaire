@@ -5,6 +5,7 @@
   /* Global */
   font-family: @fontFamily;
 
+  @import (once) "../react/App/App.styles.less";
   @import (once) "../react/pages/GameBoard/GameBoard.styles.less";
   @import (once) "../react/pages/StartingPage/StartingPage.styles.less";
   @import (once) "../react/pages/ScoresPage/ScoresPage.styles.less";
@@ -14,4 +15,80 @@
   @import (once) "../react/components/Buttons/Buttons.styles.less";
   @import (once) "../react/components/UIComponents/UIComponents.styles.less";
   @import (once) "../react/components/Modals/Modals.styles.less";
+
+  // table styles ---------------------
+  td.ant-table-column-sort {
+    background: transparent;
+    background-color: rgba(0, 0, 0, 0.2);
+    filter: brightness(120%);
+    letter-spacing: 2px;
+    color: white;
+  }
+  .ant-table {
+    color: white;
+    background: transparent;
+  }
+  .ant-table-tbody {
+    color: white;
+    font-size: 20px;
+    transition: 0.5s;
+    border: none;
+  }
+  .ant-table-tbody > tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  .ant-table-tbody > tr:hover td {
+    background-color: rgba(0, 0, 0, 0.4);
+    letter-spacing: 2px;
+    color: white;
+  }
+  .ant-table-tbody > tr > td {
+    border-bottom: none;
+    transition: 0.5s;
+  }
+
+  .ant-table thead > tr > th {
+    background: transparent;
+    color: white;
+    font-size: 25px;
+    border: none;
+    font-weight: bold;
+  }
+
+  .ant-table-column-sorter {
+    color: white;
+    .ant-table-column-sorter-up svg,
+    .ant-table-column-sorter-down svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .ant-table-column-sorter-up.active,
+  .ant-table-column-sorter-down.active {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .ant-table-pagination {
+    margin-right: 5px;
+  }
+
+  .ant-empty-description {
+    color: white;
+  }
+
+
+  // -----------------
+  // page
+  .pageBackground {
+    background: @secondaryColor;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: white;
+  }
 }

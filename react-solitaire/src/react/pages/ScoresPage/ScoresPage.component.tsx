@@ -2,9 +2,9 @@ import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ExpandTableIcon from "./ExpandTableIcon.component";
+import PageTitle from "../../components/UIComponents/PageTitle.component";
 import { Table } from "antd";
 import pagesActions from "../../../redux/pages/pages.actions";
-import { useHistory } from "react-router-dom";
 
 const { Column } = Table;
 
@@ -19,7 +19,6 @@ interface ScoresPageProps {
 function ScoresPage() {
   const [offlineUser, setOfflineUser] = useState<ExplicitAny>({});
   const [expandTable, setExpandTable] = useState(false);
-  const history = useHistory();
 
   const dispatch = useDispatch();
   const { showAnimation } = useSelector(({ Pages }: RootReducerState) => ({
@@ -39,16 +38,8 @@ function ScoresPage() {
   // eslint-disable-next-line no-console
   console.log("offline user ' ", offlineUser);
   return (
-    <div className="scoresPage">
-      <div className="scoresTitleDiv">
-        <span className="scoresTitle">Scores</span>
-        <img
-          onClick={() => history.push("/")}
-          className="logoTitle"
-          src={require("../../../images/icon.png")}
-          alt=""
-        />
-      </div>
+    <div className="pageBackground scoresPage">
+      <PageTitle title="Scores" />
       <Table<ScoresPageProps>
         className="scoresTable"
         dataSource={offlineUser?.history}

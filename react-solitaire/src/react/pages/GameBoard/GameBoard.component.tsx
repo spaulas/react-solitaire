@@ -86,7 +86,7 @@ function GameBoard() {
   return (
     <>
       <Prompt when={!gameOver} message="If you leave the game will be a lost" />
-      <DropHandler className="gameBoard">
+      <DropHandler className="pageBackground">
         <ResumeGameModal />
         <GameOverModal />
         <GamePlayInfo />
