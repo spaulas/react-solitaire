@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ExpandTableIcon from "./ExpandTableIcon.component";
 import { ExplicitAny } from "../../../global";
 import { Table } from "antd";
+import { useHistory } from "react-router-dom";
 
 const { Column } = Table;
 
@@ -16,6 +17,7 @@ interface ScoresPageProps {
 function ScoresPage() {
   const [offlineUser, setOfflineUser] = useState<ExplicitAny>({});
   const [expandTable, setExpandTable] = useState(false);
+  const history = useHistory();
   useEffect(() => {
     const currentLocal = localStorage.getItem("offlineUser");
     setOfflineUser(currentLocal ? JSON.parse(currentLocal) : { history: [] });
@@ -25,11 +27,20 @@ function ScoresPage() {
   console.log("offline user ' ", offlineUser);
   return (
     <div className="scoresPage">
+      <div className="scoresTitleDiv">
+        <span className="scoresTitle">Scores</span>
+        <img
+          onClick={() => history.push("/")}
+          className="logoTitle"
+          src={require("../../../images/icon.png")}
+          alt=""
+        />
+      </div>
       <Table<ScoresPageProps>
         className="scoresTable"
         dataSource={offlineUser?.history}
         rowKey="date"
-        pagination={{ pageSize: 3 }}
+        pagination={{ pageSize: 10 }}
       >
         <Column
           className={

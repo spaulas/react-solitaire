@@ -64,7 +64,7 @@ function GameOverModal() {
     history.push("/");
   };
 
-  if (!gameOver && visible) {
+  if (gameOver && visible) {
     return (
       <div className="gameFullDiv">
         <div className="gameOverStatistics">
