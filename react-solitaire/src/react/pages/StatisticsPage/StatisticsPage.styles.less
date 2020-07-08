@@ -1,0 +1,54 @@
+.statisticsPage {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-size: 20px;
+
+  .statisticsCarouselContainer {
+    align-self: center;
+    width: 100%;
+    padding-top: 20px;
+
+    .tabTitle {
+      color: white;
+      font-size: 30px;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .statisticsCarousel {
+    ul > li > button {
+      height: 10px;
+      border-radius: 10px;
+    }
+
+    .slick-slide {
+      height: 700px;
+    }
+  }
+
+  .carouselArrow {
+    z-index: 2;
+    position: absolute;
+    font-size: 30px;
+    top: 50%;
+    transition: 0.3s;
+  }
+
+  .carouselArrow:hover {
+    font-size: 33px;
+  }
+
+  .carouselArrowLeft {
+    left: 20px;
+  }
+
+  .carouselArrowRight {
+    right: 20px;
+  }
+
+  .statisticsPieChart {
+    left: calc((100% - 500px) / 2);
+  }
+}
