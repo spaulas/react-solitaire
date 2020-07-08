@@ -41,14 +41,54 @@
   }
 
   .carouselArrowLeft {
-    left: 20px;
+    left: 5%;
   }
 
   .carouselArrowRight {
-    right: 20px;
+    right: 5%;
   }
 
   .statisticsPieChart {
     left: calc((100% - 500px) / 2);
+
+    .recharts-legend-item-text {
+      color: white;
+      font-size: 15px;
+    }
+  }
+
+  .statisticsBarChart {
+    left: calc((100% - 1000px) / 2);
+    padding: 40px 0;
+
+    .recharts-bar-rectangle {
+      stroke: white;
+    }
+
+    .recharts-layer:hover {
+      background-color: yellow;
+    }
+
+    line {
+      stroke: white;
+      stroke-width: 2px;
+    }
+
+    tspan {
+      stroke: white;
+      font-size: 12px;
+    }
+  }
+
+  .toggleButton {
+    font-size: 40px;
+    position: fixed;
+    bottom: 2%;
+    right: 5%;
+    transition: 0.3s;
+  }
+
+  .toggleButton:hover {
+    color: rgba(0, 0, 0, 0.8);
   }
 }

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/forbid-dom-props */
 /* eslint-disable react/no-multi-comp */
-import { Cell, Pie, PieChart, Tooltip } from "recharts";
+import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
 import React from "react";
 
 const data = [
@@ -64,6 +64,7 @@ function Example() {
           borderRadius: "20px"
         }}
       />
+      <Legend />
     </PieChart>
   );
 }
