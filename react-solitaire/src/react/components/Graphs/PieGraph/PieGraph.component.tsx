@@ -12,6 +12,11 @@ import {
 import { ExplicitAny } from "../../../../global";
 import React from "react";
 
+interface PieGraphProps {
+  width: number;
+  height: number;
+}
+
 const data = [
   { name: "Wins", value: 70 },
   { name: "Losts", value: 30 }
@@ -46,21 +51,21 @@ const renderCustomizedLabel = ({
   );
 };
 
-function Example() {
+function Example({ width, height }: PieGraphProps) {
   return (
     <ResponsiveContainer
-      width={500}
-      height={600}
+      width={width}
+      height={height}
       className="statisticsPieChart"
     >
-      <PieChart width={500} height={600}>
+      <PieChart width={width} height={height}>
         <Pie
           data={data}
-          cx={250}
-          cy={250}
+          cx={width / 2}
+          cy={width / 2}
           labelLine={false}
           label={renderCustomizedLabel}
-          outerRadius={150}
+          outerRadius={height / 3}
           dataKey="value"
         >
           {data.map((entry, index) => (

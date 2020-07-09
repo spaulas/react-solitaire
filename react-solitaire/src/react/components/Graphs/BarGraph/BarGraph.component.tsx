@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-dom-props */
 import {
   Bar,
   BarChart,
@@ -8,6 +7,11 @@ import {
   YAxis
 } from "recharts";
 import React from "react";
+
+interface BarGraphProps {
+  width: number;
+  height: number;
+}
 
 const data = [
   {
@@ -28,14 +32,14 @@ const data = [
   }
 ];
 
-function Example() {
+function BarGraph({ width, height }: BarGraphProps) {
   return (
     <ResponsiveContainer
-      width={1000}
-      height={500}
+      width={width}
+      height={height}
       className="statisticsBarChart"
     >
-      <BarChart width={1000} height={500} data={data} barCategoryGap={0}>
+      <BarChart width={width} height={height} data={data} barCategoryGap={0}>
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip cursor={{ fill: "rgba(0,0,0,0.2)" }} />
@@ -45,4 +49,4 @@ function Example() {
   );
 }
 
-export default Example;
+export default BarGraph;

@@ -31,15 +31,15 @@ function CarouselDisplay() {
       >
         <div>
           <div className="tabTitle">Win/Lost Ratio</div>
-          <Piegraph key={countKey} />
+          <Piegraph key={countKey} width={500} height={600} />
         </div>
         <div>
           <div className="tabTitle">Moves Per Game</div>
-          <BarGraph key={countKey + 1} />
+          <BarGraph key={countKey + 1} width={1000} height={500} />
         </div>
         <div>
           <div className="tabTitle">Time Per Game</div>
-          <BarGraph key={countKey + 2} />
+          <BarGraph key={countKey + 2} width={1000} height={500} />
         </div>
       </Carousel>
       <RightOutlined
