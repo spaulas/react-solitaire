@@ -23,6 +23,7 @@ interface InitialGameBoard {
   gameFlag: boolean; // is toggled when a new game starts
   gameMoves: number; // number of moves a player has done throughout the game
   gamePaused: boolean; // flag indicating if the game is paused
+  gameTime: string;
   gameHints: Array<Record<string, string>>;
   nHints: number;
   gamePreviousMoves: Array<GameMove>; // list of moves that can be undone
@@ -42,6 +43,7 @@ const INITIAL_GAME_BOARD: InitialGameBoard = {
   gameFlag: false,
   gameMoves: 0,
   gamePaused: true,
+  gameTime: "",
   gameHints: [],
   nHints: 0,
   gamePreviousMoves: [],
@@ -82,6 +84,12 @@ const gameBoardReducer = (
      */
     case GameBoardActionTypes.TIME_GAME:
       return { ...state, gamePaused: !state.gamePaused };
+
+    /**
+     * Save the game time
+     */
+    case GameBoardActionTypes.SAVE_GAME_TIME:
+      return { ...state, gameTime: action.time };
 
     /**
      * Adds a hint

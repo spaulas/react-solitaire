@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { RootReducerState } from "../../../global";
-import { useSelector } from "react-redux";
+import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 
 /**
  * Component that displays the time of the game
  */
 function Timer() {
+  const dispatch = useDispatch();
   // creates a setInterval with respective clearInterval
   // returns the number of hours, minutes and seconds it has passed
   const useTimer = () => {
@@ -15,10 +17,11 @@ function Timer() {
     const [hours, setHours] = useState(0);
 
     // get timer flag and the game pause from the GameBoard redux state
-    const { timerFlag, gamePaused } = useSelector(
-      ({ GameBoard }: RootReducerState) => ({
+    const { timerFlag, gamePaused, gameOver } = useSelector(
+      ({ GameBoard, Goal }: RootReducerState) => ({
         timerFlag: GameBoard.gameFlag,
-        gamePaused: GameBoard.gamePaused
+        gamePaused: GameBoard.gamePaused,
+        gameOver: Goal.gameOver
       })
     );
 
@@ -37,10 +40,23 @@ function Timer() {
       setHours(0);
     }, [timerFlag]);
 
+    const handleGameOver = () => {
+      if (gameOver) {
+        dispatch(
+          gameBoardActions.saveGameTime(
+            `${hours > 0 ? `${hours}:` : "0:"}${
+              minutes < 10 ? `0${minutes}` : minutes
+            }:${seconds < 10 ? `0${seconds}` : seconds}`
+          )
+        );
+      }
+    };
+    useEffect(handleGameOver, [gameOver]);
+
     // add one second, minute or hour accordingly
     function tick() {
       // only add one second if the game is not paused
-      if (!gamePaused) {
+      if (!gamePaused && !gameOver) {
         // if a minute has passed
         if (seconds === 59) {
           // if 59 minutes have passed

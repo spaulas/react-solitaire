@@ -29,6 +29,14 @@ const timeGame = () => ({
 });
 
 /**
+ * Stores the game current time
+ */
+const saveGameTime = (time: string) => ({
+  type: GameBoardActionTypes.SAVE_GAME_TIME,
+  time
+});
+
+/**
  * Counts the number of hints given in a game
  */
 const addGameHint = (source?: string, target?: string) => ({
@@ -72,6 +80,7 @@ const actionsCreators = Object.freeze({
   createGame,
   toggleGameFlag,
   timeGame,
+  saveGameTime,
   addGameHint,
   addGameMove,
   removeGameMove,

@@ -19,10 +19,11 @@ function GameOverModal() {
   const history = useHistory();
 
   // get gameOver value from redux
-  const { gameOver, gameMoves, nHints } = useSelector(
+  const { gameOver, gameMoves, gameTime, nHints } = useSelector(
     ({ Goal, GameBoard }: RootReducerState) => ({
       gameOver: Goal.gameOver,
       gameMoves: GameBoard.gameMoves,
+      gameTime: GameBoard.gameTime,
       nHints: GameBoard.nHints
     })
   );
@@ -44,7 +45,7 @@ function GameOverModal() {
 
   const gameStatistics: ExplicitAny = {
     date: moment().format("DD/MM/YYYY, hh:mm"),
-    time: gameMoves,
+    time: gameTime,
     moves: gameMoves,
     nHints: nHints,
     finalScore: gameMoves + nHints * 5
