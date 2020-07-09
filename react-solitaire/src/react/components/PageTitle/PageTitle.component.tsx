@@ -1,4 +1,4 @@
-import BreadCrumb from "../../App/BreadCrumb.component";
+import BreadCrumb from "../BreadCrumb/BreadCrumb.component";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
