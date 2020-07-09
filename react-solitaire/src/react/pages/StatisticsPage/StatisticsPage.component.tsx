@@ -8,13 +8,16 @@ import Piegraph from "../../components/Graphs/PieGraph/PieGraph.component";
 
 function StatisticsPage() {
   const [carouselRef, setCarouselRef] = useState<ExplicitAny>(undefined);
+  const [countKey, setCountKey] = useState(0);
 
   const next = () => {
     carouselRef?.slick.slickNext();
+    setCountKey(countKey + 1);
   };
 
   const previous = () => {
     carouselRef?.slick.slickPrev();
+    setCountKey(countKey + 1);
   };
 
   return (
@@ -31,15 +34,15 @@ function StatisticsPage() {
         >
           <div>
             <div className="tabTitle">Win/Lost Ratio</div>
-            <Piegraph />
+            <Piegraph key={countKey} />
           </div>
           <div>
             <div className="tabTitle">Moves Per Game</div>
-            <BarGraph />
+            <BarGraph key={countKey + 1} />
           </div>
           <div>
             <div className="tabTitle">Time Per Game</div>
-            <BarGraph />
+            <BarGraph key={countKey + 2} />
           </div>
         </Carousel>
         <RightOutlined

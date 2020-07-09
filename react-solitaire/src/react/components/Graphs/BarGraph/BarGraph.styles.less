@@ -1,22 +1,19 @@
 .statisticsBarChart {
+  position: relative;
   left: calc((100% - 1000px) / 2);
   padding: 40px 0;
 
   .recharts-bar-rectangle {
-    stroke: white;
-  }
-
-  .recharts-layer:hover {
-    background-color: yellow;
+    stroke: @fontColor;
   }
 
   line {
-    stroke: white;
+    stroke: @fontColor;
     stroke-width: 2px;
   }
 
   tspan {
-    stroke: white;
+    stroke: @fontColor;
     font-size: 12px;
   }
 }

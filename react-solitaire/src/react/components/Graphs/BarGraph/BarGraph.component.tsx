@@ -1,5 +1,12 @@
 /* eslint-disable react/forbid-dom-props */
-import { Bar, BarChart, Tooltip, XAxis, YAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from "recharts";
 import React from "react";
 
 const data = [
@@ -23,21 +30,18 @@ const data = [
 
 function Example() {
   return (
-    <BarChart
+    <ResponsiveContainer
       width={1000}
       height={500}
-      data={data}
       className="statisticsBarChart"
-      barCategoryGap={0}
     >
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip
-        contentStyle={{ fill: "red" }}
-        cursor={{ fill: "rgba(0,0,0,0.2)" }}
-      />
-      <Bar dataKey="moves" fill="rgba(0,0,0,0.4)" />
-    </BarChart>
+      <BarChart width={1000} height={500} data={data} barCategoryGap={0}>
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip cursor={{ fill: "rgba(0,0,0,0.2)" }} />
+        <Bar dataKey="moves" fill="rgba(255, 255, 255, 0.1)" />
+      </BarChart>
+    </ResponsiveContainer>
   );
 }
 
