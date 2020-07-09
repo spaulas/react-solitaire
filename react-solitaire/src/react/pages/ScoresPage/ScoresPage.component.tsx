@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 import { ExplicitAny /* , RootReducerState */ } from "../../../global";
+import HighScoresTable from "../../components/Table/HighScoresTable.component";
 import PageTitle from "../../components/PageTitle/PageTitle.component";
 import { Tabs } from "antd";
 import UserScoresTable from "../../components/Table/UserScoresTable.component";
@@ -34,11 +35,18 @@ function ScoresPage() {
       <PageTitle title="Scores" />
 
       <Tabs>
-        <TabPane tab="Tab 1" key="1">
+        <TabPane tab="Your HighScores" key="1">
           <UserScoresTable data={offlineUser.history} className="scoresTable" />
         </TabPane>
-        <TabPane tab="Tab 2" key="2">
-          Content of Tab 2
+        <TabPane tab="Top 10 HighScores" key="2">
+          <HighScoresTable
+            data={[
+              { userName: "aaaaa", finalScore: 130 },
+              { userName: "cccc", finalScore: 150 },
+              { userName: "bbbbb", finalScore: 220 }
+            ]}
+            className="scoresTable"
+          />
         </TabPane>
       </Tabs>
     </div>
