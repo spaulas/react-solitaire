@@ -5,13 +5,46 @@
   .scoresTable {
     align-self: center;
     width: 100%;
+    margin-top: -15px;
+
+    .columnDateExpanded {
+      width: 20%;
+    }
+
+    .columnDateNotExpanded {
+      width: 50%;
+    }
   }
 
-  .columnDateExpanded {
-    width: 20%;
-  }
+  .ant-tabs {
+    color: @buttonActiveColor;
 
-  .columnDateNotExpanded {
-    width: 50%;
+    .ant-tabs-bar {
+      background: @secondaryColor;
+      -webkit-box-shadow: inset 0px -10px 19px -4px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: inset 0px -10px 19px -4px rgba(0, 0, 0, 0.75);
+      box-shadow: inset 0px -10px 19px -4px rgba(0, 0, 0, 0.75);
+    }
+
+    .ant-tabs-nav {
+      width: 100%;
+    }
+    .ant-tabs-tab {
+      width: 50%;
+      font-size: @fontTitle;
+      font-weight: bold;
+    }
+
+    .ant-tabs-tab:hover {
+      color: @fontColor;
+    }
+
+    .ant-tabs-tab-active {
+      color: @fontColor;
+    }
+
+    .ant-tabs-ink-bar {
+      background: white;
+    }
   }
 }

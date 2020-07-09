@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
-import ExpandTableIcon from "../../components/Table/ExpandTableIcon.component";
 import { ExplicitAny /* , RootReducerState */ } from "../../../global";
 import PageTitle from "../../components/PageTitle/PageTitle.component";
-import { Table } from "antd";
-import moment from "moment";
+import { Tabs } from "antd";
+import UserScoresTable from "../../components/Table/UserScoresTable.component";
 // import pagesActions from "../../../redux/pages/pages.actions";
 
-const { Column } = Table;
-
-interface ScoresPageProps {
-  time: number;
-  moves: number;
-  nHints: number;
-  finalScore: number;
-  date: Date;
-}
+const { TabPane } = Tabs;
 
 function ScoresPage() {
   const [offlineUser, setOfflineUser] = useState<ExplicitAny>({});
-  const [expandTable, setExpandTable] = useState(false);
 
   /*  const dispatch = useDispatch();
   const { showAnimation } = useSelector(({ Pages }: RootReducerState) => ({
@@ -42,66 +32,15 @@ function ScoresPage() {
   return (
     <div className="pageBackground scoresPage">
       <PageTitle title="Scores" />
-      <Table<ScoresPageProps>
-        className="scoresTable"
-        dataSource={offlineUser?.history}
-        rowKey="date"
-        pagination={{ pageSize: 10 }}
-      >
-        <Column
-          className={
-            expandTable ? "columnDateExpanded" : "columnDateNotExpanded"
-          }
-          key="date"
-          title="Date"
-          dataIndex="date"
-          align="center"
-          sorter={(a: ScoresPageProps, b: ScoresPageProps) =>
-            moment(a.date).unix() - moment(b.date).unix()
-          }
-        />
-        <Column
-          key="finalScore"
-          title={
-            <div>
-              <span>Final Score</span>
-              <ExpandTableIcon onClick={setExpandTable} />
-            </div>
-          }
-          dataIndex="finalScore"
-          align="center"
-          sorter={(a: ScoresPageProps, b: ScoresPageProps) =>
-            a.finalScore - b.finalScore
-          }
-        />
-        {expandTable && [
-          <Column
-            key="moves"
-            title="Moves"
-            dataIndex="moves"
-            align="center"
-            sorter={(a: ScoresPageProps, b: ScoresPageProps) =>
-              a.moves - b.moves
-            }
-          />,
-          <Column
-            key="nHints"
-            title="Hints"
-            dataIndex="nHints"
-            align="center"
-            sorter={(a: ScoresPageProps, b: ScoresPageProps) =>
-              a.nHints - b.nHints
-            }
-          />,
-          <Column
-            key="time"
-            title="Time"
-            dataIndex="time"
-            align="center"
-            sorter={(a: ScoresPageProps, b: ScoresPageProps) => a.time - b.time}
-          />
-        ]}
-      </Table>
+
+      <Tabs>
+        <TabPane tab="Tab 1" key="1">
+          <UserScoresTable data={offlineUser.history} className="scoresTable" />
+        </TabPane>
+        <TabPane tab="Tab 2" key="2">
+          Content of Tab 2
+        </TabPane>
+      </Tabs>
     </div>
   );
 }
