@@ -2,6 +2,7 @@
 /* eslint-disable react/forbid-dom-props */
 /* eslint-disable react/no-multi-comp */
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
+import { ExplicitAny } from "../../../global";
 import React from "react";
 
 const data = [
@@ -20,7 +21,7 @@ const renderCustomizedLabel = ({
   outerRadius,
   percent,
   index
-}: any) => {
+}: ExplicitAny) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);

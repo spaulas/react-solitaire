@@ -9,7 +9,7 @@ interface PageTitleProps {
 function PageTitle({ title }: PageTitleProps) {
   const history = useHistory();
   return (
-    <div className="pageTitleDiv">
+    <div className="pageTitleContainer">
       <span className="pageTitleSpan">{title}</span>
       <img
         onClick={() => history.push("/")}

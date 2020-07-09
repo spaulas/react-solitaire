@@ -1,15 +1,5 @@
 /* eslint-disable react/forbid-dom-props */
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Cell,
-  Legend,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis
-} from "recharts";
+import { Bar, BarChart, Tooltip, XAxis, YAxis } from "recharts";
 import React from "react";
 
 const data = [

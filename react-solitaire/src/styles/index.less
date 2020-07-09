@@ -6,82 +6,26 @@
   font-family: @fontFamily;
 
   @import (once) "../react/App/App.styles.less";
+  // Pages
   @import (once) "../react/pages/GameBoard/GameBoard.styles.less";
   @import (once) "../react/pages/StartingPage/StartingPage.styles.less";
   @import (once) "../react/pages/ScoresPage/ScoresPage.styles.less";
   @import (once) "../react/pages/StatisticsPage/StatisticsPage.styles.less";
+  // Game Components
   @import (once) "../react/components/BoardFields/BoardFields.styles.less";
   @import (once) "../react/components/Cards/Card.styles.less";
   @import (once) "../react/components/Piles/Piles.styles.less";
+  // UI Components
+  @import (once) "../react/components/Table/Table.styles.less";
+  @import (once) "../react/components/BarDisplay/BarDisplay.styles.less";
+  @import (once) "../react/components/PageTitle/PageTitle.styles.less";
   @import (once) "../react/components/Buttons/Buttons.styles.less";
-  @import (once) "../react/components/UIComponents/UIComponents.styles.less";
   @import (once) "../react/components/Modals/Modals.styles.less";
-
-  // table styles ---------------------
-  td.ant-table-column-sort {
-    background: transparent;
-    background-color: rgba(0, 0, 0, 0.2);
-    filter: brightness(120%);
-    letter-spacing: 2px;
-    color: white;
-  }
-  .ant-table {
-    color: white;
-    background: transparent;
-  }
-  .ant-table-tbody {
-    color: white;
-    font-size: 20px;
-    transition: 0.5s;
-    border: none;
-  }
-  .ant-table-tbody > tr:nth-child(odd) {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-  .ant-table-tbody > tr:hover td {
-    background-color: rgba(0, 0, 0, 0.4);
-    letter-spacing: 2px;
-    color: white;
-  }
-  .ant-table-tbody > tr > td {
-    border-bottom: none;
-    transition: 0.5s;
-  }
-
-  .ant-table thead > tr > th {
-    background: transparent;
-    color: white;
-    font-size: 25px;
-    border: none;
-    font-weight: bold;
-  }
-
-  .ant-table-column-sorter {
-    color: white;
-    .ant-table-column-sorter-up svg,
-    .ant-table-column-sorter-down svg {
-      width: 16px;
-      height: 16px;
-    }
-  }
-
-  .ant-table-column-sorter-up.active,
-  .ant-table-column-sorter-down.active {
-    color: rgba(0, 0, 0, 0.6);
-  }
-
-  .ant-table-pagination {
-    margin-right: 5px;
-  }
-
-  .ant-empty-description {
-    color: white;
-  }
 
   // -----------------
   // page
   .pageBackground {
-    background: @secondaryColor;
+    background: @primaryColor;
     position: absolute;
     top: 0;
     bottom: 0;

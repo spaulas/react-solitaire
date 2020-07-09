@@ -1,10 +1,10 @@
-import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import ExpandTableIcon from "./ExpandTableIcon.component";
-import PageTitle from "../../components/UIComponents/PageTitle.component";
+// import { useDispatch, useSelector } from "react-redux";
+import ExpandTableIcon from "../../components/Table/ExpandTableIcon.component";
+import { ExplicitAny /* , RootReducerState */ } from "../../../global";
+import PageTitle from "../../components/PageTitle/PageTitle.component";
 import { Table } from "antd";
-import pagesActions from "../../../redux/pages/pages.actions";
+// import pagesActions from "../../../redux/pages/pages.actions";
 
 const { Column } = Table;
 
@@ -20,7 +20,7 @@ function ScoresPage() {
   const [offlineUser, setOfflineUser] = useState<ExplicitAny>({});
   const [expandTable, setExpandTable] = useState(false);
 
-  const dispatch = useDispatch();
+  /*  const dispatch = useDispatch();
   const { showAnimation } = useSelector(({ Pages }: RootReducerState) => ({
     showAnimation: Pages.scoresPageAnimation
   }));
@@ -29,6 +29,7 @@ function ScoresPage() {
     setTimeout(() => dispatch(pagesActions.setStartPageAnimation(false)), 2500);
   };
   useEffect(removeAnimation, []);
+   */
 
   useEffect(() => {
     const currentLocal = localStorage.getItem("offlineUser");
@@ -44,7 +45,7 @@ function ScoresPage() {
         className="scoresTable"
         dataSource={offlineUser?.history}
         rowKey="date"
-        pagination={{ pageSize: 10 }}
+        pagination={{ pageSize: 4 }}
       >
         <Column
           className={

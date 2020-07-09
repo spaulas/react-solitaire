@@ -2,11 +2,12 @@ import { AppstoreFilled, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import BarGraph from "./BarGraph.component";
 import { Carousel } from "antd";
-import PageTitle from "../../components/UIComponents/PageTitle.component";
+import { ExplicitAny } from "../../../global";
+import PageTitle from "../../components/PageTitle/PageTitle.component";
 import Piegraph from "./PieGraph.component";
 
 function StatisticsPage() {
-  const [carouselRef, setCarouselRef] = useState<any>(undefined);
+  const [carouselRef, setCarouselRef] = useState<ExplicitAny>(undefined);
   // eslint-disable-next-line no-console
   console.log("CAROUSL REDF = ", carouselRef?.slick);
 
@@ -27,7 +28,7 @@ function StatisticsPage() {
           onClick={previous}
         />
         <Carousel
-          ref={(e: any) => setCarouselRef(e)}
+          ref={(e: ExplicitAny) => setCarouselRef(e)}
           className="statisticsCarousel"
         >
           <div>

@@ -1,4 +1,4 @@
-import BarDisplay from "../UIComponents/BarDisplay.component";
+import BarDisplay from "../BarDisplay/BarDisplay.component";
 import HintButton from "../Buttons/HintButton.component";
 import NewGameButton from "../Buttons/NewGameButton.component";
 import PauseGameButton from "../Buttons/PauseGameButton.component";

@@ -1,4 +1,4 @@
-import BarDisplay from "../UIComponents/BarDisplay.component";
+import BarDisplay from "../BarDisplay/BarDisplay.component";
 import GameMoves from "../DataDisplay/GameMoves.component";
 import React from "react";
 import { Row } from "antd";
