@@ -1,10 +1,10 @@
 import { AppstoreFilled, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import BarGraph from "./BarGraph.component";
+import BarGraph from "../../components/Graphs/BarGraph/BarGraph.component";
 import { Carousel } from "antd";
 import { ExplicitAny } from "../../../global";
 import PageTitle from "../../components/PageTitle/PageTitle.component";
-import Piegraph from "./PieGraph.component";
+import Piegraph from "../../components/Graphs/PieGraph/PieGraph.component";
 
 function StatisticsPage() {
   const [carouselRef, setCarouselRef] = useState<ExplicitAny>(undefined);

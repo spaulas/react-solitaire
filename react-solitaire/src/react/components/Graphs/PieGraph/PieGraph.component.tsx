@@ -2,7 +2,7 @@
 /* eslint-disable react/forbid-dom-props */
 /* eslint-disable react/no-multi-comp */
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
-import { ExplicitAny } from "../../../global";
+import { ExplicitAny } from "../../../../global";
 import React from "react";
 
 const data = [
