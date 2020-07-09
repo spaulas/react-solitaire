@@ -117,7 +117,13 @@ export const createRandomGame = () => {
       })
   );
 
-  return finalResult;
+  return {
+    ...finalResult,
+    goal1Pile: [],
+    goal2Pile: [],
+    goal3Pile: [],
+    goal4Pile: []
+  };
 };
 
 /**

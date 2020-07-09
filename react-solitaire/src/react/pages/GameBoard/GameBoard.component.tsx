@@ -16,6 +16,7 @@ import ResumeGameModal from "../../components/Modals/ResumeGameModal.component";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
+import goalActions from "../../../redux/goal/goal.actions";
 
 function GameBoard() {
   const dispatch = useDispatch();
@@ -35,7 +36,11 @@ function GameBoard() {
     column4Pile,
     column5Pile,
     column6Pile,
-    column7Pile
+    column7Pile,
+    goal1Pile,
+    goal2Pile,
+    goal3Pile,
+    goal4Pile
   } = useSelector(({ GameBoard, Goal }: RootReducerState) => ({
     gameMoves: GameBoard.gameMoves,
     gameOver: Goal.gameOver,
@@ -46,7 +51,11 @@ function GameBoard() {
     column4Pile: GameBoard.column4Pile,
     column5Pile: GameBoard.column5Pile,
     column6Pile: GameBoard.column6Pile,
-    column7Pile: GameBoard.column7Pile
+    column7Pile: GameBoard.column7Pile,
+    goal1Pile: GameBoard.goal1Pile,
+    goal2Pile: GameBoard.goal2Pile,
+    goal3Pile: GameBoard.goal3Pile,
+    goal4Pile: GameBoard.goal4Pile
   }));
 
   // ---------------------------------------------------------
@@ -79,6 +88,14 @@ function GameBoard() {
         column7Pile
       })
     );
+    dispatch(
+      goalActions.setInitialGoals({
+        goal1Pile,
+        goal2Pile,
+        goal3Pile,
+        goal4Pile
+      })
+    );
   };
   // triggers the call of the setCardType function when the deckPile is changed (and therefore, all the other columns as well)
   useEffect(setCardType, [deckPile]);
@@ -98,7 +115,10 @@ function GameBoard() {
 
   return (
     <>
-      <Prompt when={!gameOver} message="If you leave the game will be a lost" />
+      <Prompt
+        when={!gameOver && gameMoves > 0}
+        message="If you leave the game will be a lost"
+      />
       <DropHandler className="pageBackground">
         <ResumeGameModal />
         <GameOverModal />

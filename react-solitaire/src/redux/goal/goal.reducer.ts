@@ -48,6 +48,25 @@ const INITIAL_GOAL: InitialGoal = {
 const goalReducer = (state = INITIAL_GOAL, action: ActionsCreators) => {
   switch (action.type) {
     // ********************************************************
+    // INITIAL SETTINGS ACTIONS
+
+    /**
+     * Stores the initial goals in the Redux State:
+     *    - stores the goal object created at createGoals function
+     *    - resets cardDragging, cardDraggingCol and sendBack;
+     */
+    case GoalActionTypes.SET_INITIAL_GOALS:
+      return {
+        goals: action.goals,
+        cardDragging: undefined,
+        cardDraggingCol: undefined,
+        sendBack: undefined,
+        doubleClickTarget: undefined,
+        hintSource: undefined,
+        gameOver: false
+      };
+
+    // ********************************************************
     // SWAPPING ACTIONS
 
     /**

@@ -46,8 +46,6 @@ function ScoresPage({ activeTab }: ScoresPageProps) {
     }
   };
 
-  // eslint-disable-next-line no-console
-  console.log("offline user ' ", offlineUser);
   return (
     <div className="pageBackground scoresPage">
       <PageTitle title="Scores" />

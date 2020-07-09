@@ -20,6 +20,10 @@ interface InitialGameBoard {
   column5Pile: Array<CardType>;
   column6Pile: Array<CardType>;
   column7Pile: Array<CardType>;
+  goal1Pile: Array<CardType>;
+  goal2Pile: Array<CardType>;
+  goal3Pile: Array<CardType>;
+  goal4Pile: Array<CardType>;
   gameFlag: boolean; // is toggled when a new game starts
   gameMoves: number; // number of moves a player has done throughout the game
   gamePaused: boolean; // flag indicating if the game is paused
@@ -40,6 +44,10 @@ const INITIAL_GAME_BOARD: InitialGameBoard = {
   column5Pile: [],
   column6Pile: [],
   column7Pile: [],
+  goal1Pile: [],
+  goal2Pile: [],
+  goal3Pile: [],
+  goal4Pile: [],
   gameFlag: false,
   gameMoves: 0,
   gamePaused: true,

@@ -12,7 +12,6 @@ import StatisticsPage from "../pages/StatisticsPage/StatisticsPage.component";
 
 function ApplicationRouter() {
   // eventually add the acl for the user's page
-
   const match = useRouteMatch();
   const url = match.url === "/" ? "" : match.url;
 

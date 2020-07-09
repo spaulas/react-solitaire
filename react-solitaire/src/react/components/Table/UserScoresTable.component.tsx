@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from "react";
 import ExpandTableIcon from "./ExpandTableIcon.component";
 import { Table } from "antd";
@@ -6,7 +7,7 @@ import moment from "moment";
 const { Column } = Table;
 
 interface UserScore {
-  time: number;
+  time: string;
   moves: number;
   nHints: number;
   finalScore: number;
@@ -20,6 +21,25 @@ interface UserScoresTableProps {
 
 function UserScoresTable({ data, className }: UserScoresTableProps) {
   const [expandTable, setExpandTable] = useState(false);
+
+  const sortTime = (a: string, b: string) => {
+    const aSplit = a.split(":");
+    const bSplit = b.split(":");
+
+    const hourDiff = parseInt(aSplit[0]) - parseInt(bSplit[0]);
+
+    if (hourDiff === 0) {
+      const minDiff = parseInt(aSplit[1]) - parseInt(bSplit[1]);
+      if (minDiff === 0) {
+        return parseInt(aSplit[2]) - parseInt(bSplit[2]);
+      } else {
+        return minDiff;
+      }
+    } else {
+      return hourDiff;
+    }
+  };
+
   return (
     <Table<UserScore>
       className={className}
@@ -70,7 +90,7 @@ function UserScoresTable({ data, className }: UserScoresTableProps) {
           title="Time"
           dataIndex="time"
           align="center"
-          sorter={(a: UserScore, b: UserScore) => a.time - b.time}
+          sorter={(a: UserScore, b: UserScore) => sortTime(a.time, b.time)}
         />
       ]}
     </Table>
