@@ -15,6 +15,11 @@ import moment from "moment";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+interface HighScore {
+  userName: string;
+  finalScore: number;
+}
+
 function GameOverModal() {
   const [visible, setVisible] = useState(true);
   const history = useHistory();
@@ -70,6 +75,36 @@ function GameOverModal() {
     if ((offlineUser?.maxTime || 0) < gameTime) {
       offlineUser.maxTime = gameTime;
     }
+
+    // get top 10 highscores
+    const top = offlineUser?.topHighScores || [];
+
+    if (top.length < 10) {
+      top.push({
+        userName: "to be defined how",
+        finalScore: gameStatistics.finalScore
+      });
+    } else {
+      const result = top.find((highScore: HighScore) => {
+        return gameStatistics.finalScore < highScore.finalScore;
+      });
+      if (result) {
+        top.pop();
+        top.push({
+          userName: "to be defined how",
+          finalScore: gameStatistics.finalScore
+        });
+      }
+    }
+
+    top.sort((a: HighScore, b: HighScore) => {
+      return a.finalScore < b.finalScore ? -1 : 1;
+    });
+
+    // eslint-disable-next-line no-console
+    console.log("top result = ", top);
+
+    offlineUser.top = top;
 
     localStorage.setItem("offlineUser", JSON.stringify(offlineUser));
 

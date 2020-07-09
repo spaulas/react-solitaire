@@ -56,11 +56,7 @@ function ScoresPage({ activeTab }: ScoresPageProps) {
         </TabPane>
         <TabPane tab="Top 10 HighScores" key="2">
           <HighScoresTable
-            data={[
-              { userName: "aaaaa", finalScore: 130 },
-              { userName: "cccc", finalScore: 150 },
-              { userName: "bbbbb", finalScore: 220 }
-            ]}
+            data={offlineUser.top || []}
             className="scoresTable"
           />
         </TabPane>
