@@ -34,6 +34,7 @@ function StartingPage() {
         <Row className="buttonSpaceRow" align="middle" justify="center">
           <MenuButton
             location="/game"
+            params={{ savedGame: offlineUser.savedGame }}
             className={`${showAnimation ? "startButtonAnimated" : ""}`}
           >
             <span>Resume Game</span>

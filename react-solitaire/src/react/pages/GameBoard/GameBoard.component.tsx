@@ -17,9 +17,11 @@ import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../redux/goal/goal.actions";
+import { useLocation } from "react-router-dom";
 
 function GameBoard() {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   // create refs for the deck and flipped piles
   const deckRef: ExplicitAny = useRef();
@@ -65,39 +67,54 @@ function GameBoard() {
 
   // when the component mounts, create a new random game
   const mountGameBoard = () => {
-    // create new deck
-    dispatch(gameBoardActions.createGame());
-
     // set this refs at the redux
     dispatch(deckActions.setRefs(deckRef, flippedRef));
+    // eslint-disable-next-line no-console
+    console.log("LOCATION  = ", location);
+    // if nothing was sent through the state, then create a new game
+    if (!location.state) {
+      // create new deck
+      dispatch(gameBoardActions.createGame());
+    } else {
+      const savedGame = (location.state as ExplicitAny).savedGame;
+      // set the initial deck
+      dispatch(
+        deckActions.setInitialDeck(savedGame.deckPile, savedGame.flippedPile)
+      );
+      // set the initial columns
+      dispatch(columnsActions.setInitialColumns(savedGame.columns));
+      dispatch(goalActions.setInitialGoals(savedGame.goals));
+    }
   };
   // triggers the call of the mountGameBoard function when the component is mounted
   useEffect(mountGameBoard, []);
 
   // distribute the decks created to the right redux
   const setCardType = () => {
-    // set the initial deck
-    dispatch(deckActions.setInitialDeck(deckPile, flippedPile));
-    // set the initial columns
-    dispatch(
-      columnsActions.setInitialColumns({
-        column1Pile,
-        column2Pile,
-        column3Pile,
-        column4Pile,
-        column5Pile,
-        column6Pile,
-        column7Pile
-      })
-    );
-    dispatch(
-      goalActions.setInitialGoals({
-        goal1Pile,
-        goal2Pile,
-        goal3Pile,
-        goal4Pile
-      })
-    );
+    if (!location.state) {
+      // set the initial deck
+      dispatch(deckActions.setInitialDeck(deckPile, flippedPile));
+      // set the initial columns
+      dispatch(
+        columnsActions.setInitialColumns({
+          column1Pile,
+          column2Pile,
+          column3Pile,
+          column4Pile,
+          column5Pile,
+          column6Pile,
+          column7Pile
+        })
+      );
+      dispatch(
+        goalActions.setInitialGoals({
+          goal1Pile,
+          goal2Pile,
+          goal3Pile,
+          goal4Pile
+        })
+      );
+    }
   };
   // triggers the call of the setCardType function when the deckPile is changed (and therefore, all the other columns as well)
   useEffect(setCardType, [deckPile]);

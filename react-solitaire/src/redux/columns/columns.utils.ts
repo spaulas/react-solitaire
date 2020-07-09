@@ -43,7 +43,10 @@ export const createColumns = (columns: Record<string, Array<CardType>>) => {
   const cardsFlippedSet = columnValues.map(
     (values: Array<CardType>, columnIndex: number) =>
       values.map((value: CardType, valueIndex: number) => {
-        return { ...value, flipped: valueIndex === columnIndex };
+        return {
+          ...value,
+          flipped: value.flipped || valueIndex === columnIndex
+        };
       })
   );
 
