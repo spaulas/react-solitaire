@@ -53,11 +53,14 @@ function GameOverModal() {
   const handleCloseModal = () => {
     // @todo after a user is created at the firebase, add condition here to select where to store the info
     const currentLocal = localStorage.getItem("offlineUser");
-    const offlineUser = currentLocal
-      ? JSON.parse(currentLocal)
-      : { history: [] };
+    const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
     // add current statistic to user history
     offlineUser.history = [...(offlineUser?.history || []), gameStatistics];
+    // check if the current number of moves is higher than the current max
+    if ((offlineUser?.maxMoves || 0) < gameMoves) {
+      offlineUser.maxMoves = gameMoves;
+    }
+
     localStorage.setItem("offlineUser", JSON.stringify(offlineUser));
 
     setVisible(false);

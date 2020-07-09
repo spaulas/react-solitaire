@@ -86,9 +86,7 @@ function GameBoard() {
   const addGameToUser = () => {
     if (gameMoves === 1) {
       const currentLocal = localStorage.getItem("offlineUser");
-      const offlineUser = currentLocal
-        ? JSON.parse(currentLocal)
-        : { history: [], nGames: 0 };
+      const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
       // add current statistic to user history
       offlineUser.nGames = (offlineUser?.nGames || 0) + 1;
       localStorage.setItem("offlineUser", JSON.stringify(offlineUser));

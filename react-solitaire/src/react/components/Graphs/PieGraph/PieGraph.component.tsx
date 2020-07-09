@@ -1,12 +1,5 @@
 /* eslint-disable react/no-multi-comp */
-import {
-  Cell,
-  Legend,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Tooltip
-} from "recharts";
+import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
 import React, { useEffect, useState } from "react";
 import { ExplicitAny } from "../../../../global";
 
@@ -18,11 +11,6 @@ interface PieGraphProps {
 const COLORS = ["rgba(0, 0, 0, 0.2)", "rgba(255, 255, 255, 0.1)"];
 const RADIAN = Math.PI / 180;
 
-const data = [
-  { name: "Wins", value: 70 },
-  { name: "Losts", value: 30 }
-];
-
 function Example({ width, height }: PieGraphProps) {
   const [data, setData] = useState([
     { name: "Wins", value: 0 },
@@ -30,9 +18,7 @@ function Example({ width, height }: PieGraphProps) {
   ]);
   const getData = () => {
     const currentLocal = localStorage.getItem("offlineUser");
-    const offlineUser = currentLocal
-      ? JSON.parse(currentLocal)
-      : { history: [], nGames: 0 };
+    const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
 
     const gamesWon = offlineUser?.history?.length || 0;
 
@@ -70,37 +56,31 @@ function Example({ width, height }: PieGraphProps) {
   };
 
   return (
-    <ResponsiveContainer
-      width={width}
-      height={height}
-      className="statisticsPieChart"
-    >
-      <PieChart width={width} height={height}>
-        <Pie
-          data={data}
-          cx={width / 2}
-          cy={width / 2}
-          labelLine={false}
-          label={renderCustomizedLabel}
-          outerRadius={height / 3}
-          dataKey="value"
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Tooltip
-          contentStyle={{
-            border: "none",
-            background: "white",
-            fontSize: "16px",
-            fontWeight: "bold",
-            borderRadius: "20px"
-          }}
-        />
-        <Legend iconSize={50} iconType="circle" />
-      </PieChart>
-    </ResponsiveContainer>
+    <PieChart width={width} height={height} className="statisticsPieChart">
+      <Pie
+        data={data}
+        cx={width / 2}
+        cy={width / 2}
+        labelLine={false}
+        label={renderCustomizedLabel}
+        outerRadius={height / 3}
+        dataKey="value"
+      >
+        {data.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+        ))}
+      </Pie>
+      <Tooltip
+        contentStyle={{
+          border: "none",
+          background: "white",
+          fontSize: "16px",
+          fontWeight: "bold",
+          borderRadius: "20px"
+        }}
+      />
+      <Legend iconSize={50} iconType="circle" />
+    </PieChart>
   );
 }
 
