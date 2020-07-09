@@ -69,8 +69,14 @@ function GameBoard() {
   const mountGameBoard = () => {
     // set this refs at the redux
     dispatch(deckActions.setRefs(deckRef, flippedRef));
-    // eslint-disable-next-line no-console
-    console.log("LOCATION  = ", location);
+
+    const currentLocal = localStorage.getItem("offlineUser");
+    const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
+
+    offlineUser.hasSavedGame = false;
+    offlineUser.savedGame = undefined;
+    localStorage.setItem("offlineUser", JSON.stringify(offlineUser));
+
     // if nothing was sent through the state, then create a new game
     if (!location.state) {
       // create new deck
