@@ -1,0 +1,43 @@
+.statisticsCarouselContainer {
+  align-self: center;
+  width: 100%;
+  padding-top: 20px;
+
+  .tabTitle {
+    color: @fontColor;
+    font-size: @fontTitle;
+    width: 100%;
+    text-align: center;
+  }
+
+  .statisticsCarousel {
+    ul > li > button {
+      height: 10px;
+      border-radius: 10px;
+    }
+
+    .slick-slide {
+      height: 700px;
+    }
+  }
+
+  .carouselArrow {
+    z-index: 2;
+    position: absolute;
+    font-size: @fontTitle;
+    top: 50%;
+    transition: @smallTransitionTime;
+  }
+
+  .carouselArrow:hover {
+    font-size: calc(@fontTitle + 2px);
+  }
+
+  .carouselArrowLeft {
+    left: @limitHorizontal;
+  }
+
+  .carouselArrowRight {
+    right: @limitHorizontal;
+  }
+}
