@@ -27,8 +27,11 @@ function ApplicationRouter() {
         <GameBoard />
       </Route>
       {/* Scores Page */}
-      <Route exact path={`${url}/scores`}>
-        <ScoresPage />
+      <Route exact path={[`${url}/scores/userHighScores`, `${url}/scores`]}>
+        <ScoresPage activeTab="1" />
+      </Route>
+      <Route exact path={`${url}/scores/top10HighScores`}>
+        <ScoresPage activeTab="2" />
       </Route>
       {/* Statistics Page */}
       <Route exact path={`${url}/statistics`}>

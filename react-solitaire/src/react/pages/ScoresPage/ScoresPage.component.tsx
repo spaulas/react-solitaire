@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useEffect, useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 import { ExplicitAny /* , RootReducerState */ } from "../../../global";
@@ -6,11 +7,17 @@ import PageTitle from "../../components/PageTitle/PageTitle.component";
 import { Tabs } from "antd";
 import UserScoresTable from "../../components/Table/UserScoresTable.component";
 // import pagesActions from "../../../redux/pages/pages.actions";
+import { useHistory } from "react-router-dom";
 
 const { TabPane } = Tabs;
 
-function ScoresPage() {
+interface ScoresPageProps {
+  activeTab: string;
+}
+
+function ScoresPage({ activeTab }: ScoresPageProps) {
   const [offlineUser, setOfflineUser] = useState<ExplicitAny>({});
+  const history = useHistory();
 
   /*  const dispatch = useDispatch();
   const { showAnimation } = useSelector(({ Pages }: RootReducerState) => ({
@@ -28,13 +35,24 @@ function ScoresPage() {
     setOfflineUser(currentLocal ? JSON.parse(currentLocal) : { history: [] });
   }, []);
 
+  const handleTabChange = (tabKey: string) => {
+    switch (tabKey) {
+      case "2":
+        history.push("/scores/top10HighScores");
+        break;
+      default:
+        history.push("/scores/userHighScores");
+        break;
+    }
+  };
+
   // eslint-disable-next-line no-console
   console.log("offline user ' ", offlineUser);
   return (
     <div className="pageBackground scoresPage">
       <PageTitle title="Scores" />
 
-      <Tabs>
+      <Tabs activeKey={activeTab} onChange={handleTabChange}>
         <TabPane tab="Your HighScores" key="1">
           <UserScoresTable data={offlineUser.history} className="scoresTable" />
         </TabPane>

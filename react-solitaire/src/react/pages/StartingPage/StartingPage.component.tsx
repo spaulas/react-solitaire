@@ -36,7 +36,7 @@ function StartingPage() {
       </Row>
       <Row className="buttonSpaceRow" align="middle" justify="center">
         <MenuButton
-          location="/scores"
+          location="/scores/userHighScores"
           className={`${showAnimation ? "startButtonAnimated" : ""}`}
         >
           <span>Scores</span>
