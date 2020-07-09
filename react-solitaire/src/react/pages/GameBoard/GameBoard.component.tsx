@@ -73,15 +73,13 @@ function GameBoard() {
     const currentLocal = localStorage.getItem("offlineUser");
     const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
 
-    offlineUser.hasSavedGame = false;
-    offlineUser.savedGame = undefined;
-    localStorage.setItem("offlineUser", JSON.stringify(offlineUser));
-
     // if nothing was sent through the state, then create a new game
     if (!location.state) {
       // create new deck
       dispatch(gameBoardActions.createGame());
     } else {
+      // add game to the user counting
+      offlineUser.nGames = (offlineUser.nGames || 0) + 1;
       const savedGame = (location.state as ExplicitAny).savedGame;
       // set the initial deck
       dispatch(
@@ -91,6 +89,10 @@ function GameBoard() {
       dispatch(columnsActions.setInitialColumns(savedGame.columns));
       dispatch(goalActions.setInitialGoals(savedGame.goals));
     }
+
+    offlineUser.hasSavedGame = false;
+    offlineUser.savedGame = undefined;
+    localStorage.setItem("offlineUser", JSON.stringify(offlineUser));
   };
   // triggers the call of the mountGameBoard function when the component is mounted
   useEffect(mountGameBoard, []);

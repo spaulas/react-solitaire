@@ -22,6 +22,7 @@ function SaveGameButton() {
 
     offlineUser.hasSavedGame = true;
     offlineUser.savedGame = { deckPile, flippedPile, columns, goals };
+    offlineUser.nGames = (offlineUser.nGames || 1) - 1;
     localStorage.setItem("offlineUser", JSON.stringify(offlineUser));
     history.push("/");
   };
