@@ -8,8 +8,6 @@ import Piegraph from "../../components/Graphs/PieGraph/PieGraph.component";
 
 function StatisticsPage() {
   const [carouselRef, setCarouselRef] = useState<ExplicitAny>(undefined);
-  // eslint-disable-next-line no-console
-  console.log("CAROUSL REDF = ", carouselRef?.slick);
 
   const next = () => {
     carouselRef?.slick.slickNext();

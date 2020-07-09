@@ -1,8 +1,6 @@
 .statisticsPage {
   display: flex;
   flex-direction: column;
-  color: white;
-  font-size: 20px;
 
   .statisticsCarouselContainer {
     align-self: center;
@@ -10,8 +8,8 @@
     padding-top: 20px;
 
     .tabTitle {
-      color: white;
-      font-size: 30px;
+      color: @fontColor;
+      font-size: @fontTitle;
       width: 100%;
       text-align: center;
     }
@@ -31,64 +29,32 @@
   .carouselArrow {
     z-index: 2;
     position: absolute;
-    font-size: 30px;
+    font-size: @fontTitle;
     top: 50%;
-    transition: 0.3s;
+    transition: @smallTransitionTime;
   }
 
   .carouselArrow:hover {
-    font-size: 33px;
+    font-size: calc(@fontTitle + 2px);
   }
 
   .carouselArrowLeft {
-    left: 5%;
+    left: @limitHorizontal;
   }
 
   .carouselArrowRight {
-    right: 5%;
-  }
-
-  .statisticsPieChart {
-    left: calc((100% - 500px) / 2);
-
-    .recharts-legend-item-text {
-      color: white;
-      font-size: 15px;
-    }
-  }
-
-  .statisticsBarChart {
-    left: calc((100% - 1000px) / 2);
-    padding: 40px 0;
-
-    .recharts-bar-rectangle {
-      stroke: white;
-    }
-
-    .recharts-layer:hover {
-      background-color: yellow;
-    }
-
-    line {
-      stroke: white;
-      stroke-width: 2px;
-    }
-
-    tspan {
-      stroke: white;
-      font-size: 12px;
-    }
+    right: @limitHorizontal;
   }
 
   .toggleButton {
-    font-size: 40px;
+    font-size: @fontPageTitle;
     position: fixed;
-    bottom: 2%;
-    right: 5%;
-    transition: 0.3s;
+    bottom: @limitVertical;
+    right: @limitHorizontal;
+    transition: @smallTransitionTime;
   }
 
   .toggleButton:hover {
-    color: rgba(0, 0, 0, 0.8);
+    color: @hoverElemColor;
   }
 }
