@@ -4,6 +4,7 @@ import ExpandTableIcon from "../../components/Table/ExpandTableIcon.component";
 import { ExplicitAny /* , RootReducerState */ } from "../../../global";
 import PageTitle from "../../components/PageTitle/PageTitle.component";
 import { Table } from "antd";
+import moment from "moment";
 // import pagesActions from "../../../redux/pages/pages.actions";
 
 const { Column } = Table;
@@ -45,7 +46,7 @@ function ScoresPage() {
         className="scoresTable"
         dataSource={offlineUser?.history}
         rowKey="date"
-        pagination={{ pageSize: 4 }}
+        pagination={{ pageSize: 10 }}
       >
         <Column
           className={
@@ -55,7 +56,9 @@ function ScoresPage() {
           title="Date"
           dataIndex="date"
           align="center"
-          sorter
+          sorter={(a: ScoresPageProps, b: ScoresPageProps) =>
+            moment(a.date).unix() - moment(b.date).unix()
+          }
         />
         <Column
           key="finalScore"
@@ -67,7 +70,9 @@ function ScoresPage() {
           }
           dataIndex="finalScore"
           align="center"
-          sorter
+          sorter={(a: ScoresPageProps, b: ScoresPageProps) =>
+            a.finalScore - b.finalScore
+          }
         />
         {expandTable && [
           <Column
@@ -75,21 +80,25 @@ function ScoresPage() {
             title="Moves"
             dataIndex="moves"
             align="center"
-            sorter
+            sorter={(a: ScoresPageProps, b: ScoresPageProps) =>
+              a.moves - b.moves
+            }
           />,
           <Column
             key="nHints"
             title="Hints"
             dataIndex="nHints"
             align="center"
-            sorter
+            sorter={(a: ScoresPageProps, b: ScoresPageProps) =>
+              a.nHints - b.nHints
+            }
           />,
           <Column
             key="time"
             title="Time"
             dataIndex="time"
             align="center"
-            sorter
+            sorter={(a: ScoresPageProps, b: ScoresPageProps) => a.time - b.time}
           />
         ]}
       </Table>
