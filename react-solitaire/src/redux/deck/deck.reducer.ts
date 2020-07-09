@@ -44,7 +44,8 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
       return {
         ...state,
         deckPile: action.deckPile,
-        flippedPile: action.flippedPile
+        flippedPile: action.flippedPile,
+        translationY: cardsConfigurations.deck
       };
 
     /**
