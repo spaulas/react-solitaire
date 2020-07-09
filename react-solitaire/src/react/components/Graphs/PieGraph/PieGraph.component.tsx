@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable react/forbid-dom-props */
 /* eslint-disable react/no-multi-comp */
 import {
   Cell,
@@ -9,49 +7,68 @@ import {
   ResponsiveContainer,
   Tooltip
 } from "recharts";
+import React, { useEffect, useState } from "react";
 import { ExplicitAny } from "../../../../global";
-import React from "react";
 
 interface PieGraphProps {
   width: number;
   height: number;
 }
 
+const COLORS = ["rgba(0, 0, 0, 0.2)", "rgba(255, 255, 255, 0.1)"];
+const RADIAN = Math.PI / 180;
+
 const data = [
   { name: "Wins", value: 70 },
   { name: "Losts", value: 30 }
 ];
 
-const COLORS = ["rgba(0, 0, 0, 0.2)", "rgba(255, 255, 255, 0.1)"];
-
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({
-  cx,
-  cy,
-  midAngle,
-  innerRadius,
-  outerRadius,
-  percent,
-  index
-}: ExplicitAny) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-  return (
-    <text
-      x={x}
-      y={y}
-      fill="white"
-      textAnchor={x > cx ? "start" : "end"}
-      dominantBaseline="central"
-    >
-      {`${(percent * 100).toFixed(0)}%`}
-    </text>
-  );
-};
-
 function Example({ width, height }: PieGraphProps) {
+  const [data, setData] = useState([
+    { name: "Wins", value: 0 },
+    { name: "Losts", value: 0 }
+  ]);
+  const getData = () => {
+    const currentLocal = localStorage.getItem("offlineUser");
+    const offlineUser = currentLocal
+      ? JSON.parse(currentLocal)
+      : { history: [], nGames: 0 };
+
+    const gamesWon = offlineUser?.history?.length || 0;
+
+    setData([
+      { name: "Wins", value: gamesWon },
+      { name: "Losts", value: (offlineUser?.nGames || 0) - gamesWon }
+    ]);
+  };
+  useEffect(getData, []);
+
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index
+  }: ExplicitAny) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
+      >
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
+
   return (
     <ResponsiveContainer
       width={width}

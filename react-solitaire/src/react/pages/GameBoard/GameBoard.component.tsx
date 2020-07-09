@@ -27,6 +27,7 @@ function GameBoard() {
   // get all necessary elements from redux
   const {
     gameOver,
+    gameMoves,
     deckPile,
     column1Pile,
     column2Pile,
@@ -35,8 +36,9 @@ function GameBoard() {
     column5Pile,
     column6Pile,
     column7Pile
-  } = useSelector(({ GameBoard }: RootReducerState) => ({
-    gameOver: GameBoard.gameOver,
+  } = useSelector(({ GameBoard, Goal }: RootReducerState) => ({
+    gameMoves: GameBoard.gameMoves,
+    gameOver: Goal.gameOver,
     deckPile: GameBoard.deckPile,
     column1Pile: GameBoard.column1Pile,
     column2Pile: GameBoard.column2Pile,
@@ -80,6 +82,19 @@ function GameBoard() {
   };
   // triggers the call of the setCardType function when the deckPile is changed (and therefore, all the other columns as well)
   useEffect(setCardType, [deckPile]);
+
+  const addGameToUser = () => {
+    if (gameMoves === 1) {
+      const currentLocal = localStorage.getItem("offlineUser");
+      const offlineUser = currentLocal
+        ? JSON.parse(currentLocal)
+        : { history: [], nGames: 0 };
+      // add current statistic to user history
+      offlineUser.nGames = (offlineUser?.nGames || 0) + 1;
+      localStorage.setItem("offlineUser", JSON.stringify(offlineUser));
+    }
+  };
+  useEffect(addGameToUser, [gameMoves]);
 
   // ---------------------------------------------------------
 

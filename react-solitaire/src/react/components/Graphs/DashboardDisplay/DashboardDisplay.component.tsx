@@ -12,7 +12,7 @@ function DashboardDisplay() {
       </Row>
       <Row className="bottomRow">
         <Col>
-          <div className="graphTitle">Time Per Game</div>
+          <div className="graphTitle">Moves Per Game</div>
           <BarGraph width={500} height={250} />
         </Col>
         <Col>

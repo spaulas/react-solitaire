@@ -43,7 +43,7 @@ function GameOverModal() {
   };
 
   const gameStatistics: ExplicitAny = {
-    date: moment().format("D MMM, YYYY"),
+    date: moment().format("DD/MM/YYYY, hh:mm"),
     time: gameMoves,
     moves: gameMoves,
     nHints: nHints,
@@ -57,7 +57,7 @@ function GameOverModal() {
       ? JSON.parse(currentLocal)
       : { history: [] };
     // add current statistic to user history
-    offlineUser.history = [...offlineUser?.history, gameStatistics];
+    offlineUser.history = [...(offlineUser?.history || []), gameStatistics];
     localStorage.setItem("offlineUser", JSON.stringify(offlineUser));
 
     setVisible(false);
