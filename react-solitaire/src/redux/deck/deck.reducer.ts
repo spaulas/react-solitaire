@@ -41,7 +41,12 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
      * Stores the initial deck cards, the flipped pile is empty
      */
     case DeckActionTypes.SET_INITIAL_DECK:
-      return { ...state, deckPile: action.deckPile };
+      return {
+        ...state,
+        deckPile: action.deckPile,
+        flippedPile: action.flippedPile,
+        translationY: cardsConfigurations.deck
+      };
 
     /**
      * Stores the ref for the deck and the flipped piles

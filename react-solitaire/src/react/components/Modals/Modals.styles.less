@@ -51,7 +51,7 @@
 
 .gameOverStatistics {
   background-color: rgba(0, 0, 0, 0.7);
-  height: 400px;
+  height: auto;
   width: 100%;
   align-self: center;
   padding: 50px 200px;
@@ -88,4 +88,20 @@
   margin-top: 10px;
   font-size: 20px;
   line-height: 45px;
+}
+
+.newHighScoreContainer {
+  display: inline-flex;
+  margin: 20px 0;
+  width: 100%;
+  div {
+    width: 50%;
+    text-align: left;
+    padding-left: 100px;
+  }
+  input {
+    width: 50%;
+    font-size: @fontBody;
+    text-align: right;
+  }
 }

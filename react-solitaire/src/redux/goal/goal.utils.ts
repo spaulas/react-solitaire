@@ -213,7 +213,8 @@ export const addCardToGoal = (
       ...goals,
       [goalId]: goal
     },
-    doubleClickTarget: undefined
+    doubleClickTarget: undefined,
+    gameOver: true
   };
 };
 

@@ -9,9 +9,13 @@ import DeckActionTypes from "./deck.types";
  * Stores the initial deck in the Redux State
  * @param deckPile
  */
-const setInitialDeck = (deckPile: Array<CardType>) => ({
+const setInitialDeck = (
+  deckPile: Array<CardType>,
+  flippedPile: Array<CardType>
+) => ({
   type: DeckActionTypes.SET_INITIAL_DECK,
-  deckPile
+  deckPile,
+  flippedPile
 });
 
 /**

@@ -3,6 +3,18 @@ import GoalActionTypes from "./goal.types";
 import { ValueOf } from "../../global";
 
 // ********************************************************
+// INITIAL SETTINGS ACTIONS
+
+/**
+ * Stores the initial goals in the Redux State
+ * @param v
+ */
+const setInitialGoals = (goals: Record<string, Array<CardType>>) => ({
+  type: GoalActionTypes.SET_INITIAL_GOALS,
+  goals
+});
+
+// ********************************************************
 // SWAPPING ACTIONS
 
 /**
@@ -115,6 +127,7 @@ const checkMoveFromAnyColumn = (
 // ********************************************************
 
 const actionsCreators = Object.freeze({
+  setInitialGoals,
   swapGoals,
   undoSwapGoals,
   dragGoalCards,

@@ -2,7 +2,7 @@
 // Starting Page
 
 .startingPage {
-  background: @secondaryColor;
+  background: @primaryColor;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -10,6 +10,38 @@
   right: 0;
   overflow-x: hidden;
   overflow-y: auto;
+
+  .logoRow {
+    height: 50%;
+  }
+
+  .logoImage {
+    height: 200px;
+    filter: brightness(0) invert(1);
+  }
+
+  .logoAnimated {
+    height: 200px;
+    filter: brightness(0) invert(1);
+    opacity: 0;
+    animation: logoSkew 2s 1;
+    animation-fill-mode: forwards;
+    animation-delay: 0.5s;
+  }
+
+  .startButtonAnimated {
+    opacity: 0;
+    animation: buttonDrop 1s 1;
+    animation-fill-mode: forwards;
+    animation-delay: 1.5s;
+  }
+
+  .buttonSpaceRow {
+    margin-top: 10px;
+  }
+}
+
+.startingPageAnimation {
   animation: backgroundAnimation 1s 1;
 }
 
@@ -18,24 +50,8 @@
     background-color: white;
   }
   100.0% {
-    background-color: @secondaryColor;
+    background-color: @primaryColor;
   }
-}
-
-.logoRow {
-  height: 50%;
-}
-
-// ----------------------------------------------
-// Logo Image
-
-.logoAnimated {
-  opacity: 0;
-  height: 200px;
-  filter: brightness(0) invert(1);
-  animation: logoSkew 2s 1;
-  animation-fill-mode: forwards;
-  animation-delay: 0.5s;
 }
 
 @keyframes logoSkew {
@@ -137,11 +153,4 @@
     height: 70px;
     opacity: 1;
   }
-}
-
-.startButton {
-  opacity: 0;
-  animation: buttonDrop 1s 1;
-  animation-fill-mode: forwards;
-  animation-delay: 1.5s;
 }

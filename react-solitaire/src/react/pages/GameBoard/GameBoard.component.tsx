@@ -16,6 +16,7 @@ import ResumeGameModal from "../../components/Modals/ResumeGameModal.component";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
+import goalActions from "../../../redux/goal/goal.actions";
 
 function GameBoard() {
   const dispatch = useDispatch();
@@ -27,24 +28,36 @@ function GameBoard() {
   // get all necessary elements from redux
   const {
     gameOver,
+    gameMoves,
     deckPile,
+    flippedPile,
     column1Pile,
     column2Pile,
     column3Pile,
     column4Pile,
     column5Pile,
     column6Pile,
-    column7Pile
-  } = useSelector(({ GameBoard }: RootReducerState) => ({
-    gameOver: GameBoard.gameOver,
+    column7Pile,
+    goal1Pile,
+    goal2Pile,
+    goal3Pile,
+    goal4Pile
+  } = useSelector(({ GameBoard, Goal }: RootReducerState) => ({
+    gameMoves: GameBoard.gameMoves,
+    gameOver: Goal.gameOver,
     deckPile: GameBoard.deckPile,
+    flippedPile: GameBoard.flippedPile,
     column1Pile: GameBoard.column1Pile,
     column2Pile: GameBoard.column2Pile,
     column3Pile: GameBoard.column3Pile,
     column4Pile: GameBoard.column4Pile,
     column5Pile: GameBoard.column5Pile,
     column6Pile: GameBoard.column6Pile,
-    column7Pile: GameBoard.column7Pile
+    column7Pile: GameBoard.column7Pile,
+    goal1Pile: GameBoard.goal1Pile,
+    goal2Pile: GameBoard.goal2Pile,
+    goal3Pile: GameBoard.goal3Pile,
+    goal4Pile: GameBoard.goal4Pile
   }));
 
   // ---------------------------------------------------------
@@ -64,7 +77,7 @@ function GameBoard() {
   // distribute the decks created to the right redux
   const setCardType = () => {
     // set the initial deck
-    dispatch(deckActions.setInitialDeck(deckPile));
+    dispatch(deckActions.setInitialDeck(deckPile, flippedPile));
     // set the initial columns
     dispatch(
       columnsActions.setInitialColumns({
@@ -77,16 +90,38 @@ function GameBoard() {
         column7Pile
       })
     );
+    dispatch(
+      goalActions.setInitialGoals({
+        goal1Pile,
+        goal2Pile,
+        goal3Pile,
+        goal4Pile
+      })
+    );
   };
   // triggers the call of the setCardType function when the deckPile is changed (and therefore, all the other columns as well)
   useEffect(setCardType, [deckPile]);
+
+  const addGameToUser = () => {
+    if (gameMoves === 1) {
+      const currentLocal = localStorage.getItem("offlineUser");
+      const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
+      // add current statistic to user history
+      offlineUser.nGames = (offlineUser?.nGames || 0) + 1;
+      localStorage.setItem("offlineUser", JSON.stringify(offlineUser));
+    }
+  };
+  useEffect(addGameToUser, [gameMoves]);
 
   // ---------------------------------------------------------
 
   return (
     <>
-      <Prompt when={!gameOver} message="If you leave the game will be a lost" />
-      <DropHandler className="gameBoard">
+      <Prompt
+        when={!gameOver && gameMoves > 0}
+        message="If you leave the game will be a lost"
+      />
+      <DropHandler className="pageBackground">
         <ResumeGameModal />
         <GameOverModal />
         <GamePlayInfo />

@@ -117,7 +117,14 @@ export const createRandomGame = () => {
       })
   );
 
-  return finalResult;
+  return {
+    ...finalResult,
+    goal1Pile: [],
+    goal2Pile: [],
+    goal3Pile: [],
+    goal4Pile: [],
+    flippedPile: []
+  };
 };
 
 /**
@@ -129,6 +136,7 @@ export const resetGameStatus = (gameFlag: boolean) => {
     gameFlag: !gameFlag, // toggle game flag
     gameMoves: 0, // resets the counting of moves
     gamePaused: true, // the game is not paused at start
+    gameTime: 0,
     gameHints: [],
     nHints: 0,
     gamePreviousMoves: [], // there are no moves to be undone

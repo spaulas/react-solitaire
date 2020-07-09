@@ -1,0 +1,20 @@
+.statisticsPage {
+  display: flex;
+  flex-direction: column;
+
+  .toggleButton {
+    font-size: @fontPageTitle;
+    position: fixed;
+    bottom: @limitVertical;
+    right: @limitHorizontal;
+    transition: @smallTransitionTime;
+  }
+
+  .toggleButton:hover {
+    color: @hoverElemColor;
+  }
+
+  .ant-empty {
+    padding: 260px 0 0 0;
+  }
+}

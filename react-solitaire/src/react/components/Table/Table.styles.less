@@ -1,0 +1,130 @@
+.ant-table-wrapper {
+  .ant-table {
+    color: @fontColor;
+    background: @secondaryColor;
+  }
+  .ant-table-tbody {
+    color: @fontColor;
+    font-size: @fontBody;
+    transition: @smallTransitionTime;
+    border: none;
+
+    tr:nth-child(odd) {
+      background-color: @darkSecondaryColor;
+    }
+
+    tr:hover td {
+      background-color: @hoverElemColor;
+      letter-spacing: @letterSpacing;
+    }
+
+    tr > td {
+      border-bottom: none;
+      transition: @smallTransitionTime;
+    }
+  }
+
+  td.ant-table-column-sort {
+    background: transparent;
+    background-color: @darkSecondaryColor;
+    letter-spacing: @letterSpacing;
+    color: @fontColor;
+  }
+
+  thead {
+    tr > th {
+      background: transparent;
+      color: @fontColor;
+      font-size: @fontTitle;
+      border: none;
+      font-weight: bold;
+    }
+
+    tr > th:hover {
+      background-color: @darkSecondaryColor;
+      letter-spacing: @letterSpacing;
+    }
+  }
+
+  .ant-table-column-sorter {
+    color: @fontColor;
+    .ant-table-column-sorter-up svg,
+    .ant-table-column-sorter-down svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .ant-table-column-sorter-up.active,
+    .ant-table-column-sorter-down.active {
+      color: @hoverElemColor;
+    }
+  }
+
+  .ant-table-pagination {
+    margin-right: 5px;
+  }
+
+  .ant-empty-description {
+    color: @fontColor;
+  }
+
+  .iconsTable {
+    position: relative;
+    left: 80%;
+  }
+
+  .iconsTableClicked {
+    color: @buttonActiveColor;
+    z-index: 2;
+  }
+
+  .ant-pagination-prev .ant-pagination-item-link,
+  .ant-pagination-next .ant-pagination-item-link {
+    background: transparent;
+    background-color: @secondaryColor;
+    color: @fontColor;
+    border: none;
+    transition: @smallTransitionTime;
+  }
+
+  .ant-pagination-prev .ant-pagination-item-link:hover,
+  .ant-pagination-next .ant-pagination-item-link:hover {
+    background-color: @hoverElemColor;
+  }
+
+  .ant-pagination-item {
+    background: transparent;
+    background-color: @secondaryColor;
+    border: none;
+    transition: @smallTransitionTime;
+    a {
+      color: @fontColor;
+    }
+  }
+
+  .ant-pagination-item:hover {
+    background-color: @hoverElemColor;
+  }
+
+  .ant-pagination-item-active a {
+    background-color: @hoverElemColor;
+    font-weight: bold;
+    color: @fontColor;
+  }
+}
+
+.ant-empty {
+  padding: 20px 0;
+  margin: 0;
+  .ant-empty-image {
+    height: 60px;
+
+    .ant-empty-img-simple {
+      width: 100%;
+    }
+  }
+  .ant-empty-description {
+    font-size: @fontBody;
+    color: @fontColor;
+  }
+}
