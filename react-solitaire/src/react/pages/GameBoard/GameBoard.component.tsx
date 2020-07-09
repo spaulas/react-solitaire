@@ -75,6 +75,10 @@ function GameBoard() {
 
     // if nothing was sent through the state, then create a new game
     if (!location.state) {
+      if (offlineUser.savedGame) {
+        // if there was a saved game and the user started a new one, should count has a lost
+        offlineUser.nGames = (offlineUser.nGames || 0) + 1;
+      }
       // create new deck
       dispatch(gameBoardActions.createGame());
     } else {
