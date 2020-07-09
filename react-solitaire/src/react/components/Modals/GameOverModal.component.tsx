@@ -10,6 +10,7 @@ import {
 import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { useState } from "react";
 import { List } from "antd";
+import { convertTime } from "../DataDisplay/Timer.component";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -45,7 +46,7 @@ function GameOverModal() {
 
   const gameStatistics: ExplicitAny = {
     date: moment().format("DD/MM/YYYY, hh:mm"),
-    time: gameTime,
+    time: convertTime(gameTime),
     moves: gameMoves,
     nHints: nHints,
     finalScore: gameMoves + nHints * 5
@@ -56,10 +57,18 @@ function GameOverModal() {
     const currentLocal = localStorage.getItem("offlineUser");
     const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
     // add current statistic to user history
-    offlineUser.history = [...(offlineUser?.history || []), gameStatistics];
+    offlineUser.history = [
+      ...(offlineUser?.history || []),
+      { ...gameStatistics, seconds: gameTime }
+    ];
     // check if the current number of moves is higher than the current max
     if ((offlineUser?.maxMoves || 0) < gameMoves) {
       offlineUser.maxMoves = gameMoves;
+    }
+
+    // check if the current game time is higher than the current max
+    if ((offlineUser?.maxTime || 0) < gameTime) {
+      offlineUser.maxTime = gameTime;
     }
 
     localStorage.setItem("offlineUser", JSON.stringify(offlineUser));

@@ -31,7 +31,7 @@ const timeGame = () => ({
 /**
  * Stores the game current time
  */
-const saveGameTime = (time: string) => ({
+const saveGameTime = (time: number) => ({
   type: GameBoardActionTypes.SAVE_GAME_TIME,
   time
 });

@@ -3,6 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootReducerState } from "../../../global";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 
+export const convertTime = (value: number) => {
+  const hours = Math.floor(value / 3600);
+  const minutes = Math.floor(value / 60) % 60;
+  const seconds = value % 3600;
+  return `${hours > 0 ? `${hours}:` : "0:"}${
+    minutes < 10 ? `0${minutes}` : minutes
+  }:${seconds < 10 ? `0${seconds}` : seconds}`;
+};
+
 /**
  * Component that displays the time of the game
  */
@@ -43,11 +52,7 @@ function Timer() {
     const handleGameOver = () => {
       if (gameOver) {
         dispatch(
-          gameBoardActions.saveGameTime(
-            `${hours > 0 ? `${hours}:` : "0:"}${
-              minutes < 10 ? `0${minutes}` : minutes
-            }:${seconds < 10 ? `0${seconds}` : seconds}`
-          )
+          gameBoardActions.saveGameTime(hours * 3600 + minutes * 60 + seconds)
         );
       }
     };

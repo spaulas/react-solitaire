@@ -1,9 +1,10 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import BarGraph from "../BarGraph/BarGraph.component";
 import { Carousel } from "antd";
 import { ExplicitAny } from "../../../../global";
+import MovesGraph from "../BarGraph/MovesGraph.component";
 import Piegraph from "../PieGraph/PieGraph.component";
+import TimeGraph from "../BarGraph/TimeGraph.component";
 
 function CarouselDisplay() {
   const [carouselRef, setCarouselRef] = useState<ExplicitAny>(undefined);
@@ -35,11 +36,11 @@ function CarouselDisplay() {
         </div>
         <div>
           <div className="tabTitle">Moves Per Game</div>
-          <BarGraph key={countKey + 1} width={1000} height={500} />
+          <MovesGraph key={countKey + 1} width={1000} height={500} />
         </div>
         <div>
           <div className="tabTitle">Time Per Game</div>
-          <BarGraph key={countKey + 2} width={1000} height={500} />
+          <TimeGraph key={countKey + 2} width={1000} height={500} />
         </div>
       </Carousel>
       <RightOutlined

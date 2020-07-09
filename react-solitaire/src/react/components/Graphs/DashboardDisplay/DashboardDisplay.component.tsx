@@ -1,7 +1,8 @@
 import { Col, Row } from "antd";
-import BarGraph from "../BarGraph/BarGraph.component";
+import MovesGraph from "../BarGraph/MovesGraph.component";
 import Piegraph from "../PieGraph/PieGraph.component";
 import React from "react";
+import TimeGraph from "../BarGraph/TimeGraph.component";
 
 function DashboardDisplay() {
   return (
@@ -13,11 +14,11 @@ function DashboardDisplay() {
       <Row className="bottomRow">
         <Col>
           <div className="graphTitle">Moves Per Game</div>
-          <BarGraph width={500} height={250} />
+          <MovesGraph width={500} height={250} />
         </Col>
         <Col>
           <div className="graphTitle">Time Per Game</div>
-          <BarGraph width={500} height={250} />
+          <TimeGraph width={500} height={250} />
         </Col>
       </Row>
     </div>
