@@ -10,10 +10,11 @@ import {
 import { ExplicitAny, RootReducerState } from "../../../global";
 import { Input, List } from "antd";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { convertTime } from "../DataDisplay/Timer.component";
+import goalActions from "../../../redux/goal/goal.actions";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 interface HighScore {
   userName: string;
@@ -26,6 +27,7 @@ function GameOverModal() {
   const [defaultUserName, setDefaultUserName] = useState<string | undefined>();
   const [inputRef, setInputRef] = useState<ExplicitAny>();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   // get gameOver value from redux
   const { gameOver, gameMoves, gameTime, nHints } = useSelector(
@@ -65,8 +67,6 @@ function GameOverModal() {
       // @todo after a user is created at the firebase, add condition here to select where to store the info
       const currentLocal = localStorage.getItem("offlineUser");
       const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
-      // eslint-disable-next-line no-console
-      console.log("USER = ", offlineUser);
       // add current statistic to user history
       offlineUser.history = [
         ...(offlineUser?.history || []),
@@ -146,6 +146,8 @@ function GameOverModal() {
     setNewHighScore(false);
     setVisible(false);
     history.push("/");
+
+    dispatch(goalActions.resetCardDragging());
   };
 
   if (gameOver && visible) {
