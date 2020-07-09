@@ -122,7 +122,8 @@ export const createRandomGame = () => {
     goal1Pile: [],
     goal2Pile: [],
     goal3Pile: [],
-    goal4Pile: []
+    goal4Pile: [],
+    flippedPile: []
   };
 };
 

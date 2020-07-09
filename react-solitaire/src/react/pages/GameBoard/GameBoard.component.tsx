@@ -30,6 +30,7 @@ function GameBoard() {
     gameOver,
     gameMoves,
     deckPile,
+    flippedPile,
     column1Pile,
     column2Pile,
     column3Pile,
@@ -45,6 +46,7 @@ function GameBoard() {
     gameMoves: GameBoard.gameMoves,
     gameOver: Goal.gameOver,
     deckPile: GameBoard.deckPile,
+    flippedPile: GameBoard.flippedPile,
     column1Pile: GameBoard.column1Pile,
     column2Pile: GameBoard.column2Pile,
     column3Pile: GameBoard.column3Pile,
@@ -75,7 +77,7 @@ function GameBoard() {
   // distribute the decks created to the right redux
   const setCardType = () => {
     // set the initial deck
-    dispatch(deckActions.setInitialDeck(deckPile));
+    dispatch(deckActions.setInitialDeck(deckPile, flippedPile));
     // set the initial columns
     dispatch(
       columnsActions.setInitialColumns({

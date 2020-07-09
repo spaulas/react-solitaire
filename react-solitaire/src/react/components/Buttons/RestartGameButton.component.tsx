@@ -15,6 +15,7 @@ function RestartGameButton() {
 
   const {
     deckPile,
+    flippedPile,
     column1Pile,
     column2Pile,
     column3Pile,
@@ -24,6 +25,7 @@ function RestartGameButton() {
     column7Pile
   } = useSelector(({ GameBoard }: RootReducerState) => ({
     deckPile: GameBoard.deckPile,
+    flippedPile: GameBoard.flippedPile,
     column1Pile: GameBoard.column1Pile,
     column2Pile: GameBoard.column2Pile,
     column3Pile: GameBoard.column3Pile,
@@ -36,7 +38,7 @@ function RestartGameButton() {
   // distribute the decks created to the right redux
   const restartGame = () => {
     // set the initial deck
-    dispatch(deckActions.setInitialDeck(deckPile));
+    dispatch(deckActions.setInitialDeck(deckPile, flippedPile));
     // set the initial columns
     dispatch(
       columnsActions.setInitialColumns({

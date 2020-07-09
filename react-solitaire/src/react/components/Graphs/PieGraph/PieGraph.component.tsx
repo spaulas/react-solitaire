@@ -88,7 +88,7 @@ function PieGraph({ width, height }: PieGraphProps) {
       <Legend iconSize={50} iconType="circle" />
     </PieChart>
   ) : (
-    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} className="piechartEmpty" />
   );
 }
 
