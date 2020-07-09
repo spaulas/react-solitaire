@@ -65,6 +65,8 @@ function GameOverModal() {
       // @todo after a user is created at the firebase, add condition here to select where to store the info
       const currentLocal = localStorage.getItem("offlineUser");
       const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
+      // eslint-disable-next-line no-console
+      console.log("USER = ", offlineUser);
       // add current statistic to user history
       offlineUser.history = [
         ...(offlineUser?.history || []),
@@ -81,13 +83,11 @@ function GameOverModal() {
       }
 
       // get top 10 highscores
-      let top = offlineUser?.topHighScores || [];
+      let topHighScores = offlineUser?.topHighScores || [];
 
-      if (top.length < 10) {
-        // eslint-disable-next-line no-console
-        console.log("TOP LENGHT MENOR 10 1 = ", top);
-        top = [
-          ...top,
+      if (topHighScores.length < 10) {
+        topHighScores = [
+          ...topHighScores,
           {
             userName: offlineUser?.userName || "localUser",
             finalScore: gameStatistics.finalScore
@@ -95,14 +95,12 @@ function GameOverModal() {
         ];
         setNewHighScore(true);
       } else {
-        const result = top.find((highScore: HighScore) => {
+        const result = topHighScores.find((highScore: HighScore) => {
           return gameStatistics.finalScore < highScore.finalScore;
         });
         if (result) {
-          // eslint-disable-next-line no-console
-          console.log("TOP LENGHT maio 10 = ", top);
-          top = [
-            ...top,
+          topHighScores = [
+            ...topHighScores,
             {
               userName: offlineUser?.userName || "localUser",
               finalScore: gameStatistics.finalScore
@@ -112,11 +110,11 @@ function GameOverModal() {
         }
       }
 
-      top.sort((a: HighScore, b: HighScore) => {
+      topHighScores.sort((a: HighScore, b: HighScore) => {
         return a.finalScore < b.finalScore ? -1 : 1;
       });
 
-      offlineUser.top = top;
+      offlineUser.topHighScores = topHighScores;
 
       setDefaultUserName(offlineUser?.userName);
 
@@ -131,7 +129,7 @@ function GameOverModal() {
       const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
       let foundOne = false;
 
-      const tempTop = offlineUser?.top.map((highScore: HighScore) => {
+      const tempTop = offlineUser?.topHighScores.map((highScore: HighScore) => {
         if (highScore.finalScore === gameStatistics.finalScore && !foundOne) {
           foundOne = true;
           return { ...highScore, userName: inputRef.state.value };
@@ -139,7 +137,7 @@ function GameOverModal() {
         return highScore;
       });
 
-      offlineUser.top = tempTop;
+      offlineUser.topHighScores = tempTop;
       offlineUser.userName = inputRef.state.value;
 
       localStorage.setItem("offlineUser", JSON.stringify(offlineUser));

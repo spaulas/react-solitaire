@@ -1,4 +1,5 @@
 import { Bar, BarChart, Tooltip, XAxis, YAxis } from "recharts";
+import { Empty } from "antd";
 import React from "react";
 
 interface BarGraphProps {
@@ -10,7 +11,7 @@ interface BarGraphProps {
 }
 
 function BarGraph({ width, height, data, dataKey, label }: BarGraphProps) {
-  return (
+  return data.length < 0 ? (
     <BarChart
       width={width}
       height={height}
@@ -30,6 +31,8 @@ function BarGraph({ width, height, data, dataKey, label }: BarGraphProps) {
       />
       <Bar dataKey={dataKey} fill="rgba(255, 255, 255, 0.1)" />
     </BarChart>
+  ) : (
+    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
   );
 }
 

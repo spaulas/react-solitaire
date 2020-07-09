@@ -1,6 +1,8 @@
+/* eslint-disable indent */
 /* eslint-disable react/no-multi-comp */
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
 import React, { useEffect, useState } from "react";
+import { Empty } from "antd";
 import { ExplicitAny } from "../../../../global";
 
 interface PieGraphProps {
@@ -11,7 +13,7 @@ interface PieGraphProps {
 const COLORS = ["rgba(0, 0, 0, 0.2)", "rgba(255, 255, 255, 0.1)"];
 const RADIAN = Math.PI / 180;
 
-function Example({ width, height }: PieGraphProps) {
+function PieGraph({ width, height }: PieGraphProps) {
   const [data, setData] = useState([
     { name: "Wins", value: 0 },
     { name: "Losts", value: 0 }
@@ -21,11 +23,16 @@ function Example({ width, height }: PieGraphProps) {
     const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
 
     const gamesWon = offlineUser?.history?.length || 0;
+    const nGames = offlineUser?.nGames || 0;
 
-    setData([
-      { name: "Wins", value: gamesWon },
-      { name: "Losts", value: (offlineUser?.nGames || 0) - gamesWon }
-    ]);
+    setData(
+      nGames > 0
+        ? [
+            { name: "Wins", value: gamesWon },
+            { name: "Losts", value: nGames - gamesWon }
+          ]
+        : []
+    );
   };
   useEffect(getData, []);
 
@@ -35,8 +42,7 @@ function Example({ width, height }: PieGraphProps) {
     midAngle,
     innerRadius,
     outerRadius,
-    percent,
-    index
+    percent
   }: ExplicitAny) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -55,7 +61,7 @@ function Example({ width, height }: PieGraphProps) {
     );
   };
 
-  return (
+  return data.length > 0 ? (
     <PieChart width={width} height={height} className="statisticsPieChart">
       <Pie
         data={data}
@@ -81,7 +87,9 @@ function Example({ width, height }: PieGraphProps) {
       />
       <Legend iconSize={50} iconType="circle" />
     </PieChart>
+  ) : (
+    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
   );
 }
 
-export default Example;
+export default PieGraph;

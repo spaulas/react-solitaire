@@ -50,7 +50,7 @@ function UserScoresTable({ data, className }: UserScoresTableProps) {
         }
         dataIndex="finalScore"
         align="center"
-        defaultSortOrder="descend"
+        defaultSortOrder="ascend"
         sorter={(a: UserScore, b: UserScore) => a.finalScore - b.finalScore}
       />
       {expandTable && [
