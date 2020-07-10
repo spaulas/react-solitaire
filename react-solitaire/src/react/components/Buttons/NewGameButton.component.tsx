@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ConfirmationModal from "../Modals/ConfirmationModal.component";
 import { PlusOutlined } from "@ant-design/icons";
+import { Tooltip } from "antd";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 import { useDispatch } from "react-redux";
 
@@ -18,10 +19,12 @@ function NewGameButton() {
 
   return (
     <>
-      <PlusOutlined
-        className="iconButton"
-        onClick={() => setShowConfirm(true)}
-      />
+      <Tooltip title="Start a new game">
+        <PlusOutlined
+          className="iconButton"
+          onClick={() => setShowConfirm(true)}
+        />
+      </Tooltip>
       {showConfirm ? (
         <ConfirmationModal
           onCancel={() => setShowConfirm(false)}

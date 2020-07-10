@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ConfirmationModal from "../Modals/ConfirmationModal.component";
 import { RedoOutlined } from "@ant-design/icons";
 import { RootReducerState } from "../../../global";
+import { Tooltip } from "antd";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
@@ -60,10 +61,12 @@ function RestartGameButton() {
 
   return (
     <>
-      <RedoOutlined
-        className="iconButton"
-        onClick={() => setShowConfirm(true)}
-      />
+      <Tooltip title="Restart game">
+        <RedoOutlined
+          className="iconButton"
+          onClick={() => setShowConfirm(true)}
+        />
+      </Tooltip>
       {showConfirm ? (
         <ConfirmationModal
           onCancel={() => setShowConfirm(false)}

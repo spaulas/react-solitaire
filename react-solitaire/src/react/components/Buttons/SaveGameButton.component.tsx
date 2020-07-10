@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ConfirmationModal from "../Modals/ConfirmationModal.component";
 import { RootReducerState } from "../../../global";
 import { SaveFilled } from "@ant-design/icons";
+import { Tooltip } from "antd";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -31,7 +32,12 @@ function SaveGameButton() {
 
   return (
     <>
-      <SaveFilled className="iconButton" onClick={() => setShowConfirm(true)} />
+      <Tooltip title="Save game">
+        <SaveFilled
+          className="iconButton"
+          onClick={() => setShowConfirm(true)}
+        />
+      </Tooltip>
       {showConfirm ? (
         <ConfirmationModal
           onCancel={() => setShowConfirm(false)}

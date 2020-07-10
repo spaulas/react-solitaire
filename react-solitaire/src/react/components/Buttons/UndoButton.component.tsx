@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import { RootReducerState } from "../../../global";
 import { StepBackwardOutlined } from "@ant-design/icons";
+import { Tooltip } from "antd";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
@@ -108,6 +109,10 @@ function UndoButton() {
     }
   };
 
-  return <StepBackwardOutlined className="iconButton" onClick={handleUndo} />;
+  return (
+    <Tooltip title="Undo moves">
+      <StepBackwardOutlined className="iconButton" onClick={handleUndo} />
+    </Tooltip>
+  );
 }
 export default UndoButton;
