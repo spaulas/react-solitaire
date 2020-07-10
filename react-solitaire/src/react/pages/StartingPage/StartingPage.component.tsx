@@ -2,11 +2,13 @@ import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MenuButton from "../../components/Buttons/MenuButton.component";
+import ResumeSavedGameModal from "../../components/Modals/ResumeSavedGameModal.component";
 import { Row } from "antd";
 import pagesActions from "../../../redux/pages/pages.actions";
 
 function StartingPage() {
   const dispatch = useDispatch();
+  const [showAlarm, setShowAlarm] = useState(false);
   const [offlineUser, setOfflineUser] = useState<ExplicitAny>({});
   const { showAnimation } = useSelector(({ Pages }: RootReducerState) => ({
     showAnimation: Pages.startPageAnimation
@@ -31,24 +33,38 @@ function StartingPage() {
         />
       </Row>
       {offlineUser.hasSavedGame ? (
-        <Row className="buttonSpaceRow" align="middle" justify="center">
+        <>
+          <Row align="middle" justify="center">
+            <MenuButton
+              location="/game"
+              params={{ savedGame: offlineUser.savedGame }}
+              className={`${showAnimation ? "startButtonAnimated" : ""}`}
+            >
+              <span>Resume Game</span>
+            </MenuButton>
+          </Row>
+          <Row className="buttonSpaceRow" align="middle" justify="center">
+            <MenuButton
+              onClick={() => setShowAlarm(true)}
+              className={`${showAnimation ? "startButtonAnimated" : ""}`}
+            >
+              <span>Start Game</span>
+            </MenuButton>
+          </Row>
+          {showAlarm ? (
+            <ResumeSavedGameModal onCancel={() => setShowAlarm(false)} />
+          ) : null}
+        </>
+      ) : (
+        <Row align="middle" justify="center">
           <MenuButton
             location="/game"
-            params={{ savedGame: offlineUser.savedGame }}
             className={`${showAnimation ? "startButtonAnimated" : ""}`}
           >
-            <span>Resume Game</span>
+            <span>Start Game</span>
           </MenuButton>
         </Row>
-      ) : null}
-      <Row className="buttonSpaceRow" align="middle" justify="center">
-        <MenuButton
-          location="/game"
-          className={`${showAnimation ? "startButtonAnimated" : ""}`}
-        >
-          <span>Start Game</span>
-        </MenuButton>
-      </Row>
+      )}
       <Row className="buttonSpaceRow" align="middle" justify="center">
         <MenuButton
           location="/scores/userHighScores"

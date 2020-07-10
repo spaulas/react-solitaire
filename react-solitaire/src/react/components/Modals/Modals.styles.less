@@ -18,6 +18,27 @@
   z-index: 1000;
   animation: appearSlowly 1s 1;
   animation-fill-mode: forwards;
+
+  .resumeGameQuestion {
+    color: black;
+    align-self: center;
+    font-weight: bold;
+    font-size: @fontTitle;
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+
+  .resumeGameQuestion:first-child {
+    top: calc((100% - 510px) / 2);
+  }
+  .resumeGameQuestion:nth-child(2) {
+    top: calc(((100% - 510px) / 2) + 200px);
+  }
+  .resumeGameQuestion:nth-child(3) {
+    top: calc(((100% - 510px) / 2) + 300px);
+  }
 }
 
 @keyframes appearSlowly {
