@@ -1,6 +1,7 @@
+import React, { useState } from "react";
+import ConfirmationModal from "../Modals/ConfirmationModal.component";
 import { PlusOutlined } from "@ant-design/icons";
-import { Popconfirm } from "antd";
-import React from "react";
+import { Tooltip } from "antd";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 import { useDispatch } from "react-redux";
 
@@ -9,16 +10,30 @@ import { useDispatch } from "react-redux";
  */
 function NewGameButton() {
   const dispatch = useDispatch();
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const handleConfirm = () => {
+    dispatch(gameBoardActions.createGame());
+    setShowConfirm(false);
+  };
+
   return (
-    <Popconfirm
-      placement="top"
-      title="This game will be considered a lost. Are you sure you want to start a new game?"
-      onConfirm={() => dispatch(gameBoardActions.createGame())}
-      okText="Yes"
-      cancelText="No"
-    >
-      <PlusOutlined className="iconButton" />
-    </Popconfirm>
+    <>
+      <Tooltip title="Start a new game">
+        <PlusOutlined
+          className="iconButton"
+          onClick={() => setShowConfirm(true)}
+        />
+      </Tooltip>
+      {showConfirm ? (
+        <ConfirmationModal
+          onCancel={() => setShowConfirm(false)}
+          onConfirm={handleConfirm}
+          message="This game will be considered a lost. Are you sure you want to start a new game?"
+          className="adjustToGameOptions"
+        />
+      ) : null}
+    </>
   );
 }
 export default NewGameButton;

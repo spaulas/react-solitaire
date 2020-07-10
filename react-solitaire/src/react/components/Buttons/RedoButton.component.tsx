@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import { RootReducerState } from "../../../global";
 import { StepForwardOutlined } from "@ant-design/icons";
+import { Tooltip } from "antd";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
@@ -96,6 +97,10 @@ function RedoButton() {
       dispatch(gameBoardActions.reAddGameMove());
     }
   };
-  return <StepForwardOutlined className="iconButton" onClick={handleRedo} />;
+  return (
+    <Tooltip title="Redo undone moves">
+      <StepForwardOutlined className="iconButton" onClick={handleRedo} />
+    </Tooltip>
+  );
 }
 export default RedoButton;

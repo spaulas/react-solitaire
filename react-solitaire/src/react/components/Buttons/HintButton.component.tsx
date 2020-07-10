@@ -1,5 +1,5 @@
+import { Badge, Tooltip } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { Badge } from "antd";
 import DoubleClickHandler from "../CardMoveHandlers/DoubleClickHandlers/DoubleClickHandler.component";
 import HintHandler from "../CardMoveHandlers/DoubleClickHandlers/HintHandler";
 import React from "react";
@@ -41,11 +41,13 @@ function HintButton() {
   );
   // return the button with the double click handler and wrapped in a badge with the current number of hints given
   return (
-    <Badge count={nHints} offset={[7, 25]}>
-      <DoubleClickHandler handler={handler} doubleClick={false}>
-        <StarFilled className="iconButton" />
-      </DoubleClickHandler>
-    </Badge>
+    <Tooltip title="Show hint">
+      <Badge count={nHints} offset={[7, 25]}>
+        <DoubleClickHandler handler={handler} doubleClick={false}>
+          <StarFilled className="iconButton" />
+        </DoubleClickHandler>
+      </Badge>
+    </Tooltip>
   );
 }
 

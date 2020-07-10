@@ -1,4 +1,5 @@
 import React, { PropsWithChildren } from "react";
+import { ExplicitAny } from "../../../global";
 import { useHistory } from "react-router-dom";
 
 /**
@@ -6,20 +7,31 @@ import { useHistory } from "react-router-dom";
  */
 
 interface MenuButtonProps {
-  location: string;
+  location?: string;
   className?: string;
+  params?: ExplicitAny;
+  onClick?: ExplicitAny;
 }
 
 function MenuButton({
   location,
   className,
+  params,
+  onClick,
   children
 }: PropsWithChildren<MenuButtonProps>) {
   const history = useHistory();
+  const handleClick = () => {
+    if (location) {
+      history.push(location, params);
+    } else if (typeof onClick === "function") {
+      onClick();
+    }
+  };
   return (
     <div
       className={`animatedButton divButton ${className}`}
-      onClick={() => history.push(location)}
+      onClick={handleClick}
     >
       {children}
     </div>
