@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Popconfirm } from "antd";
-import React from "react";
+import ConfirmationModal from "../Modals/ConfirmationModal.component";
 import { RedoOutlined } from "@ant-design/icons";
 import { RootReducerState } from "../../../global";
 import columnsActions from "../../../redux/columns/columns.actions";
@@ -12,6 +12,7 @@ import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
  */
 function RestartGameButton() {
   const dispatch = useDispatch();
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const {
     deckPile,
@@ -53,18 +54,25 @@ function RestartGameButton() {
     );
     // toggle the timer flag
     dispatch(gameBoardActions.toggleGameFlag());
+
+    setShowConfirm(false);
   };
 
   return (
-    <Popconfirm
-      placement="top"
-      title="This game will be considered a lost. Are you sure you want to restart the game?"
-      onConfirm={restartGame}
-      okText="Yes"
-      cancelText="No"
-    >
-      <RedoOutlined className="iconButton" />
-    </Popconfirm>
+    <>
+      <RedoOutlined
+        className="iconButton"
+        onClick={() => setShowConfirm(true)}
+      />
+      {showConfirm ? (
+        <ConfirmationModal
+          onCancel={() => setShowConfirm(false)}
+          onConfirm={restartGame}
+          message="This game will be considered a lost. Are you sure you want to restart the game?"
+          className="adjustToGameOptions"
+        />
+      ) : null}
+    </>
   );
 }
 export default RestartGameButton;

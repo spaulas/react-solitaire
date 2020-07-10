@@ -1,13 +1,15 @@
 import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ConfirmationModal from "../../components/Modals/ConfirmationModal.component";
 import MenuButton from "../../components/Buttons/MenuButton.component";
-import ResumeSavedGameModal from "../../components/Modals/ResumeSavedGameModal.component";
 import { Row } from "antd";
 import pagesActions from "../../../redux/pages/pages.actions";
+import { useHistory } from "react-router-dom";
 
 function StartingPage() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [showAlarm, setShowAlarm] = useState(false);
   const [offlineUser, setOfflineUser] = useState<ExplicitAny>({});
   const { showAnimation } = useSelector(({ Pages }: RootReducerState) => ({
@@ -52,7 +54,12 @@ function StartingPage() {
             </MenuButton>
           </Row>
           {showAlarm ? (
-            <ResumeSavedGameModal onCancel={() => setShowAlarm(false)} />
+            <ConfirmationModal
+              onConfirm={() => history.push("/game")}
+              onCancel={() => setShowAlarm(false)}
+              message="By starting a new game, the saved game will be lost. Do you wish to
+            continue?"
+            />
           ) : null}
         </>
       ) : (

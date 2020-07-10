@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import ConfirmationModal from "../Modals/ConfirmationModal.component";
 import { RootReducerState } from "../../../global";
 import { SaveFilled } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
@@ -6,6 +7,7 @@ import { useSelector } from "react-redux";
 
 function SaveGameButton() {
   const history = useHistory();
+  const [showConfirm, setShowConfirm] = useState(false);
   // get piles from redux
   const { deckPile, flippedPile, columns, goals } = useSelector(
     ({ Deck, Columns, Goal }: RootReducerState) => ({
@@ -27,7 +29,19 @@ function SaveGameButton() {
     history.push("/");
   };
 
-  return <SaveFilled className="iconButton" onClick={saveGame} />;
+  return (
+    <>
+      <SaveFilled className="iconButton" onClick={() => setShowConfirm(true)} />
+      {showConfirm ? (
+        <ConfirmationModal
+          onCancel={() => setShowConfirm(false)}
+          onConfirm={saveGame}
+          message="Save game?"
+          className="adjustToGameOptions"
+        />
+      ) : null}
+    </>
+  );
 }
 
 export default SaveGameButton;

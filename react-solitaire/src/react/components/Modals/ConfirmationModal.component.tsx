@@ -1,23 +1,25 @@
 import { ExplicitAny } from "../../../global";
 import React from "react";
-import { useHistory } from "react-router-dom";
 
 interface ResumeSavedGameModalProps {
+  message: string;
   onCancel: ExplicitAny;
+  onConfirm: ExplicitAny;
+  className?: string;
 }
 
-function ResumeSavedGameModal({ onCancel }: ResumeSavedGameModalProps) {
-  const history = useHistory();
-
+function ResumeSavedGameModal({
+  onConfirm,
+  onCancel,
+  message,
+  className = ""
+}: ResumeSavedGameModalProps) {
   return (
-    <div className="gameFullDiv">
-      <div className="resumeGameQuestion">
-        By starting a new game, the saved game will be lost. Do you wish to
-        continue?
-      </div>
+    <div className={`gameFullDiv ${className}`}>
+      <div className="resumeGameQuestion">{message}</div>
       <div
         className={`animatedButton divButton resumeGameAnimatedButton resumeGameQuestion`}
-        onClick={() => history.push("/game")}
+        onClick={onConfirm}
       >
         <span>Yes</span>
       </div>
