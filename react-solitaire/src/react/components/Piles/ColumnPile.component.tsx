@@ -29,11 +29,7 @@ function ColumnPile({ offset, columnCards, columnId }: ColumnPileProps) {
 
   // renders cards components accordingly if it is flipped or not
   const getCards = () => {
-    // eslint-disable-next-line no-console
-    console.log("--------------------");
     const cardsArray = columnCards.map((card: CardType, index: number) => {
-      // eslint-disable-next-line no-console
-      console.log("COLUMN PILE CARD = ", card);
       // if the card is flipped, then the card image is shown and it can be dragged
       if (card.flipped) {
         const nCards = columnCards.length - index;

@@ -6,11 +6,16 @@ import { Row } from "antd";
 import { useHistory } from "react-router-dom";
 
 interface MainMenuProps {
-  showAnimation: boolean;
+  showStartAnimation: boolean;
+  showBackAnimation: boolean;
   showLoginForm: () => void;
 }
 
-function MainMenu({ showAnimation, showLoginForm }: MainMenuProps) {
+function MainMenu({
+  showStartAnimation,
+  showBackAnimation,
+  showLoginForm
+}: MainMenuProps) {
   const history = useHistory();
   const [showAlarm, setShowAlarm] = useState(false);
   const [offlineUser, setOfflineUser] = useState<ExplicitAny>({});
@@ -21,13 +26,18 @@ function MainMenu({ showAnimation, showLoginForm }: MainMenuProps) {
   };
   useEffect(mountComponent, []);
 
+  const getAnimation = () => {
+    if (showStartAnimation) {
+      return "startButtonAnimated";
+    } else if (showBackAnimation) {
+      return "loginButtonAnimated";
+    } else return "";
+  };
+
   return (
     <>
       <Row align="middle" justify="center">
-        <MenuButton
-          onClick={showLoginForm}
-          className={`${showAnimation ? "startButtonAnimated" : ""}`}
-        >
+        <MenuButton onClick={showLoginForm} className={getAnimation()}>
           <span>Login</span>
         </MenuButton>
       </Row>
@@ -37,7 +47,7 @@ function MainMenu({ showAnimation, showLoginForm }: MainMenuProps) {
             <MenuButton
               location="/game"
               params={{ savedGame: offlineUser.savedGame }}
-              className={`${showAnimation ? "startButtonAnimated" : ""}`}
+              className={getAnimation()}
             >
               <span>Resume Game</span>
             </MenuButton>
@@ -45,7 +55,7 @@ function MainMenu({ showAnimation, showLoginForm }: MainMenuProps) {
           <Row className="buttonSpaceRow" align="middle" justify="center">
             <MenuButton
               onClick={() => setShowAlarm(true)}
-              className={`${showAnimation ? "startButtonAnimated" : ""}`}
+              className={getAnimation()}
             >
               <span>Start Game</span>
             </MenuButton>
@@ -61,10 +71,7 @@ function MainMenu({ showAnimation, showLoginForm }: MainMenuProps) {
         </>
       ) : (
         <Row className="buttonSpaceRow" align="middle" justify="center">
-          <MenuButton
-            location="/game"
-            className={`${showAnimation ? "startButtonAnimated" : ""}`}
-          >
+          <MenuButton location="/game" className={getAnimation()}>
             <span>Start Game</span>
           </MenuButton>
         </Row>
@@ -72,23 +79,20 @@ function MainMenu({ showAnimation, showLoginForm }: MainMenuProps) {
       <Row className="buttonSpaceRow" align="middle" justify="center">
         <MenuButton
           location="/scores/userHighScores"
-          className={`${showAnimation ? "startButtonAnimated" : ""}`}
+          className={getAnimation()}
         >
           <span>Scores</span>
         </MenuButton>
       </Row>
       <Row className="buttonSpaceRow" align="middle" justify="center">
-        <MenuButton
-          location="/statistics"
-          className={`${showAnimation ? "startButtonAnimated" : ""}`}
-        >
+        <MenuButton location="/statistics" className={getAnimation()}>
           <span>Statistics</span>
         </MenuButton>
       </Row>
 
       <Row className="buttonSpaceRow" align="middle" justify="center">
         <MenuButton
-          className={`${showAnimation ? "startButtonAnimated" : ""}`}
+          className={getAnimation()}
           // eslint-disable-next-line no-console
           onClick={() => console.log("LOGOUT HERE")}
         >

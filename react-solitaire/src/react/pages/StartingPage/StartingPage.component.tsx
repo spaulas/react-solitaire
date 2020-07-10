@@ -12,11 +12,20 @@ function StartingPage() {
   const { showAnimation } = useSelector(({ Pages }: RootReducerState) => ({
     showAnimation: Pages.startPageAnimation
   }));
+  const [showButtonsAnimation, setShowButtonsAnimation] = useState(
+    showAnimation
+  );
   const mountComponent = () => {
     // after animation is over, set showAnimation to false
     setTimeout(() => dispatch(pagesActions.setStartPageAnimation(false)), 2500);
+    setShowButtonsAnimation(showAnimation);
   };
   useEffect(mountComponent, []);
+
+  const handleHideForm = () => {
+    setShowButtonsAnimation(true);
+    setShowLoginForm(false);
+  };
 
   return (
     <div
@@ -30,10 +39,11 @@ function StartingPage() {
         />
       </Row>
       {showLoginForm ? (
-        <LoginForm hideForm={() => setShowLoginForm(false)} />
+        <LoginForm hideForm={handleHideForm} />
       ) : (
         <MainMenu
-          showAnimation={showAnimation}
+          showStartAnimation={showAnimation}
+          showBackAnimation={showButtonsAnimation}
           showLoginForm={() => setShowLoginForm(true)}
         />
       )}

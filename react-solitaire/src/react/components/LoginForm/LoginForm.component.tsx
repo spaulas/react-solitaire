@@ -27,7 +27,7 @@ function LoginForm({ hideForm }: LoginFormProps) {
             name="username"
             rules={[{ required: true, message: "Please input your username!" }]}
           >
-            <Input className="divButton" />
+            <Input className="divButton loginButtonAnimated" />
           </Item>
         </Row>
         <Row align="middle" justify="center">
@@ -35,27 +35,41 @@ function LoginForm({ hideForm }: LoginFormProps) {
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
-            <Password className="divButton passwordInput" />
+            <Password className="divButton passwordInput loginButtonAnimated" />
           </Item>
         </Row>
       </Form>
 
       <Row align="middle" justify="center">
-        <MenuButton onClick={() => form.submit()}>
+        <MenuButton
+          onClick={() => form.submit()}
+          className="loginButtonAnimated"
+        >
           <span>Submit</span>
         </MenuButton>
       </Row>
       <Row className="buttonSpaceRow" align="middle" justify="center">
-        <MenuButton onClick={() => form.submit()} className="googleButton">
+        <MenuButton
+          onClick={() => form.submit()}
+          className="googleButton loginButtonAnimated"
+        >
           <GoogleCircleFilled />
           <span> Google</span>
         </MenuButton>
       </Row>
 
       <Row className="buttonSpaceRow" align="middle" justify="center">
-        <MenuButton onClick={() => form.submit()} className="facebookButton">
+        <MenuButton
+          onClick={() => form.submit()}
+          className="facebookButton loginButtonAnimated"
+        >
           <FacebookFilled />
           <span> Facebook</span>
+        </MenuButton>
+      </Row>
+      <Row className="buttonSpaceRow" align="middle" justify="center">
+        <MenuButton onClick={hideForm} className="loginButtonAnimated">
+          <span>Back</span>
         </MenuButton>
       </Row>
     </>

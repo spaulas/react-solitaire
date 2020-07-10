@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useState } from "react";
 import ExpandTableIcon from "./ExpandTableIcon.component";
 import { Table } from "antd";
