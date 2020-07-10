@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
-import { FacebookFilled, GoogleCircleFilled } from "@ant-design/icons";
 import { Form, Input, Row } from "antd";
+import { GoogleCircleFilled } from "@ant-design/icons";
 import MenuButton from "../../components/Buttons/MenuButton.component";
 import React from "react";
+import { signInWithGoogle } from "../../../firebase/firebase.utils";
 
 const { Item } = Form;
 const { Password } = Input;
@@ -50,21 +51,11 @@ function LoginForm({ hideForm }: LoginFormProps) {
       </Row>
       <Row className="buttonSpaceRow" align="middle" justify="center">
         <MenuButton
-          onClick={() => form.submit()}
+          onClick={signInWithGoogle}
           className="googleButton loginButtonAnimated"
         >
           <GoogleCircleFilled />
           <span> Google</span>
-        </MenuButton>
-      </Row>
-
-      <Row className="buttonSpaceRow" align="middle" justify="center">
-        <MenuButton
-          onClick={() => form.submit()}
-          className="facebookButton loginButtonAnimated"
-        >
-          <FacebookFilled />
-          <span> Facebook</span>
         </MenuButton>
       </Row>
       <Row className="buttonSpaceRow" align="middle" justify="center">
