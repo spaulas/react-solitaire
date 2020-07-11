@@ -21,4 +21,31 @@ const googleProvider = new firebase.auth.GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: "select_account" });
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
+export const getUserInfo = async user => {
+  if (!user) {
+    return;
+  }
+
+  const userRef = firestore.doc(`users/${user.uid}`);
+  const snapShot = await userRef.get();
+
+  if (!snapShot.exists && user.email) {
+    try {
+      await userRef.set({
+        email: user.email,
+        userName: user.displayName,
+        createdAt: new Date(),
+        maxMoves: 0,
+        maxTime: 0,
+        nGames: 0,
+        hasSavedGame: false,
+        history: []
+      });
+    } catch (error) {
+      console.error("Error creating user ", error.message);
+    }
+  }
+  return userRef;
+};
+
 export default firebase;

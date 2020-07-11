@@ -95,6 +95,7 @@ function MainMenu({
           className={getAnimation()}
           // eslint-disable-next-line no-console
           onClick={() => console.log("LOGOUT HERE")}
+          // if the usercomes from firebase: auth.signOut()
         >
           <span>Logout</span>
         </MenuButton>

@@ -4,13 +4,15 @@ import deckReducer from "./deck/deck.reducer";
 import gameBoardReducer from "./gameBoard/gameBoard.reducer";
 import goalReducer from "./goal/goal.reducer";
 import pagesReducer from "./pages/pages.reducer";
+import userReducer from "./user/user.reducer";
 
 export const rootReducer = {
   Columns: columnsReducer,
   Deck: deckReducer,
   GameBoard: gameBoardReducer,
   Goal: goalReducer,
-  Pages: pagesReducer
+  Pages: pagesReducer,
+  User: userReducer
 };
 
 export default combineReducers(rootReducer);
