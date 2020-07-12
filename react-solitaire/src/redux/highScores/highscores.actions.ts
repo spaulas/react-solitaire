@@ -1,10 +1,11 @@
+import { ExplicitAny, ValueOf } from "../../global";
 import HighScoresActionTypes from "./highscores.types";
-import { ValueOf } from "../../global";
 
 // ********************************************************
 
-const setOnlineHighScores = () => ({
-  type: HighScoresActionTypes.SET_ONLINE_HIGHSCORES
+const setOnlineHighScores = (data: ExplicitAny) => ({
+  type: HighScoresActionTypes.SET_ONLINE_HIGHSCORES,
+  data
 });
 
 const setOfflineHighScores = () => ({

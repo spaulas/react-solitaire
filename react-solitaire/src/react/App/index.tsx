@@ -6,6 +6,7 @@ import { DndProvider } from "react-dnd";
 import { ExplicitAny } from "../../global";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Layout } from "antd";
+import highscoreActions from "../../redux/highScores/highscores.actions";
 import { useDispatch } from "react-redux";
 import userActions from "../../redux/user/user.actions";
 
@@ -16,10 +17,15 @@ function BaseApplication() {
   const mountComponent = () => {
     // when the auth changes
     auth.onAuthStateChanged(async (userAuth: ExplicitAny) => {
-      const userRef: ExplicitAny = await getUserInfo(userAuth);
+      const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(
+        userAuth
+      );
 
-      // if there is an online user
-      if (userRef) {
+      // eslint-disable-next-line no-console
+      console.log("HISH S ORE REF = ", highscoreRef);
+
+      // if there is online user and highscore
+      if (userRef && highscoreRef) {
         userRef?.onSnapshot((snapshot: ExplicitAny) => {
           dispatch(
             userActions.saveUser({
@@ -29,10 +35,20 @@ function BaseApplication() {
             })
           );
         });
+
+        highscoreRef?.onSnapshot((snapshot: ExplicitAny) => {
+          dispatch(
+            highscoreActions.setOnlineHighScores({
+              highscoreRef,
+              ...snapshot.data()
+            })
+          );
+        });
       }
-      // if not, make an offline user
+      // if not, make offline user and highscore
       else {
         dispatch(userActions.getLocalStorage());
+        dispatch(highscoreActions.setOfflineHighScores());
       }
     });
   };

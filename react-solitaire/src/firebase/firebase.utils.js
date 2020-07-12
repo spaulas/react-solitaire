@@ -23,13 +23,16 @@ export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export const getUserInfo = async user => {
   if (!user) {
-    return null;
+    return { userRef: null, highscoreRef: null };
   }
 
   const userRef = firestore.doc(`users/${user.uid}`);
-  const snapShot = await userRef.get();
+  const userSnapShot = await userRef.get();
 
-  if (!snapShot.exists && user.email) {
+  const highscoreRef = firestore.doc("topHighScores/highScores");
+  const highscoreSnapShot = await highscoreRef.get();
+
+  if (!userSnapShot.exists && user.email) {
     try {
       await userRef.set({
         email: user.email,
@@ -45,7 +48,18 @@ export const getUserInfo = async user => {
       console.error("Error creating user ", error.message);
     }
   }
-  return userRef;
+
+  if (!highscoreSnapShot.exists) {
+    try {
+      await highscoreRef.set({
+        highScores: []
+      });
+    } catch (error) {
+      console.error("Error creating highscore ", error.message);
+    }
+  }
+
+  return { userRef, highscoreRef };
 };
 
 export default firebase;

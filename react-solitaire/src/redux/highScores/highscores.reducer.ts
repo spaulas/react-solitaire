@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 import { ActionsCreators } from "./highscores.actions";
+import { ExplicitAny } from "../../global";
 import HighScoresActionTypes from "./highscores.types";
 
 interface HighScore {
@@ -8,20 +9,32 @@ interface HighScore {
 }
 
 export interface InitialHighScores {
-  topHighScores: Array<HighScore>;
+  highScores: Array<HighScore>;
+  highscoreRef: ExplicitAny;
 }
 
 const INITIAL_HIGHSCORE: InitialHighScores = {
-  topHighScores: []
+  highScores: [],
+  highscoreRef: undefined
 };
 
 const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
   switch (action.type) {
-    case HighScoresActionTypes.SET_OFFLINE_HIGHSCORES:
-      return state;
-
     case HighScoresActionTypes.SET_ONLINE_HIGHSCORES:
-      return state;
+      return action.data;
+
+    case HighScoresActionTypes.SET_OFFLINE_HIGHSCORES:
+      const currentLocal = localStorage.getItem("offlineHighScores");
+      const offlineHighScores = currentLocal
+        ? JSON.parse(currentLocal)
+        : undefined;
+      if (!offlineHighScores) {
+        localStorage.setItem(
+          "offlineHighScores",
+          JSON.stringify(INITIAL_HIGHSCORE)
+        );
+      }
+      return offlineHighScores || INITIAL_HIGHSCORE;
 
     // ********************************************************
 
