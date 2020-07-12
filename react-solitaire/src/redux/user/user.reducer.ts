@@ -53,7 +53,7 @@ const INITIAL_USER: InitialUser = {
     moves: {}
   },
   settings: {
-    language: "en-US"
+    language: "pt-PT"
   }
 };
 

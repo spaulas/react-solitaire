@@ -2,6 +2,7 @@ import { ExplicitAny, RootReducerState } from "../../../../global";
 import React, { PropsWithChildren, memo } from "react";
 import { IntlProvider } from "react-intl";
 import enUSIntl from "../../Languages/en-US.json";
+import ptPTIntl from "../../Languages/pt-PT.json";
 import { useSelector } from "react-redux";
 
 function TranslatorIntlProvider({ children }: PropsWithChildren<{}>) {
@@ -11,7 +12,8 @@ function TranslatorIntlProvider({ children }: PropsWithChildren<{}>) {
   );
 
   const messages: ExplicitAny = {
-    en: enUSIntl
+    en: enUSIntl,
+    pt: ptPTIntl
   };
 
   const finalLanguage = language.split("-")[0]; // language without region code

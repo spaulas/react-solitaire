@@ -87,7 +87,7 @@ function MainMenu({
       ) : (
         <Row className="buttonSpaceRow" align="middle" justify="center">
           <MenuButton location="/game" className={getAnimation()}>
-            <span>Start Game</span>
+            <FormattedMessage id="btn.startGame" />
           </MenuButton>
         </Row>
       )}
