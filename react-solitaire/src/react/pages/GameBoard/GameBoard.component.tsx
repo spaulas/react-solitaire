@@ -18,6 +18,7 @@ import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../redux/goal/goal.actions";
 import { useLocation } from "react-router-dom";
+import userActions from "../../../redux/user/user.actions";
 
 function GameBoard() {
   const dispatch = useDispatch();
@@ -133,11 +134,7 @@ function GameBoard() {
 
   const addGameToUser = () => {
     if (gameMoves === 1) {
-      const currentLocal = localStorage.getItem("offlineUser");
-      const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
-      // add current statistic to user history
-      offlineUser.nGames = (offlineUser?.nGames || 0) + 1;
-      localStorage.setItem("offlineUser", JSON.stringify(offlineUser));
+      dispatch(userActions.addGame());
     }
   };
   useEffect(addGameToUser, [gameMoves]);

@@ -12,11 +12,16 @@ const saveUser = (user: ExplicitAny) => ({
   user
 });
 
+const addGame = () => ({
+  type: UserActionTypes.ADD_GAME
+});
+
 // ********************************************************
 
 const actionsCreators = Object.freeze({
   getLocalStorage,
-  saveUser
+  saveUser,
+  addGame
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

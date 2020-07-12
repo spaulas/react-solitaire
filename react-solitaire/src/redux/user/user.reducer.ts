@@ -23,6 +23,7 @@ export interface InitialUser {
   createdAt: Date;
   savedGame: ExplicitAny;
   userRef: ExplicitAny;
+  email: string;
 }
 
 const INITIAL_USER: InitialUser = {
@@ -35,7 +36,8 @@ const INITIAL_USER: InitialUser = {
   history: [],
   createdAt: new Date(),
   savedGame: {},
-  userRef: undefined
+  userRef: undefined,
+  email: ""
 };
 
 const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
@@ -44,15 +46,30 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       const currentLocal = localStorage.getItem("offlineUser");
       const offlineUser = currentLocal ? JSON.parse(currentLocal) : undefined;
       if (!offlineUser) {
-        localStorage.setItem(
-          "offlineUser",
-          JSON.stringify({ offlineUser: INITIAL_USER })
-        );
+        localStorage.setItem("offlineUser", JSON.stringify(INITIAL_USER));
       }
       return offlineUser || INITIAL_USER;
 
     case UserActionTypes.SAVE_USER:
       return action.user;
+
+    case UserActionTypes.ADD_GAME:
+      const finalGames = state.nGames + 1;
+      if (state.userRef) {
+        // add to firebase
+        state.userRef.set({
+          ...state,
+          nGames: finalGames
+        });
+      } else {
+        // add to localStorage
+        localStorage.setItem(
+          "offlineUser",
+          JSON.stringify({ ...state, nGames: finalGames })
+        );
+      }
+
+      return { ...state, nGames: finalGames };
 
     // ********************************************************
 
