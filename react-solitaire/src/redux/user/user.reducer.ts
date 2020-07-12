@@ -64,6 +64,23 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
     case UserActionTypes.SAVE_USER:
       return action.user;
 
+    case UserActionTypes.CHANGE_USERNAME:
+      if (state.userRef) {
+        // add to firebase
+        state.userRef.set({
+          ...state,
+          userName: action.userName
+        });
+      } else {
+        // add to localStorage
+        localStorage.setItem(
+          "offlineUser",
+          JSON.stringify({ ...state, userName: action.userName })
+        );
+      }
+
+      return { ...state, userName: action.userName };
+
     case UserActionTypes.ADD_GAME:
       const finalGames = state.nGames + 1;
       if (state.userRef) {

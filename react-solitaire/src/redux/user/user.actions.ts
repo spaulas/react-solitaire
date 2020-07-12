@@ -12,6 +12,11 @@ const saveUser = (user: ExplicitAny) => ({
   user
 });
 
+const changeUserName = (userName: string) => ({
+  type: UserActionTypes.CHANGE_USERNAME,
+  userName
+});
+
 const addGame = () => ({
   type: UserActionTypes.ADD_GAME
 });
@@ -36,6 +41,7 @@ const clearSavedGame = () => ({
 const actionsCreators = Object.freeze({
   getLocalStorage,
   saveUser,
+  changeUserName,
   addGame,
   gameOver,
   saveGame,

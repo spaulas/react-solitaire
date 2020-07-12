@@ -13,6 +13,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { convertTime } from "../DataDisplay/Timer.component";
 import goalActions from "../../../redux/goal/goal.actions";
+import highscoresActions from "../../../redux/highScores/highscores.actions";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 import userActions from "../../../redux/user/user.actions";
@@ -24,21 +25,26 @@ interface HighScore {
 
 function GameOverModal() {
   const [visible, setVisible] = useState(true);
-  const [newHighscore, setNewHighScore] = useState(false);
-  const [defaultUserName /* setDefaultUserName */] = useState<
-    string | undefined
-  >();
   const [inputRef, setInputRef] = useState<ExplicitAny>();
   const history = useHistory();
   const dispatch = useDispatch();
 
   // get gameOver value from redux
-  const { gameOver, gameMoves, gameTime, nHints } = useSelector(
-    ({ Goal, GameBoard }: RootReducerState) => ({
+  const {
+    gameOver,
+    gameMoves,
+    gameTime,
+    nHints,
+    userName,
+    hasNewHighScore
+  } = useSelector(
+    ({ Goal, GameBoard, User, HighScores }: RootReducerState) => ({
       gameOver: Goal.gameOver,
       gameMoves: GameBoard.gameMoves,
       gameTime: GameBoard.gameTime,
-      nHints: GameBoard.nHints
+      nHints: GameBoard.nHints,
+      userName: User.userName,
+      hasNewHighScore: HighScores.hasNewHighScore
     })
   );
 
@@ -67,32 +73,27 @@ function GameOverModal() {
 
   const saveUserGame = () => {
     if (gameOver) {
+      // eslint-disable-next-line no-console
+      console.log("inpout rtef = ", inputRef);
+      inputRef?.focus();
       dispatch(userActions.gameOver(gameStatistics, gameTime));
+      dispatch(highscoresActions.hasNewHighScore(gameStatistics.finalScore));
     }
   };
   useEffect(saveUserGame, [gameTime]);
 
   const handleCloseModal = () => {
-    if (newHighscore && inputRef?.state?.value) {
-      const currentLocal = localStorage.getItem("offlineUser");
-      const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
-      let foundOne = false;
+    if (hasNewHighScore) {
+      const finalUserName = inputRef.state.value || userName;
+      dispatch(
+        highscoresActions.addHighScore(finalUserName, gameStatistics.finalScore)
+      );
 
-      const tempTop = offlineUser?.topHighScores.map((highScore: HighScore) => {
-        if (highScore.finalScore === gameStatistics.finalScore && !foundOne) {
-          foundOne = true;
-          return { ...highScore, userName: inputRef.state.value };
-        }
-        return highScore;
-      });
-
-      offlineUser.topHighScores = tempTop;
-      offlineUser.userName = inputRef.state.value;
-
-      localStorage.setItem("offlineUser", JSON.stringify(offlineUser));
+      if (finalUserName !== userName) {
+        dispatch(userActions.changeUserName(finalUserName));
+      }
     }
 
-    setNewHighScore(false);
     setVisible(false);
     history.push("/");
 
@@ -104,13 +105,13 @@ function GameOverModal() {
       <div className="gameFullDiv">
         <div className="gameOverStatistics">
           <div>Game Statistics</div>
-          {newHighscore && (
+          {hasNewHighScore && (
             <div className="newHighScoreContainer">
               <div>New HighScore!</div>
               <Input
                 ref={(e: ExplicitAny) => setInputRef(e)}
                 placeholder="Add here a username"
-                defaultValue={defaultUserName}
+                defaultValue={userName}
               />
             </div>
           )}
