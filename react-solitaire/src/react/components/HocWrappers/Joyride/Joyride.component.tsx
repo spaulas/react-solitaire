@@ -17,7 +17,7 @@ function BaseJoyride() {
   );
 
   const handlePageChange = () => {
-    if (page && !run) {
+    if (page && !run && joyride[page]) {
       // eslint-disable-next-line no-console
       console.log("PAGE CHANGED AND RUNNING! = ", joyride);
       setRun(true);

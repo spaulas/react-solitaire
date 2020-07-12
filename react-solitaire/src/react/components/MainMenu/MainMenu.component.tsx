@@ -52,7 +52,10 @@ function MainMenu({
     <>
       {!userRef && (
         <Row align="middle" justify="center">
-          <MenuButton onClick={showLoginForm} className={getAnimation()}>
+          <MenuButton
+            onClick={showLoginForm}
+            className={`joyrideLoginButton ${getAnimation()}`}
+          >
             <FormattedMessage id="btn.login" />
           </MenuButton>
         </Row>
@@ -71,7 +74,7 @@ function MainMenu({
           <Row className="buttonSpaceRow" align="middle" justify="center">
             <MenuButton
               onClick={() => setShowAlarm(true)}
-              className={getAnimation()}
+              className={`joyrideStartGameButton ${getAnimation()}`}
             >
               <FormattedMessage id="btn.startGame" />
             </MenuButton>
@@ -86,7 +89,10 @@ function MainMenu({
         </>
       ) : (
         <Row className="buttonSpaceRow" align="middle" justify="center">
-          <MenuButton location="/game" className={getAnimation()}>
+          <MenuButton
+            location="/game"
+            className={`joyrideStartGameButton ${getAnimation()}`}
+          >
             <FormattedMessage id="btn.startGame" />
           </MenuButton>
         </Row>
@@ -94,13 +100,16 @@ function MainMenu({
       <Row className="buttonSpaceRow" align="middle" justify="center">
         <MenuButton
           location="/scores/userHighScores"
-          className={getAnimation()}
+          className={`joyrideScoresButton ${getAnimation()}`}
         >
           <FormattedMessage id="sidebar.scores" />
         </MenuButton>
       </Row>
       <Row className="buttonSpaceRow" align="middle" justify="center">
-        <MenuButton location="/statistics" className={getAnimation()}>
+        <MenuButton
+          location="/statistics"
+          className={`joyrideStatisticsButton ${getAnimation()}`}
+        >
           <FormattedMessage id="sidebar.statistics" />
         </MenuButton>
       </Row>
