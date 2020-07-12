@@ -16,12 +16,19 @@ const addGame = () => ({
   type: UserActionTypes.ADD_GAME
 });
 
+const gameOver = (gameStatistics: ExplicitAny, seconds: number) => ({
+  type: UserActionTypes.GAME_OVER,
+  gameStatistics,
+  seconds
+});
+
 // ********************************************************
 
 const actionsCreators = Object.freeze({
   getLocalStorage,
   saveUser,
-  addGame
+  addGame,
+  gameOver
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

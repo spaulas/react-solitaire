@@ -15,6 +15,7 @@ import { convertTime } from "../DataDisplay/Timer.component";
 import goalActions from "../../../redux/goal/goal.actions";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
+import userActions from "../../../redux/user/user.actions";
 
 interface HighScore {
   userName: string;
@@ -64,61 +65,7 @@ function GameOverModal() {
 
   const saveUserGame = () => {
     if (gameOver) {
-      // @todo after a user is created at the firebase, add condition here to select where to store the info
-      const currentLocal = localStorage.getItem("offlineUser");
-      const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
-      // add current statistic to user history
-      offlineUser.history = [
-        ...(offlineUser?.history || []),
-        { ...gameStatistics, seconds: gameTime }
-      ];
-      // check if the current number of moves is higher than the current max
-      if ((offlineUser?.maxMoves || 0) < gameMoves) {
-        offlineUser.maxMoves = gameMoves;
-      }
-
-      // check if the current game time is higher than the current max
-      if ((offlineUser?.maxTime || 0) < gameTime) {
-        offlineUser.maxTime = gameTime;
-      }
-
-      // get top 10 highscores
-      let topHighScores = offlineUser?.topHighScores || [];
-
-      if (topHighScores.length < 10) {
-        topHighScores = [
-          ...topHighScores,
-          {
-            userName: offlineUser?.userName || "localUser",
-            finalScore: gameStatistics.finalScore
-          }
-        ];
-        setNewHighScore(true);
-      } else {
-        const result = topHighScores.find((highScore: HighScore) => {
-          return gameStatistics.finalScore < highScore.finalScore;
-        });
-        if (result) {
-          topHighScores = [
-            ...topHighScores,
-            {
-              userName: offlineUser?.userName || "localUser",
-              finalScore: gameStatistics.finalScore
-            }
-          ];
-          setNewHighScore(true);
-        }
-      }
-
-      topHighScores.sort((a: HighScore, b: HighScore) => {
-        return a.finalScore < b.finalScore ? -1 : 1;
-      });
-
-      offlineUser.topHighScores = topHighScores;
-
-      setDefaultUserName(offlineUser?.userName);
-
-      localStorage.setItem("offlineUser", JSON.stringify(offlineUser));
+      dispatch(userActions.gameOver(gameStatistics, gameTime));
     }
   };
   useEffect(saveUserGame, [gameTime]);
