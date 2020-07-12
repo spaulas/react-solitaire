@@ -1,4 +1,5 @@
 /* eslint-disable indent */
+import { FormattedMessage } from "react-intl";
 import HighScoresTable from "../../components/Table/HighScoresTable.component";
 import PageTitle from "../../components/PageTitle/PageTitle.component";
 import React from "react";
@@ -34,13 +35,16 @@ function ScoresPage({ activeTab }: ScoresPageProps) {
 
   return (
     <div className="pageBackground scoresPage">
-      <PageTitle title="Scores" />
+      <PageTitle title={<FormattedMessage id="sidebar.scores" />} />
 
       <Tabs activeKey={activeTab} onChange={handleTabChange}>
-        <TabPane tab="Your HighScores" key="1">
+        <TabPane tab={<FormattedMessage id="sidebar.userHighScores" />} key="1">
           <UserScoresTable data={gameHistory} className="scoresTable" />
         </TabPane>
-        <TabPane tab="Top 10 HighScores" key="2">
+        <TabPane
+          tab={<FormattedMessage id="sidebar.top10HighScores" />}
+          key="2"
+        >
           <HighScoresTable className="scoresTable" />
         </TabPane>
       </Tabs>

@@ -1,3 +1,4 @@
+import { FormattedMessage } from "react-intl";
 import React from "react";
 import { RootReducerState } from "../../../global";
 import { Table } from "antd";
@@ -28,13 +29,13 @@ function HighScoresTable({ className }: HighScoresTableProps) {
     >
       <Column
         key="userName"
-        title="UserName"
+        title={<FormattedMessage id="table.userName" />}
         dataIndex="userName"
         align="center"
       />
       <Column
         key="finalScore"
-        title="Final Score"
+        title={<FormattedMessage id="table.finalScore" />}
         dataIndex="finalScore"
         align="center"
       />
