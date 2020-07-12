@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Joyride from "react-joyride";
 import { RootReducerState } from "../../../../global";
 import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
+import userActions from "../../../../redux/user/user.actions";
 
 function BaseJoyride() {
   const intl = useIntl();
+  const dispatch = useDispatch();
   const [run, setRun] = useState(false);
 
   const { page, steps, joyride } = useSelector(
@@ -17,8 +19,11 @@ function BaseJoyride() {
   );
 
   const handlePageChange = () => {
-    if (page && !run && joyride[page]) {
+    if (page && joyride[page]) {
+      const joyrideCopy = { ...joyride };
+      joyrideCopy[page] = false;
       setRun(true);
+      dispatch(userActions.setJoyride(joyrideCopy));
     }
   };
   useEffect(handlePageChange, [page]);

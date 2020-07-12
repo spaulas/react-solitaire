@@ -207,6 +207,25 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       }
       return { ...state, savedGame: {}, hasSavedGame: false };
 
+    case UserActionTypes.SET_JOYRIDE:
+      if (state.userRef) {
+        // add to firebase
+        state.userRef.set({
+          ...state,
+          joyride: action.joyride
+        });
+      } else {
+        // add to localStorage
+        localStorage.setItem(
+          "offlineUser",
+          JSON.stringify({
+            ...state,
+            joyride: action.joyride
+          })
+        );
+      }
+      return { ...state, joyride: action.joyride };
+
     // ********************************************************
 
     default:
