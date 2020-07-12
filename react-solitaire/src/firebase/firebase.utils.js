@@ -23,7 +23,7 @@ export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export const getUserInfo = async user => {
   if (!user) {
-    return;
+    return null;
   }
 
   const userRef = firestore.doc(`users/${user.uid}`);

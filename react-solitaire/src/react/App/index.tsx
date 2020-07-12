@@ -6,14 +6,33 @@ import { DndProvider } from "react-dnd";
 import { ExplicitAny } from "../../global";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Layout } from "antd";
+import { useDispatch } from "react-redux";
+import userActions from "../../redux/user/user.actions";
 
 const { Content } = Layout;
 
 function BaseApplication() {
+  const dispatch = useDispatch();
   const mountComponent = () => {
     // when the auth changes
-    auth.onAuthStateChanged((user: ExplicitAny) => {
-      getUserInfo(user);
+    auth.onAuthStateChanged(async (userAuth: ExplicitAny) => {
+      const userRef: ExplicitAny = await getUserInfo(userAuth);
+
+      // if there is an online user
+      if (userRef) {
+        userRef?.onSnapshot((snapshot: ExplicitAny) => {
+          dispatch(
+            userActions.saveUser({
+              id: userRef.id,
+              ...snapshot.data()
+            })
+          );
+        });
+      }
+      // if not, make an offline user
+      else {
+        dispatch(userActions.getLocalStorage());
+      }
     });
   };
   useEffect(mountComponent, []);

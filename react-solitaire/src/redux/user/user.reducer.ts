@@ -12,21 +12,25 @@ interface GameHistory {
 }
 
 export interface InitialUser {
+  id: string;
   userName: string;
   maxMoves: number;
   maxTime: number;
   nGames: number;
   hasSavedGame: boolean;
   history: Array<GameHistory>;
+  createdAt: Date;
 }
 
 const INITIAL_USER: InitialUser = {
+  id: "localStorageUser",
   userName: "localUser",
   maxMoves: 0,
   maxTime: 0,
   nGames: 0,
   hasSavedGame: false,
-  history: []
+  history: [],
+  createdAt: new Date()
 };
 
 const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
