@@ -44,8 +44,9 @@ function GameBoard() {
     goal1Pile,
     goal2Pile,
     goal3Pile,
-    goal4Pile
-  } = useSelector(({ GameBoard, Goal }: RootReducerState) => ({
+    goal4Pile,
+    savedGame
+  } = useSelector(({ GameBoard, Goal, User }: RootReducerState) => ({
     gameMoves: GameBoard.gameMoves,
     gameOver: Goal.gameOver,
     deckPile: GameBoard.deckPile,
@@ -60,7 +61,8 @@ function GameBoard() {
     goal1Pile: GameBoard.goal1Pile,
     goal2Pile: GameBoard.goal2Pile,
     goal3Pile: GameBoard.goal3Pile,
-    goal4Pile: GameBoard.goal4Pile
+    goal4Pile: GameBoard.goal4Pile,
+    savedGame: User.savedGame
   }));
 
   // ---------------------------------------------------------
@@ -71,21 +73,17 @@ function GameBoard() {
     // set this refs at the redux
     dispatch(deckActions.setRefs(deckRef, flippedRef));
 
-    const currentLocal = localStorage.getItem("offlineUser");
-    const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
-
     // if nothing was sent through the state, then create a new game
     if (!location.state) {
-      if (offlineUser.savedGame) {
+      if (savedGame) {
         // if there was a saved game and the user started a new one, should count has a lost
-        offlineUser.nGames = (offlineUser.nGames || 0) + 1;
+        dispatch(userActions.addGame());
       }
       // create new deck
       dispatch(gameBoardActions.createGame());
     } else {
       // add game to the user counting
-      offlineUser.nGames = (offlineUser.nGames || 0) + 1;
-      const savedGame = (location.state as ExplicitAny).savedGame;
+      dispatch(userActions.addGame());
       // set the initial deck
       dispatch(
         deckActions.setInitialDeck(savedGame.deckPile, savedGame.flippedPile)
@@ -95,9 +93,7 @@ function GameBoard() {
       dispatch(goalActions.setInitialGoals(savedGame.goals));
     }
 
-    offlineUser.hasSavedGame = false;
-    offlineUser.savedGame = undefined;
-    localStorage.setItem("offlineUser", JSON.stringify(offlineUser));
+    dispatch(userActions.clearSavedGame());
   };
   // triggers the call of the mountGameBoard function when the component is mounted
   useEffect(mountGameBoard, []);
