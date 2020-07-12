@@ -1,9 +1,18 @@
-const breadRoutes: Record<string, string> = {
-  "/": "Home",
-  "/scores": "Scores",
-  "/scores/userHighScores": "User HighScores",
-  "/scores/top10HighScores": "Top 10 HighScores",
-  "/statistics": "Statistics"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getBreadRoutes = (intl: any) => {
+  const breadRoutes: Record<string, string> = {
+    "/": intl.formatMessage({ id: "sidebar.home" }),
+    "/scores": intl.formatMessage({ id: "sidebar.scores" }),
+    "/scores/userHighScores": intl.formatMessage({
+      id: "sidebar.userHighScores"
+    }),
+    "/scores/top10HighScores": intl.formatMessage({
+      id: "sidebar.top10HighScores"
+    }),
+    "/statistics": intl.formatMessage({ id: "sidebar.statistics" })
+  };
+
+  return breadRoutes;
 };
 
-export default breadRoutes;
+export default getBreadRoutes;
