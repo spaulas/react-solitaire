@@ -44,7 +44,7 @@ export const createWinsRatioGraph = (history: ExplicitAny, nGames: number) => {
     ];
   }
 
-  return { data };
+  return data;
 };
 
 export const createGraphs = (
