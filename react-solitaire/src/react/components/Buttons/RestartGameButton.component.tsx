@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ConfirmationModal from "../Modals/ConfirmationModal.component";
+import { FormattedMessage } from "react-intl";
 import { RedoOutlined } from "@ant-design/icons";
 import { RootReducerState } from "../../../global";
 import { Tooltip } from "antd";
@@ -61,7 +62,7 @@ function RestartGameButton() {
 
   return (
     <>
-      <Tooltip title="Restart game">
+      <Tooltip title={<FormattedMessage id="btn.restart" />}>
         <RedoOutlined
           className="iconButton"
           onClick={() => setShowConfirm(true)}

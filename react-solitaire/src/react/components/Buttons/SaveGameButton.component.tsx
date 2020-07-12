@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ConfirmationModal from "../Modals/ConfirmationModal.component";
+import { FormattedMessage } from "react-intl";
 import { RootReducerState } from "../../../global";
 import { SaveFilled } from "@ant-design/icons";
 import { Tooltip } from "antd";
@@ -28,7 +29,7 @@ function SaveGameButton() {
 
   return (
     <>
-      <Tooltip title="Save game">
+      <Tooltip title={<FormattedMessage id="btn.saveGame" />}>
         <SaveFilled
           className="iconButton"
           onClick={() => setShowConfirm(true)}

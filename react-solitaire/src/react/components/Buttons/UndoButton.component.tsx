@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { FormattedMessage } from "react-intl";
 import React from "react";
 import { RootReducerState } from "../../../global";
 import { StepBackwardOutlined } from "@ant-design/icons";
@@ -110,7 +111,7 @@ function UndoButton() {
   };
 
   return (
-    <Tooltip title="Undo moves">
+    <Tooltip title={<FormattedMessage id="btn.undo" />}>
       <StepBackwardOutlined className="iconButton" onClick={handleUndo} />
     </Tooltip>
   );
