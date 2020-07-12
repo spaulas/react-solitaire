@@ -22,6 +22,7 @@
     "form.error.password": "Please input your password!",
     "modal.gameStatistics": "Game Statistics",
     "modal.newHighScore": "New High Score!",
+    "sidebar.home": "Home",
     "sidebar.scores": "Scores",
     "sidebar.statistics": "Statistics",
     "sidebar.top10HighScores": "Top 10 HighScores",

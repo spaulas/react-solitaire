@@ -2,6 +2,7 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import { Carousel } from "antd";
 import { ExplicitAny } from "../../../../global";
+import { FormattedMessage } from "react-intl";
 import MovesGraph from "../BarGraph/MovesGraph.component";
 import Piegraph from "../PieGraph/PieGraph.component";
 import TimeGraph from "../BarGraph/TimeGraph.component";
@@ -31,15 +32,21 @@ function CarouselDisplay() {
         className="statisticsCarousel"
       >
         <div>
-          <div className="tabTitle">Win/Lost Ratio</div>
+          <div className="tabTitle">
+            <FormattedMessage id="statistics.winRatio" />
+          </div>
           <Piegraph key={countKey} width={500} height={600} />
         </div>
         <div>
-          <div className="tabTitle">Moves Per Game</div>
+          <div className="tabTitle">
+            <FormattedMessage id="statistics.movesPerGame" />
+          </div>
           <MovesGraph key={countKey + 1} width={1000} height={500} />
         </div>
         <div>
-          <div className="tabTitle">Time Per Game</div>
+          <div className="tabTitle">
+            <FormattedMessage id="statistics.timePerGame" />
+          </div>
           <TimeGraph key={countKey + 2} width={1000} height={500} />
         </div>
       </Carousel>
