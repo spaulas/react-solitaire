@@ -18,6 +18,8 @@
     "confirm.no": "No",
     "confirm.saveGame": "Save game?",
     "confirm.yes": "Yes",
+    "form.error.email": "Please input your email!",
+    "form.error.password": "Please input your password!",
     "modal.gameStatistics": "Game Statistics",
     "modal.newHighScore": "New High Score!",
     "sidebar.scores": "Scores",

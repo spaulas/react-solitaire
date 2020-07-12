@@ -18,6 +18,8 @@
     "confirm.no": "Não",
     "confirm.saveGame": "Salvar jogo?",
     "confirm.yes": "Sim",
+    "form.error.email": "Por favor insira seu email",
+    "form.error.password": "Por favor insira sua senha",
     "modal.gameStatistics": "Estatísticas do Jogo",
     "modal.newHighScore": "Nova Pontuação Máxima!",
     "sidebar.scores": "Pontuações",

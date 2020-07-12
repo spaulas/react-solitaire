@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import { Form, Input, Row } from "antd";
+import { FormattedMessage, useIntl } from "react-intl";
 import { GoogleCircleFilled } from "@ant-design/icons";
 import MenuButton from "../../components/Buttons/MenuButton.component";
 import React from "react";
@@ -13,6 +14,7 @@ interface LoginFormProps {
 }
 
 function LoginForm({ hideForm }: LoginFormProps) {
+  const intl = useIntl();
   const onSubmit = (values: Record<string, string>) => {
     console.log("onSubmit values = ", values);
     hideForm();
@@ -26,7 +28,12 @@ function LoginForm({ hideForm }: LoginFormProps) {
         <Row align="middle" justify="center">
           <Item
             name="username"
-            rules={[{ required: true, message: "Please input your username!" }]}
+            rules={[
+              {
+                required: true,
+                message: intl.formatMessage({ id: "form.error.email" })
+              }
+            ]}
           >
             <Input className="divButton loginButtonAnimated" />
           </Item>
@@ -34,7 +41,12 @@ function LoginForm({ hideForm }: LoginFormProps) {
         <Row align="middle" justify="center">
           <Item
             name="password"
-            rules={[{ required: true, message: "Please input your password!" }]}
+            rules={[
+              {
+                required: true,
+                message: intl.formatMessage({ id: "form.error.password" })
+              }
+            ]}
           >
             <Password className="divButton passwordInput loginButtonAnimated" />
           </Item>
@@ -46,7 +58,7 @@ function LoginForm({ hideForm }: LoginFormProps) {
           onClick={() => form.submit()}
           className="loginButtonAnimated"
         >
-          <span>Submit</span>
+          <FormattedMessage id="btn.submit" />
         </MenuButton>
       </Row>
       <Row className="buttonSpaceRow" align="middle" justify="center">
@@ -60,7 +72,7 @@ function LoginForm({ hideForm }: LoginFormProps) {
       </Row>
       <Row className="buttonSpaceRow" align="middle" justify="center">
         <MenuButton onClick={hideForm} className="loginButtonAnimated">
-          <span>Back</span>
+          <FormattedMessage id="btn.back" />
         </MenuButton>
       </Row>
     </>

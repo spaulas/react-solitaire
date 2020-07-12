@@ -1,7 +1,7 @@
+import { FormattedMessage, useIntl } from "react-intl";
 import React, { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ConfirmationModal from "../../components/Modals/ConfirmationModal.component";
-import { FormattedMessage } from "react-intl";
 import MenuButton from "../../components/Buttons/MenuButton.component";
 import { RootReducerState } from "../../../global";
 import { Row } from "antd";
@@ -20,6 +20,7 @@ function MainMenu({
   showBackAnimation,
   showLoginForm
 }: MainMenuProps) {
+  const intl = useIntl();
   const history = useHistory();
   const dispatch = useDispatch();
   const [showAlarm, setShowAlarm] = useState(false);
@@ -52,7 +53,7 @@ function MainMenu({
       {!userRef && (
         <Row align="middle" justify="center">
           <MenuButton onClick={showLoginForm} className={getAnimation()}>
-            <span>Login</span>
+            <FormattedMessage id="btn.login" />
           </MenuButton>
         </Row>
       )}
@@ -64,7 +65,7 @@ function MainMenu({
               params={{ savedGame }}
               className={getAnimation()}
             >
-              <span>Resume Game</span>
+              <FormattedMessage id="btn.resumeGame" />
             </MenuButton>
           </Row>
           <Row className="buttonSpaceRow" align="middle" justify="center">
@@ -79,8 +80,7 @@ function MainMenu({
             <ConfirmationModal
               onConfirm={() => history.push("/game")}
               onCancel={() => setShowAlarm(false)}
-              message="By starting a new game, the saved game will be lost. Do you wish to
-        continue?"
+              message={intl.formatMessage({ id: "confirm.gameLost" })}
             />
           ) : null}
         </>
@@ -96,19 +96,19 @@ function MainMenu({
           location="/scores/userHighScores"
           className={getAnimation()}
         >
-          <span>Scores</span>
+          <FormattedMessage id="sidebar.scores" />
         </MenuButton>
       </Row>
       <Row className="buttonSpaceRow" align="middle" justify="center">
         <MenuButton location="/statistics" className={getAnimation()}>
-          <span>Statistics</span>
+          <FormattedMessage id="sidebar.statistics" />
         </MenuButton>
       </Row>
 
       {userRef && (
         <Row className="buttonSpaceRow" align="middle" justify="center">
           <MenuButton className={getAnimation()} onClick={handleLogout}>
-            <span>Logout</span>
+            <FormattedMessage id="btn.logout" />
           </MenuButton>
         </Row>
       )}
