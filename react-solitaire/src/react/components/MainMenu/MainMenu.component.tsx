@@ -1,6 +1,7 @@
 import React, { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ConfirmationModal from "../../components/Modals/ConfirmationModal.component";
+import { FormattedMessage } from "react-intl";
 import MenuButton from "../../components/Buttons/MenuButton.component";
 import { RootReducerState } from "../../../global";
 import { Row } from "antd";
@@ -71,7 +72,7 @@ function MainMenu({
               onClick={() => setShowAlarm(true)}
               className={getAnimation()}
             >
-              <span>Start Game</span>
+              <FormattedMessage id="btn.startGame" />
             </MenuButton>
           </Row>
           {showAlarm ? (

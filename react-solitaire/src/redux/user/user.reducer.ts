@@ -30,6 +30,9 @@ export interface InitialUser {
     moves: ExplicitAny;
     time: ExplicitAny;
   };
+  settings: {
+    language: string;
+  };
 }
 
 const INITIAL_USER: InitialUser = {
@@ -48,6 +51,9 @@ const INITIAL_USER: InitialUser = {
     winsRatio: [],
     time: {},
     moves: {}
+  },
+  settings: {
+    language: "en-US"
   }
 };
 
