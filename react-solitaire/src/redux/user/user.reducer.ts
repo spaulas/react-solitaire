@@ -127,6 +127,28 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       }
       return { ...state, history: finalHistory };
 
+    case UserActionTypes.SAVE_GAME:
+      if (state.userRef) {
+        // add to firebase
+        state.userRef.set({
+          ...state,
+          savedGame: action.savedGame,
+          hasSavedGame: true
+        });
+      } else {
+        // add to localStorage
+        localStorage.setItem(
+          "offlineUser",
+          JSON.stringify({
+            ...state,
+            savedGame: action.savedGame,
+            hasSavedGame: true
+          })
+        );
+      }
+
+      return { ...state, savedGame: action.savedGame, hasSavedGame: true };
+
     // ********************************************************
 
     default:

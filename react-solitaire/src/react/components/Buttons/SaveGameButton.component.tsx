@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ConfirmationModal from "../Modals/ConfirmationModal.component";
 import { RootReducerState } from "../../../global";
 import { SaveFilled } from "@ant-design/icons";
 import { Tooltip } from "antd";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import userActions from "../../../redux/user/user.actions";
 
 function SaveGameButton() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [showConfirm, setShowConfirm] = useState(false);
   // get piles from redux
   const { deckPile, flippedPile, columns, goals } = useSelector(
@@ -20,13 +22,7 @@ function SaveGameButton() {
   );
 
   const saveGame = () => {
-    const currentLocal = localStorage.getItem("offlineUser");
-    const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
-
-    offlineUser.hasSavedGame = true;
-    offlineUser.savedGame = { deckPile, flippedPile, columns, goals };
-    offlineUser.nGames = (offlineUser.nGames || 1) - 1;
-    localStorage.setItem("offlineUser", JSON.stringify(offlineUser));
+    dispatch(userActions.saveGame({ deckPile, flippedPile, columns, goals }));
     history.push("/");
   };
 
