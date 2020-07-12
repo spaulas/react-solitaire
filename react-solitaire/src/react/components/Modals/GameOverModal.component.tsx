@@ -8,6 +8,7 @@ import {
   StarFilled
 } from "@ant-design/icons";
 import { ExplicitAny, RootReducerState } from "../../../global";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Input, List } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +29,7 @@ function GameOverModal() {
   const [inputRef, setInputRef] = useState<ExplicitAny>();
   const history = useHistory();
   const dispatch = useDispatch();
+  const intl = useIntl();
 
   // get gameOver value from redux
   const {
@@ -102,13 +104,17 @@ function GameOverModal() {
     return (
       <div className="gameFullDiv">
         <div className="gameOverStatistics">
-          <div>Game Statistics</div>
+          <div>
+            <FormattedMessage id="modal.gameStatistics" />
+          </div>
           {hasNewHighScore && (
             <div className="newHighScoreContainer">
-              <div>New HighScore!</div>
+              <div>
+                <FormattedMessage id="modal.newHighScore" />
+              </div>
               <Input
                 ref={(e: ExplicitAny) => setInputRef(e)}
-                placeholder="Add here a username"
+                placeholder={intl.formatMessage({ id: "placeholder.username" })}
                 defaultValue={userName}
               />
             </div>
@@ -118,7 +124,9 @@ function GameOverModal() {
             renderItem={(item: string) => (
               <List.Item key={item} className="gameStatisticsList">
                 {getIcon(item)}
-                <List.Item.Meta title={item} />
+                <List.Item.Meta
+                  title={<FormattedMessage id={`table.${item}`} />}
+                />
                 <span>{gameStatistics[item].toString()}</span>
               </List.Item>
             )}

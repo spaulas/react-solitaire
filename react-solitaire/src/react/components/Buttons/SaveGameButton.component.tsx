@@ -39,7 +39,7 @@ function SaveGameButton() {
         <ConfirmationModal
           onCancel={() => setShowConfirm(false)}
           onConfirm={saveGame}
-          message="Save game?"
+          message={<FormattedMessage id="confirm.saveGame" />}
           className="adjustToGameOptions"
         />
       ) : null}

@@ -30,7 +30,7 @@ function NewGameButton() {
         <ConfirmationModal
           onCancel={() => setShowConfirm(false)}
           onConfirm={handleConfirm}
-          message="This game will be considered a lost. Are you sure you want to start a new game?"
+          message={<FormattedMessage id="confirm.gameLost" />}
           className="adjustToGameOptions"
         />
       ) : null}

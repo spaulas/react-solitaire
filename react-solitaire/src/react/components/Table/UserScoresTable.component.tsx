@@ -63,7 +63,7 @@ function UserScoresTable({ data, className }: UserScoresTableProps) {
         />,
         <Column
           key="nHints"
-          title={<FormattedMessage id="table.hints" />}
+          title={<FormattedMessage id="table.nHints" />}
           dataIndex="nHints"
           align="center"
           sorter={(a: UserScore, b: UserScore) => a.nHints - b.nHints}

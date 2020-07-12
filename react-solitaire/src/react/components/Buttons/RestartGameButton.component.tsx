@@ -72,7 +72,7 @@ function RestartGameButton() {
         <ConfirmationModal
           onCancel={() => setShowConfirm(false)}
           onConfirm={restartGame}
-          message="This game will be considered a lost. Are you sure you want to restart the game?"
+          message={<FormattedMessage id="confirm.gameLost" />}
           className="adjustToGameOptions"
         />
       ) : null}
