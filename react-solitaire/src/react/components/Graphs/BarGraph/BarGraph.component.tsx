@@ -11,7 +11,7 @@ interface BarGraphProps {
 }
 
 function BarGraph({ width, height, data, dataKey, label }: BarGraphProps) {
-  return data.length > 0 ? (
+  return data?.length > 0 ? (
     <BarChart
       width={width}
       height={height}

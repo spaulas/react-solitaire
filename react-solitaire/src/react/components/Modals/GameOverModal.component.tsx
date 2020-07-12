@@ -25,7 +25,9 @@ interface HighScore {
 function GameOverModal() {
   const [visible, setVisible] = useState(true);
   const [newHighscore, setNewHighScore] = useState(false);
-  const [defaultUserName, setDefaultUserName] = useState<string | undefined>();
+  const [defaultUserName /* setDefaultUserName */] = useState<
+    string | undefined
+  >();
   const [inputRef, setInputRef] = useState<ExplicitAny>();
   const history = useHistory();
   const dispatch = useDispatch();
