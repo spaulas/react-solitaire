@@ -1,9 +1,12 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ConfirmationModal from "../../components/Modals/ConfirmationModal.component";
-import { ExplicitAny } from "../../../global";
 import MenuButton from "../../components/Buttons/MenuButton.component";
+import { RootReducerState } from "../../../global";
 import { Row } from "antd";
+import { auth } from "../../../firebase/firebase.utils";
 import { useHistory } from "react-router-dom";
+import userActions from "../../../redux/user/user.actions";
 
 interface MainMenuProps {
   showStartAnimation: boolean;
@@ -17,14 +20,19 @@ function MainMenu({
   showLoginForm
 }: MainMenuProps) {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [showAlarm, setShowAlarm] = useState(false);
-  const [offlineUser, setOfflineUser] = useState<ExplicitAny>({});
 
-  const mountComponent = () => {
-    const currentLocal = localStorage.getItem("offlineUser");
-    setOfflineUser(currentLocal ? JSON.parse(currentLocal) : {});
-  };
-  useEffect(mountComponent, []);
+  const { userId, hasSavedGame, savedGame } = useSelector(
+    ({ User }: RootReducerState) => ({
+      userId: User.id,
+      hasSavedGame: User.hasSavedGame,
+      savedGame: User.savedGame
+    })
+  );
+
+  // eslint-disable-next-line no-console
+  console.log("userId = ", userId);
 
   const getAnimation = () => {
     if (showStartAnimation) {
@@ -34,19 +42,28 @@ function MainMenu({
     } else return "";
   };
 
+  const handleLogout = () => {
+    // logout user at firebase
+    auth.signOut();
+    // User at the redux should be from the localStorage
+    dispatch(userActions.getLocalStorage());
+  };
+
   return (
     <>
-      <Row align="middle" justify="center">
-        <MenuButton onClick={showLoginForm} className={getAnimation()}>
-          <span>Login</span>
-        </MenuButton>
-      </Row>
-      {offlineUser.hasSavedGame ? (
+      {userId === "localStorageUser" && (
+        <Row align="middle" justify="center">
+          <MenuButton onClick={showLoginForm} className={getAnimation()}>
+            <span>Login</span>
+          </MenuButton>
+        </Row>
+      )}
+      {hasSavedGame ? (
         <>
           <Row className="buttonSpaceRow" align="middle" justify="center">
             <MenuButton
               location="/game"
-              params={{ savedGame: offlineUser.savedGame }}
+              params={{ savedGame }}
               className={getAnimation()}
             >
               <span>Resume Game</span>
@@ -90,16 +107,18 @@ function MainMenu({
         </MenuButton>
       </Row>
 
-      <Row className="buttonSpaceRow" align="middle" justify="center">
-        <MenuButton
-          className={getAnimation()}
-          // eslint-disable-next-line no-console
-          onClick={() => console.log("LOGOUT HERE")}
-          // if the usercomes from firebase: auth.signOut()
-        >
-          <span>Logout</span>
-        </MenuButton>
-      </Row>
+      {userId !== "localStorageUser" && (
+        <Row className="buttonSpaceRow" align="middle" justify="center">
+          <MenuButton
+            className={getAnimation()}
+            // eslint-disable-next-line no-console
+            onClick={handleLogout}
+            // if the usercomes from firebase: auth.signOut()
+          >
+            <span>Logout</span>
+          </MenuButton>
+        </Row>
+      )}
     </>
   );
 }

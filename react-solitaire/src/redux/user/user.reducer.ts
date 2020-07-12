@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 import { ActionsCreators } from "./user.actions";
+import { ExplicitAny } from "../../global";
 import UserActionTypes from "./user.types";
 
 interface GameHistory {
@@ -20,6 +21,7 @@ export interface InitialUser {
   hasSavedGame: boolean;
   history: Array<GameHistory>;
   createdAt: Date;
+  savedGame: ExplicitAny;
 }
 
 const INITIAL_USER: InitialUser = {
@@ -30,7 +32,8 @@ const INITIAL_USER: InitialUser = {
   nGames: 0,
   hasSavedGame: false,
   history: [],
-  createdAt: new Date()
+  createdAt: new Date(),
+  savedGame: {}
 };
 
 const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
