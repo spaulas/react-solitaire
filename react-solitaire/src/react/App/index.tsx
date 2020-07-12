@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { ExplicitAny } from "../../global";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import Joyride from "../components/HocWrappers/Joyride/Joyride.component";
 import { Layout } from "antd";
 import highscoreActions from "../../redux/highScores/highscores.actions";
 import { useDispatch } from "react-redux";
@@ -56,6 +57,7 @@ function BaseApplication() {
       <Layout>
         <Content>
           <DndProvider backend={HTML5Backend as ExplicitAny}>
+            <Joyride />
             <ApplicationRouter />
           </DndProvider>
         </Content>

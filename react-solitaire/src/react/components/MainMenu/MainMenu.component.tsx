@@ -66,7 +66,7 @@ function MainMenu({
             <MenuButton
               location="/game"
               params={{ savedGame }}
-              className={getAnimation()}
+              className={`joyrideResumeGameButton ${getAnimation()}`}
             >
               <FormattedMessage id="btn.resumeGame" />
             </MenuButton>
@@ -116,7 +116,10 @@ function MainMenu({
 
       {userRef && (
         <Row className="buttonSpaceRow" align="middle" justify="center">
-          <MenuButton className={getAnimation()} onClick={handleLogout}>
+          <MenuButton
+            className={`joyrideLogoutButton ${getAnimation()}`}
+            onClick={handleLogout}
+          >
             <FormattedMessage id="btn.logout" />
           </MenuButton>
         </Row>

@@ -11,17 +11,29 @@ import pagesActions from "../../../redux/pages/pages.actions";
 function StartingPage() {
   const dispatch = useDispatch();
   const [showLoginForm, setShowLoginForm] = useState(false);
-  const { showAnimation } = useSelector(({ Pages }: RootReducerState) => ({
-    showAnimation: Pages.startPageAnimation
-  }));
+  const { showAnimation, loggedIn, hasSavedGame } = useSelector(
+    ({ Pages, User }: RootReducerState) => ({
+      showAnimation: Pages.startPageAnimation,
+      loggedIn: !User.userRef,
+      hasSavedGame: User.hasSavedGame
+    })
+  );
+
   const [showButtonsAnimation, setShowButtonsAnimation] = useState(
     showAnimation
   );
   const mountComponent = () => {
     // after animation is over, set showAnimation to false
-    setTimeout(() => dispatch(pagesActions.setStartPageAnimation(false)), 2500);
+    setTimeout(() => {
+      dispatch(pagesActions.setStartPageAnimation(false));
+      dispatch(
+        joyrideActions.initJoyride(
+          "main",
+          JoyrideSteps({ loggedIn, hasSavedGame })
+        )
+      );
+    }, 2500);
     setShowButtonsAnimation(showAnimation);
-    dispatch(joyrideActions.initJoyride("main", JoyrideSteps));
   };
   useEffect(mountComponent, []);
 

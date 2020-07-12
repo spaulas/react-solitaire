@@ -18,8 +18,6 @@ function BaseJoyride() {
 
   const handlePageChange = () => {
     if (page && !run && joyride[page]) {
-      // eslint-disable-next-line no-console
-      console.log("PAGE CHANGED AND RUNNING! = ", joyride);
       setRun(true);
     }
   };
@@ -36,7 +34,6 @@ function BaseJoyride() {
       disableScrolling
       disableOverlayClose
       disableCloseOnEsc
-      spotlightClicks
       locale={{
         back: intl.formatMessage({ id: "joyride.btn.back" }),
         last: intl.formatMessage({ id: "joyride.btn.last" }),
