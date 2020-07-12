@@ -5,9 +5,10 @@ import { Tooltip } from "antd";
 
 export interface ExpandTableIconProps {
   onClick: (value: boolean) => void;
+  className?: string;
 }
 
-function ExpandTableIcon({ onClick }: ExpandTableIconProps) {
+function ExpandTableIcon({ onClick, className = "" }: ExpandTableIconProps) {
   const [expanded, setExpanded] = useState(false);
   const [visibleTooltip, setVisibleTooltip] = useState(false);
   const ArrowIcon = expanded ? CaretRightFilled : CaretDownFilled;
@@ -19,7 +20,7 @@ function ExpandTableIcon({ onClick }: ExpandTableIconProps) {
       title={expanded ? "minimize" : "expand"}
     >
       <ArrowIcon
-        className={`iconsTable ${expanded && "iconsTableClicked"}`}
+        className={`iconsTable ${expanded && "iconsTableClicked"} ${className}`}
         onClick={(e: ExplicitAny) => {
           e.stopPropagation();
           e.preventDefault();
