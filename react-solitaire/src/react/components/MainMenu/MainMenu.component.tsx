@@ -23,16 +23,13 @@ function MainMenu({
   const dispatch = useDispatch();
   const [showAlarm, setShowAlarm] = useState(false);
 
-  const { userId, hasSavedGame, savedGame } = useSelector(
+  const { userRef, hasSavedGame, savedGame } = useSelector(
     ({ User }: RootReducerState) => ({
-      userId: User.id,
+      userRef: User.userRef,
       hasSavedGame: User.hasSavedGame,
       savedGame: User.savedGame
     })
   );
-
-  // eslint-disable-next-line no-console
-  console.log("userId = ", userId);
 
   const getAnimation = () => {
     if (showStartAnimation) {
@@ -51,7 +48,7 @@ function MainMenu({
 
   return (
     <>
-      {userId === "localStorageUser" && (
+      {!userRef && (
         <Row align="middle" justify="center">
           <MenuButton onClick={showLoginForm} className={getAnimation()}>
             <span>Login</span>
@@ -107,7 +104,7 @@ function MainMenu({
         </MenuButton>
       </Row>
 
-      {userId !== "localStorageUser" && (
+      {userRef && (
         <Row className="buttonSpaceRow" align="middle" justify="center">
           <MenuButton
             className={getAnimation()}

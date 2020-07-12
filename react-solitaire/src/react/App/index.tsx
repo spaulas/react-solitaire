@@ -23,6 +23,7 @@ function BaseApplication() {
         userRef?.onSnapshot((snapshot: ExplicitAny) => {
           dispatch(
             userActions.saveUser({
+              userRef,
               id: userRef.id,
               ...snapshot.data()
             })

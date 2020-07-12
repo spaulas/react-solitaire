@@ -22,6 +22,7 @@ export interface InitialUser {
   history: Array<GameHistory>;
   createdAt: Date;
   savedGame: ExplicitAny;
+  userRef: ExplicitAny;
 }
 
 const INITIAL_USER: InitialUser = {
@@ -33,7 +34,8 @@ const INITIAL_USER: InitialUser = {
   hasSavedGame: false,
   history: [],
   createdAt: new Date(),
-  savedGame: {}
+  savedGame: {},
+  userRef: undefined
 };
 
 const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
@@ -41,6 +43,12 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
     case UserActionTypes.GET_LOCAL_STORAGE:
       const currentLocal = localStorage.getItem("offlineUser");
       const offlineUser = currentLocal ? JSON.parse(currentLocal) : undefined;
+      if (!offlineUser) {
+        localStorage.setItem(
+          "offlineUser",
+          JSON.stringify({ offlineUser: INITIAL_USER })
+        );
+      }
       return offlineUser || INITIAL_USER;
 
     case UserActionTypes.SAVE_USER:
