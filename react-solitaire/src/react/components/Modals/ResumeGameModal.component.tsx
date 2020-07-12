@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { FormattedMessage } from "react-intl";
 import React from "react";
 import { RootReducerState } from "../../../global";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
@@ -24,7 +25,7 @@ function ResumeGameModal() {
           className={`animatedButton divButton resumeGameAnimatedButton`}
           onClick={timeGame}
         >
-          <span>Resume Game</span>
+          <FormattedMessage id="btn.resumeGame" />
         </div>
       </div>
     );

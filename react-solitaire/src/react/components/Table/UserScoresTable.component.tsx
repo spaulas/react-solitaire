@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ExpandTableIcon from "./ExpandTableIcon.component";
+import { FormattedMessage } from "react-intl";
 import { Table } from "antd";
 import moment from "moment";
 
@@ -32,7 +33,7 @@ function UserScoresTable({ data, className }: UserScoresTableProps) {
       <Column
         className={expandTable ? "columnDateExpanded" : "columnDateNotExpanded"}
         key="date"
-        title="Date"
+        title={<FormattedMessage id="table.date" />}
         dataIndex="date"
         align="center"
         sorter={(a: UserScore, b: UserScore) =>
@@ -43,7 +44,7 @@ function UserScoresTable({ data, className }: UserScoresTableProps) {
         key="finalScore"
         title={
           <div>
-            <span>Final Score</span>
+            <FormattedMessage id="table.finalScore" />
             <ExpandTableIcon onClick={setExpandTable} />
           </div>
         }
@@ -55,21 +56,21 @@ function UserScoresTable({ data, className }: UserScoresTableProps) {
       {expandTable && [
         <Column
           key="moves"
-          title="Moves"
+          title={<FormattedMessage id="table.moves" />}
           dataIndex="moves"
           align="center"
           sorter={(a: UserScore, b: UserScore) => a.moves - b.moves}
         />,
         <Column
           key="nHints"
-          title="Hints"
+          title={<FormattedMessage id="table.nHints" />}
           dataIndex="nHints"
           align="center"
           sorter={(a: UserScore, b: UserScore) => a.nHints - b.nHints}
         />,
         <Column
           key="time"
-          title="Time"
+          title={<FormattedMessage id="table.time" />}
           dataIndex="time"
           align="center"
           sorter={(a: UserScore, b: UserScore) => a.seconds - b.seconds}

@@ -2,13 +2,16 @@ import { Link, useLocation } from "react-router-dom";
 import { Breadcrumb } from "antd";
 import { HomeFilled } from "@ant-design/icons";
 import React from "react";
-import staticRoutes from "./staticRoutes";
+import getStaticRoutes from "./staticRoutes";
+import { useIntl } from "react-intl";
 
 const { Item } = Breadcrumb;
 
 const AppBreadcrumb = () => {
+  const intl = useIntl();
   // get current location
   const location = useLocation();
+  const staticRoutes = getStaticRoutes(intl);
   // separate location at each "/"
   const pathSnippets: Array<string> = location.pathname
     .split("/")

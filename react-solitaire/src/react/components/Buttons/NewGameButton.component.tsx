@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ConfirmationModal from "../Modals/ConfirmationModal.component";
+import { FormattedMessage } from "react-intl";
 import { PlusOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
@@ -19,7 +20,7 @@ function NewGameButton() {
 
   return (
     <>
-      <Tooltip title="Start a new game">
+      <Tooltip title={<FormattedMessage id="btn.newGame" />}>
         <PlusOutlined
           className="iconButton"
           onClick={() => setShowConfirm(true)}
@@ -29,7 +30,7 @@ function NewGameButton() {
         <ConfirmationModal
           onCancel={() => setShowConfirm(false)}
           onConfirm={handleConfirm}
-          message="This game will be considered a lost. Are you sure you want to start a new game?"
+          message={<FormattedMessage id="confirm.gameLost" />}
           className="adjustToGameOptions"
         />
       ) : null}

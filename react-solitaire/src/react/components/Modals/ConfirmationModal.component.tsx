@@ -1,8 +1,9 @@
+import React, { ReactNode } from "react";
 import { ExplicitAny } from "../../../global";
-import React from "react";
+import { FormattedMessage } from "react-intl";
 
 interface ResumeSavedGameModalProps {
-  message: string;
+  message: ReactNode;
   onCancel: ExplicitAny;
   onConfirm: ExplicitAny;
   className?: string;
@@ -21,13 +22,13 @@ function ResumeSavedGameModal({
         className={`animatedButton divButton resumeGameAnimatedButton resumeGameQuestion`}
         onClick={onConfirm}
       >
-        <span>Yes</span>
+        <FormattedMessage id="confirm.yes" />
       </div>
       <div
         className={`animatedButton divButton resumeGameAnimatedButton resumeGameQuestion`}
         onClick={onCancel}
       >
-        <span>No</span>
+        <FormattedMessage id="confirm.no" />
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { FormattedMessage } from "react-intl";
 import React from "react";
 import { RootReducerState } from "../../../global";
 import { StepForwardOutlined } from "@ant-design/icons";
@@ -98,7 +99,7 @@ function RedoButton() {
     }
   };
   return (
-    <Tooltip title="Redo undone moves">
+    <Tooltip title={<FormattedMessage id="btn.redo" />}>
       <StepForwardOutlined className="iconButton" onClick={handleRedo} />
     </Tooltip>
   );

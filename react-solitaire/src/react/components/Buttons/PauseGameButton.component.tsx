@@ -1,3 +1,4 @@
+import { FormattedMessage } from "react-intl";
 import { PauseOutlined } from "@ant-design/icons";
 import React from "react";
 import { Tooltip } from "antd";
@@ -11,7 +12,7 @@ function PauseGameButton() {
   const timeGame = () => dispatch(gameBoardActions.timeGame());
 
   return (
-    <Tooltip title="Pause Game">
+    <Tooltip title={<FormattedMessage id="btn.pause" />}>
       <PauseOutlined className="iconButton" onClick={timeGame} />
     </Tooltip>
   );

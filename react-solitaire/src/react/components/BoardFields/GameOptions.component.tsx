@@ -2,6 +2,7 @@ import { DownCircleFilled, UpCircleFilled } from "@ant-design/icons";
 import React, { useState } from "react";
 import { Row, Tooltip } from "antd";
 import BarDisplay from "../BarDisplay/BarDisplay.component";
+import { FormattedMessage } from "react-intl";
 import HintButton from "../Buttons/HintButton.component";
 import NewGameButton from "../Buttons/NewGameButton.component";
 import PauseGameButton from "../Buttons/PauseGameButton.component";
@@ -20,14 +21,14 @@ function GameOptions() {
           <UndoButton />
           <PauseGameButton />
           {showMore ? (
-            <Tooltip title="Hide options">
+            <Tooltip title={<FormattedMessage id="btn.hide" />}>
               <DownCircleFilled
                 className="iconButton"
                 onClick={() => setShowMore(false)}
               />
             </Tooltip>
           ) : (
-            <Tooltip title="Show more options">
+            <Tooltip title={<FormattedMessage id="btn.showMore" />}>
               <UpCircleFilled
                 className="iconButton"
                 onClick={() => setShowMore(true)}

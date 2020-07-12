@@ -1,9 +1,9 @@
+import React, { ReactNode } from "react";
 import BreadCrumb from "../BreadCrumb/BreadCrumb.component";
-import React from "react";
 import { useHistory } from "react-router-dom";
 
 interface PageTitleProps {
-  title: string;
+  title: ReactNode;
 }
 
 function PageTitle({ title }: PageTitleProps) {

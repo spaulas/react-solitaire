@@ -42,7 +42,8 @@ export const getUserInfo = async user => {
         maxTime: 0,
         nGames: 0,
         hasSavedGame: false,
-        history: []
+        history: [],
+        settings: { language: "en-Us" }
       });
     } catch (error) {
       console.error("Error creating user ", error.message);
