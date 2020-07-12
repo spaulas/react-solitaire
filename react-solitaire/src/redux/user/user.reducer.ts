@@ -212,7 +212,10 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
         // add to firebase
         state.userRef.set({
           ...state,
-          joyride: action.joyride
+          settings: {
+            ...state.settings,
+            joyride: action.joyride
+          }
         });
       } else {
         // add to localStorage
@@ -220,11 +223,20 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
           "offlineUser",
           JSON.stringify({
             ...state,
-            joyride: action.joyride
+            settings: {
+              ...state.settings,
+              joyride: action.joyride
+            }
           })
         );
       }
-      return { ...state, joyride: action.joyride };
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          joyride: action.joyride
+        }
+      };
 
     // ********************************************************
 

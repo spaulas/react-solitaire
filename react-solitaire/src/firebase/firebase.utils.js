@@ -43,6 +43,11 @@ export const getUserInfo = async user => {
         nGames: 0,
         hasSavedGame: false,
         history: [],
+        graphs: {
+          winsRatio: [],
+          time: {},
+          moves: {}
+        },
         settings: {
           language: "en-Us",
           joyride: {

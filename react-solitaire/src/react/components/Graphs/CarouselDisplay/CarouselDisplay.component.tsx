@@ -1,5 +1,5 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import { Carousel } from "antd";
 import { ExplicitAny } from "../../../../global";
 import { FormattedMessage } from "react-intl";
@@ -7,30 +7,26 @@ import MovesGraph from "../BarGraph/MovesGraph.component";
 import Piegraph from "../PieGraph/PieGraph.component";
 import TimeGraph from "../BarGraph/TimeGraph.component";
 
-function CarouselDisplay() {
-  const [carouselRef, setCarouselRef] = useState<ExplicitAny>(undefined);
+function CarouselDisplay(props: ExplicitAny, ref: ExplicitAny) {
   const [countKey, setCountKey] = useState(0);
 
   const next = () => {
-    carouselRef?.slick.slickNext();
+    ref?.slick.slickNext();
     setCountKey(countKey + 1);
   };
 
   const previous = () => {
-    carouselRef?.slick.slickPrev();
+    ref?.slick.slickPrev();
     setCountKey(countKey + 1);
   };
 
   return (
-    <div className="statisticsCarouselContainer">
+    <div className={`${props.className} statisticsCarouselContainer`}>
       <LeftOutlined
         className="carouselArrow carouselArrowLeft"
         onClick={previous}
       />
-      <Carousel
-        ref={(e: ExplicitAny) => setCarouselRef(e)}
-        className="statisticsCarousel"
-      >
+      <Carousel ref={ref} className="statisticsCarousel">
         <div>
           <div className="tabTitle">
             <FormattedMessage id="statistics.winRatio" />
@@ -58,4 +54,4 @@ function CarouselDisplay() {
   );
 }
 
-export default CarouselDisplay;
+export default forwardRef(CarouselDisplay);

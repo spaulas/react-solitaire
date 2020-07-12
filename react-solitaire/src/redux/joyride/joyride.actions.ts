@@ -3,10 +3,15 @@ import JoyrideActionTypes from "./joyride.types";
 
 // ********************************************************
 
-const initJoyride = (page: string, steps: ExplicitAny) => ({
+const initJoyride = (
+  page: string,
+  steps: ExplicitAny,
+  callback?: ExplicitAny
+) => ({
   type: JoyrideActionTypes.INIT_JORYIDE,
   page,
-  steps
+  steps,
+  callback
 });
 
 // ********************************************************
