@@ -4,12 +4,12 @@ import { ExplicitAny } from "../../global";
 import JoyrideActionTypes from "./joyride.types";
 
 export interface InitialJoyride {
-  page: string;
+  page?: string;
   steps: ExplicitAny;
 }
 
 const INITIAL_JOYRIDE: InitialJoyride = {
-  page: "",
+  page: undefined,
   steps: []
 };
 

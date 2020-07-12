@@ -43,7 +43,16 @@ export const getUserInfo = async user => {
         nGames: 0,
         hasSavedGame: false,
         history: [],
-        settings: { language: "en-Us" }
+        settings: {
+          language: "en-Us",
+          joyride: {
+            main: true,
+            scores: true,
+            statistics: true,
+            login: true,
+            game: true
+          }
+        }
       });
     } catch (error) {
       console.error("Error creating user ", error.message);

@@ -32,6 +32,13 @@ export interface InitialUser {
   };
   settings: {
     language: string;
+    joyride: {
+      main: boolean;
+      scores: boolean;
+      statistics: boolean;
+      login: boolean;
+      game: boolean;
+    };
   };
 }
 
@@ -53,7 +60,14 @@ const INITIAL_USER: InitialUser = {
     moves: {}
   },
   settings: {
-    language: "pt-PT"
+    language: "pt-PT",
+    joyride: {
+      main: true,
+      scores: true,
+      statistics: true,
+      login: true,
+      game: true
+    }
   }
 };
 

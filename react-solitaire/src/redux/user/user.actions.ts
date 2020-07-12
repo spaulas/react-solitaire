@@ -36,6 +36,11 @@ const clearSavedGame = () => ({
   type: UserActionTypes.CLEAR_SAVED_GAME
 });
 
+const setJoyride = (joyride: ExplicitAny) => ({
+  type: UserActionTypes.SET_JOYRIDE,
+  joyride
+});
+
 // ********************************************************
 
 const actionsCreators = Object.freeze({
@@ -45,7 +50,8 @@ const actionsCreators = Object.freeze({
   addGame,
   gameOver,
   saveGame,
-  clearSavedGame
+  clearSavedGame,
+  setJoyride
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;
