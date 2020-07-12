@@ -1,5 +1,7 @@
 import React from "react";
+import { RootReducerState } from "../../../global";
 import { Table } from "antd";
+import { useSelector } from "react-redux";
 
 const { Column } = Table;
 
@@ -9,15 +11,18 @@ interface HighScore {
 }
 
 interface HighScoresTableProps {
-  data: Array<HighScore>;
   className?: string;
 }
 
-function HighScoresTable({ data, className }: HighScoresTableProps) {
+function HighScoresTable({ className }: HighScoresTableProps) {
+  const { highScores } = useSelector(({ HighScores }: RootReducerState) => ({
+    highScores: HighScores.highScores
+  }));
+
   return (
     <Table<HighScore>
       className={className}
-      dataSource={data}
+      dataSource={highScores}
       rowKey="userName"
       pagination={false}
     >
