@@ -106,12 +106,7 @@ function MainMenu({
 
       {userRef && (
         <Row className="buttonSpaceRow" align="middle" justify="center">
-          <MenuButton
-            className={getAnimation()}
-            // eslint-disable-next-line no-console
-            onClick={handleLogout}
-            // if the usercomes from firebase: auth.signOut()
-          >
+          <MenuButton className={getAnimation()} onClick={handleLogout}>
             <span>Logout</span>
           </MenuButton>
         </Row>

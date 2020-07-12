@@ -73,8 +73,6 @@ function GameOverModal() {
 
   const saveUserGame = () => {
     if (gameOver) {
-      // eslint-disable-next-line no-console
-      console.log("inpout rtef = ", inputRef);
       inputRef?.focus();
       dispatch(userActions.gameOver(gameStatistics, gameTime));
       dispatch(highscoresActions.hasNewHighScore(gameStatistics.finalScore));

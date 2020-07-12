@@ -21,9 +21,6 @@ function BaseApplication() {
         userAuth
       );
 
-      // eslint-disable-next-line no-console
-      console.log("HISH S ORE REF = ", highscoreRef);
-
       // if there is online user and highscore
       if (userRef && highscoreRef) {
         userRef?.onSnapshot((snapshot: ExplicitAny) => {

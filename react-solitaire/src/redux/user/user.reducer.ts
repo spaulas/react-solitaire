@@ -171,7 +171,7 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
         // add to firebase
         state.userRef.set({
           ...state,
-          savedGame: undefined,
+          savedGame: {},
           hasSavedGame: false
         });
       } else {
@@ -180,12 +180,12 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
           "offlineUser",
           JSON.stringify({
             ...state,
-            savedGame: undefined,
+            savedGame: {},
             hasSavedGame: false
           })
         );
       }
-      return { ...state, savedGame: undefined, hasSavedGame: false };
+      return { ...state, savedGame: {}, hasSavedGame: false };
 
     // ********************************************************
 
