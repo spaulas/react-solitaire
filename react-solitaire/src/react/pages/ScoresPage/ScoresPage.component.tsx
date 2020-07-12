@@ -1,13 +1,12 @@
 /* eslint-disable indent */
-import React, { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-import { ExplicitAny /* , RootReducerState */ } from "../../../global";
 import HighScoresTable from "../../components/Table/HighScoresTable.component";
 import PageTitle from "../../components/PageTitle/PageTitle.component";
+import React from "react";
+import { RootReducerState } from "../../../global";
 import { Tabs } from "antd";
 import UserScoresTable from "../../components/Table/UserScoresTable.component";
-// import pagesActions from "../../../redux/pages/pages.actions";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const { TabPane } = Tabs;
 
@@ -16,24 +15,11 @@ interface ScoresPageProps {
 }
 
 function ScoresPage({ activeTab }: ScoresPageProps) {
-  const [offlineUser, setOfflineUser] = useState<ExplicitAny>({});
   const history = useHistory();
 
-  /*  const dispatch = useDispatch();
-  const { showAnimation } = useSelector(({ Pages }: RootReducerState) => ({
-    showAnimation: Pages.scoresPageAnimation
+  const { gameHistory } = useSelector(({ User }: RootReducerState) => ({
+    gameHistory: User.history
   }));
-  const removeAnimation = () => {
-    // after animation is over, set showAnimation to false
-    setTimeout(() => dispatch(pagesActions.setStartPageAnimation(false)), 2500);
-  };
-  useEffect(removeAnimation, []);
-   */
-
-  useEffect(() => {
-    const currentLocal = localStorage.getItem("offlineUser");
-    setOfflineUser(currentLocal ? JSON.parse(currentLocal) : { history: [] });
-  }, []);
 
   const handleTabChange = (tabKey: string) => {
     switch (tabKey) {
@@ -52,13 +38,10 @@ function ScoresPage({ activeTab }: ScoresPageProps) {
 
       <Tabs activeKey={activeTab} onChange={handleTabChange}>
         <TabPane tab="Your HighScores" key="1">
-          <UserScoresTable data={offlineUser.history} className="scoresTable" />
+          <UserScoresTable data={gameHistory} className="scoresTable" />
         </TabPane>
         <TabPane tab="Top 10 HighScores" key="2">
-          <HighScoresTable
-            data={offlineUser.topHighScores || []}
-            className="scoresTable"
-          />
+          <HighScoresTable className="scoresTable" />
         </TabPane>
       </Tabs>
     </div>

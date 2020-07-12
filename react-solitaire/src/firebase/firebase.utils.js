@@ -21,4 +21,45 @@ const googleProvider = new firebase.auth.GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: "select_account" });
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
+export const getUserInfo = async user => {
+  if (!user) {
+    return { userRef: null, highscoreRef: null };
+  }
+
+  const userRef = firestore.doc(`users/${user.uid}`);
+  const userSnapShot = await userRef.get();
+
+  const highscoreRef = firestore.doc("topHighScores/highScores");
+  const highscoreSnapShot = await highscoreRef.get();
+
+  if (!userSnapShot.exists && user.email) {
+    try {
+      await userRef.set({
+        email: user.email,
+        userName: user.displayName,
+        createdAt: new Date(),
+        maxMoves: 0,
+        maxTime: 0,
+        nGames: 0,
+        hasSavedGame: false,
+        history: []
+      });
+    } catch (error) {
+      console.error("Error creating user ", error.message);
+    }
+  }
+
+  if (!highscoreSnapShot.exists) {
+    try {
+      await highscoreRef.set({
+        highScores: []
+      });
+    } catch (error) {
+      console.error("Error creating highscore ", error.message);
+    }
+  }
+
+  return { userRef, highscoreRef };
+};
+
 export default firebase;

@@ -1,9 +1,10 @@
 /* eslint-disable indent */
 /* eslint-disable react/no-multi-comp */
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
-import React, { useEffect, useState } from "react";
+import { ExplicitAny, RootReducerState } from "../../../../global";
 import { Empty } from "antd";
-import { ExplicitAny } from "../../../../global";
+import React from "react";
+import { useSelector } from "react-redux";
 
 interface PieGraphProps {
   width: number;
@@ -14,27 +15,11 @@ const COLORS = ["rgba(0, 0, 0, 0.2)", "rgba(255, 255, 255, 0.1)"];
 const RADIAN = Math.PI / 180;
 
 function PieGraph({ width, height }: PieGraphProps) {
-  const [data, setData] = useState([
-    { name: "Wins", value: 0 },
-    { name: "Losts", value: 0 }
-  ]);
-  const getData = () => {
-    const currentLocal = localStorage.getItem("offlineUser");
-    const offlineUser = currentLocal ? JSON.parse(currentLocal) : {};
-
-    const gamesWon = offlineUser?.history?.length || 0;
-    const nGames = offlineUser?.nGames || 0;
-
-    setData(
-      nGames > 0
-        ? [
-            { name: "Wins", value: gamesWon },
-            { name: "Losts", value: nGames - gamesWon }
-          ]
-        : []
-    );
-  };
-  useEffect(getData, []);
+  const {
+    graphs: { winsRatio }
+  } = useSelector(({ User }: RootReducerState) => ({
+    graphs: User.graphs
+  }));
 
   const renderCustomizedLabel = ({
     cx,
@@ -61,10 +46,10 @@ function PieGraph({ width, height }: PieGraphProps) {
     );
   };
 
-  return data.length > 0 ? (
+  return winsRatio.length > 0 ? (
     <PieChart width={width} height={height} className="statisticsPieChart">
       <Pie
-        data={data}
+        data={winsRatio}
         cx={width / 2}
         cy={width / 2}
         labelLine={false}
@@ -72,7 +57,7 @@ function PieGraph({ width, height }: PieGraphProps) {
         outerRadius={height / 3}
         dataKey="value"
       >
-        {data.map((entry, index) => (
+        {winsRatio.map((entry: ExplicitAny, index: ExplicitAny) => (
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
         ))}
       </Pie>
