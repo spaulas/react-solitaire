@@ -22,6 +22,7 @@ interface InitialDeck {
   doubleClickTarget?: string;
   startUndoAnimation: boolean;
   startRedoAnimation: boolean;
+  startRedoResetAnimation: boolean;
 }
 
 const INITIAL_DECK: InitialDeck = {
@@ -33,7 +34,8 @@ const INITIAL_DECK: InitialDeck = {
   translationY: cardsConfigurations.deck,
   cardDragging: undefined,
   startUndoAnimation: false,
-  startRedoAnimation: false
+  startRedoAnimation: false,
+  startRedoResetAnimation: false
 };
 
 const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
@@ -131,7 +133,7 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
       return {
         ...state,
         ...undoResetResult,
-        startRedoAnimation: false
+        startRedoResetAnimation: false
       };
 
     // ********************************************************
@@ -187,6 +189,9 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
 
     case DeckActionTypes.START_REDO_ANIMATION:
       return { ...state, startRedoAnimation: true };
+
+    case DeckActionTypes.START_REDO_RESET_ANIMATION:
+      return { ...state, startRedoResetAnimation: true };
 
     // ********************************************************
 

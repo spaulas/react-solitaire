@@ -113,6 +113,10 @@ const startRedoAnimation = () => ({
   type: DeckActionTypes.START_REDO_ANIMATION
 });
 
+const startRedoResetAnimation = () => ({
+  type: DeckActionTypes.START_REDO_RESET_ANIMATION
+});
+
 // ********************************************************
 
 const actionsCreators = Object.freeze({
@@ -128,7 +132,8 @@ const actionsCreators = Object.freeze({
   removeCardFromFlipped,
   resetCardDragging,
   startUndoAnimation,
-  startRedoAnimation
+  startRedoAnimation,
+  startRedoResetAnimation
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

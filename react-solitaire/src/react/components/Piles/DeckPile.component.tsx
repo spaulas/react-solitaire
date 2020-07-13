@@ -14,23 +14,23 @@ function DeckPile() {
   const dispatch = useDispatch();
   // get piles from redux
   const {
-    flippedPile,
     deckPile,
     translationX,
     translationY,
     lastHint,
-    startRedoAnimation
+    startRedoAnimation,
+    startRedoResetAnimation
   } = useSelector(({ Deck, GameBoard }: RootReducerState) => {
     const gameHints = GameBoard.gameHints;
     const lastIndex = gameHints.length - 1;
 
     return {
-      flippedPile: Deck.flippedPile,
       deckPile: Deck.deckPile,
       translationX: Deck.translationX,
       translationY: Deck.translationY,
       lastHint: lastIndex >= 0 ? gameHints[lastIndex] : undefined,
-      startRedoAnimation: Deck.startRedoAnimation
+      startRedoAnimation: Deck.startRedoAnimation,
+      startRedoResetAnimation: Deck.startRedoResetAnimation
     };
   });
 
@@ -64,12 +64,10 @@ function DeckPile() {
         increase={increase}
         removeCard={() => handleDeckSwap(card.id)}
         translationX={translationX}
-        translationY={
-          startRedoAnimation && flippedPile.length === 0 ? 0 : translationY
-        }
+        translationY={startRedoResetAnimation ? 0 : translationY}
         redoAnimation={
-          startRedoAnimation &&
-          (index === deckPile.length - 1 || flippedPile.length === 0)
+          (startRedoAnimation && index === deckPile.length - 1) ||
+          startRedoResetAnimation
         }
       />
     ));
