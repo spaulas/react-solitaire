@@ -6,117 +6,92 @@ import {
   LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  QuestionCircleFilled,
+  OrderedListOutlined,
+  PlusOutlined,
   SettingFilled
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
-import { useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
+import { useHistory } from "react-router-dom";
 
 const { Sider } = Layout;
 const { Item, SubMenu } = Menu;
 
 function Sidebar() {
-  const intl = useIntl();
+  const history = useHistory();
   const [collapsed, setCollapsed] = useState(true);
 
   return (
     <Sider className="sidebar" trigger={null} collapsible collapsed={collapsed}>
       <div className="logo" />
       <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
-        <Item key="1">
-          {collapsed ? (
-            <HomeFilled />
-          ) : (
-            <>
-              <HomeFilled />
-              Home
-            </>
-          )}
+        <Item
+          onClick={() => history.push("/")}
+          key="1"
+          title={<FormattedMessage id="sidebar.home" />}
+        >
+          <HomeFilled />
+          {!collapsed && <FormattedMessage id="sidebar.home" />}
         </Item>
-        <Item key="2">
-          {collapsed ? (
-            <LoginOutlined />
-          ) : (
-            <>
-              <LoginOutlined />
-              Login
-            </>
-          )}
+        <Item
+          onClick={() => history.push("/login")}
+          key="2"
+          title={<FormattedMessage id="sidebar.login" />}
+        >
+          <LoginOutlined />
+          {!collapsed && <FormattedMessage id="sidebar.login" />}
         </Item>
         <SubMenu
           key="3"
           title={
-            collapsed ? (
-              <HomeFilled />
-            ) : (
-              <>
-                <HomeFilled />
-                Scores
-              </>
-            )
+            <>
+              <OrderedListOutlined />
+              {!collapsed && <FormattedMessage id="sidebar.scores" />}
+            </>
           }
         >
-          <Item key="31">
-            {collapsed ? (
-              <HomeFilled />
-            ) : (
-              <>
-                <HomeFilled />
-                User Scores
-              </>
-            )}
+          <Item key="31" onClick={() => history.push("/scores/userHighScores")}>
+            <FormattedMessage id="sidebar.userHighScores" />
           </Item>
-          <Item key="32">
-            {collapsed ? (
-              <HomeFilled />
-            ) : (
-              <>
-                <HomeFilled />
-                Top Scores
-              </>
-            )}
+          <Item
+            onClick={() => history.push("/scores/top10HighScores")}
+            key="32"
+          >
+            <FormattedMessage id="sidebar.top10HighScores" />
           </Item>
         </SubMenu>
-        <Item key="4" /*  icon={<UploadOutlined />} */>
-          {collapsed ? (
-            <BarChartOutlined />
-          ) : (
-            <>
-              <BarChartOutlined />
-              Statistics
-            </>
-          )}
+        <Item
+          onClick={() => history.push("/statistics")}
+          key="4"
+          title={<FormattedMessage id="sidebar.statistics" />}
+        >
+          <BarChartOutlined />
+          {!collapsed && <FormattedMessage id="sidebar.statistics" />}
         </Item>
-        <Item key="5">
-          {collapsed ? (
-            <SettingFilled />
-          ) : (
-            <>
-              <SettingFilled />
-              Configurations
-            </>
-          )}
+        <Item
+          onClick={() => history.push("/configurations")}
+          key="5"
+          title={<FormattedMessage id="sidebar.configurations" />}
+        >
+          <SettingFilled />
+          {!collapsed && <FormattedMessage id="sidebar.configurations" />}
         </Item>
-        <Item key="6" /*  icon={<UploadOutlined />} */>
-          {collapsed ? (
-            <LogoutOutlined />
-          ) : (
-            <>
-              <LogoutOutlined />
-              Logout
-            </>
-          )}
+        <Item
+          onClick={() => history.push("/logout")}
+          key="6"
+          title={<FormattedMessage id="btn.logout" />}
+        >
+          <LogoutOutlined />
+          {!collapsed && <FormattedMessage id="btn.logout" />}
         </Item>
-        <Item key="7">
-          {collapsed ? (
-            <QuestionCircleFilled />
-          ) : (
-            <>
-              <QuestionCircleFilled />
-              About
-            </>
-          )}
+        <Item
+          onClick={() => history.push("/about")}
+          key="7"
+          title={<FormattedMessage id="sidebar.about" />}
+        >
+          <PlusOutlined />
+          {!collapsed && <FormattedMessage id="sidebar.about" />}
         </Item>
       </Menu>
       <span className="sidebarToggleSpan">
