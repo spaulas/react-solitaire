@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
+import ConfigurationsPage from "../pages/ConfigurationsPage/ConfigurationsPage.component";
 import ErrorPage from "../pages/ErrorPage/ErrorPage.component";
 import GameBoard from "../pages/GameBoard/GameBoard.component";
 import ScoresPage from "../pages/ScoresPage/ScoresPage.component";
@@ -35,6 +36,10 @@ function ApplicationRouter() {
       {/* Statistics Page */}
       <Route exact path={`${url}/statistics`}>
         <StatisticsPage />
+      </Route>
+      {/* Configurations Page */}
+      <Route exact path={`${url}/configurations`}>
+        <ConfigurationsPage />
       </Route>
       {/* Anything else, should be sent to the error page */}
       <Route>
