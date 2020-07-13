@@ -128,7 +128,8 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
       const undoResetResult = resetDeck(
         "deckPile",
         "flippedPile",
-        state.deckPile
+        state.deckPile,
+        true
       );
       return {
         ...state,
@@ -191,7 +192,12 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
       return { ...state, startRedoAnimation: true };
 
     case DeckActionTypes.START_REDO_RESET_ANIMATION:
-      return { ...state, startRedoResetAnimation: true };
+      const copyDeckPile = [...state.deckPile];
+      return {
+        ...state,
+        deckPile: copyDeckPile.reverse(),
+        startRedoResetAnimation: true
+      };
 
     // ********************************************************
 

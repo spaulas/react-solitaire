@@ -64,3 +64,14 @@ declare module "*.module.sass" {
   const classes: { readonly [key: string]: string };
   export default classes;
 }
+declare module "react-country-flag" {
+  export interface ReactCountryFlagProps {
+    countryCode: string;
+    className?: string;
+  }
+  export default class ReactCountryFlag extends React.PureComponent<
+    ReactCountryFlagProps,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    any
+  > {}
+}
