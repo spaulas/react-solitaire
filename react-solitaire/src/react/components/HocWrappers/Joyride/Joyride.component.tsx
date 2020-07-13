@@ -20,13 +20,9 @@ function BaseJoyride() {
   );
 
   const handlePageChange = () => {
-    // eslint-disable-next-line no-console
-    console.log("PAGE -  ", page);
-    // eslint-disable-next-line no-console
-    console.log("JOYROIDE -  ", joyride[page]);
     if (page && joyride[page]) {
       const joyrideCopy = { ...joyride };
-      joyrideCopy[page] = true;
+      joyrideCopy[page] = false;
       setRun(true);
       dispatch(userActions.setJoyride(joyrideCopy));
     }

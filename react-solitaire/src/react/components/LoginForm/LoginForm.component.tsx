@@ -16,7 +16,6 @@ interface LoginFormProps {
 function LoginForm({ hideForm }: LoginFormProps) {
   const intl = useIntl();
   const onSubmit = async (values: Record<string, string>) => {
-    console.log("onSubmit values = ", values);
     try {
       await auth.signInWithEmailAndPassword(values.email, values.password);
     } catch (signInError) {

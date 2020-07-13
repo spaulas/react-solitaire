@@ -20,8 +20,6 @@ function GameOptions() {
   const [showMore, setShowMore] = useState(false);
   const handleShowMore = () => {
     setShowMore(true);
-    // eslint-disable-next-line no-console
-    console.log("STEPS = ", JoyrideSteps());
     dispatch(joyrideActions.initJoyride("gameOptions", JoyrideSteps()));
   };
   return (

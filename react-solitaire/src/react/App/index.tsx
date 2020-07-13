@@ -31,8 +31,6 @@ function BaseApplication() {
 
       // if there is online user and highscore
       if (userRef && highscoreRef) {
-        // eslint-disable-next-line no-console
-        console.log("userRef = ", typeof userRef);
         userRef?.onSnapshot((snapshot: ExplicitAny) => {
           const {
             createdAt,
