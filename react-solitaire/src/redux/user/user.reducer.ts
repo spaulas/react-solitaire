@@ -252,8 +252,6 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       };
 
     case UserActionTypes.CLEAR_USER:
-      // eslint-disable-next-line no-console
-      console.log("CLEAR USER!");
       return INITIAL_USER;
 
     // ********************************************************

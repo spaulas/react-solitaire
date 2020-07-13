@@ -9,8 +9,6 @@ interface JoyrideStepsProps {
 }
 
 function JoyrideSteps({ loggedOut, hasSavedGame }: JoyrideStepsProps) {
-  console.log("START JOYRIDE looged in = ", loggedOut);
-  console.log("START JOYRIDE hasSavedGame= ", hasSavedGame);
   return [
     {
       content: (

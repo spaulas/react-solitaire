@@ -42,9 +42,6 @@ function StartingPage() {
     setShowLoginForm(false);
   };
 
-  // eslint-disable-next-line no-console
-  console.log("START = ", { loggedOut, hasSavedGame });
-
   return (
     <div
       className={`joyrideStartingPage startingPage ${
