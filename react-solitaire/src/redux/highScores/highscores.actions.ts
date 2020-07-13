@@ -3,9 +3,10 @@ import HighScoresActionTypes from "./highscores.types";
 
 // ********************************************************
 
-const setOnlineHighScores = (data: ExplicitAny) => ({
+const setOnlineHighScores = (data: ExplicitAny, highScoreRef: ExplicitAny) => ({
   type: HighScoresActionTypes.SET_ONLINE_HIGHSCORES,
-  data
+  data,
+  highScoreRef
 });
 
 const setOfflineHighScores = () => ({

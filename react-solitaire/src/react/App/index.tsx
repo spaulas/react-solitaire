@@ -31,16 +31,48 @@ function BaseApplication() {
 
       // if there is online user and highscore
       if (userRef && highscoreRef) {
+        // eslint-disable-next-line no-console
+        console.log("userRef = ", typeof userRef);
         userRef?.onSnapshot((snapshot: ExplicitAny) => {
-          dispatch(userActions.saveUser(snapshot.data(), userRef));
+          const {
+            createdAt,
+            graphs,
+            hasSavedGame,
+            history,
+            maxMoves,
+            maxTime,
+            nGames,
+            settings,
+            userName
+          } = snapshot.data();
+          dispatch(
+            userActions.saveUser(
+              {
+                createdAt,
+                graphs,
+                hasSavedGame,
+                history,
+                maxMoves,
+                maxTime,
+                nGames,
+                settings,
+                userName
+              },
+              userRef
+            )
+          );
         });
 
         highscoreRef?.onSnapshot((snapshot: ExplicitAny) => {
+          const { hasNewHighScore, highScores } = snapshot.data();
           dispatch(
-            highscoreActions.setOnlineHighScores({
-              highscoreRef,
-              ...snapshot.data()
-            })
+            highscoreActions.setOnlineHighScores(
+              {
+                hasNewHighScore,
+                highScores
+              },
+              highscoreRef
+            )
           );
         });
       }

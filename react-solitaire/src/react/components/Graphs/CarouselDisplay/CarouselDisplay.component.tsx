@@ -11,12 +11,12 @@ function CarouselDisplay(props: ExplicitAny, ref: ExplicitAny) {
   const [countKey, setCountKey] = useState(0);
 
   const next = () => {
-    ref?.slick.slickNext();
+    ref?.current?.innerSlider?.slickNext();
     setCountKey(countKey + 1);
   };
 
   const previous = () => {
-    ref?.slick.slickPrev();
+    ref?.current?.innerSlider?.slickPrev();
     setCountKey(countKey + 1);
   };
 
