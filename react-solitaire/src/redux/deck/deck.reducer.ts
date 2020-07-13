@@ -20,6 +20,7 @@ interface InitialDeck {
   translationY: number; // y translation for the animation
   cardDragging?: Array<CardType>; // cards original from the flipped pile that are being dragged
   doubleClickTarget?: string;
+  startBackAnimation: boolean;
 }
 
 const INITIAL_DECK: InitialDeck = {
@@ -29,7 +30,8 @@ const INITIAL_DECK: InitialDeck = {
   flippedPile: [],
   translationX: 243.75,
   translationY: cardsConfigurations.deck,
-  cardDragging: undefined
+  cardDragging: undefined,
+  startBackAnimation: false
 };
 
 const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
@@ -175,6 +177,9 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
         ...state,
         ...addResult
       };
+
+    case DeckActionTypes.START_BACK_ANIMATION:
+      return { ...state, startBackAnimation: true };
 
     // ********************************************************
 

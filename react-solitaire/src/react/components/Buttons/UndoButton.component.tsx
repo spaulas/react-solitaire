@@ -34,9 +34,12 @@ function UndoButton() {
       // basically, send the card back from that pile to the deck pile
       if (source === "deckPile") {
         if (target === "flippedPile") {
+          dispatch(deckActions.startBackAnimation());
+          setTimeout(() => {
+            // call deck function to send back a flipped card to the deck pile
+            dispatch(deckActions.undoFlipDeckPile());
+          }, 600);
           // flipped -> deck
-          // call deck function to send back a flipped card to the deck pile
-          dispatch(deckActions.undoFlipDeckPile());
         } else if (target.includes("goal")) {
           // goal pile -> deck
           // call goal function to remove card from the respective goal pile
