@@ -9,21 +9,25 @@ interface HighScore {
 }
 
 export interface InitialHighScores {
-  highScores: Array<HighScore>;
+  highScore: {
+    highScores: Array<HighScore>;
+    hasNewHighScore: boolean;
+  };
   highscoreRef: ExplicitAny;
-  hasNewHighScore: boolean;
 }
 
 const INITIAL_HIGHSCORE: InitialHighScores = {
-  highScores: [],
-  highscoreRef: undefined,
-  hasNewHighScore: false
+  highScore: {
+    highScores: [],
+    hasNewHighScore: false
+  },
+  highscoreRef: undefined
 };
 
 const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
   switch (action.type) {
     case HighScoresActionTypes.SET_ONLINE_HIGHSCORES:
-      return action.data;
+      return { highscore: action.data, highscoreRef: action.highScoreRef };
 
     case HighScoresActionTypes.SET_OFFLINE_HIGHSCORES:
       const currentLocal = localStorage.getItem("offlineHighScores");
@@ -33,19 +37,24 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
       if (!offlineHighScores) {
         localStorage.setItem(
           "offlineHighScores",
-          JSON.stringify(INITIAL_HIGHSCORE)
+          JSON.stringify(INITIAL_HIGHSCORE.highScore)
         );
       }
-      return offlineHighScores || INITIAL_HIGHSCORE;
+      return {
+        highScore: offlineHighScores || INITIAL_HIGHSCORE,
+        highScoreRef: false
+      };
 
     case HighScoresActionTypes.HAS_NEW_HIGHSCORE:
       let finalHasNewHighScore = false;
-      if (state.highScores.length < 10) {
+      if (state.highScore?.highScores.length < 10) {
         finalHasNewHighScore = true;
       } else {
-        const result = state.highScores.find((highScore: HighScore) => {
-          return action.finalScore < highScore.finalScore;
-        });
+        const result = state.highScore?.highScores.find(
+          (highScore: HighScore) => {
+            return action.finalScore < highScore.finalScore;
+          }
+        );
         if (result) {
           finalHasNewHighScore = true;
         }
@@ -53,26 +62,31 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
 
       return {
         ...state,
-        hasNewHighScore: finalHasNewHighScore
+        highScore: {
+          ...state.highScore,
+          hasNewHighScore: finalHasNewHighScore
+        }
       };
 
     case HighScoresActionTypes.ADD_HIGHSCORE:
       let finalHighScores: ExplicitAny = [];
-      if (state.highScores.length < 10) {
+      if (state.highScore?.highScores.length < 10) {
         finalHighScores = [
-          ...state.highScores,
+          ...state.highScore?.highScores,
           {
             userName: action.userName,
             finalScore: action.finalScore
           }
         ];
       } else {
-        const result = state.highScores.find((highScore: HighScore) => {
-          return action.finalScore < highScore.finalScore;
-        });
+        const result = state.highScore?.highScores.find(
+          (highScore: HighScore) => {
+            return action.finalScore < highScore.finalScore;
+          }
+        );
         if (result) {
           finalHighScores = [
-            ...state.highScores,
+            ...state.highScore?.highScores,
             {
               userName: action.userName,
               finalScore: action.finalScore
@@ -88,18 +102,21 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
       if (state.highscoreRef) {
         // add to firebase
         state.highscoreRef.set({
-          ...state,
+          ...state.highScore,
           highScores: finalHighScores
         });
       } else {
         // add to localStorage
         localStorage.setItem(
           "offlineHighScores",
-          JSON.stringify({ ...state, highScores: finalHighScores })
+          JSON.stringify({ ...state.highScore, highScores: finalHighScores })
         );
       }
 
-      return { ...state, highScores: finalHighScores, hasNewHighScore: false };
+      return {
+        ...state,
+        highScore: { highScores: finalHighScores, hasNewHighScore: false }
+      };
 
     // ********************************************************
 

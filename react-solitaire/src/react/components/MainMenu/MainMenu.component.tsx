@@ -25,11 +25,11 @@ function MainMenu({
   const dispatch = useDispatch();
   const [showAlarm, setShowAlarm] = useState(false);
 
-  const { userRef, hasSavedGame, savedGame } = useSelector(
+  const { loggedOut, hasSavedGame, savedGame } = useSelector(
     ({ User }: RootReducerState) => ({
-      userRef: User.userRef,
-      hasSavedGame: User.hasSavedGame,
-      savedGame: User.savedGame
+      loggedOut: User.userRef === false,
+      hasSavedGame: User.user.hasSavedGame,
+      savedGame: User.user.savedGame
     })
   );
 
@@ -50,9 +50,12 @@ function MainMenu({
 
   return (
     <>
-      {!userRef && (
+      {loggedOut && (
         <Row align="middle" justify="center">
-          <MenuButton onClick={showLoginForm} className={getAnimation()}>
+          <MenuButton
+            onClick={showLoginForm}
+            className={`joyrideLoginButton ${getAnimation()}`}
+          >
             <FormattedMessage id="btn.login" />
           </MenuButton>
         </Row>
@@ -63,7 +66,7 @@ function MainMenu({
             <MenuButton
               location="/game"
               params={{ savedGame }}
-              className={getAnimation()}
+              className={`joyrideResumeGameButton ${getAnimation()}`}
             >
               <FormattedMessage id="btn.resumeGame" />
             </MenuButton>
@@ -71,7 +74,7 @@ function MainMenu({
           <Row className="buttonSpaceRow" align="middle" justify="center">
             <MenuButton
               onClick={() => setShowAlarm(true)}
-              className={getAnimation()}
+              className={`joyrideStartGameButton ${getAnimation()}`}
             >
               <FormattedMessage id="btn.startGame" />
             </MenuButton>
@@ -86,7 +89,10 @@ function MainMenu({
         </>
       ) : (
         <Row className="buttonSpaceRow" align="middle" justify="center">
-          <MenuButton location="/game" className={getAnimation()}>
+          <MenuButton
+            location="/game"
+            className={`joyrideStartGameButton ${getAnimation()}`}
+          >
             <FormattedMessage id="btn.startGame" />
           </MenuButton>
         </Row>
@@ -94,20 +100,26 @@ function MainMenu({
       <Row className="buttonSpaceRow" align="middle" justify="center">
         <MenuButton
           location="/scores/userHighScores"
-          className={getAnimation()}
+          className={`joyrideScoresButton ${getAnimation()}`}
         >
           <FormattedMessage id="sidebar.scores" />
         </MenuButton>
       </Row>
       <Row className="buttonSpaceRow" align="middle" justify="center">
-        <MenuButton location="/statistics" className={getAnimation()}>
+        <MenuButton
+          location="/statistics"
+          className={`joyrideStatisticsButton ${getAnimation()}`}
+        >
           <FormattedMessage id="sidebar.statistics" />
         </MenuButton>
       </Row>
 
-      {userRef && (
+      {!loggedOut && (
         <Row className="buttonSpaceRow" align="middle" justify="center">
-          <MenuButton className={getAnimation()} onClick={handleLogout}>
+          <MenuButton
+            className={`joyrideLogoutButton ${getAnimation()}`}
+            onClick={handleLogout}
+          >
             <FormattedMessage id="btn.logout" />
           </MenuButton>
         </Row>

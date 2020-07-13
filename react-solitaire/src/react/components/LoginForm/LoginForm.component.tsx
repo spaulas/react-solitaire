@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 import { Form, Input, Row } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
+import { auth, signInWithGoogle } from "../../../firebase/firebase.utils";
 import { GoogleCircleFilled } from "@ant-design/icons";
 import MenuButton from "../../components/Buttons/MenuButton.component";
 import React from "react";
-import { signInWithGoogle } from "../../../firebase/firebase.utils";
 
 const { Item } = Form;
 const { Password } = Input;
@@ -15,8 +15,23 @@ interface LoginFormProps {
 
 function LoginForm({ hideForm }: LoginFormProps) {
   const intl = useIntl();
-  const onSubmit = (values: Record<string, string>) => {
-    console.log("onSubmit values = ", values);
+  const onSubmit = async (values: Record<string, string>) => {
+    try {
+      await auth.signInWithEmailAndPassword(values.email, values.password);
+    } catch (signInError) {
+      if (signInError.code === "auth/user-not-found") {
+        try {
+          await auth.createUserWithEmailAndPassword(
+            values.email,
+            values.password
+          );
+        } catch (signUpError) {
+          console.error("Error creating user2 ", signUpError.message);
+        }
+      } else {
+        console.error("Error creating user ", signInError.message);
+      }
+    }
     hideForm();
   };
 
@@ -27,7 +42,7 @@ function LoginForm({ hideForm }: LoginFormProps) {
       <Form name="loginForm" onFinish={onSubmit} form={form}>
         <Row align="middle" justify="center">
           <Item
-            name="username"
+            name="email"
             rules={[
               {
                 required: true,

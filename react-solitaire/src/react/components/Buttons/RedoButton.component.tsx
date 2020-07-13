@@ -100,7 +100,10 @@ function RedoButton() {
   };
   return (
     <Tooltip title={<FormattedMessage id="btn.redo" />}>
-      <StepForwardOutlined className="iconButton" onClick={handleRedo} />
+      <StepForwardOutlined
+        className="joyrideRedo iconButton"
+        onClick={handleRedo}
+      />
     </Tooltip>
   );
 }

@@ -18,7 +18,7 @@ function PieGraph({ width, height }: PieGraphProps) {
   const {
     graphs: { winsRatio }
   } = useSelector(({ User }: RootReducerState) => ({
-    graphs: User.graphs
+    graphs: User.user.graphs
   }));
 
   const renderCustomizedLabel = ({

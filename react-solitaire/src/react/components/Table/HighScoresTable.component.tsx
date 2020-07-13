@@ -17,7 +17,7 @@ interface HighScoresTableProps {
 
 function HighScoresTable({ className }: HighScoresTableProps) {
   const { highScores } = useSelector(({ HighScores }: RootReducerState) => ({
-    highScores: HighScores.highScores
+    highScores: HighScores.highScore?.highScores
   }));
 
   return (

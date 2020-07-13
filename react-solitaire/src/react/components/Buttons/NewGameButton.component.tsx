@@ -22,7 +22,7 @@ function NewGameButton() {
     <>
       <Tooltip title={<FormattedMessage id="btn.newGame" />}>
         <PlusOutlined
-          className="iconButton"
+          className="joyrideNew iconButton"
           onClick={() => setShowConfirm(true)}
         />
       </Tooltip>

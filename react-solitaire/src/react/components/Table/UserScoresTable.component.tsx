@@ -45,7 +45,10 @@ function UserScoresTable({ data, className }: UserScoresTableProps) {
         title={
           <div>
             <FormattedMessage id="table.finalScore" />
-            <ExpandTableIcon onClick={setExpandTable} />
+            <ExpandTableIcon
+              className="joyrideScoresExpand"
+              onClick={setExpandTable}
+            />
           </div>
         }
         dataIndex="finalScore"

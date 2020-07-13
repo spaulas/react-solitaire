@@ -1,13 +1,15 @@
 /* eslint-disable indent */
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import HighScoresTable from "../../components/Table/HighScoresTable.component";
+import JoyrideSteps from "./JoyrideSteps.component";
 import PageTitle from "../../components/PageTitle/PageTitle.component";
-import React from "react";
 import { RootReducerState } from "../../../global";
 import { Tabs } from "antd";
 import UserScoresTable from "../../components/Table/UserScoresTable.component";
+import joyrideActions from "../../../redux/joyride/joyride.actions";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const { TabPane } = Tabs;
 
@@ -17,10 +19,19 @@ interface ScoresPageProps {
 
 function ScoresPage({ activeTab }: ScoresPageProps) {
   const history = useHistory();
+  const dispatch = useDispatch();
 
-  const { gameHistory } = useSelector(({ User }: RootReducerState) => ({
-    gameHistory: User.history
-  }));
+  const { gameHistory, loggedOut } = useSelector(
+    ({ User }: RootReducerState) => ({
+      gameHistory: User.user.history,
+      loggedOut: User.userRef === false
+    })
+  );
+
+  const initJoyride = () => {
+    dispatch(joyrideActions.initJoyride("scores", JoyrideSteps({ loggedOut })));
+  };
+  useEffect(initJoyride, []);
 
   const handleTabChange = (tabKey: string) => {
     switch (tabKey) {
@@ -34,15 +45,26 @@ function ScoresPage({ activeTab }: ScoresPageProps) {
   };
 
   return (
-    <div className="pageBackground scoresPage">
+    <div className="joyrideScoresPage pageBackground scoresPage">
       <PageTitle title={<FormattedMessage id="sidebar.scores" />} />
 
       <Tabs activeKey={activeTab} onChange={handleTabChange}>
-        <TabPane tab={<FormattedMessage id="sidebar.userHighScores" />} key="1">
-          <UserScoresTable data={gameHistory} className="scoresTable" />
+        <TabPane
+          tab={
+            <span className="joyrideScoresUser">
+              <FormattedMessage id="sidebar.userHighScores" />
+            </span>
+          }
+          key="1"
+        >
+          <UserScoresTable data={gameHistory} />
         </TabPane>
         <TabPane
-          tab={<FormattedMessage id="sidebar.top10HighScores" />}
+          tab={
+            <span className="joyrideScoresTop">
+              <FormattedMessage id="sidebar.top10HighScores" />
+            </span>
+          }
           key="2"
         >
           <HighScoresTable className="scoresTable" />

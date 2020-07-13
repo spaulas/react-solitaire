@@ -13,7 +13,7 @@ function PauseGameButton() {
 
   return (
     <Tooltip title={<FormattedMessage id="btn.pause" />}>
-      <PauseOutlined className="iconButton" onClick={timeGame} />
+      <PauseOutlined className="joyridePause iconButton" onClick={timeGame} />
     </Tooltip>
   );
 }

@@ -14,7 +14,7 @@ function TimeGraph({ width, height }: TimesGraphProps) {
       time: { data, label }
     }
   } = useSelector(({ User }: RootReducerState) => ({
-    graphs: User.graphs
+    graphs: User.user.graphs
   }));
 
   return (

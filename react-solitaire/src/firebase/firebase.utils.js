@@ -35,15 +35,29 @@ export const getUserInfo = async user => {
   if (!userSnapShot.exists && user.email) {
     try {
       await userRef.set({
-        email: user.email,
-        userName: user.displayName,
+        userName: user.displayName || user.email,
         createdAt: new Date(),
         maxMoves: 0,
         maxTime: 0,
         nGames: 0,
         hasSavedGame: false,
         history: [],
-        settings: { language: "en-Us" }
+        graphs: {
+          winsRatio: [],
+          time: {},
+          moves: {}
+        },
+        settings: {
+          language: "en-Us",
+          joyride: {
+            main: true,
+            scores: true,
+            statistics: true,
+            login: true,
+            game: true,
+            gameOptions: true
+          }
+        }
       });
     } catch (error) {
       console.error("Error creating user ", error.message);

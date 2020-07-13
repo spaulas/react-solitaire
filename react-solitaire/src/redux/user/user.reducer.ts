@@ -14,47 +14,63 @@ interface GameHistory {
 }
 
 export interface InitialUser {
-  id: string;
-  userName: string;
-  maxMoves: number;
-  maxTime: number;
-  nGames: number;
-  hasSavedGame: boolean;
-  history: Array<GameHistory>;
-  createdAt: Date;
-  savedGame: ExplicitAny;
+  user: {
+    userName: string;
+    maxMoves: number;
+    maxTime: number;
+    nGames: number;
+    hasSavedGame: boolean;
+    history: Array<GameHistory>;
+    createdAt: Date;
+    savedGame: ExplicitAny;
+    graphs: {
+      winsRatio: ExplicitAny;
+      moves: ExplicitAny;
+      time: ExplicitAny;
+    };
+    settings: {
+      language: string;
+      joyride: {
+        main: boolean;
+        scores: boolean;
+        statistics: boolean;
+        login: boolean;
+        game: boolean;
+        gameOptions: boolean;
+      };
+    };
+  };
   userRef: ExplicitAny;
-  email: string;
-  graphs: {
-    winsRatio: ExplicitAny;
-    moves: ExplicitAny;
-    time: ExplicitAny;
-  };
-  settings: {
-    language: string;
-  };
 }
 
 const INITIAL_USER: InitialUser = {
-  id: "localStorageUser",
-  userName: "localUser",
-  maxMoves: 0,
-  maxTime: 0,
-  nGames: 0,
-  hasSavedGame: false,
-  history: [],
-  createdAt: new Date(),
-  savedGame: {},
-  userRef: undefined,
-  email: "",
-  graphs: {
-    winsRatio: [],
-    time: {},
-    moves: {}
+  user: {
+    userName: "localUser",
+    maxMoves: 0,
+    maxTime: 0,
+    nGames: 0,
+    hasSavedGame: false,
+    history: [],
+    createdAt: new Date(),
+    savedGame: {},
+    graphs: {
+      winsRatio: [],
+      time: {},
+      moves: {}
+    },
+    settings: {
+      language: "pt-PT",
+      joyride: {
+        main: true,
+        scores: true,
+        statistics: true,
+        login: true,
+        game: true,
+        gameOptions: true
+      }
+    }
   },
-  settings: {
-    language: "pt-PT"
-  }
+  userRef: undefined
 };
 
 const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
@@ -65,67 +81,69 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       if (!offlineUser) {
         localStorage.setItem("offlineUser", JSON.stringify(INITIAL_USER));
       }
-      return offlineUser || INITIAL_USER;
+      return { user: offlineUser || INITIAL_USER.user, userRef: false };
 
     case UserActionTypes.SAVE_USER:
-      return action.user;
+      return { user: action.user, userRef: action.userRef };
 
     case UserActionTypes.CHANGE_USERNAME:
       if (state.userRef) {
         // add to firebase
         state.userRef.set({
-          ...state,
+          ...state.user,
           userName: action.userName
         });
       } else {
         // add to localStorage
         localStorage.setItem(
           "offlineUser",
-          JSON.stringify({ ...state, userName: action.userName })
+          JSON.stringify({ ...state.user, userName: action.userName })
         );
       }
 
-      return { ...state, userName: action.userName };
+      return { ...state, user: { ...state.user, userName: action.userName } };
 
     case UserActionTypes.ADD_GAME:
-      const finalGames = state.nGames + 1;
+      const finalGames = state.user.nGames + 1;
       if (state.userRef) {
         // add to firebase
         state.userRef.set({
-          ...state,
+          ...state.user,
           nGames: finalGames
         });
       } else {
         // add to localStorage
         localStorage.setItem(
           "offlineUser",
-          JSON.stringify({ ...state, nGames: finalGames })
+          JSON.stringify({ ...state.user, nGames: finalGames })
         );
       }
 
-      return { ...state, nGames: finalGames };
+      return { ...state, user: { ...state.user, nGames: finalGames } };
 
     case UserActionTypes.GAME_OVER:
       // add game statistics to the history
       const finalHistory = [
-        ...state.history,
+        ...state.user.history,
         { ...action.gameStatistics, seconds: action.seconds }
       ];
       // check if there is a new max of game moves
       const finalMaxMoves =
-        state.maxMoves < action.gameStatistics.moves
+        state.user.maxMoves < action.gameStatistics.moves
           ? action.gameStatistics.moves
-          : state.maxMoves;
+          : state.user.maxMoves;
       // check if there is a new max of game time
       const finalMaxTime =
-        state.maxTime < action.seconds ? action.seconds : state.maxTime;
+        state.user.maxTime < action.seconds
+          ? action.seconds
+          : state.user.maxTime;
 
       // update graphs
       const finalGraph = createGraphs(
         finalHistory,
         finalMaxMoves,
         finalMaxTime,
-        state.nGames
+        state.user.nGames
       );
 
       const finalChanges = {
@@ -138,23 +156,23 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       if (state.userRef) {
         // add to firebase
         state.userRef.set({
-          ...state,
+          ...state.user,
           ...finalChanges
         });
       } else {
         // add to localStorage
         localStorage.setItem(
           "offlineUser",
-          JSON.stringify({ ...state, ...finalChanges })
+          JSON.stringify({ ...state.user, ...finalChanges })
         );
       }
-      return { ...state, history: finalHistory };
+      return { ...state, user: { ...state.user, history: finalHistory } };
 
     case UserActionTypes.SAVE_GAME:
       if (state.userRef) {
         // add to firebase
         state.userRef.set({
-          ...state,
+          ...state.user,
           savedGame: action.savedGame,
           hasSavedGame: true
         });
@@ -163,20 +181,23 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
         localStorage.setItem(
           "offlineUser",
           JSON.stringify({
-            ...state,
+            ...state.user,
             savedGame: action.savedGame,
             hasSavedGame: true
           })
         );
       }
 
-      return { ...state, savedGame: action.savedGame, hasSavedGame: true };
+      return {
+        ...state,
+        user: { ...state.user, savedGame: action.savedGame, hasSavedGame: true }
+      };
 
     case UserActionTypes.CLEAR_SAVED_GAME:
       if (state.userRef) {
         // add to firebase
         state.userRef.set({
-          ...state,
+          ...state.user,
           savedGame: {},
           hasSavedGame: false
         });
@@ -185,13 +206,53 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
         localStorage.setItem(
           "offlineUser",
           JSON.stringify({
-            ...state,
+            ...state.user,
             savedGame: {},
             hasSavedGame: false
           })
         );
       }
-      return { ...state, savedGame: {}, hasSavedGame: false };
+      return {
+        ...state,
+        user: { ...state.user, savedGame: {}, hasSavedGame: false }
+      };
+
+    case UserActionTypes.SET_JOYRIDE:
+      if (state.userRef) {
+        // add to firebase
+        state.userRef.set({
+          ...state.user,
+          settings: {
+            ...state.user.settings,
+            joyride: action.joyride
+          }
+        });
+      } else {
+        // add to localStorage
+        localStorage.setItem(
+          "offlineUser",
+          JSON.stringify({
+            ...state.user,
+            settings: {
+              ...state.user.settings,
+              joyride: action.joyride
+            }
+          })
+        );
+      }
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          settings: {
+            ...state.user.settings,
+            joyride: action.joyride
+          }
+        }
+      };
+
+    case UserActionTypes.CLEAR_USER:
+      return INITIAL_USER;
 
     // ********************************************************
 
