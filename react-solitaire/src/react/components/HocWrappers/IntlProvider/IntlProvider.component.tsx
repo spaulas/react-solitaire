@@ -8,7 +8,9 @@ import ptPTIntl from "../../Languages/pt-PT.json";
 import { useSelector } from "react-redux";
 
 function TranslatorIntlProvider({ children }: PropsWithChildren<{}>) {
-  const language = useSelector(({ User }: RootReducerState) => "pt-PT");
+  const language = useSelector(
+    ({ User }: RootReducerState) => User.user?.settings?.language || "pt-PT"
+  );
 
   const messages: ExplicitAny = {
     en: enUSIntl,

@@ -60,9 +60,8 @@ function ConfigurationsPage() {
         joyride
       }
     };
-    // eslint-disable-next-line no-console
-    console.log("VALUES = ", finalChanges);
     dispatch(userActions.changeUserSettings(finalChanges));
+    setEditMode(false);
   };
   return (
     <div className="joyrideStartingPage startingPage">
