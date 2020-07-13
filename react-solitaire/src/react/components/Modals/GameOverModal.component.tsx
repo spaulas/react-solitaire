@@ -90,7 +90,7 @@ function GameOverModal() {
       );
 
       if (finalUserName !== userName) {
-        dispatch(userActions.changeUserName(finalUserName));
+        dispatch(userActions.changeUserSettings({ userName: finalUserName }));
       }
     }
 

@@ -96,7 +96,8 @@ export const unflipDeckCard = (
 export const resetDeck = (
   sourceId: string,
   targetId: string,
-  source: Array<CardType>
+  source: Array<CardType>,
+  reversed?: boolean
 ) => {
   const final = source.map((card: CardType) => ({
     ...card,
@@ -104,7 +105,7 @@ export const resetDeck = (
   }));
   return {
     translationY: source.length,
-    [targetId]: final.reverse(),
+    [targetId]: reversed ? final : final.reverse(),
     [sourceId]: []
   };
 };

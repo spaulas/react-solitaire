@@ -113,6 +113,14 @@ function MainMenu({
           <FormattedMessage id="sidebar.statistics" />
         </MenuButton>
       </Row>
+      <Row className="buttonSpaceRow" align="middle" justify="center">
+        <MenuButton
+          className={`joyrideConfigurationsButton ${getAnimation()}`}
+          location="/configurations"
+        >
+          <FormattedMessage id="sidebar.configurations" />
+        </MenuButton>
+      </Row>
 
       {!loggedOut && (
         <Row className="buttonSpaceRow" align="middle" justify="center">
