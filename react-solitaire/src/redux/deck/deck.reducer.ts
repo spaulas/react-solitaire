@@ -130,7 +130,8 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
       );
       return {
         ...state,
-        ...undoResetResult
+        ...undoResetResult,
+        startRedoAnimation: false
       };
 
     // ********************************************************

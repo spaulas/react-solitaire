@@ -14,6 +14,7 @@ function DeckPile() {
   const dispatch = useDispatch();
   // get piles from redux
   const {
+    flippedPile,
     deckPile,
     translationX,
     translationY,
@@ -24,6 +25,7 @@ function DeckPile() {
     const lastIndex = gameHints.length - 1;
 
     return {
+      flippedPile: Deck.flippedPile,
       deckPile: Deck.deckPile,
       translationX: Deck.translationX,
       translationY: Deck.translationY,
@@ -62,8 +64,13 @@ function DeckPile() {
         increase={increase}
         removeCard={() => handleDeckSwap(card.id)}
         translationX={translationX}
-        translationY={translationY}
-        redoAnimation={startRedoAnimation && index === deckPile.length - 1}
+        translationY={
+          startRedoAnimation && flippedPile.length === 0 ? 0 : translationY
+        }
+        redoAnimation={
+          startRedoAnimation &&
+          (index === deckPile.length - 1 || flippedPile.length === 0)
+        }
       />
     ));
     return cardsArray;

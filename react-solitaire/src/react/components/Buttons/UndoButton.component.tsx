@@ -105,7 +105,10 @@ function UndoButton() {
       } else {
         // undo a deck flipped
         // flipped pile -> deck pile
-        dispatch(deckActions.undoResetDeck());
+        dispatch(deckActions.startRedoAnimation());
+        setTimeout(() => {
+          dispatch(deckActions.undoResetDeck());
+        }, 600);
       }
 
       // remove the movement from the moves array
