@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-component-props */
 /* eslint-disable indent */
 import { ExplicitAny, RootReducerState } from "../../../../global";
-import React, { memo, useEffect } from "react";
+import React, { PropsWithChildren, memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CardFrame from "../../Cards/CardFrame.component";
 import CardImage from "../../Cards/CardImage.component";
@@ -29,8 +29,9 @@ function DraggableCard({
   nCards,
   onDoubleClick,
   index = 0,
-  shake
-}: DraggableCardProps) {
+  shake,
+  children
+}: PropsWithChildren<DraggableCardProps>) {
   const dispatch = useDispatch();
 
   // get the cards that are dragging from the redux (can be from the deck or form the columns)
@@ -90,11 +91,13 @@ function DraggableCard({
       cardContainerClassName={`${index > 0 ? "cardContainerColumns" : ""}`}
       shake={shake}
     >
-      <CardImage
-        additionalClassName={hideCard ? "cardIsDragging" : ""}
-        directory="CardsFaces"
-        image={card.image}
-      />
+      {children || (
+        <CardImage
+          additionalClassName={hideCard ? "cardIsDragging" : ""}
+          directory="CardsFaces"
+          image={card.image}
+        />
+      )}
     </CardFrame>
   );
 }

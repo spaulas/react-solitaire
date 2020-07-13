@@ -105,6 +105,18 @@ const addCardToFlipped = (card: CardType) => ({
   card
 });
 
+const startUndoAnimation = () => ({
+  type: DeckActionTypes.START_UNDO_ANIMATION
+});
+
+const startRedoAnimation = () => ({
+  type: DeckActionTypes.START_REDO_ANIMATION
+});
+
+const startRedoResetAnimation = () => ({
+  type: DeckActionTypes.START_REDO_RESET_ANIMATION
+});
+
 // ********************************************************
 
 const actionsCreators = Object.freeze({
@@ -118,7 +130,10 @@ const actionsCreators = Object.freeze({
   undoResetDeck,
   dragFlippedCard,
   removeCardFromFlipped,
-  resetCardDragging
+  resetCardDragging,
+  startUndoAnimation,
+  startRedoAnimation,
+  startRedoResetAnimation
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

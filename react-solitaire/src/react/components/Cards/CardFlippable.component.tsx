@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { forwardRef, memo, useState } from "react";
 import CardFrame from "./CardFrame.component";
 import CardImage from "./CardImage.component";
@@ -12,6 +13,7 @@ interface CardFlippableProps {
   disabled?: boolean; // if disabled, cannot flip
   shake?: boolean;
   increase?: boolean;
+  redoAnimation?: boolean;
 }
 
 /**
@@ -26,13 +28,16 @@ function CardFlippable(
     image,
     disabled,
     shake,
-    increase
+    increase,
+    redoAnimation
   }: CardFlippableProps,
   ref: ExplicitAny
 ) {
   const [cardFlipped, setCardFlipped] = useState(false);
   const [animationStyle, setAnimationStyle] = useState({});
-
+  const animationStyleUndo = {
+    transform: `translate(${translationX}px, ${translationY}px) rotateY(180deg)`
+  };
   const handleFlip = () => {
     if (!cardFlipped && !disabled) {
       if (translationX && translationX !== 0) {
@@ -60,7 +65,9 @@ function CardFlippable(
       <div
         className="cardFlipContainer"
         // eslint-disable-next-line react/forbid-dom-props
-        style={cardFlipped ? animationStyle : {}}
+        style={
+          cardFlipped ? animationStyle : redoAnimation ? animationStyleUndo : {}
+        }
       >
         <CardImage
           image={image}

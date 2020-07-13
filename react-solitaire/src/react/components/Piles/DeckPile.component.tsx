@@ -13,19 +13,26 @@ import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 function DeckPile() {
   const dispatch = useDispatch();
   // get piles from redux
-  const { deckPile, translationX, translationY, lastHint } = useSelector(
-    ({ Deck, GameBoard }: RootReducerState) => {
-      const gameHints = GameBoard.gameHints;
-      const lastIndex = gameHints.length - 1;
+  const {
+    deckPile,
+    translationX,
+    translationY,
+    lastHint,
+    startRedoAnimation,
+    startRedoResetAnimation
+  } = useSelector(({ Deck, GameBoard }: RootReducerState) => {
+    const gameHints = GameBoard.gameHints;
+    const lastIndex = gameHints.length - 1;
 
-      return {
-        deckPile: Deck.deckPile,
-        translationX: Deck.translationX,
-        translationY: Deck.translationY,
-        lastHint: lastIndex >= 0 ? gameHints[lastIndex] : undefined
-      };
-    }
-  );
+    return {
+      deckPile: Deck.deckPile,
+      translationX: Deck.translationX,
+      translationY: Deck.translationY,
+      lastHint: lastIndex >= 0 ? gameHints[lastIndex] : undefined,
+      startRedoAnimation: Deck.startRedoAnimation,
+      startRedoResetAnimation: Deck.startRedoResetAnimation
+    };
+  });
 
   // swap from deck to flipped pile
   const handleDeckSwap = async (cardId: number) => {
@@ -50,14 +57,18 @@ function DeckPile() {
       lastHint.source === "deckPile" &&
       lastHint.target === undefined;
 
-    const cardsArray = deckPile.map((card: CardType) => (
+    const cardsArray = deckPile.map((card: CardType, index: number) => (
       <CardFlippable
         key={`deck_${card.id}`}
         image={card.image}
         increase={increase}
         removeCard={() => handleDeckSwap(card.id)}
         translationX={translationX}
-        translationY={translationY}
+        translationY={startRedoResetAnimation ? 0 : translationY}
+        redoAnimation={
+          (startRedoAnimation && index === deckPile.length - 1) ||
+          startRedoResetAnimation
+        }
       />
     ));
     return cardsArray;

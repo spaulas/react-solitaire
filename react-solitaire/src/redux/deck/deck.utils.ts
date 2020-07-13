@@ -50,7 +50,8 @@ export const flipDeckCard = (
   return {
     deckPile: tempDeckPile,
     flippedPile: tempFlippedPile,
-    translationY
+    translationY,
+    startRedoAnimation: false
   };
 };
 
@@ -81,7 +82,8 @@ export const unflipDeckCard = (
   return {
     deckPile: tempDeckPile,
     flippedPile: tempFlippedPile,
-    translationY
+    translationY,
+    startUndoAnimation: false
   };
 };
 

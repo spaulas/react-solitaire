@@ -20,6 +20,9 @@ interface InitialDeck {
   translationY: number; // y translation for the animation
   cardDragging?: Array<CardType>; // cards original from the flipped pile that are being dragged
   doubleClickTarget?: string;
+  startUndoAnimation: boolean;
+  startRedoAnimation: boolean;
+  startRedoResetAnimation: boolean;
 }
 
 const INITIAL_DECK: InitialDeck = {
@@ -29,7 +32,10 @@ const INITIAL_DECK: InitialDeck = {
   flippedPile: [],
   translationX: 243.75,
   translationY: cardsConfigurations.deck,
-  cardDragging: undefined
+  cardDragging: undefined,
+  startUndoAnimation: false,
+  startRedoAnimation: false,
+  startRedoResetAnimation: false
 };
 
 const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
@@ -108,7 +114,8 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
       );
       return {
         ...state,
-        ...resetResult
+        ...resetResult,
+        startUndoAnimation: false
       };
 
     /**
@@ -125,7 +132,8 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
       );
       return {
         ...state,
-        ...undoResetResult
+        ...undoResetResult,
+        startRedoResetAnimation: false
       };
 
     // ********************************************************
@@ -175,6 +183,15 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
         ...state,
         ...addResult
       };
+
+    case DeckActionTypes.START_UNDO_ANIMATION:
+      return { ...state, startUndoAnimation: true };
+
+    case DeckActionTypes.START_REDO_ANIMATION:
+      return { ...state, startRedoAnimation: true };
+
+    case DeckActionTypes.START_REDO_RESET_ANIMATION:
+      return { ...state, startRedoResetAnimation: true };
 
     // ********************************************************
 
