@@ -19,10 +19,6 @@
   }
 
   .sidebar {
-    z-index: 1000000;
-    /*   position: absolute;
-        top: 0;
-        bottom: 0; */
     width: 200px;
 
     .sidebarToggleSpan {
@@ -35,6 +31,22 @@
         color: @fontColor;
         font-size: @fontTitle;
       }
+    }
+    .logo {
+      width: 100%;
+      text-align: center;
+      margin: 30px 0;
+      .logoTitle {
+        width: 80%;
+        cursor: pointer;
+        filter: brightness(0) invert(1);
+        padding: 10px;
+        transition: @smallTransitionTime;
+      }
+    }
+
+    .logoSelected {
+      background-color: @hoverElemColor;
     }
   }
   .ant-layout-sider {

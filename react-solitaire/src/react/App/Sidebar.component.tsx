@@ -12,28 +12,30 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
-import { useHistory } from "react-router-dom";
 
 const { Sider } = Layout;
 const { Item, SubMenu } = Menu;
 
 function Sidebar() {
   const history = useHistory();
+  const location = useLocation();
   const [collapsed, setCollapsed] = useState(true);
 
   return (
     <Sider className="sidebar" trigger={null} collapsible collapsed={collapsed}>
-      <div className="logo" />
-      <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
-        <Item
+      <div
+        className={`logo ${location.pathname === "/" ? "logoSelected" : ""}`}
+      >
+        <img
           onClick={() => history.push("/")}
-          key="1"
-          title={<FormattedMessage id="sidebar.home" />}
-        >
-          <HomeFilled />
-          {!collapsed && <FormattedMessage id="sidebar.home" />}
-        </Item>
+          className="logoTitle"
+          src={require("../../images/icon.png")}
+          alt=""
+        />
+      </div>
+      <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
         <Item
           onClick={() => history.push("/login")}
           key="2"
