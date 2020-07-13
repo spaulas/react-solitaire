@@ -32,15 +32,7 @@ function BaseApplication() {
       // if there is online user and highscore
       if (userRef && highscoreRef) {
         userRef?.onSnapshot((snapshot: ExplicitAny) => {
-          dispatch(
-            userActions.saveUser(
-              {
-                id: userRef.id,
-                ...snapshot.data()
-              },
-              userRef
-            )
-          );
+          dispatch(userActions.saveUser(snapshot.data(), userRef));
         });
 
         highscoreRef?.onSnapshot((snapshot: ExplicitAny) => {

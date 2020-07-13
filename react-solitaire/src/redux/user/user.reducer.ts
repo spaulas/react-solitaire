@@ -15,7 +15,6 @@ interface GameHistory {
 
 export interface InitialUser {
   user: {
-    id: string;
     userName: string;
     maxMoves: number;
     maxTime: number;
@@ -45,7 +44,6 @@ export interface InitialUser {
 
 const INITIAL_USER: InitialUser = {
   user: {
-    id: "localStorageUser",
     userName: "localUser",
     maxMoves: 0,
     maxTime: 0,
