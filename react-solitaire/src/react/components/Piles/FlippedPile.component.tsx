@@ -15,6 +15,7 @@ function FlippedPile() {
   const dispatch = useDispatch();
   // get piles from redux
   const {
+    deckPile,
     flippedPile,
     lastHint,
     startUndoAnimation,
@@ -24,6 +25,7 @@ function FlippedPile() {
     const gameHints = GameBoard.gameHints;
     const lastIndex = gameHints.length - 1;
     return {
+      deckPile: Deck.deckPile,
       flippedPile: Deck.flippedPile,
       lastHint: lastIndex >= 0 ? gameHints[lastIndex] : undefined,
       startUndoAnimation: Deck.startUndoAnimation,
@@ -33,7 +35,9 @@ function FlippedPile() {
   });
 
   const animationStyle = {
-    transform: `translate(${translationX}px, ${translationY}px) rotateY(180deg)`
+    transform: `translate(${translationX}px, ${
+      deckPile.length === 0 ? 0 : translationY
+    }px) rotateY(180deg)`
   };
 
   const getCards = () => {
@@ -47,7 +51,8 @@ function FlippedPile() {
               className="cardFlipContainer"
               // eslint-disable-next-line react/forbid-dom-props
               style={
-                startUndoAnimation && index === flippedPile.length - 1
+                startUndoAnimation &&
+                (index === flippedPile.length - 1 || deckPile.length === 0)
                   ? animationStyle
                   : {}
               }

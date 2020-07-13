@@ -61,7 +61,8 @@ function BaseEmptySpots() {
 
   const handleResetDeck = () => {
     // resets the deck
-    dispatch(deckActions.resetDeck());
+    dispatch(deckActions.startUndoAnimation());
+    setTimeout(() => dispatch(deckActions.resetDeck()), 600);
     // adds one movement to the game
     dispatch(
       gameBoardActions.addGameMove({

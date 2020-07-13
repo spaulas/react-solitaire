@@ -97,7 +97,8 @@ function RedoButton() {
       } else {
         // undo a deck flipped
         // flipped pile -> deck pile
-        dispatch(deckActions.resetDeck());
+        dispatch(deckActions.startUndoAnimation());
+        setTimeout(() => dispatch(deckActions.resetDeck()), 600);
       }
       dispatch(gameBoardActions.reAddGameMove());
     }
