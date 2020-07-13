@@ -1,6 +1,7 @@
 .mainLayout {
   width: -webkit-fill-available;
   height: -webkit-fill-available;
+  background-color: @primaryColor;
 
   .appContent {
     position: relative;
@@ -34,6 +35,24 @@
         color: @fontColor;
         font-size: @fontTitle;
       }
+    }
+  }
+  .ant-layout-sider {
+    background: transparent;
+    background-color: @darkSecondaryColor;
+
+    .ant-menu-dark {
+      background: transparent;
+      .ant-menu-item-selected {
+        background-color: @hoverElemColor;
+      }
+      .ant-menu-inline.ant-menu-sub {
+        background-color: @darkSecondaryColor;
+      }
+    }
+    .ant-menu-submenu-open {
+      color: @fontColor;
+      background-color: @hoverElemColor;
     }
   }
 }
