@@ -50,7 +50,7 @@ export const getUserInfo = async user => {
         settings: {
           language: "en-Us",
           joyride: {
-            main: true,
+            home: true,
             scores: true,
             statistics: true,
             login: true,

@@ -28,7 +28,7 @@ function StartingPage() {
       dispatch(pagesActions.setStartPageAnimation(false));
       dispatch(
         joyrideActions.initJoyride(
-          "main",
+          "home",
           JoyrideSteps({ loggedOut, hasSavedGame })
         )
       );

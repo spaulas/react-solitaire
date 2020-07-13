@@ -1,18 +1,9 @@
-import {
-  Button,
-  Checkbox,
-  Col,
-  Divider,
-  Form,
-  Input,
-  Radio,
-  Row,
-  Tooltip
-} from "antd";
+import { Checkbox, Col, Divider, Form, Input, Radio, Row, Tooltip } from "antd";
 import { ExplicitAny, RootReducerState } from "../../../global";
 import { FormattedMessage, useIntl } from "react-intl";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import MenuButton from "../../components/Buttons/MenuButton.component";
 import PageTitle from "../../components/PageTitle/PageTitle.component";
 import ReactCountryFlag from "react-country-flag";
 import moment from "moment";
@@ -63,85 +54,114 @@ function ConfigurationsPage() {
     dispatch(userActions.changeUserSettings(finalChanges));
     setEditMode(false);
   };
+
+  const handleCancel = () => {
+    form.resetFields();
+    setEditMode(false);
+  };
+
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 8 }
+  };
+
   return (
     <div className="joyrideStartingPage startingPage">
       <PageTitle title={<FormattedMessage id="sidebar.configurations" />} />
       <Form
+        className="configurationsForm"
         initialValues={{ userName, email, createdAt, language, ...joyride }}
-        name="loginForm"
+        name="configurationsForm"
         onFinish={onSubmit}
         form={form}
       >
-        <Row className="buttonSpaceRow" align="middle">
-          <Item
-            label={<FormattedMessage id="table.userName" />}
-            name="userName"
-            rules={[
-              {
-                required: true,
-                message: intl.formatMessage({ id: "form.error.userName" })
-              }
-            ]}
-          >
-            <Input
-              disabled={!editMode}
-              className="divButton loginButtonAnimated"
-            />
-          </Item>
-          <Item
-            label={<FormattedMessage id="table.createdAt" />}
-            name="createdAt"
-          >
-            <Input disabled className="divButton loginButtonAnimated" />
-          </Item>
-        </Row>
-
-        <Row className="buttonSpaceRow" align="middle">
-          {!loggedOut ? (
-            <Item label={<FormattedMessage id="table.email" />} name="email">
+        <Row className="buttonSpaceRow" align="middle" justify="center">
+          <Col>
+            <Item
+              label={<FormattedMessage id="table.userName" />}
+              name="userName"
+              rules={[
+                {
+                  required: true,
+                  message: intl.formatMessage({ id: "form.error.userName" })
+                }
+              ]}
+              {...formItemLayout}
+            >
+              <Input
+                disabled={!editMode}
+                className="divButton loginButtonAnimated"
+              />
+            </Item>
+          </Col>
+          <Col>
+            <Item
+              label={<FormattedMessage id="table.createdAt" />}
+              name="createdAt"
+              {...formItemLayout}
+            >
               <Input disabled className="divButton loginButtonAnimated" />
             </Item>
+          </Col>
+        </Row>
+
+        <Row className="buttonSpaceRow" align="middle" justify="center">
+          {!loggedOut ? (
+            <Col>
+              <Item
+                label={<FormattedMessage id="table.email" />}
+                name="email"
+                {...formItemLayout}
+              >
+                <Input disabled className="divButton loginButtonAnimated" />
+              </Item>
+            </Col>
           ) : null}
 
-          <Item
-            label={<FormattedMessage id="languages.title" />}
-            name="language"
-          >
-            <Radio.Group className="languagesRadioGroup" disabled={!editMode}>
-              <Radio.Button className="flagRadioButton" value="en-US">
-                <Tooltip title={<FormattedMessage id="languages.english" />}>
-                  <ReactCountryFlag className="flags" countryCode="GB" />
-                </Tooltip>
-              </Radio.Button>
-              <Radio.Button className="flagRadioButton" value="pt-PT">
-                <Tooltip title={<FormattedMessage id="languages.portuguese" />}>
-                  <ReactCountryFlag className="flags" countryCode="BR" />
-                </Tooltip>
-              </Radio.Button>
-              <Radio.Button className="flagRadioButton" value="de-DE">
-                <Tooltip title={<FormattedMessage id="languages.german" />}>
-                  <ReactCountryFlag className="flags" countryCode="DE" />
-                </Tooltip>
-              </Radio.Button>
-              <Radio.Button className="flagRadioButton" value="es-ES">
-                <Tooltip title={<FormattedMessage id="languages.spanish" />}>
-                  <ReactCountryFlag className="flags" countryCode="ES" />
-                </Tooltip>
-              </Radio.Button>
-            </Radio.Group>
-          </Item>
+          <Col>
+            <Item
+              label={<FormattedMessage id="languages.title" />}
+              name="language"
+              {...formItemLayout}
+            >
+              <Radio.Group className="languagesRadioGroup" disabled={!editMode}>
+                <Radio.Button className="flagRadioButton" value="en-US">
+                  <Tooltip title={<FormattedMessage id="languages.english" />}>
+                    <ReactCountryFlag className="flags" countryCode="GB" />
+                  </Tooltip>
+                </Radio.Button>
+                <Radio.Button className="flagRadioButton" value="pt-PT">
+                  <Tooltip
+                    title={<FormattedMessage id="languages.portuguese" />}
+                  >
+                    <ReactCountryFlag className="flags" countryCode="BR" />
+                  </Tooltip>
+                </Radio.Button>
+                <Radio.Button className="flagRadioButton" value="de-DE">
+                  <Tooltip title={<FormattedMessage id="languages.german" />}>
+                    <ReactCountryFlag className="flags" countryCode="DE" />
+                  </Tooltip>
+                </Radio.Button>
+                <Radio.Button className="flagRadioButton" value="es-ES">
+                  <Tooltip title={<FormattedMessage id="languages.spanish" />}>
+                    <ReactCountryFlag className="flags" countryCode="ES" />
+                  </Tooltip>
+                </Radio.Button>
+              </Radio.Group>
+            </Item>
+          </Col>
         </Row>
 
         <Divider orientation="left">
           <FormattedMessage id="joyride.title" />
         </Divider>
 
-        <Row className="buttonSpaceRow" align="middle">
+        <Row className="buttonSpaceRow" align="middle" justify="center">
           {Object.keys(joyride).map((page: string) => (
             <Col key={page}>
               <Item name={page} valuePropName="checked">
                 <Checkbox disabled={!editMode} defaultChecked={joyride[page]}>
-                  {page}
+                  <FormattedMessage id={`sidebar.${page}`} />
                 </Checkbox>
               </Item>
             </Col>
@@ -150,11 +170,29 @@ function ConfigurationsPage() {
       </Form>
       {editMode ? (
         <>
-          <Button onClick={() => setEditMode(false)}>Cancel</Button>
-          <Button onClick={() => form.submit()}>Save</Button>
+          <Row className="buttonSpaceRow" align="middle" justify="center">
+            <MenuButton
+              onClick={() => form.submit()}
+              className="loginButtonAnimated"
+            >
+              <FormattedMessage id="btn.save" />
+            </MenuButton>
+          </Row>
+          <Row className="buttonSpaceRow" align="middle" justify="center">
+            <MenuButton onClick={handleCancel} className="loginButtonAnimated">
+              <FormattedMessage id="btn.cancel" />
+            </MenuButton>
+          </Row>
         </>
       ) : (
-        <Button onClick={() => setEditMode(true)}>Edit</Button>
+        <Row className="buttonSpaceRow" align="middle" justify="center">
+          <MenuButton
+            onClick={() => setEditMode(true)}
+            className="loginButtonAnimated"
+          >
+            <FormattedMessage id="btn.edit" />
+          </MenuButton>
+        </Row>
       )}
     </div>
   );

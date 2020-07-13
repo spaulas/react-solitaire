@@ -31,7 +31,7 @@ export interface InitialUser {
     settings: {
       language: string;
       joyride: {
-        main: boolean;
+        home: boolean;
         scores: boolean;
         statistics: boolean;
         login: boolean;
@@ -61,7 +61,7 @@ const INITIAL_USER: InitialUser = {
     settings: {
       language: "pt-PT",
       joyride: {
-        main: true,
+        home: true,
         scores: true,
         statistics: true,
         login: true,
