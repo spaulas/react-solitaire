@@ -44,7 +44,7 @@ function StartingPage() {
 
   return (
     <div
-      className={`joyrideStartingPage startingPage ${
+      className={`joyrideStartingPage mainPage startingPage ${
         showAnimation ? "startingPageAnimation" : ""
       }`}
     >

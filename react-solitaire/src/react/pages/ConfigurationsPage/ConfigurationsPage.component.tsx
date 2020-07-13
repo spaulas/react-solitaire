@@ -66,7 +66,7 @@ function ConfigurationsPage() {
   };
 
   return (
-    <div className="joyrideStartingPage startingPage">
+    <div className="joyrideStartingPage mainPage">
       <PageTitle title={<FormattedMessage id="sidebar.configurations" />} />
       <Form
         className="configurationsForm"

@@ -1,0 +1,39 @@
+.mainLayout {
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+
+  .appContent {
+    position: relative;
+    top: 0;
+    bottom: 0;
+
+    .mainPage {
+      height: 100%;
+      background-color: @primaryColor;
+      color: @fontColor;
+      overflow-x: hidden;
+      overflow-y: auto;
+      min-width: 450px;
+    }
+  }
+
+  .sidebar {
+    z-index: 1000000;
+    /*   position: absolute;
+        top: 0;
+        bottom: 0; */
+    width: 200px;
+
+    .sidebarToggleSpan {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+
+      .sidebarToggleIcon {
+        color: @fontColor;
+        font-size: @fontTitle;
+      }
+    }
+  }
+}

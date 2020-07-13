@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Joyride from "../components/HocWrappers/Joyride/Joyride.component";
+import Sidebar from "./Sidebar.component";
 import highscoreActions from "../../redux/highScores/highscores.actions";
 import userActions from "../../redux/user/user.actions";
 
@@ -87,13 +88,16 @@ function BaseApplication() {
     <Spin spinning />
   ) : (
     <BrowserRouter>
-      <Layout>
-        <Content>
-          <DndProvider backend={HTML5Backend as ExplicitAny}>
-            <Joyride />
-            <ApplicationRouter />
-          </DndProvider>
-        </Content>
+      <Layout className="mainLayout">
+        <Sidebar />
+        <Layout className="appLayout">
+          <Content className="appContent">
+            <DndProvider backend={HTML5Backend as ExplicitAny}>
+              <Joyride />
+              <ApplicationRouter />
+            </DndProvider>
+          </Content>
+        </Layout>
       </Layout>
     </BrowserRouter>
   );
