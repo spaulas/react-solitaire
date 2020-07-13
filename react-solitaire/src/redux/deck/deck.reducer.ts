@@ -20,7 +20,8 @@ interface InitialDeck {
   translationY: number; // y translation for the animation
   cardDragging?: Array<CardType>; // cards original from the flipped pile that are being dragged
   doubleClickTarget?: string;
-  startBackAnimation: boolean;
+  startUndoAnimation: boolean;
+  startRedoAnimation: boolean;
 }
 
 const INITIAL_DECK: InitialDeck = {
@@ -31,7 +32,8 @@ const INITIAL_DECK: InitialDeck = {
   translationX: 243.75,
   translationY: cardsConfigurations.deck,
   cardDragging: undefined,
-  startBackAnimation: false
+  startUndoAnimation: false,
+  startRedoAnimation: false
 };
 
 const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
@@ -178,8 +180,11 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
         ...addResult
       };
 
-    case DeckActionTypes.START_BACK_ANIMATION:
-      return { ...state, startBackAnimation: true };
+    case DeckActionTypes.START_UNDO_ANIMATION:
+      return { ...state, startUndoAnimation: true };
+
+    case DeckActionTypes.START_REDO_ANIMATION:
+      return { ...state, startRedoAnimation: true };
 
     // ********************************************************
 

@@ -31,8 +31,12 @@ function RedoButton() {
       // if the movement to be done has the deck pile has source
       if (source === "deckPile") {
         if (target === "flippedPile") {
-          // deckPile -> flippedPile
-          dispatch(deckActions.flipDeckPile());
+          dispatch(deckActions.startRedoAnimation());
+          setTimeout(() => {
+            // deckPile -> flippedPile
+            // call deck function to send back a flipped card to the deck pile
+            dispatch(deckActions.flipDeckPile());
+          }, 600);
         } else if (target.includes("column")) {
           // deckPile -> column pile
           // remove card from flipped pile

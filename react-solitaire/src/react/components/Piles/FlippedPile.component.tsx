@@ -17,7 +17,7 @@ function FlippedPile() {
   const {
     flippedPile,
     lastHint,
-    startBackAnimation,
+    startUndoAnimation,
     translationX,
     translationY
   } = useSelector(({ Deck, GameBoard }: RootReducerState) => {
@@ -26,7 +26,7 @@ function FlippedPile() {
     return {
       flippedPile: Deck.flippedPile,
       lastHint: lastIndex >= 0 ? gameHints[lastIndex] : undefined,
-      startBackAnimation: Deck.startBackAnimation,
+      startUndoAnimation: Deck.startUndoAnimation,
       translationX: -Deck.translationX,
       translationY: -Deck.translationY - 1
     };
@@ -47,7 +47,7 @@ function FlippedPile() {
               className="cardFlipContainer"
               // eslint-disable-next-line react/forbid-dom-props
               style={
-                startBackAnimation && index === flippedPile.length - 1
+                startUndoAnimation && index === flippedPile.length - 1
                   ? animationStyle
                   : {}
               }
