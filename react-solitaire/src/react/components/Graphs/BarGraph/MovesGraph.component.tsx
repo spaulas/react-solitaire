@@ -14,7 +14,7 @@ function MovesGraph({ width, height }: MovesGraphProps) {
       moves: { data, label }
     }
   } = useSelector(({ User }: RootReducerState) => ({
-    graphs: User.graphs
+    graphs: User.user.graphs
   }));
 
   return (

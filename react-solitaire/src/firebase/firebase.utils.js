@@ -35,7 +35,6 @@ export const getUserInfo = async user => {
   if (!userSnapShot.exists && user.email) {
     try {
       await userRef.set({
-        email: user.email,
         userName: user.displayName,
         createdAt: new Date(),
         maxMoves: 0,

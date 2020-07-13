@@ -1,13 +1,16 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormattedMessage } from "react-intl";
 import React from "react";
 
 interface JoyrideStepsProps {
-  loggedIn: boolean;
+  loggedOut: boolean;
   hasSavedGame: boolean;
 }
 
-function JoyrideSteps({ loggedIn, hasSavedGame }: JoyrideStepsProps) {
+function JoyrideSteps({ loggedOut, hasSavedGame }: JoyrideStepsProps) {
+  console.log("START JOYRIDE looged in = ", loggedOut);
+  console.log("START JOYRIDE hasSavedGame= ", hasSavedGame);
   return [
     {
       content: (
@@ -20,7 +23,7 @@ function JoyrideSteps({ loggedIn, hasSavedGame }: JoyrideStepsProps) {
       target: ".joyrideStartingPage",
       placement: "center" as const
     },
-    !loggedIn && {
+    loggedOut && {
       content: (
         <h3>
           <FormattedMessage id="joyride.main.step02" />
@@ -65,7 +68,7 @@ function JoyrideSteps({ loggedIn, hasSavedGame }: JoyrideStepsProps) {
       disableBeacon: true,
       target: ".joyrideStatisticsButton"
     },
-    {
+    !loggedOut && {
       content: (
         <h3>
           <FormattedMessage id="joyride.main.step07" />

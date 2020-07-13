@@ -25,11 +25,11 @@ function MainMenu({
   const dispatch = useDispatch();
   const [showAlarm, setShowAlarm] = useState(false);
 
-  const { userRef, hasSavedGame, savedGame } = useSelector(
+  const { loggedOut, hasSavedGame, savedGame } = useSelector(
     ({ User }: RootReducerState) => ({
-      userRef: User.userRef,
-      hasSavedGame: User.hasSavedGame,
-      savedGame: User.savedGame
+      loggedOut: User.userRef === false,
+      hasSavedGame: User.user.hasSavedGame,
+      savedGame: User.user.savedGame
     })
   );
 
@@ -50,7 +50,7 @@ function MainMenu({
 
   return (
     <>
-      {!userRef && (
+      {loggedOut && (
         <Row align="middle" justify="center">
           <MenuButton
             onClick={showLoginForm}
@@ -114,7 +114,7 @@ function MainMenu({
         </MenuButton>
       </Row>
 
-      {userRef && (
+      {!loggedOut && (
         <Row className="buttonSpaceRow" align="middle" justify="center">
           <MenuButton
             className={`joyrideLogoutButton ${getAnimation()}`}

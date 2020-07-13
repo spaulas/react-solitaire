@@ -62,7 +62,7 @@ function GameBoard() {
     goal2Pile: GameBoard.goal2Pile,
     goal3Pile: GameBoard.goal3Pile,
     goal4Pile: GameBoard.goal4Pile,
-    savedGame: User.savedGame
+    savedGame: User.user.savedGame
   }));
 
   // ---------------------------------------------------------

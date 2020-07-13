@@ -7,9 +7,10 @@ const getLocalStorage = () => ({
   type: UserActionTypes.GET_LOCAL_STORAGE
 });
 
-const saveUser = (user: ExplicitAny) => ({
+const saveUser = (user: ExplicitAny, userRef: ExplicitAny) => ({
   type: UserActionTypes.SAVE_USER,
-  user
+  user,
+  userRef
 });
 
 const changeUserName = (userName: string) => ({
@@ -41,6 +42,10 @@ const setJoyride = (joyride: ExplicitAny) => ({
   joyride
 });
 
+const clearUser = () => ({
+  type: UserActionTypes.CLEAR_USER
+});
+
 // ********************************************************
 
 const actionsCreators = Object.freeze({
@@ -51,7 +56,8 @@ const actionsCreators = Object.freeze({
   gameOver,
   saveGame,
   clearSavedGame,
-  setJoyride
+  setJoyride,
+  clearUser
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

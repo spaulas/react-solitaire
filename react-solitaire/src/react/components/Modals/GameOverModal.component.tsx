@@ -45,7 +45,7 @@ function GameOverModal() {
       gameMoves: GameBoard.gameMoves,
       gameTime: GameBoard.gameTime,
       nHints: GameBoard.nHints,
-      userName: User.userName,
+      userName: User.user.userName,
       hasNewHighScore: HighScores.hasNewHighScore
     })
   );

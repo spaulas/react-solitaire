@@ -21,15 +21,15 @@ function ScoresPage({ activeTab }: ScoresPageProps) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { gameHistory, loggedIn } = useSelector(
+  const { gameHistory, loggedOut } = useSelector(
     ({ User }: RootReducerState) => ({
-      gameHistory: User.history,
-      loggedIn: !User.userRef
+      gameHistory: User.user.history,
+      loggedOut: User.userRef === false
     })
   );
 
   const initJoyride = () => {
-    dispatch(joyrideActions.initJoyride("scores", JoyrideSteps({ loggedIn })));
+    dispatch(joyrideActions.initJoyride("scores", JoyrideSteps({ loggedOut })));
   };
   useEffect(initJoyride, []);
 

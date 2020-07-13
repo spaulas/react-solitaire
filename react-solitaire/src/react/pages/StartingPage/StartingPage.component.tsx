@@ -11,11 +11,11 @@ import pagesActions from "../../../redux/pages/pages.actions";
 function StartingPage() {
   const dispatch = useDispatch();
   const [showLoginForm, setShowLoginForm] = useState(false);
-  const { showAnimation, loggedIn, hasSavedGame } = useSelector(
+  const { showAnimation, loggedOut, hasSavedGame } = useSelector(
     ({ Pages, User }: RootReducerState) => ({
       showAnimation: Pages.startPageAnimation,
-      loggedIn: !User.userRef,
-      hasSavedGame: User.hasSavedGame
+      loggedOut: User.userRef === false,
+      hasSavedGame: User.user.hasSavedGame
     })
   );
 
@@ -29,7 +29,7 @@ function StartingPage() {
       dispatch(
         joyrideActions.initJoyride(
           "main",
-          JoyrideSteps({ loggedIn, hasSavedGame })
+          JoyrideSteps({ loggedOut, hasSavedGame })
         )
       );
     }, 2500);
@@ -41,6 +41,9 @@ function StartingPage() {
     setShowButtonsAnimation(true);
     setShowLoginForm(false);
   };
+
+  // eslint-disable-next-line no-console
+  console.log("START = ", { loggedOut, hasSavedGame });
 
   return (
     <div

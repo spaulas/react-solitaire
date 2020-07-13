@@ -15,7 +15,7 @@ function BaseJoyride() {
       page: Joyride.page,
       steps: Joyride.steps,
       callback: Joyride.callback,
-      joyride: User.settings.joyride
+      joyride: User.user.settings?.joyride
     })
   );
 

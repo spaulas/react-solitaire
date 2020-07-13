@@ -1,23 +1,30 @@
+import { ExplicitAny, RootReducerState } from "../../global";
+import { Layout, Spin } from "antd";
 import React, { useEffect } from "react";
 import { auth, getUserInfo } from "../../firebase/firebase.utils";
+import { useDispatch, useSelector } from "react-redux";
 import ApplicationRouter from "./ApplicationRouter";
 import { BrowserRouter } from "react-router-dom";
 import { DndProvider } from "react-dnd";
-import { ExplicitAny } from "../../global";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Joyride from "../components/HocWrappers/Joyride/Joyride.component";
-import { Layout } from "antd";
 import highscoreActions from "../../redux/highScores/highscores.actions";
-import { useDispatch } from "react-redux";
 import userActions from "../../redux/user/user.actions";
 
 const { Content } = Layout;
 
 function BaseApplication() {
   const dispatch = useDispatch();
+
+  const { storedUserRef } = useSelector(({ User }: RootReducerState) => ({
+    storedUserRef: User.userRef
+  }));
+
   const mountComponent = () => {
     // when the auth changes
     auth.onAuthStateChanged(async (userAuth: ExplicitAny) => {
+      dispatch(userActions.clearUser());
+
       const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(
         userAuth
       );
@@ -26,11 +33,13 @@ function BaseApplication() {
       if (userRef && highscoreRef) {
         userRef?.onSnapshot((snapshot: ExplicitAny) => {
           dispatch(
-            userActions.saveUser({
-              userRef,
-              id: userRef.id,
-              ...snapshot.data()
-            })
+            userActions.saveUser(
+              {
+                id: userRef.id,
+                ...snapshot.data()
+              },
+              userRef
+            )
           );
         });
 
@@ -52,7 +61,9 @@ function BaseApplication() {
   };
   useEffect(mountComponent, []);
 
-  return (
+  return storedUserRef === undefined ? (
+    <Spin spinning />
+  ) : (
     <BrowserRouter>
       <Layout>
         <Content>

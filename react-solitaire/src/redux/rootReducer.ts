@@ -6,6 +6,8 @@ import goalReducer from "./goal/goal.reducer";
 import highscoreReducer from "./highScores/highscores.reducer";
 import joyrideReducer from "./joyride/joyride.reducer";
 import pagesReducer from "./pages/pages.reducer";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import userReducer from "./user/user.reducer";
 
 export const rootReducer = {
@@ -19,4 +21,19 @@ export const rootReducer = {
   Joyride: joyrideReducer
 };
 
-export default combineReducers(rootReducer);
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: [
+    "Columns",
+    "Deck",
+    "GameBoard",
+    "Goal",
+    "Pages",
+    "User",
+    "HighScores"
+  ]
+};
+const combinedRootReducer = combineReducers(rootReducer);
+
+export default persistReducer(persistConfig, combinedRootReducer);
