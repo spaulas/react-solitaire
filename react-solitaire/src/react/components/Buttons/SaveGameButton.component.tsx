@@ -31,7 +31,7 @@ function SaveGameButton() {
     <>
       <Tooltip title={<FormattedMessage id="btn.saveGame" />}>
         <SaveFilled
-          className="iconButton"
+          className="joyrideSave iconButton"
           onClick={() => setShowConfirm(true)}
         />
       </Tooltip>

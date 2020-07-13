@@ -36,6 +36,7 @@ export interface InitialUser {
         statistics: boolean;
         login: boolean;
         game: boolean;
+        gameOptions: boolean;
       };
     };
   };
@@ -64,7 +65,8 @@ const INITIAL_USER: InitialUser = {
         scores: true,
         statistics: true,
         login: true,
-        game: true
+        game: true,
+        gameOptions: true
       }
     }
   },

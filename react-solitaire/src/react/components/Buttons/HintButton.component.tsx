@@ -45,7 +45,7 @@ function HintButton() {
     <Tooltip title={<FormattedMessage id="btn.hints" />}>
       <Badge count={nHints} offset={[7, 25]}>
         <DoubleClickHandler handler={handler} doubleClick={false}>
-          <StarFilled className="iconButton" />
+          <StarFilled className="joyrideHints iconButton" />
         </DoubleClickHandler>
       </Badge>
     </Tooltip>

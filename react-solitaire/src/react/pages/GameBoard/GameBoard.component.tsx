@@ -11,12 +11,14 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomDragLayer from "../../components/CardMoveHandlers/DragHandlers/CustomDragLayer.component";
 import DropHandler from "../../components/CardMoveHandlers/DropHandlers/DropHandler.component";
 import GameOverModal from "../../components/Modals/GameOverModal.component";
+import JoyrideSteps from "./JoyrideSteps.component";
 import { Prompt } from "react-router";
 import ResumeGameModal from "../../components/Modals/ResumeGameModal.component";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../redux/goal/goal.actions";
+import joyrideActions from "../../../redux/joyride/joyride.actions";
 import { useLocation } from "react-router-dom";
 import userActions from "../../../redux/user/user.actions";
 
@@ -67,11 +69,12 @@ function GameBoard() {
 
   // ---------------------------------------------------------
   // Create Game
-
   // when the component mounts, create a new random game
   const mountGameBoard = () => {
     // set this refs at the redux
     dispatch(deckActions.setRefs(deckRef, flippedRef));
+
+    dispatch(joyrideActions.initJoyride("game", JoyrideSteps()));
 
     // if nothing was sent through the state, then create a new game
     if (!location.state) {
@@ -143,7 +146,7 @@ function GameBoard() {
         when={!gameOver && gameMoves > 0}
         message="If you leave the game will be a lost"
       />
-      <DropHandler className="pageBackground">
+      <DropHandler className="joyrideGamePage pageBackground">
         <ResumeGameModal />
         <GameOverModal />
         <GamePlayInfo />

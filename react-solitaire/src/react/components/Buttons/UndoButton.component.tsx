@@ -112,7 +112,10 @@ function UndoButton() {
 
   return (
     <Tooltip title={<FormattedMessage id="btn.undo" />}>
-      <StepBackwardOutlined className="iconButton" onClick={handleUndo} />
+      <StepBackwardOutlined
+        className="joyrideUndo iconButton"
+        onClick={handleUndo}
+      />
     </Tooltip>
   );
 }

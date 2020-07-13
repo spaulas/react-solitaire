@@ -54,7 +54,8 @@ export const getUserInfo = async user => {
             scores: true,
             statistics: true,
             login: true,
-            game: true
+            game: true,
+            gameOptions: true
           }
         }
       });

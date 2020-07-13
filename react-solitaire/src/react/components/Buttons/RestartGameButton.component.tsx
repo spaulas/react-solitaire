@@ -64,7 +64,7 @@ function RestartGameButton() {
     <>
       <Tooltip title={<FormattedMessage id="btn.restart" />}>
         <RedoOutlined
-          className="iconButton"
+          className="joyrideRestart iconButton"
           onClick={() => setShowConfirm(true)}
         />
       </Tooltip>

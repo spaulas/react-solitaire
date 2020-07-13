@@ -1,5 +1,5 @@
 import { ExplicitAny, RootReducerState } from "../../../../global";
-import Joyride, { ACTIONS, CallBackProps } from "react-joyride";
+import Joyride, { ACTIONS, CallBackProps, STATUS } from "react-joyride";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useIntl } from "react-intl";
@@ -20,6 +20,10 @@ function BaseJoyride() {
   );
 
   const handlePageChange = () => {
+    // eslint-disable-next-line no-console
+    console.log("PAGE -  ", page);
+    // eslint-disable-next-line no-console
+    console.log("JOYROIDE -  ", joyride[page]);
     if (page && joyride[page]) {
       const joyrideCopy = { ...joyride };
       joyrideCopy[page] = true;
@@ -29,19 +33,18 @@ function BaseJoyride() {
   };
   useEffect(handlePageChange, [page]);
 
-  function joyrideCallback({
-    action,
-    index,
-    lifecycle,
-    type,
-    ...rest
-  }: CallBackProps) {
+  function joyrideCallback({ action, index, status }: CallBackProps) {
     // check if current status if on of skip or finish joyride type, to close joyride
     if (
       [ACTIONS.NEXT, ACTIONS.PREV].includes(action as ExplicitAny) &&
       typeof callback === "function"
     ) {
       callback(action, index);
+    }
+    // check if current status if on of skip or finish joyride type, to close joyride
+    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status as ExplicitAny)) {
+      // Need to set our running state to false, so we can restart if we click start again.
+      setRun(false);
     }
   }
 
