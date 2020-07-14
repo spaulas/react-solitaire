@@ -12,7 +12,10 @@ import {
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
 import { FormattedMessage } from "react-intl";
+import { RootReducerState } from "../../global";
+import { auth } from "../../firebase/firebase.utils";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const { Sider } = Layout;
 const { Item } = Menu;
@@ -20,6 +23,15 @@ const { Item } = Menu;
 function Sidebar() {
   const history = useHistory();
   const [collapsed, setCollapsed] = useState(true);
+
+  const { loggedOut } = useSelector(({ User }: RootReducerState) => ({
+    loggedOut: User.userRef === false
+  }));
+
+  const handleLogout = () => {
+    auth.signOut();
+    history.push("/");
+  };
 
   return (
     <Sider className="sidebar" trigger={null} collapsible collapsed={collapsed}>
@@ -30,11 +42,7 @@ function Sidebar() {
           key="1"
           title={<FormattedMessage id="sidebar.login" />}
         >
-          <div /* 
-            className={`logo ${
-              location.pathname === "/" ? "logoSelected" : ""
-            }`} */
-          >
+          <div>
             <img
               className="logoTitle"
               src={require("../../images/icon.png")}
@@ -42,14 +50,16 @@ function Sidebar() {
             />
           </div>
         </Item>
-        <Item
-          onClick={() => history.push("/login")}
-          key="2"
-          title={<FormattedMessage id="sidebar.login" />}
-        >
-          <LoginOutlined />
-          {!collapsed && <FormattedMessage id="sidebar.login" />}
-        </Item>
+        {loggedOut && (
+          <Item
+            onClick={() => history.push("/", { login: true })}
+            key="2"
+            title={<FormattedMessage id="sidebar.login" />}
+          >
+            <LoginOutlined />
+            {!collapsed && <FormattedMessage id="sidebar.login" />}
+          </Item>
+        )}
         <Item
           onClick={() => history.push("/scores")}
           key="3"
@@ -75,21 +85,23 @@ function Sidebar() {
           {!collapsed && <FormattedMessage id="sidebar.configurations" />}
         </Item>
         <Item
-          onClick={() => history.push("/logout")}
+          onClick={handleLogout}
           key="6"
           title={<FormattedMessage id="btn.logout" />}
         >
           <LogoutOutlined />
           {!collapsed && <FormattedMessage id="btn.logout" />}
         </Item>
-        <Item
-          onClick={() => history.push("/about")}
-          key="7"
-          title={<FormattedMessage id="sidebar.about" />}
-        >
-          <PlusOutlined />
-          {!collapsed && <FormattedMessage id="sidebar.about" />}
-        </Item>
+        {!loggedOut && (
+          <Item
+            onClick={() => history.push("/about")}
+            key="7"
+            title={<FormattedMessage id="sidebar.about" />}
+          >
+            <PlusOutlined />
+            {!collapsed && <FormattedMessage id="sidebar.about" />}
+          </Item>
+        )}
       </Menu>
       <span className="sidebarToggleSpan">
         {collapsed ? (
