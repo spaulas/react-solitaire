@@ -1,4 +1,10 @@
 {
+    "about.madeBy": "Entwickelt von:",
+    "about.usedLanguages": "Verwendete Sprachen:",
+    "about.inProgress": "(in Entwicklung)",
+    "about.goals": "Tore:",
+    "about.goalsDetails": "Diese Webanwendung wurde mit dem Ziel entwickelt, meine Entwicklungsfähigkeiten in Javascript mit dem React-Framework zu demonstrieren",
+    "about.specialThanks": "Besonderer Dank geht an André Amorim, der mich bei meinem persönlichen und beruflichen Wachstum unterstützt",
     "btn.back": "Zurück",
     "btn.cancel": "Stornieren",
     "btn.edit": "Bearbeiten",

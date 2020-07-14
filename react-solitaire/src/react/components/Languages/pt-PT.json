@@ -1,4 +1,10 @@
 {
+    "about.madeBy": "Desenvolvido por:",
+    "about.usedLanguages": "Linguagens utilizadas:",
+    "about.inProgress": "(em desenvolvimento)",
+    "about.goals": "Objetivos:",
+    "about.goalsDetails": "Esta aplicação web foi concebida com o âmbito de demonstrar minhas capacidades de desenvolvimento em javascript com a framework React",
+    "about.specialThanks": "Agradecimento especial à André Amorim que me apoia no meu crescimento tanto pessoal como profissional",
     "btn.back": "Voltar",
     "btn.cancel": "Cancelar",
     "btn.edit": "Editar",

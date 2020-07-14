@@ -84,24 +84,24 @@ function Sidebar() {
           <SettingFilled />
           {!collapsed && <FormattedMessage id="sidebar.configurations" />}
         </Item>
-        <Item
-          onClick={handleLogout}
-          key="6"
-          title={<FormattedMessage id="btn.logout" />}
-        >
-          <LogoutOutlined />
-          {!collapsed && <FormattedMessage id="btn.logout" />}
-        </Item>
         {!loggedOut && (
           <Item
-            onClick={() => history.push("/about")}
-            key="7"
-            title={<FormattedMessage id="sidebar.about" />}
+            onClick={handleLogout}
+            key="6"
+            title={<FormattedMessage id="btn.logout" />}
           >
-            <PlusOutlined />
-            {!collapsed && <FormattedMessage id="sidebar.about" />}
+            <LogoutOutlined />
+            {!collapsed && <FormattedMessage id="btn.logout" />}
           </Item>
         )}
+        <Item
+          onClick={() => history.push("/about")}
+          key="7"
+          title={<FormattedMessage id="sidebar.about" />}
+        >
+          <PlusOutlined />
+          {!collapsed && <FormattedMessage id="sidebar.about" />}
+        </Item>
       </Menu>
       <span className="sidebarToggleSpan">
         {collapsed ? (

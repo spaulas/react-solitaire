@@ -10,7 +10,8 @@ const getBreadRoutes = (intl: any) => {
       id: "sidebar.top10HighScores"
     }),
     "/statistics": intl.formatMessage({ id: "sidebar.statistics" }),
-    "/configurations": intl.formatMessage({ id: "sidebar.configurations" })
+    "/configurations": intl.formatMessage({ id: "sidebar.configurations" }),
+    "/about": intl.formatMessage({ id: "sidebar.about" })
   };
 
   return breadRoutes;
