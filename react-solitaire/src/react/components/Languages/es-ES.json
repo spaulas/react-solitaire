@@ -1,4 +1,10 @@
 {
+    "about.madeBy": "Desarrollado por:",
+    "about.usedLanguages": "Idiomas utilizados:",
+    "about.inProgress": "(en desarrollo)",
+    "about.goals": "Metas:",
+    "about.goalsDetails": "Esta aplicación web fue diseñada con el alcance de demostrar mis capacidades de desarrollo en javascript con el marco React",
+    "about.specialThanks": "Un agradecimiento especial a André Amorim que me apoya en mi crecimiento personal y profesional",
     "btn.back": "Vuelve",
     "btn.cancel": "Cancelar",
     "btn.edit": "Editar",
@@ -69,6 +75,7 @@
     "modal.gameStatistics": "Estadísticas del Partido",
     "modal.newHighScore": "Nueva Puntuación Máxima!",
     "placeholder.username": "Agrega un nombre de usuario aquí",
+    "sidebar.about": "Sobre",
     "sidebar.configurations": "Configuraciones",
     "sidebar.home": "Comienzo",
     "sidebar.login": "Iniciar Sesión",

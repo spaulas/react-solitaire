@@ -1,15 +1,17 @@
+import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import JoyrideSteps from "./JoyrideSteps.component";
 import LoginForm from "../../components/LoginForm/LoginForm.component";
 import MainMenu from "../../components/MainMenu/MainMenu.component";
-import { RootReducerState } from "../../../global";
 import { Row } from "antd";
 import joyrideActions from "../../../redux/joyride/joyride.actions";
 import pagesActions from "../../../redux/pages/pages.actions";
+import { useLocation } from "react-router-dom";
 
 function StartingPage() {
   const dispatch = useDispatch();
+  const location: ExplicitAny = useLocation();
   const [showLoginForm, setShowLoginForm] = useState(false);
   const { showAnimation, loggedOut, hasSavedGame } = useSelector(
     ({ Pages, User }: RootReducerState) => ({
@@ -42,9 +44,15 @@ function StartingPage() {
     setShowLoginForm(false);
   };
 
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log("LOCATION = ", location);
+    setShowLoginForm(location.state?.login);
+  }, [location]);
+
   return (
     <div
-      className={`joyrideStartingPage startingPage ${
+      className={`joyrideStartingPage mainPage startingPage ${
         showAnimation ? "startingPageAnimation" : ""
       }`}
     >

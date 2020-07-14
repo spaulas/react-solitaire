@@ -1,0 +1,52 @@
+.aboutPage {
+  .aboutRow {
+    height: calc(100% - 150px);
+    font-size: @fontBody;
+    line-height: @fontTitle;
+    padding-right: @limitHorizontal;
+
+    .imageHere {
+      width: 60%;
+      height: 500px;
+      margin: 0 20%;
+      background: transparent;
+      text-align: center;
+
+      .developerImg {
+        object-fit: cover;
+        width: 100%;
+        min-height: 100%;
+        transition: @smallTransitionTime;
+      }
+
+      .developerImg:hover {
+        transform: scale(1.1);
+        filter: brightness(110%);
+        -webkit-box-shadow: 0px 0px 47px 6px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 0px 47px 6px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 47px 6px rgba(0, 0, 0, 0.75);
+      }
+    }
+
+    .rowInfo {
+      padding: 20px;
+
+      .title {
+        font-size: @fontTitle;
+      }
+
+      a {
+        color: white;
+      }
+      a:hover,
+      a:active {
+        color: @buttonActiveColor;
+      }
+    }
+
+    .specialThanks {
+      text-align: end;
+      padding: 60px;
+    }
+  }
+}

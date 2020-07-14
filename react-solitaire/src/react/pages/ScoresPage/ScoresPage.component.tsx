@@ -45,7 +45,7 @@ function ScoresPage({ activeTab }: ScoresPageProps) {
   };
 
   return (
-    <div className="joyrideScoresPage pageBackground scoresPage">
+    <div className="joyrideScoresPage mainPage scoresPage">
       <PageTitle title={<FormattedMessage id="sidebar.scores" />} />
 
       <Tabs activeKey={activeTab} onChange={handleTabChange}>

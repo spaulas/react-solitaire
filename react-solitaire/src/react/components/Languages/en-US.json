@@ -1,4 +1,10 @@
 {
+    "about.madeBy": "Developed by:",
+    "about.usedLanguages": "Languages used:",
+    "about.inProgress": "(under development)",
+    "about.goals": "Goals:",
+    "about.goalsDetails": "This web application was designed with the scope of demonstrating my development capabilities in javascript with the React framework",
+    "about.specialThanks": "Special thanks to André Amorim who supports me in my personal and professional growth",
     "btn.back": "Back",
     "btn.cancel": "Cancel",
     "btn.edit": "Edit",
@@ -69,6 +75,7 @@
     "modal.gameStatistics": "Game Statistics",
     "modal.newHighScore": "New High Score!",
     "placeholder.username": "Add here a username",
+    "sidebar.about": "About",
     "sidebar.configurations": "Configurations",
     "sidebar.home": "Home",
     "sidebar.login": "Login",

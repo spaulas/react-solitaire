@@ -31,7 +31,7 @@ function StatisticsPage() {
   useEffect(initJoyride, []);
 
   return (
-    <div className="joyrideStatisticsPage pageBackground statisticsPage">
+    <div className="joyrideStatisticsPage mainPage statisticsPage">
       <PageTitle title={<FormattedMessage id="sidebar.statistics" />} />
       {carouselDisplay ? (
         <>

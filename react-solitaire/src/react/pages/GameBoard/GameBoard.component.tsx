@@ -146,7 +146,7 @@ function GameBoard() {
         when={!gameOver && gameMoves > 0}
         message="If you leave the game will be a lost"
       />
-      <DropHandler className="joyrideGamePage pageBackground">
+      <DropHandler className="joyrideGamePage mainPage">
         <ResumeGameModal />
         <GameOverModal />
         <GamePlayInfo />
