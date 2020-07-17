@@ -8,6 +8,7 @@ function AboutPage() {
     <div className="mainPage aboutPage">
       <PageTitle title={<FormattedMessage id="sidebar.about" />} />
       <Row align="middle" className="aboutRow">
+        {/* Developer picture */}
         <Col span={12}>
           <div className="imageHere">
             <img
@@ -18,6 +19,7 @@ function AboutPage() {
           </div>
         </Col>
         <Col span={12}>
+          {/* Made by */}
           <Row className="rowInfo">
             <Col span={8} className="title">
               <FormattedMessage id="about.madeBy" />
@@ -26,6 +28,7 @@ function AboutPage() {
               <span>Paula Santos</span>
             </Col>
           </Row>
+          {/* Languages used */}
           <Row className="rowInfo">
             <Col span={8} className="title">
               <FormattedMessage id="about.usedLanguages" />
@@ -44,6 +47,7 @@ function AboutPage() {
               </ul>
             </Col>
           </Row>
+          {/* Github link */}
           <Row className="rowInfo">
             <Col span={8} className="title">
               <span>Github:</span>
@@ -57,6 +61,7 @@ function AboutPage() {
               </a>
             </Col>
           </Row>
+          {/* Goals for this project */}
           <Row className="rowInfo">
             <Col span={8} className="title">
               <FormattedMessage id="about.goals" />
@@ -65,6 +70,7 @@ function AboutPage() {
               <FormattedMessage id="about.goalsDetails" />
             </Col>
           </Row>
+          {/* Special thanks */}
           <Row className="specialThanks" justify="end">
             <FormattedMessage id="about.specialThanks" />
           </Row>
