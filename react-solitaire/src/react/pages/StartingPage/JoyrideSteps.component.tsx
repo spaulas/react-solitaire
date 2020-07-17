@@ -1,7 +1,6 @@
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormattedMessage } from "react-intl";
 import React from "react";
+import { Step } from "react-joyride/types/index";
 
 interface JoyrideStepsProps {
   loggedOut: boolean;
@@ -92,7 +91,7 @@ function JoyrideSteps({ loggedOut, hasSavedGame }: JoyrideStepsProps) {
       disableBeacon: true,
       target: ".joyrideLogoutButton"
     }
-  ].filter((elem: any) => elem !== false); // remove elements with the value false
+  ].filter((elem: Step | false) => elem !== false); // remove elements with the value false
 }
 
 export default JoyrideSteps;

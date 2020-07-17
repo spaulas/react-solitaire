@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormattedMessage } from "react-intl";
 import React from "react";
 
 function JoyrideSteps() {
   return [
+    // Main page step
     {
       content: (
         <h3>
@@ -15,6 +15,7 @@ function JoyrideSteps() {
       target: ".joyrideGamePage",
       placement: "center" as const
     },
+    // Deck pile step
     {
       content: (
         <h3>
@@ -24,6 +25,7 @@ function JoyrideSteps() {
       disableBeacon: true,
       target: ".joyrideDeck"
     },
+    // Columns step
     {
       content: (
         <h3>
@@ -33,6 +35,7 @@ function JoyrideSteps() {
       disableBeacon: true,
       target: ".joyrideColumns"
     },
+    // Goal pile step
     {
       content: (
         <h3>
@@ -42,7 +45,7 @@ function JoyrideSteps() {
       disableBeacon: true,
       target: ".joyrideGoals"
     },
-
+    // Draggable and double clickable card step
     {
       content: (
         <h3>
@@ -52,6 +55,7 @@ function JoyrideSteps() {
       disableBeacon: true,
       target: ".joyrideDoubleClick"
     },
+    // Game info step
     {
       content: (
         <h3>
@@ -61,6 +65,7 @@ function JoyrideSteps() {
       disableBeacon: true,
       target: ".joyrideInfoDisplay"
     },
+    // Undo button step
     {
       content: (
         <h3>
@@ -70,6 +75,7 @@ function JoyrideSteps() {
       disableBeacon: true,
       target: ".joyrideUndo"
     },
+    // Pause button step
     {
       content: (
         <h3>
@@ -79,6 +85,7 @@ function JoyrideSteps() {
       disableBeacon: true,
       target: ".joyridePause"
     },
+    // Hints button step
     {
       content: (
         <h3>
@@ -88,6 +95,7 @@ function JoyrideSteps() {
       disableBeacon: true,
       target: ".joyrideHints"
     },
+    // Redo button step
     {
       content: (
         <h3>
@@ -97,6 +105,7 @@ function JoyrideSteps() {
       disableBeacon: true,
       target: ".joyrideRedo"
     },
+    // Show more step
     {
       content: (
         <h3>
