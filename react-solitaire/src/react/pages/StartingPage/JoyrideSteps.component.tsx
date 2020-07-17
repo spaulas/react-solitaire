@@ -10,6 +10,7 @@ interface JoyrideStepsProps {
 
 function JoyrideSteps({ loggedOut, hasSavedGame }: JoyrideStepsProps) {
   return [
+    // Main page step
     {
       content: (
         <h3>
@@ -21,6 +22,7 @@ function JoyrideSteps({ loggedOut, hasSavedGame }: JoyrideStepsProps) {
       target: ".joyrideStartingPage",
       placement: "center" as const
     },
+    // Login button step (only shown if the user is loggedOut)
     loggedOut && {
       content: (
         <h3>
@@ -30,6 +32,7 @@ function JoyrideSteps({ loggedOut, hasSavedGame }: JoyrideStepsProps) {
       disableBeacon: true,
       target: ".joyrideLoginButton"
     },
+    // Resume Game step (only shown if the user has a game to resume)
     hasSavedGame && {
       content: (
         <h3>
@@ -39,6 +42,7 @@ function JoyrideSteps({ loggedOut, hasSavedGame }: JoyrideStepsProps) {
       disableBeacon: true,
       target: ".joyrideResumeGameButton"
     },
+    // Start game button
     {
       content: (
         <h3>
@@ -48,6 +52,7 @@ function JoyrideSteps({ loggedOut, hasSavedGame }: JoyrideStepsProps) {
       disableBeacon: true,
       target: ".joyrideStartGameButton"
     },
+    // Scores button
     {
       content: (
         <h3>
@@ -57,6 +62,7 @@ function JoyrideSteps({ loggedOut, hasSavedGame }: JoyrideStepsProps) {
       disableBeacon: true,
       target: ".joyrideScoresButton"
     },
+    // Statistics button
     {
       content: (
         <h3>
@@ -66,6 +72,7 @@ function JoyrideSteps({ loggedOut, hasSavedGame }: JoyrideStepsProps) {
       disableBeacon: true,
       target: ".joyrideStatisticsButton"
     },
+    // Configuration button
     {
       content: (
         <h3>
@@ -75,6 +82,7 @@ function JoyrideSteps({ loggedOut, hasSavedGame }: JoyrideStepsProps) {
       disableBeacon: true,
       target: ".joyrideConfigurationsButton"
     },
+    // Logout button (only shown if the user is logged in)
     !loggedOut && {
       content: (
         <h3>
@@ -84,7 +92,7 @@ function JoyrideSteps({ loggedOut, hasSavedGame }: JoyrideStepsProps) {
       disableBeacon: true,
       target: ".joyrideLogoutButton"
     }
-  ].filter((elem: any) => elem !== false);
+  ].filter((elem: any) => elem !== false); // remove elements with the value false
 }
 
 export default JoyrideSteps;
