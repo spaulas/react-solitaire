@@ -28,11 +28,16 @@ function ScoresPage({ activeTab }: ScoresPageProps) {
     })
   );
 
+  /**
+   * Triggered at mount
+   * Starts the joyride
+   */
   const initJoyride = () => {
     dispatch(joyrideActions.initJoyride("scores", JoyrideSteps({ loggedOut })));
   };
   useEffect(initJoyride, []);
 
+  // @todo remove url here, use normal tab component
   const handleTabChange = (tabKey: string) => {
     switch (tabKey) {
       case "2":

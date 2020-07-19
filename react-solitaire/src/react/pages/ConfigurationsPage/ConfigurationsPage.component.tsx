@@ -37,13 +37,18 @@ function ConfigurationsPage() {
     };
   });
 
+  /**
+   * Submit form function
+   * @param values form fields values
+   */
   const onSubmit = ({
     userName,
     language,
     createdAt,
     email,
-    ...joyride
+    ...joyride // the remaining fields are all from the joyride checkboxes
   }: ExplicitAny) => {
+    // separate the language and the joyride into the settings key
     const finalChanges = {
       userName,
       settings: {
@@ -52,11 +57,17 @@ function ConfigurationsPage() {
       }
     };
     dispatch(userActions.changeUserSettings(finalChanges));
+    // close the edit mode
     setEditMode(false);
   };
 
+  /**
+   * Called when the edit changes are canceled
+   */
   const handleCancel = () => {
+    // reset all the original values
     form.resetFields();
+    // close the edit mode
     setEditMode(false);
   };
 
@@ -70,13 +81,14 @@ function ConfigurationsPage() {
       <PageTitle title={<FormattedMessage id="sidebar.configurations" />} />
       <Form
         className="configurationsForm"
-        initialValues={{ userName, email, createdAt, language, ...joyride }}
         name="configurationsForm"
-        onFinish={onSubmit}
         form={form}
+        initialValues={{ userName, email, createdAt, language, ...joyride }}
+        onFinish={onSubmit}
       >
         <Row className="buttonSpaceRow" align="middle" justify="center">
           <Col>
+            {/* Username input item */}
             <Item
               label={<FormattedMessage id="table.userName" />}
               name="userName"
@@ -95,6 +107,7 @@ function ConfigurationsPage() {
             </Item>
           </Col>
           <Col>
+            {/* Created at input item (disabled) */}
             <Item
               label={<FormattedMessage id="table.createdAt" />}
               name="createdAt"
@@ -108,6 +121,7 @@ function ConfigurationsPage() {
         <Row className="buttonSpaceRow" align="middle" justify="center">
           {!loggedOut ? (
             <Col>
+              {/* Email input item (disabled and only visible for a logged in user) */}
               <Item
                 label={<FormattedMessage id="table.email" />}
                 name="email"
@@ -119,6 +133,7 @@ function ConfigurationsPage() {
           ) : null}
 
           <Col>
+            {/* Language radio button item (english, portuguese, german and spanish available) */}
             <Item
               label={<FormattedMessage id="languages.title" />}
               name="language"
@@ -155,7 +170,7 @@ function ConfigurationsPage() {
         <Divider orientation="left">
           <FormattedMessage id="joyride.title" />
         </Divider>
-
+        {/* Joyride checkboxes for each page */}
         <Row className="buttonSpaceRow" align="middle" justify="center">
           {Object.keys(joyride).map((page: string) => (
             <Col key={page}>
@@ -169,6 +184,7 @@ function ConfigurationsPage() {
         </Row>
       </Form>
       {editMode ? (
+        // at the edit mode, the buttons save and cancel are displayed
         <>
           <Row className="buttonSpaceRow" align="middle" justify="center">
             <MenuButton
@@ -185,6 +201,7 @@ function ConfigurationsPage() {
           </Row>
         </>
       ) : (
+        // when not editing, only the edit button is shown
         <Row className="buttonSpaceRow" align="middle" justify="center">
           <MenuButton
             onClick={() => setEditMode(true)}

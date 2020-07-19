@@ -69,14 +69,21 @@ function GameBoard() {
 
   // ---------------------------------------------------------
   // Create Game
-  // when the component mounts, create a new random game
+
+  /**
+   * Triggered when the component is mounted
+   * Stores the deck and flipped ref at the redux
+   * Starts the page joyride
+   * And either creates a new random game or resumes a previously saved game
+   */
   const mountGameBoard = () => {
     // set this refs at the redux
     dispatch(deckActions.setRefs(deckRef, flippedRef));
 
+    // start joyride
     dispatch(joyrideActions.initJoyride("game", JoyrideSteps()));
 
-    // if nothing was sent through the state, then create a new game
+    // if nothing was sent through the location state, then create a new game
     if (!location.state) {
       if (savedGame) {
         // if there was a saved game and the user started a new one, should count has a lost
@@ -84,7 +91,8 @@ function GameBoard() {
       }
       // create new deck
       dispatch(gameBoardActions.createGame());
-    } else {
+    } // if the location state is defined
+    else {
       // add game to the user counting
       dispatch(userActions.addGame());
       // set the initial deck
@@ -93,16 +101,20 @@ function GameBoard() {
       );
       // set the initial columns
       dispatch(columnsActions.setInitialColumns(savedGame.columns));
+      // set the initial goals
       dispatch(goalActions.setInitialGoals(savedGame.goals));
     }
-
+    // remove saved game from user settings
     dispatch(userActions.clearSavedGame());
   };
-  // triggers the call of the mountGameBoard function when the component is mounted
   useEffect(mountGameBoard, []);
 
-  // distribute the decks created to the right redux
-  const setCardType = () => {
+  /**
+   * Triggered when the deck pile changes (and therefore, all the other columns and goals as well)
+   * Distributes the decks *created* to the right redux
+   */
+  const setNewGamePiles = () => {
+    // this is only done when a new game is created!
     if (!location.state) {
       // set the initial deck
       dispatch(deckActions.setInitialDeck(deckPile, flippedPile));
@@ -118,6 +130,7 @@ function GameBoard() {
           column7Pile
         })
       );
+      // set the initial goals
       dispatch(
         goalActions.setInitialGoals({
           goal1Pile,
@@ -128,11 +141,14 @@ function GameBoard() {
       );
     }
   };
-  // triggers the call of the setCardType function when the deckPile is changed (and therefore, all the other columns as well)
-  useEffect(setCardType, [deckPile]);
+  useEffect(setNewGamePiles, [deckPile]);
 
+  /**
+   * Triggered by the game moves
+   * When a *new* game starts, it is only added to the users count when at least a move is done
+   */
   const addGameToUser = () => {
-    if (gameMoves === 1) {
+    if (gameMoves === 1 && !location.state) {
       dispatch(userActions.addGame());
     }
   };
@@ -143,12 +159,13 @@ function GameBoard() {
   return (
     <>
       <Prompt
-        when={!gameOver && gameMoves > 0}
+        when={!gameOver && gameMoves > 0 && !savedGame}
         message="If you leave the game will be a lost"
       />
+      <ResumeGameModal />
+      <GameOverModal />
       <DropHandler className="joyrideGamePage mainPage">
-        <ResumeGameModal />
-        <GameOverModal />
+        {/* current game status display (time and moves) */}
         <GamePlayInfo />
         {/* empty spots */}
         <BoardEmptySpots />
@@ -156,6 +173,7 @@ function GameBoard() {
         <GameTopRow />
         {/* bottom row of the game, includes all the 7 columns */}
         <GameColumnWrapper />
+        {/* game options buttons */}
         <GameOptions />
         {/* preview of the card being dragged */}
         <CustomDragLayer />

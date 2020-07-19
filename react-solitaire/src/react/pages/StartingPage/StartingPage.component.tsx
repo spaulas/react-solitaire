@@ -1,6 +1,7 @@
 import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import AppIcon from "../../components/Icon/AppIcon.component";
 import JoyrideSteps from "./JoyrideSteps.component";
 import LoginForm from "../../components/LoginForm/LoginForm.component";
 import MainMenu from "../../components/MainMenu/MainMenu.component";
@@ -12,7 +13,7 @@ import { useLocation } from "react-router-dom";
 function StartingPage() {
   const dispatch = useDispatch();
   const location: ExplicitAny = useLocation();
-  const [showLoginForm, setShowLoginForm] = useState(false);
+
   const { showAnimation, loggedOut, hasSavedGame } = useSelector(
     ({ Pages, User }: RootReducerState) => ({
       showAnimation: Pages.startPageAnimation,
@@ -24,10 +25,18 @@ function StartingPage() {
   const [showButtonsAnimation, setShowButtonsAnimation] = useState(
     showAnimation
   );
+  const [showLoginForm, setShowLoginForm] = useState(false);
+
+  /**
+   * Function called when the component is mounted
+   * The animation state starts with the value from the redux, if it comes true, then after the animation is over, set it to false
+   */
   const mountComponent = () => {
     // after animation is over, set showAnimation to false
     setTimeout(() => {
+      // set animation redux state to false, so it won't repeat everytime
       dispatch(pagesActions.setStartPageAnimation(false));
+      // start the joyride
       dispatch(
         joyrideActions.initJoyride(
           "home",
@@ -35,18 +44,23 @@ function StartingPage() {
         )
       );
     }, 2500);
+    // the buttons animation value is the same from show animation
     setShowButtonsAnimation(showAnimation);
   };
   useEffect(mountComponent, []);
 
+  /**
+   * Called to switch from the form to the main buttons
+   */
   const handleHideForm = () => {
+    // when the components change, always animate them
     setShowButtonsAnimation(true);
+    // hide the login form
     setShowLoginForm(false);
   };
 
+  // when the location changes, check if it comes with the login param, if so, show the form
   useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log("LOCATION = ", location);
     setShowLoginForm(location.state?.login);
   }, [location]);
 
@@ -56,16 +70,17 @@ function StartingPage() {
         showAnimation ? "startingPageAnimation" : ""
       }`}
     >
+      {/* Icon Row */}
       <Row className="logoRow" align="middle" justify="center">
-        <img
+        <AppIcon
           className={`${showAnimation ? "logoAnimated" : "logoImage"}`}
-          src={require("../../../images/icon.png")}
-          alt=""
         />
       </Row>
       {showLoginForm ? (
+        /* Login form */
         <LoginForm hideForm={handleHideForm} />
       ) : (
+        /* Main buttons */
         <MainMenu
           showStartAnimation={showAnimation}
           showBackAnimation={showButtonsAnimation}
