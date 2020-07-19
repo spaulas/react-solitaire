@@ -1,0 +1,82 @@
+.styledForm {
+  .googleButton {
+    background: rgba(76, 139, 245, 1);
+  }
+
+  .loginButtonAnimated {
+    opacity: 0;
+    animation: buttonDrop 1s 1;
+    animation-fill-mode: forwards;
+  }
+
+  .formInput,
+  .formInput > .ant-input {
+    border-bottom: 1px solid @fontColor !important;
+    font-size: @fontBody;
+    text-align: center;
+    background: transparent;
+    border: none;
+    color: @fontColor;
+    outline: 0;
+    box-shadow: none;
+    .anticon {
+      color: @fontColor;
+    }
+    .ant-input {
+      background: transparent;
+    }
+  }
+
+  .formInput > .ant-input {
+    border: none !important;
+  }
+
+  .ant-form-item-control-input {
+    label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: @hoverElemColor;
+      font-size: @fontBody;
+      transition: @smallTransitionTime;
+    }
+  }
+
+  .formInput:focus ~ label,
+  .formInput > .ant-input-focused ~ label {
+    transform: unset;
+    color: @fontColor;
+    top: 0;
+    left: 0;
+    font-size: 15px;
+  }
+
+  .formInput:not([value=""]) ~ label {
+    transform: unset;
+    top: 0;
+    left: 0;
+    font-size: 15px;
+    color: @fontColor;
+  }
+
+  .ant-form-item-has-error {
+    .formInput {
+      border-bottom: 1px solid red !important;
+
+      .anticon {
+        color: red;
+      }
+    }
+    .formInput ~ label {
+      color: red;
+    }
+    .formInput:focus ~ label {
+      top: 0;
+      left: 0;
+      font-size: 15px;
+      transform: unset;
+      color: red;
+    }
+  }
+}

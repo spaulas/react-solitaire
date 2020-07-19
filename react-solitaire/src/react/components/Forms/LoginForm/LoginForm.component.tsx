@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import { Form, Input, Row } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
-import { auth, signInWithGoogle } from "../../../firebase/firebase.utils";
+import { auth, signInWithGoogle } from "../../../../firebase/firebase.utils";
 import { GoogleCircleFilled } from "@ant-design/icons";
-import MenuButton from "../../components/Buttons/MenuButton.component";
+import MenuButton from "../../Buttons/MenuButton.component";
 import React from "react";
 
 const { Item } = Form;
@@ -39,7 +39,12 @@ function LoginForm({ hideForm }: LoginFormProps) {
 
   return (
     <>
-      <Form name="loginForm" onFinish={onSubmit} form={form}>
+      <Form
+        name="loginForm"
+        className="styledForm"
+        onFinish={onSubmit}
+        form={form}
+      >
         <Row align="middle" justify="center">
           <Item
             name="email"
@@ -50,7 +55,9 @@ function LoginForm({ hideForm }: LoginFormProps) {
               }
             ]}
           >
-            <Input className="divButton loginButtonAnimated" />
+            <Input className="divButton loginButtonAnimated formInput" />
+
+            <label>email</label>
           </Item>
         </Row>
         <Row align="middle" justify="center">
@@ -63,33 +70,34 @@ function LoginForm({ hideForm }: LoginFormProps) {
               }
             ]}
           >
-            <Password className="divButton passwordInput loginButtonAnimated" />
+            <Password className="divButton loginButtonAnimated formInput" />
+            <label>password</label>
           </Item>
         </Row>
-      </Form>
 
-      <Row align="middle" justify="center">
-        <MenuButton
-          onClick={() => form.submit()}
-          className="loginButtonAnimated"
-        >
-          <FormattedMessage id="btn.submit" />
-        </MenuButton>
-      </Row>
-      <Row className="buttonSpaceRow" align="middle" justify="center">
-        <MenuButton
-          onClick={signInWithGoogle}
-          className="googleButton loginButtonAnimated"
-        >
-          <GoogleCircleFilled />
-          <span> Google</span>
-        </MenuButton>
-      </Row>
-      <Row className="buttonSpaceRow" align="middle" justify="center">
-        <MenuButton onClick={hideForm} className="loginButtonAnimated">
-          <FormattedMessage id="btn.back" />
-        </MenuButton>
-      </Row>
+        <Row align="middle" justify="center">
+          <MenuButton
+            onClick={() => form.submit()}
+            className="loginButtonAnimated"
+          >
+            <FormattedMessage id="btn.submit" />
+          </MenuButton>
+        </Row>
+        <Row className="buttonSpaceRow" align="middle" justify="center">
+          <MenuButton
+            onClick={signInWithGoogle}
+            className="googleButton loginButtonAnimated"
+          >
+            <GoogleCircleFilled />
+            <span> Google</span>
+          </MenuButton>
+        </Row>
+        <Row className="buttonSpaceRow" align="middle" justify="center">
+          <MenuButton onClick={hideForm} className="loginButtonAnimated">
+            <FormattedMessage id="btn.back" />
+          </MenuButton>
+        </Row>
+      </Form>
     </>
   );
 }

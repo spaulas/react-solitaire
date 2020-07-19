@@ -3,7 +3,7 @@ import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppIcon from "../../components/Icon/AppIcon.component";
 import JoyrideSteps from "./JoyrideSteps.component";
-import LoginForm from "../../components/LoginForm/LoginForm.component";
+import LoginForm from "../../components/Forms/LoginForm/LoginForm.component";
 import MainMenu from "../../components/MainMenu/MainMenu.component";
 import { Row } from "antd";
 import joyrideActions from "../../../redux/joyride/joyride.actions";
