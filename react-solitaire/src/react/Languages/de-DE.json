@@ -95,5 +95,6 @@
     "table.moves": "Züge",
     "table.noData": "Keine Daten",
     "table.time": "Zeit",
-    "table.userName": "Nutzername"
+    "table.userName": "Nutzername",
+    "title.welcome": "Willkommen,"
 }

@@ -24,8 +24,9 @@ function MainMenu({
   const dispatch = useDispatch();
   const [showAlarm, setShowAlarm] = useState(false);
 
-  const { loggedOut, hasSavedGame, savedGame } = useSelector(
+  const { userName, loggedOut, hasSavedGame, savedGame } = useSelector(
     ({ User }: RootReducerState) => ({
+      userName: User.user.userName,
       loggedOut: User.userRef === false,
       hasSavedGame: User.user.hasSavedGame,
       savedGame: User.user.savedGame
@@ -49,6 +50,11 @@ function MainMenu({
 
   return (
     <>
+      {!loggedOut && (
+        <div className="welcomeMessage">
+          <FormattedMessage id="title.welcome" /> {userName}
+        </div>
+      )}
       {loggedOut && (
         <MenuButton
           onClick={showLoginForm}

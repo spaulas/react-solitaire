@@ -95,5 +95,6 @@
     "table.moves": "Pasos",
     "table.noData": "Sin Datos",
     "table.time": "Hora",
-    "table.userName": "Nombre de Usuario"
+    "table.userName": "Nombre de Usuario",
+    "title.welcome": "Bienvenido,"
 }
