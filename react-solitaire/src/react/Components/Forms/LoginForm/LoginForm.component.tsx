@@ -1,9 +1,13 @@
+import {
+  EyeInvisibleOutlined,
+  EyeOutlined,
+  GoogleCircleFilled
+} from "@ant-design/icons";
 import { Form, Input, Row } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
 import React, { useEffect, useState } from "react";
 import { auth, signInWithGoogle } from "../../../../firebase/firebase.utils";
 import { ExplicitAny } from "../../../../global";
-import { GoogleCircleFilled } from "@ant-design/icons";
 import MenuButton from "../../Buttons/MenuButton.component";
 
 const { Item } = Form;
@@ -16,6 +20,7 @@ interface LoginFormProps {
 function LoginForm({ hideForm }: LoginFormProps) {
   const intl = useIntl();
   const [inputRef, setInputRef] = useState<ExplicitAny>();
+  const [hidePwd, setHidePwd] = useState(true);
 
   useEffect(() => inputRef?.focus(), [inputRef]);
 
@@ -68,7 +73,7 @@ function LoginForm({ hideForm }: LoginFormProps) {
           >
             <Input
               ref={(e: ExplicitAny) => setInputRef(e)}
-              className="divButton loginButtonAnimated formInput"
+              className="divButton loginButtonAnimated formInput pwdInput"
               onChange={(e: ExplicitAny) => onChange(e, "email")}
             />
             <label className="labelPlaceholder">email</label>
@@ -85,10 +90,23 @@ function LoginForm({ hideForm }: LoginFormProps) {
             ]}
           >
             <Input
-              className="divButton loginButtonAnimated formInput"
+              className={`divButton loginButtonAnimated formInput ${
+                hidePwd ? "formPwd" : ""
+              }`}
               onChange={(e: ExplicitAny) => onChange(e, "password")}
             />
             <label className="labelPlaceholder">password</label>
+            {hidePwd ? (
+              <EyeInvisibleOutlined
+                onClick={() => setHidePwd(false)}
+                className="pwdIcon"
+              />
+            ) : (
+              <EyeOutlined
+                onClick={() => setHidePwd(true)}
+                className="pwdIcon"
+              />
+            )}
           </Item>
         </Row>
 

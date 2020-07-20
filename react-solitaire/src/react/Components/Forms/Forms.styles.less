@@ -46,11 +46,20 @@
     font-size: 15px;
   }
 
+  .formInput:focus ~ .formPwd,
+  .formInput > .ant-input-focused ~ .formPwd {
+    color: white;
+  }
+
   .formInput:not([value=""]) ~ label {
     transform: unset;
     top: 0;
     left: 0;
     font-size: 15px;
+    color: @fontColor;
+  }
+
+  .formInput:not([value=""]) ~ .formPwd {
     color: @fontColor;
   }
 
@@ -141,6 +150,20 @@
         line-height: 70px !important;
       }
     }
+  }
+
+  .formPwd {
+    -webkit-text-security: disc;
+  }
+
+  .pwdIcon {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: 0;
+    font-size: @fontBody;
+    color: lightgrey;
+    z-index: 2;
   }
 }
 
