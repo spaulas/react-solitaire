@@ -7,6 +7,7 @@ import { Form, Input, Row } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
 import React, { useEffect, useState } from "react";
 import { auth, signInWithGoogle } from "../../../../firebase/firebase.utils";
+import { checkEmail, checkPassword } from "../helper";
 import { ExplicitAny } from "../../../../global";
 import MenuButton from "../../Buttons/MenuButton.component";
 
@@ -68,6 +69,10 @@ function LoginForm({ hideForm }: LoginFormProps) {
               {
                 required: true,
                 message: intl.formatMessage({ id: "form.error.email" })
+              },
+              {
+                validator: (rule: any, value: any, callback: any) =>
+                  checkEmail(rule, value, callback, intl)
               }
             ]}
           >
@@ -86,6 +91,10 @@ function LoginForm({ hideForm }: LoginFormProps) {
               {
                 required: true,
                 message: intl.formatMessage({ id: "form.error.password" })
+              },
+              {
+                validator: (rule: any, value: any, callback: any) =>
+                  checkPassword(rule, value, callback, intl)
               }
             ]}
           >
