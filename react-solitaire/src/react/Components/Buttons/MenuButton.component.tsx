@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import { ExplicitAny } from "../../../global";
+import { Row } from "antd";
 import { useHistory } from "react-router-dom";
 
 /**
@@ -29,12 +30,14 @@ function MenuButton({
     }
   };
   return (
-    <div
-      className={`animatedButton divButton ${className}`}
-      onClick={handleClick}
-    >
-      {children}
-    </div>
+    <Row className="buttonSpaceRow" align="middle" justify="center">
+      <div
+        className={`animatedButton divButton ${className}`}
+        onClick={handleClick}
+      >
+        {children}
+      </div>
+    </Row>
   );
 }
 

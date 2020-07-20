@@ -189,30 +189,24 @@ function ConfigurationsForm() {
       {editMode ? (
         // at the edit mode, the buttons save and cancel are displayed
         <>
-          <Row className="buttonSpaceRow" align="middle" justify="center">
-            <MenuButton
-              onClick={() => form.submit()}
-              className="loginButtonAnimated"
-            >
-              <FormattedMessage id="btn.save" />
-            </MenuButton>
-          </Row>
-          <Row className="buttonSpaceRow" align="middle" justify="center">
-            <MenuButton onClick={handleCancel} className="loginButtonAnimated">
-              <FormattedMessage id="btn.cancel" />
-            </MenuButton>
-          </Row>
+          <MenuButton
+            onClick={() => form.submit()}
+            className="loginButtonAnimated"
+          >
+            <FormattedMessage id="btn.save" />
+          </MenuButton>
+          <MenuButton onClick={handleCancel} className="loginButtonAnimated">
+            <FormattedMessage id="btn.cancel" />
+          </MenuButton>
         </>
       ) : (
         // when not editing, only the edit button is shown
-        <Row className="buttonSpaceRow" align="middle" justify="center">
-          <MenuButton
-            onClick={() => setEditMode(true)}
-            className="loginButtonAnimated"
-          >
-            <FormattedMessage id="btn.edit" />
-          </MenuButton>
-        </Row>
+        <MenuButton
+          onClick={() => setEditMode(true)}
+          className="loginButtonAnimated"
+        >
+          <FormattedMessage id="btn.edit" />
+        </MenuButton>
       )}
     </Form>
   );

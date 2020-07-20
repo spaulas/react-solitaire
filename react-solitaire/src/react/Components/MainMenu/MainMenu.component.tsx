@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import ConfirmationModal from "../Modals/ConfirmationModal.component";
 import MenuButton from "../Buttons/MenuButton.component";
 import { RootReducerState } from "../../../global";
-import { Row } from "antd";
 import { auth } from "../../../firebase/firebase.utils";
 import { useHistory } from "react-router-dom";
 import userActions from "../../../redux/user/user.actions";
@@ -51,34 +50,28 @@ function MainMenu({
   return (
     <>
       {loggedOut && (
-        <Row align="middle" justify="center">
-          <MenuButton
-            onClick={showLoginForm}
-            className={`joyrideLoginButton ${getAnimation()}`}
-          >
-            <FormattedMessage id="btn.login" />
-          </MenuButton>
-        </Row>
+        <MenuButton
+          onClick={showLoginForm}
+          className={`joyrideLoginButton ${getAnimation()}`}
+        >
+          <FormattedMessage id="btn.login" />
+        </MenuButton>
       )}
       {hasSavedGame ? (
         <>
-          <Row className="buttonSpaceRow" align="middle" justify="center">
-            <MenuButton
-              location="/game"
-              params={{ savedGame }}
-              className={`joyrideResumeGameButton ${getAnimation()}`}
-            >
-              <FormattedMessage id="btn.resumeGame" />
-            </MenuButton>
-          </Row>
-          <Row className="buttonSpaceRow" align="middle" justify="center">
-            <MenuButton
-              onClick={() => setShowAlarm(true)}
-              className={`joyrideStartGameButton ${getAnimation()}`}
-            >
-              <FormattedMessage id="btn.startGame" />
-            </MenuButton>
-          </Row>
+          <MenuButton
+            location="/game"
+            params={{ savedGame }}
+            className={`joyrideResumeGameButton ${getAnimation()}`}
+          >
+            <FormattedMessage id="btn.resumeGame" />
+          </MenuButton>
+          <MenuButton
+            onClick={() => setShowAlarm(true)}
+            className={`joyrideStartGameButton ${getAnimation()}`}
+          >
+            <FormattedMessage id="btn.startGame" />
+          </MenuButton>
           {showAlarm ? (
             <ConfirmationModal
               onConfirm={() => history.push("/game")}
@@ -88,49 +81,39 @@ function MainMenu({
           ) : null}
         </>
       ) : (
-        <Row className="buttonSpaceRow" align="middle" justify="center">
-          <MenuButton
-            location="/game"
-            className={`joyrideStartGameButton ${getAnimation()}`}
-          >
-            <FormattedMessage id="btn.startGame" />
-          </MenuButton>
-        </Row>
+        <MenuButton
+          location="/game"
+          className={`joyrideStartGameButton ${getAnimation()}`}
+        >
+          <FormattedMessage id="btn.startGame" />
+        </MenuButton>
       )}
-      <Row className="buttonSpaceRow" align="middle" justify="center">
-        <MenuButton
-          location="/scores/userHighScores"
-          className={`joyrideScoresButton ${getAnimation()}`}
-        >
-          <FormattedMessage id="sidebar.scores" />
-        </MenuButton>
-      </Row>
-      <Row className="buttonSpaceRow" align="middle" justify="center">
-        <MenuButton
-          location="/statistics"
-          className={`joyrideStatisticsButton ${getAnimation()}`}
-        >
-          <FormattedMessage id="sidebar.statistics" />
-        </MenuButton>
-      </Row>
-      <Row className="buttonSpaceRow" align="middle" justify="center">
-        <MenuButton
-          className={`joyrideConfigurationsButton ${getAnimation()}`}
-          location="/configurations"
-        >
-          <FormattedMessage id="sidebar.configurations" />
-        </MenuButton>
-      </Row>
+      <MenuButton
+        location="/scores/userHighScores"
+        className={`joyrideScoresButton ${getAnimation()}`}
+      >
+        <FormattedMessage id="sidebar.scores" />
+      </MenuButton>
+      <MenuButton
+        location="/statistics"
+        className={`joyrideStatisticsButton ${getAnimation()}`}
+      >
+        <FormattedMessage id="sidebar.statistics" />
+      </MenuButton>
+      <MenuButton
+        className={`joyrideConfigurationsButton ${getAnimation()}`}
+        location="/configurations"
+      >
+        <FormattedMessage id="sidebar.configurations" />
+      </MenuButton>
 
       {!loggedOut && (
-        <Row className="buttonSpaceRow" align="middle" justify="center">
-          <MenuButton
-            className={`joyrideLogoutButton ${getAnimation()}`}
-            onClick={handleLogout}
-          >
-            <FormattedMessage id="btn.logout" />
-          </MenuButton>
-        </Row>
+        <MenuButton
+          className={`joyrideLogoutButton ${getAnimation()}`}
+          onClick={handleLogout}
+        >
+          <FormattedMessage id="btn.logout" />
+        </MenuButton>
       )}
     </>
   );

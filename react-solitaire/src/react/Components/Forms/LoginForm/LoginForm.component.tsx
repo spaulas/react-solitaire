@@ -74,28 +74,22 @@ function LoginForm({ hideForm }: LoginFormProps) {
           </Item>
         </Row>
 
-        <Row align="middle" justify="center">
-          <MenuButton
-            onClick={() => form.submit()}
-            className="loginButtonAnimated"
-          >
-            <FormattedMessage id="btn.submit" />
-          </MenuButton>
-        </Row>
-        <Row className="buttonSpaceRow" align="middle" justify="center">
-          <MenuButton
-            onClick={signInWithGoogle}
-            className="googleButton loginButtonAnimated"
-          >
-            <GoogleCircleFilled />
-            <span> Google</span>
-          </MenuButton>
-        </Row>
-        <Row className="buttonSpaceRow" align="middle" justify="center">
-          <MenuButton onClick={hideForm} className="loginButtonAnimated">
-            <FormattedMessage id="btn.back" />
-          </MenuButton>
-        </Row>
+        <MenuButton
+          onClick={() => form.submit()}
+          className="loginButtonAnimated"
+        >
+          <FormattedMessage id="btn.submit" />
+        </MenuButton>
+        <MenuButton
+          onClick={signInWithGoogle}
+          className="googleButton loginButtonAnimated"
+        >
+          <GoogleCircleFilled />
+          <span> Google</span>
+        </MenuButton>
+        <MenuButton onClick={hideForm} className="loginButtonAnimated">
+          <FormattedMessage id="btn.back" />
+        </MenuButton>
       </Form>
     </>
   );
