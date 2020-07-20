@@ -3,12 +3,12 @@ import { Layout, Spin } from "antd";
 import React, { useEffect } from "react";
 import { auth, getUserInfo } from "../../firebase/firebase.utils";
 import { useDispatch, useSelector } from "react-redux";
-import ApplicationRouter from "./ApplicationRouter";
+import ApplicationRouter from "../Components/Router/ApplicationRouter/ApplicationRouter";
 import { BrowserRouter } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import Joyride from "../components/HocWrappers/Joyride/Joyride.component";
-import Sidebar from "./Sidebar.component";
+import Joyride from "../HocWrappers/Joyride/Joyride.component";
+import Sidebar from "../Components/Router/Sidebar/Sidebar.component";
 import highscoreActions from "../../redux/highScores/highscores.actions";
 import userActions from "../../redux/user/user.actions";
 
