@@ -9,8 +9,7 @@
     animation-fill-mode: forwards;
   }
 
-  .formInput,
-  .formInput > .ant-input {
+  .formInput {
     border-bottom: 1px solid @fontColor !important;
     font-size: @fontBody;
     text-align: center;
@@ -19,16 +18,7 @@
     color: @fontColor;
     outline: 0;
     box-shadow: none;
-    .anticon {
-      color: @fontColor;
-    }
-    .ant-input {
-      background: transparent;
-    }
-  }
-
-  .formInput > .ant-input {
-    border: none !important;
+    z-index: 1;
   }
 
   .ant-form-item-control-input {
@@ -40,6 +30,7 @@
       color: @hoverElemColor;
       font-size: @fontBody;
       transition: @smallTransitionTime;
+      z-index: 0;
     }
   }
 
@@ -77,6 +68,76 @@
       font-size: 15px;
       transform: unset;
       color: red;
+    }
+  }
+}
+
+.configurationsForm {
+  margin: @limitHorizontal;
+  text-align: center;
+
+  .ant-form-item-label label,
+  .ant-divider-inner-text {
+    font-size: @fontTitle;
+    color: @fontColor;
+    height: auto;
+    line-height: 70px;
+  }
+
+  .ant-checkbox-wrapper {
+    .ant-checkbox span {
+      height: 50px;
+      width: 50px;
+    }
+    span {
+      font-size: @fontBody;
+      color: @fontColor;
+    }
+  }
+
+  .ant-checkbox-checked {
+    .ant-checkbox-inner {
+      background-color: @secondaryColor;
+      border-color: @fontColor;
+    }
+  }
+
+  .ant-checkbox-disabled.ant-checkbox-checked .ant-checkbox-inner::after {
+    border-color: grey;
+  }
+
+  .ant-checkbox-disabled.ant-checkbox-checked {
+    background-color: @darkSecondaryColor;
+    border-color: grey;
+  }
+
+  .ant-checkbox-inner {
+    border-color: grey;
+  }
+
+  .ant-checkbox-inner::after {
+    width: 10px;
+    height: 20px;
+    left: 30%;
+  }
+
+  .languagesRadioGroup {
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+      color: @primaryColor;
+      border-color: @primaryColor;
+    }
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+      background-color: @primaryColor;
+    }
+
+    .flagRadioButton {
+      height: auto;
+      .flags {
+        height: 70px;
+        width: auto;
+        font-size: 40px !important;
+        line-height: 70px !important;
+      }
     }
   }
 }
