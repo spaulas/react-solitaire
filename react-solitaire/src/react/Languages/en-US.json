@@ -29,6 +29,7 @@
     "confirm.yes": "Yes",
     "form.error.email": "Invalid email!",
     "form.error.password": "Invalid password!",
+    "form.info.pwd": "Password needs uppercase and lowercase letters, a number, special character and at least 5 elements",
     "form.required.email": "Please input your email!",
     "form.required.password": "Please input your password!",
     "form.required.userName": "Please input your username!",

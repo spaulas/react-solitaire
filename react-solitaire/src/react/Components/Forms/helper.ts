@@ -11,7 +11,7 @@ export const validateEmail = (email: any) => {
 
 export const checkEmail = (rule: any, value: any, callback: any, intl: any) => {
   if (value && validateEmail(value)) {
-    callback(intl.formatMessage({ id: "testing" }));
+    callback(intl.formatMessage({ id: "form.error.email" }));
   } else {
     callback();
   }
@@ -30,7 +30,7 @@ export const checkPassword = (
   intl: any
 ) => {
   if (value && validatePwd(value)) {
-    callback(intl.formatMessage({ id: "testing2" }));
+    callback(intl.formatMessage({ id: "form.error.password" }));
   } else {
     callback();
   }

@@ -92,7 +92,7 @@ function ConfigurationsForm() {
             rules={[
               {
                 required: true,
-                message: intl.formatMessage({ id: "form.error.userName" })
+                message: intl.formatMessage({ id: "form.required.userName" })
               }
             ]}
           >

@@ -29,6 +29,7 @@
     "confirm.yes": "Si",
     "form.error.email": "¡Email inválido!",
     "form.error.password": "¡Contraseña invalida!",
+    "form.info.pwd": "La contraseña necesita letras mayúsculas y minúsculas, un número, caracteres especiales y al menos 5 elementos",
     "form.required.email": "Por favor introduzca su correo electrónico",
     "form.required.password": "Por favor, introduzca su contraseña",
     "form.required.userName": "Por favor, ingrese un nombre de usuario",

@@ -1,9 +1,10 @@
 import {
-  EyeInvisibleOutlined,
+  EyeInvisibleFilled,
   EyeOutlined,
-  GoogleCircleFilled
+  GoogleCircleFilled,
+  InfoCircleFilled
 } from "@ant-design/icons";
-import { Form, Input, Row } from "antd";
+import { Form, Input, Row, Tooltip } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
 import React, { useEffect, useState } from "react";
 import { auth, signInWithGoogle } from "../../../../firebase/firebase.utils";
@@ -20,10 +21,7 @@ interface LoginFormProps {
 
 function LoginForm({ hideForm }: LoginFormProps) {
   const intl = useIntl();
-  const [inputRef, setInputRef] = useState<ExplicitAny>();
   const [hidePwd, setHidePwd] = useState(true);
-
-  useEffect(() => inputRef?.focus(), [inputRef]);
 
   const onChange = (
     { target: { value } }: { target: { value: string } },
@@ -68,7 +66,7 @@ function LoginForm({ hideForm }: LoginFormProps) {
             rules={[
               {
                 required: true,
-                message: intl.formatMessage({ id: "form.error.email" })
+                message: intl.formatMessage({ id: "form.required.email" })
               },
               {
                 validator: (rule: any, value: any, callback: any) =>
@@ -77,7 +75,6 @@ function LoginForm({ hideForm }: LoginFormProps) {
             ]}
           >
             <Input
-              ref={(e: ExplicitAny) => setInputRef(e)}
               className="divButton loginButtonAnimated formInput pwdInput"
               onChange={(e: ExplicitAny) => onChange(e, "email")}
             />
@@ -90,7 +87,7 @@ function LoginForm({ hideForm }: LoginFormProps) {
             rules={[
               {
                 required: true,
-                message: intl.formatMessage({ id: "form.error.password" })
+                message: intl.formatMessage({ id: "form.required.password" })
               },
               {
                 validator: (rule: any, value: any, callback: any) =>
@@ -105,15 +102,18 @@ function LoginForm({ hideForm }: LoginFormProps) {
               onChange={(e: ExplicitAny) => onChange(e, "password")}
             />
             <label className="labelPlaceholder">password</label>
+            <Tooltip title={<FormattedMessage id="form.info.pwd" />}>
+              <InfoCircleFilled className="inputIcons infoIcon" />
+            </Tooltip>
             {hidePwd ? (
-              <EyeInvisibleOutlined
+              <EyeInvisibleFilled
                 onClick={() => setHidePwd(false)}
-                className="pwdIcon"
+                className="inputIcons pwdIcon"
               />
             ) : (
               <EyeOutlined
                 onClick={() => setHidePwd(true)}
-                className="pwdIcon"
+                className="inputIcons pwdIcon"
               />
             )}
           </Item>
