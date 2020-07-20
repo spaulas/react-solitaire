@@ -7,7 +7,7 @@ import MenuButton from "../../Buttons/MenuButton.component";
 import React from "react";
 
 const { Item } = Form;
-const { Password } = Input;
+// const { Password } = Input;
 
 interface LoginFormProps {
   hideForm: () => void;

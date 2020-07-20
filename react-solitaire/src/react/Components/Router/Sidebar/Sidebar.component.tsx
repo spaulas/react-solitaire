@@ -45,7 +45,7 @@ function Sidebar() {
           <div>
             <img
               className="logoTitle"
-              src={require("../../images/icon.png")}
+              src={require("../../../../images/icon.png")}
               alt=""
             />
           </div>
