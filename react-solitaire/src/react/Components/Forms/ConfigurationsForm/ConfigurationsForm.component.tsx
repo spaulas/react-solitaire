@@ -77,7 +77,7 @@ function ConfigurationsForm() {
 
   return (
     <Form
-      className="configurationsForm styledForm"
+      className="styledForm"
       name="configurationsForm"
       form={form}
       initialValues={{ userName, email, createdAt, language, ...joyride }}
@@ -99,8 +99,9 @@ function ConfigurationsForm() {
           >
             <Input
               disabled={!editMode}
-              className="divButton loginButtonAnimated"
+              className="divButton loginButtonAnimated formInput"
             />
+            <label className="labelPlaceholder">Username</label>
           </Item>
         </Col>
         <Col>
@@ -110,7 +111,11 @@ function ConfigurationsForm() {
             name="createdAt"
             {...formItemLayout}
           >
-            <Input disabled className="divButton loginButtonAnimated" />
+            <Input
+              disabled
+              className="divButton loginButtonAnimated formInput"
+            />
+            <label className="labelPlaceholder">Created at</label>
           </Item>
         </Col>
       </Row>
@@ -124,7 +129,11 @@ function ConfigurationsForm() {
               name="email"
               {...formItemLayout}
             >
-              <Input disabled className="divButton loginButtonAnimated" />
+              <Input
+                disabled
+                className="divButton loginButtonAnimated formInput"
+              />
+              <label className="labelPlaceholder">Email</label>
             </Item>
           </Col>
         ) : null}

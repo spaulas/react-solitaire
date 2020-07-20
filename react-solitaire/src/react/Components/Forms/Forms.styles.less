@@ -1,4 +1,15 @@
 .styledForm {
+  margin: @limitHorizontal;
+  text-align: center;
+
+  .ant-form-item-label label,
+  .ant-divider-inner-text {
+    font-size: @fontTitle;
+    color: @fontColor;
+    height: auto;
+    line-height: 70px;
+  }
+
   .googleButton {
     background: rgba(76, 139, 245, 1);
   }
@@ -21,17 +32,15 @@
     z-index: 1;
   }
 
-  .ant-form-item-control-input {
-    label {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: @hoverElemColor;
-      font-size: @fontBody;
-      transition: @smallTransitionTime;
-      z-index: 0;
-    }
+  .labelPlaceholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: @hoverElemColor;
+    font-size: @fontBody;
+    transition: @smallTransitionTime;
+    z-index: 0;
   }
 
   .formInput:focus ~ label,
@@ -69,19 +78,6 @@
       transform: unset;
       color: red;
     }
-  }
-}
-
-.configurationsForm {
-  margin: @limitHorizontal;
-  text-align: center;
-
-  .ant-form-item-label label,
-  .ant-divider-inner-text {
-    font-size: @fontTitle;
-    color: @fontColor;
-    height: auto;
-    line-height: 70px;
   }
 
   .ant-checkbox-wrapper {
@@ -124,14 +120,26 @@
   .languagesRadioGroup {
     .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
       color: @primaryColor;
-      border-color: @primaryColor;
     }
     .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
       background-color: @primaryColor;
     }
 
+    .ant-radio-button-wrapper::before {
+      background-color: transparent;
+    }
+
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled),
+    .ant-radio-button-wrapper-checked:active {
+      -webkit-box-shadow: 0px 0px 17px 1px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 0px 0px 17px 1px rgba(0, 0, 0, 0.75);
+      box-shadow: 0px 0px 17px 1px rgba(0, 0, 0, 0.75);
+    }
+
     .flagRadioButton {
       height: auto;
+      background: transparent;
+      border: none;
       .flags {
         height: 70px;
         width: auto;
@@ -139,5 +147,9 @@
         line-height: 70px !important;
       }
     }
+  }
+
+  .buttonSpaceRow {
+    margin-top: 10px;
   }
 }

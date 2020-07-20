@@ -56,7 +56,7 @@ function LoginForm({ hideForm }: LoginFormProps) {
             ]}
           >
             <Input className="divButton loginButtonAnimated formInput" />
-            <label>email</label>
+            <label className="labelPlaceholder">email</label>
           </Item>
         </Row>
         <Row align="middle" justify="center">
@@ -70,7 +70,7 @@ function LoginForm({ hideForm }: LoginFormProps) {
             ]}
           >
             <Input className="divButton loginButtonAnimated formInput" />
-            <label>password</label>
+            <label className="labelPlaceholder">password</label>
           </Item>
         </Row>
 
