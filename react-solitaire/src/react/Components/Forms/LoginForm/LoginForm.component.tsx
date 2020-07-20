@@ -1,11 +1,10 @@
-/* eslint-disable no-console */
 import { Form, Input, Row } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
+import React, { useEffect, useState } from "react";
 import { auth, signInWithGoogle } from "../../../../firebase/firebase.utils";
 import { ExplicitAny } from "../../../../global";
 import { GoogleCircleFilled } from "@ant-design/icons";
 import MenuButton from "../../Buttons/MenuButton.component";
-import React from "react";
 
 const { Item } = Form;
 // const { Password } = Input;
@@ -16,6 +15,9 @@ interface LoginFormProps {
 
 function LoginForm({ hideForm }: LoginFormProps) {
   const intl = useIntl();
+  const [inputRef, setInputRef] = useState<ExplicitAny>();
+
+  useEffect(() => inputRef?.focus(), [inputRef]);
 
   const onChange = (
     { target: { value } }: { target: { value: string } },
@@ -46,8 +48,6 @@ function LoginForm({ hideForm }: LoginFormProps) {
 
   const [form] = Form.useForm();
 
-  console.log("form = ", form.getFieldValue("email"));
-
   return (
     <>
       <Form
@@ -67,6 +67,7 @@ function LoginForm({ hideForm }: LoginFormProps) {
             ]}
           >
             <Input
+              ref={(e: ExplicitAny) => setInputRef(e)}
               className="divButton loginButtonAnimated formInput"
               onChange={(e: ExplicitAny) => onChange(e, "email")}
             />
