@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MenuButton from "../../Buttons/MenuButton.component";
 import ReactCountryFlag from "react-country-flag";
-import moment from "moment";
 import { useForm } from "antd/lib/form/util";
 import userActions from "../../../../redux/user/user.actions";
 
@@ -26,17 +25,22 @@ function ConfigurationsForm() {
     loggedOut
   } = useSelector(({ User }: RootReducerState) => {
     const user = User.user;
-    // eslint-disable-next-line no-console
-    console.log("USERT  == ", User.user);
     return {
       userName: user.userName,
       email: user.email,
-      createdAt: moment(user.createdAt).format("DD/MM/YYYY, hh:mm"),
+      createdAt: user.createdAt,
       language: user.settings.language,
       joyride: user.settings.joyride,
       loggedOut: User.userRef === false
     };
   });
+
+  const onChange = (
+    { target: { value } }: { target: { value: string } },
+    field: string
+  ) => {
+    form.setFieldsValue({ [field]: value });
+  };
 
   /**
    * Submit form function
@@ -72,9 +76,6 @@ function ConfigurationsForm() {
     setEditMode(false);
   };
 
-  // eslint-disable-next-line no-console
-  console.log("EMAIL = ", email);
-
   return (
     <Form
       className="styledForm configurationsForm"
@@ -83,8 +84,8 @@ function ConfigurationsForm() {
       initialValues={{ userName, email, createdAt, language, ...joyride }}
       onFinish={onSubmit}
     >
-      <Row className="buttonSpaceRow" align="middle" justify="center">
-        <Col>
+      <Row className="buttonSpaceRow" align="middle" justify="space-between">
+        <Col span={10}>
           {/* Username input item */}
           <Item
             name="userName"
@@ -99,39 +100,42 @@ function ConfigurationsForm() {
               disabled={!editMode}
               className="divButton loginButtonAnimated formInput"
               defaultValue={userName}
+              onChange={(e: ExplicitAny) => onChange(e, "userName")}
             />
             <label className="labelPlaceholder">Username</label>
           </Item>
         </Col>
-        <Col>
+        <Col span={10}>
           {/* Created at input item (disabled) */}
           <Item name="createdAt">
             <Input
               disabled
               className="divButton loginButtonAnimated formInput"
               defaultValue={createdAt}
+              onChange={(e: ExplicitAny) => onChange(e, "createdAt")}
             />
             <label className="labelPlaceholder">Created at</label>
           </Item>
         </Col>
       </Row>
 
-      <Row className="buttonSpaceRow" align="middle" justify="center">
+      <Row className="buttonSpaceRow" align="middle" justify="space-between">
         {!loggedOut ? (
-          <Col>
+          <Col span={10}>
             {/* Email input item (disabled and only visible for a logged in user) */}
             <Item name="email">
               <Input
                 disabled
                 className="divButton loginButtonAnimated formInput"
                 defaultValue={email}
+                onChange={(e: ExplicitAny) => onChange(e, "email")}
               />
               <label className="labelPlaceholder">Email</label>
             </Item>
           </Col>
         ) : null}
 
-        <Col>
+        <Col span={10}>
           {/* Language radio button item (english, portuguese, german and spanish available) */}
           <Item name="language">
             <Radio.Group className="languagesRadioGroup" disabled={!editMode}>
@@ -166,7 +170,7 @@ function ConfigurationsForm() {
       {/* Joyride checkboxes for each page */}
       <Row className="buttonSpaceRow" align="middle" justify="center">
         {Object.keys(joyride).map((page: string) => (
-          <Col key={page}>
+          <Col key={page} span={6}>
             <Item name={page} valuePropName="checked">
               <Checkbox disabled={!editMode} defaultChecked={joyride[page]}>
                 <FormattedMessage id={`sidebar.${page}`} />

@@ -1,6 +1,7 @@
 import "firebase/firestore";
 import "firebase/auth";
 import firebase from "firebase/app";
+import moment from "moment";
 
 const config = {
   apiKey: "AIzaSyAbT2Wbt4lgMQfVDN_BIU1PJMWjIpe4H_s",
@@ -33,13 +34,11 @@ export const getUserInfo = async user => {
   const highscoreSnapShot = await highscoreRef.get();
 
   if (!userSnapShot.exists && user.email) {
-    // eslint-disable-next-line no-console
-    console.log("firebase user = ", user);
     try {
       await userRef.set({
         userName: user.displayName || user.email,
         email: user.email,
-        createdAt: new Date(),
+        createdAt: moment().format("DD/MM/YYYY, hh:mm"),
         maxMoves: 0,
         maxTime: 0,
         nGames: 0,
@@ -51,7 +50,7 @@ export const getUserInfo = async user => {
           moves: {}
         },
         settings: {
-          language: "en-Us",
+          language: "en-US",
           joyride: {
             main: true,
             scores: true,

@@ -35,9 +35,9 @@ function MainMenu({
   const getAnimation = () => {
     if (showStartAnimation) {
       return "startButtonAnimated";
-    } else if (showBackAnimation) {
+    } else {
       return "loginButtonAnimated";
-    } else return "";
+    }
   };
 
   const handleLogout = () => {

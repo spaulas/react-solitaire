@@ -14,12 +14,6 @@
     background: rgba(76, 139, 245, 1);
   }
 
-  .loginButtonAnimated {
-    opacity: 0;
-    animation: buttonDrop 1s 1;
-    animation-fill-mode: forwards;
-  }
-
   .formInput {
     border-bottom: 1px solid @fontColor !important;
     font-size: @fontBody;
@@ -151,13 +145,13 @@
 }
 
 .configurationsForm {
-  .ant-row {
-    .ant-form-item {
-      margin-left: 12.5%;
-
-      .ant-form-item-control-input-content {
-        margin-left: -12.5%;
-      }
-    }
+  .formInput {
+    width: 100%;
   }
+}
+
+.loginButtonAnimated {
+  opacity: 0;
+  animation: buttonDrop 1s 1;
+  animation-fill-mode: forwards;
 }
