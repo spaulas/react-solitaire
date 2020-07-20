@@ -42,7 +42,8 @@ function BaseApplication() {
             maxTime,
             nGames,
             settings,
-            userName
+            userName,
+            email
           } = snapshot.data();
           dispatch(
             userActions.saveUser(
@@ -55,7 +56,8 @@ function BaseApplication() {
                 maxTime,
                 nGames,
                 settings,
-                userName
+                userName,
+                email
               },
               userRef
             )

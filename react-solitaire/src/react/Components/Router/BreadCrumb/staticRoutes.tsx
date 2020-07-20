@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getBreadRoutes = (intl: any) => {
   const breadRoutes: Record<string, string> = {
-    "/": intl.formatMessage({ id: "sidebar.home" }),
+    "/": intl.formatMessage({ id: "sidebar.main" }),
     "/scores": intl.formatMessage({ id: "sidebar.scores" }),
     "/scores/userHighScores": intl.formatMessage({
       id: "sidebar.userHighScores"

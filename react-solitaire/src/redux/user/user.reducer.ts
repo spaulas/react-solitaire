@@ -16,6 +16,7 @@ interface GameHistory {
 export interface InitialUser {
   user: {
     userName: string;
+    email?: string;
     maxMoves: number;
     maxTime: number;
     nGames: number;
@@ -31,7 +32,7 @@ export interface InitialUser {
     settings: {
       language: string;
       joyride: {
-        home: boolean;
+        main: boolean;
         scores: boolean;
         statistics: boolean;
         login: boolean;
@@ -46,6 +47,7 @@ export interface InitialUser {
 const INITIAL_USER: InitialUser = {
   user: {
     userName: "localUser",
+    email: undefined,
     maxMoves: 0,
     maxTime: 0,
     nGames: 0,
@@ -61,7 +63,7 @@ const INITIAL_USER: InitialUser = {
     settings: {
       language: "pt-PT",
       joyride: {
-        home: true,
+        main: true,
         scores: true,
         statistics: true,
         login: true,

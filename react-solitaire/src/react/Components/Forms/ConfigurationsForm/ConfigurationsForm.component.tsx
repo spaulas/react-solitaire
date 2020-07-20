@@ -26,6 +26,8 @@ function ConfigurationsForm() {
     loggedOut
   } = useSelector(({ User }: RootReducerState) => {
     const user = User.user;
+    // eslint-disable-next-line no-console
+    console.log("USERT  == ", User.user);
     return {
       userName: user.userName,
       email: user.email,
@@ -70,14 +72,12 @@ function ConfigurationsForm() {
     setEditMode(false);
   };
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 8 }
-  };
+  // eslint-disable-next-line no-console
+  console.log("EMAIL = ", email);
 
   return (
     <Form
-      className="styledForm"
+      className="styledForm configurationsForm"
       name="configurationsForm"
       form={form}
       initialValues={{ userName, email, createdAt, language, ...joyride }}
@@ -87,7 +87,6 @@ function ConfigurationsForm() {
         <Col>
           {/* Username input item */}
           <Item
-            label={<FormattedMessage id="table.userName" />}
             name="userName"
             rules={[
               {
@@ -95,25 +94,22 @@ function ConfigurationsForm() {
                 message: intl.formatMessage({ id: "form.error.userName" })
               }
             ]}
-            {...formItemLayout}
           >
             <Input
               disabled={!editMode}
               className="divButton loginButtonAnimated formInput"
+              defaultValue={userName}
             />
             <label className="labelPlaceholder">Username</label>
           </Item>
         </Col>
         <Col>
           {/* Created at input item (disabled) */}
-          <Item
-            label={<FormattedMessage id="table.createdAt" />}
-            name="createdAt"
-            {...formItemLayout}
-          >
+          <Item name="createdAt">
             <Input
               disabled
               className="divButton loginButtonAnimated formInput"
+              defaultValue={createdAt}
             />
             <label className="labelPlaceholder">Created at</label>
           </Item>
@@ -124,14 +120,11 @@ function ConfigurationsForm() {
         {!loggedOut ? (
           <Col>
             {/* Email input item (disabled and only visible for a logged in user) */}
-            <Item
-              label={<FormattedMessage id="table.email" />}
-              name="email"
-              {...formItemLayout}
-            >
+            <Item name="email">
               <Input
                 disabled
                 className="divButton loginButtonAnimated formInput"
+                defaultValue={email}
               />
               <label className="labelPlaceholder">Email</label>
             </Item>
@@ -140,11 +133,7 @@ function ConfigurationsForm() {
 
         <Col>
           {/* Language radio button item (english, portuguese, german and spanish available) */}
-          <Item
-            label={<FormattedMessage id="languages.title" />}
-            name="language"
-            {...formItemLayout}
-          >
+          <Item name="language">
             <Radio.Group className="languagesRadioGroup" disabled={!editMode}>
               <Radio.Button className="flagRadioButton" value="en-US">
                 <Tooltip title={<FormattedMessage id="languages.english" />}>

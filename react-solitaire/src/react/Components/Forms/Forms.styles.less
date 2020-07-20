@@ -37,7 +37,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: @hoverElemColor;
+    color: lightgrey;
     font-size: @fontBody;
     transition: @smallTransitionTime;
     z-index: 0;
@@ -145,6 +145,18 @@
         width: auto;
         font-size: 40px !important;
         line-height: 70px !important;
+      }
+    }
+  }
+}
+
+.configurationsForm {
+  .ant-row {
+    .ant-form-item {
+      margin-left: 12.5%;
+
+      .ant-form-item-control-input-content {
+        margin-left: -12.5%;
       }
     }
   }

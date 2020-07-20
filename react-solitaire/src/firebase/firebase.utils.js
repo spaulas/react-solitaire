@@ -33,9 +33,12 @@ export const getUserInfo = async user => {
   const highscoreSnapShot = await highscoreRef.get();
 
   if (!userSnapShot.exists && user.email) {
+    // eslint-disable-next-line no-console
+    console.log("firebase user = ", user);
     try {
       await userRef.set({
         userName: user.displayName || user.email,
+        email: user.email,
         createdAt: new Date(),
         maxMoves: 0,
         maxTime: 0,
@@ -50,7 +53,7 @@ export const getUserInfo = async user => {
         settings: {
           language: "en-Us",
           joyride: {
-            home: true,
+            main: true,
             scores: true,
             statistics: true,
             login: true,
