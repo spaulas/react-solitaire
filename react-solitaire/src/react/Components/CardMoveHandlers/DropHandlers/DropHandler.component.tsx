@@ -54,22 +54,25 @@ const DropHandler = ({
    */
   const getFieldToDrop = ({ x, y }: { x: number; y: number }) => {
     // get page dimension
-    const innerWidth = window.innerWidth;
+    const innerWidth =
+      document.getElementById("baseEmptySpots")?.offsetWidth || 1;
     const innerHeight = window.innerHeight;
     // get column size
-    const columnSizes = innerWidth / 7;
+    const initialOffset = (innerWidth / 24) * 3;
+    const columnSizes = (innerWidth - initialOffset) / 7;
 
     // should drop in one of the goal spots
     if (y < innerHeight / 3.8) {
-      if (x > columnSizes * 3) {
-        const goalNumber = Math.ceil((x || 1) / columnSizes) - 3;
+      if (x > columnSizes * 3 + initialOffset) {
+        const goalNumber =
+          Math.ceil((x - initialOffset || 1) / columnSizes) - 3;
         return `goal${goalNumber || 1}Pile`;
       }
       // any other result is invalid for this height
       return undefined;
     } else {
       // should drop in a column pile
-      const columnNumber = Math.ceil((x || 1) / columnSizes);
+      const columnNumber = Math.ceil((x - initialOffset || 1) / columnSizes);
       return `column${columnNumber || 1}Pile`;
     }
   };

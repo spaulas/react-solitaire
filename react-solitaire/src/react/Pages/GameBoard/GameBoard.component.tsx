@@ -64,8 +64,11 @@ function GameBoard() {
     goal2Pile: GameBoard.goal2Pile,
     goal3Pile: GameBoard.goal3Pile,
     goal4Pile: GameBoard.goal4Pile,
-    savedGame: User.user.savedGame
+    savedGame: User.user.savedGame || {}
   }));
+
+  // eslint-disable-next-line no-console
+  console.log("savedGame = ", savedGame);
 
   // ---------------------------------------------------------
   // Create Game

@@ -78,7 +78,7 @@ function BaseEmptySpots() {
     lastHint && lastHint.source === "deckPile" && lastHint.target === undefined;
 
   return (
-    <div className="baseEmptySpots">
+    <div className="baseEmptySpots" id="baseEmptySpots">
       <Row gutter={6} className="boardDeckRow" align="middle">
         {/* Deck and Flipped piles */}
         <CardSpot ref={deckRef} offset={2} className="joyrideDeck deckCardSpot">
