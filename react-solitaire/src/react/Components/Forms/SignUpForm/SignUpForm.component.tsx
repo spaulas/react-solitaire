@@ -1,7 +1,7 @@
 import { Form, Input, Row } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
 import { auth, signInWithGoogle } from "../../../../firebase/firebase.utils";
-import { checkEmail, checkPassword } from "../helper";
+import { checkEmail, checkPassword, checkUserName } from "../helper";
 import { ExplicitAny } from "../../../../global";
 import { GoogleCircleFilled } from "@ant-design/icons";
 import MenuButton from "../../Buttons/MenuButton.component";
@@ -9,13 +9,12 @@ import PasswordInput from "../PasswordInput.component";
 import React from "react";
 
 const { Item } = Form;
-// const { Password } = Input;
 
-interface LoginFormProps {
+interface SignUpFormProps {
   hideForm: () => void;
 }
 
-function LoginForm({ hideForm }: LoginFormProps) {
+function SignUpForm({ hideForm }: SignUpFormProps) {
   const intl = useIntl();
 
   const onChange = (
@@ -50,11 +49,35 @@ function LoginForm({ hideForm }: LoginFormProps) {
   return (
     <>
       <Form
-        name="loginForm"
+        name="signUpForm"
         className="styledForm"
         onFinish={onSubmit}
         form={form}
       >
+        <Row align="middle" justify="center">
+          <Item
+            name="userName"
+            rules={[
+              {
+                required: true,
+                message: intl.formatMessage({ id: "form.required.userName" })
+              },
+              {
+                validator: (
+                  rule: object,
+                  value: string,
+                  callback: (message?: string) => void
+                ) => checkUserName(rule, value, callback, intl)
+              }
+            ]}
+          >
+            <Input
+              className="divButton loginButtonAnimated formInput pwdInput"
+              onChange={(e: ExplicitAny) => onChange(e, "userName")}
+            />
+            <label className="labelPlaceholder">username</label>
+          </Item>
+        </Row>
         <Row align="middle" justify="center">
           <Item
             name="email"
@@ -102,19 +125,45 @@ function LoginForm({ hideForm }: LoginFormProps) {
           </Item>
         </Row>
 
+        <Row align="middle" justify="center">
+          <Item
+            name="passwordConfirm"
+            rules={[
+              {
+                required: true,
+                message: intl.formatMessage({
+                  id: "form.required.passwordConfirm"
+                })
+              },
+              {
+                validator: (
+                  rule: object,
+                  value: string,
+                  callback: (message?: string) => void
+                ) => checkPassword(rule, value, callback, intl)
+              }
+            ]}
+          >
+            <PasswordInput
+              onChange={(e: ExplicitAny) => onChange(e, "passwordConfirm")}
+            />
+          </Item>
+        </Row>
+
         <MenuButton
           onClick={() => form.submit()}
           className="loginButtonAnimated"
         >
           <FormattedMessage id="btn.submit" />
         </MenuButton>
+
         <MenuButton
-          onClick={signInWithGoogle}
-          className="googleButton loginButtonAnimated"
+          onClick={() => form.submit()}
+          className="loginButtonAnimated"
         >
-          <GoogleCircleFilled />
-          <span> Google</span>
+          <FormattedMessage id="btn.signIn" />
         </MenuButton>
+
         <MenuButton onClick={hideForm} className="loginButtonAnimated">
           <FormattedMessage id="btn.back" />
         </MenuButton>
@@ -123,4 +172,4 @@ function LoginForm({ hideForm }: LoginFormProps) {
   );
 }
 
-export default LoginForm;
+export default SignUpForm;
