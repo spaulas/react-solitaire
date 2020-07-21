@@ -88,6 +88,8 @@ function GameBoard() {
       if (savedGame) {
         // if there was a saved game and the user started a new one, should count has a lost
         dispatch(userActions.addGame());
+        // remove saved game from user settings
+        dispatch(userActions.clearSavedGame());
       }
       // create new deck
       dispatch(gameBoardActions.createGame());
@@ -103,9 +105,9 @@ function GameBoard() {
       dispatch(columnsActions.setInitialColumns(savedGame.columns));
       // set the initial goals
       dispatch(goalActions.setInitialGoals(savedGame.goals));
+      // remove saved game from user settings
+      dispatch(userActions.clearSavedGame());
     }
-    // remove saved game from user settings
-    dispatch(userActions.clearSavedGame());
   };
   useEffect(mountGameBoard, []);
 
