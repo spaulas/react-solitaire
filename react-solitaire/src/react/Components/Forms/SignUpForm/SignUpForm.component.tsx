@@ -1,18 +1,35 @@
-import { Form, Input, Row } from "antd";
+/* eslint-disable no-console */
+import { ExplicitAny, RootReducerState } from "../../../../global";
+import { Form, Input, Row, notification } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
-import { checkEmail, checkPassword, checkUserName } from "../helper";
-import { ExplicitAny } from "../../../../global";
+import React, { useEffect, useState } from "react";
+import { auth, getUserInfo } from "../../../../firebase/firebase.utils";
+import {
+  checkConfirmPassword,
+  checkEmail,
+  checkPassword,
+  checkUserName
+} from "../helper";
+import { useDispatch, useSelector } from "react-redux";
 import MenuButton from "../../Buttons/MenuButton.component";
 import PasswordInput from "../PasswordInput.component";
-import React from "react";
-import { auth } from "../../../../firebase/firebase.utils";
 import { useHistory } from "react-router-dom";
+import userActions from "../../../../redux/user/user.actions";
 
 const { Item } = Form;
 
 function SignUpForm() {
   const intl = useIntl();
   const history = useHistory();
+  const dispatch = useDispatch();
+  const [form] = Form.useForm();
+  const [finalUserName, setFinalUserName] = useState<string | undefined>(
+    undefined
+  );
+
+  const { userRef } = useSelector(({ User }: RootReducerState) => ({
+    userRef: User.userRef
+  }));
 
   const onChange = (
     { target: { value } }: { target: { value: string } },
@@ -22,26 +39,33 @@ function SignUpForm() {
   };
 
   const onSubmit = async (values: Record<string, string>) => {
+    setFinalUserName(values.userName);
     try {
-      await auth.signInWithEmailAndPassword(values.email, values.password);
-    } catch (signInError) {
-      if (signInError.code === "auth/user-not-found") {
-        try {
-          await auth.createUserWithEmailAndPassword(
-            values.email,
-            values.password
-          );
-        } catch (signUpError) {
-          console.error("Error creating user2 ", signUpError.message);
-        }
-      } else {
-        console.error("Error creating user ", signInError.message);
-      }
+      console.log("value s = ", values);
+      await auth.createUserWithEmailAndPassword(values.email, values.password);
+      getUserInfo(values.userName);
+    } catch (signUpError) {
+      notification.error({
+        message: `Sign Up Error: ${signUpError.message}`,
+        duration: 5
+      });
     }
-    history.push("/");
   };
 
-  const [form] = Form.useForm();
+  /* const handleUserSignedUp = () => {
+    console.log("handleUserSignedUp userRef - ", userRef);
+    console.log("handleUserSignedUp finalUserName - ", finalUserName);
+    if (userRef && finalUserName) {
+      console.log("username = ", form.getFieldValue("userName"));
+      dispatch(
+        userActions.changeUserSettings({
+          userName: finalUserName
+        })
+      );
+      history.push("/");
+    }
+  };
+  useEffect(handleUserSignedUp, [userRef, finalUserName]); */
 
   return (
     <>
@@ -71,6 +95,7 @@ function SignUpForm() {
             <Input
               className="divButton loginButtonAnimated formInput pwdInput"
               onChange={(e: ExplicitAny) => onChange(e, "userName")}
+              onPressEnter={() => form.submit()}
             />
             <label className="labelPlaceholder">username</label>
           </Item>
@@ -95,6 +120,7 @@ function SignUpForm() {
             <Input
               className="divButton loginButtonAnimated formInput pwdInput"
               onChange={(e: ExplicitAny) => onChange(e, "email")}
+              onPressEnter={() => form.submit()}
             />
             <label className="labelPlaceholder">email</label>
           </Item>
@@ -118,6 +144,7 @@ function SignUpForm() {
           >
             <PasswordInput
               onChange={(e: ExplicitAny) => onChange(e, "password")}
+              onPressEnter={() => form.submit()}
             />
           </Item>
         </Row>
@@ -137,12 +164,20 @@ function SignUpForm() {
                   rule: object,
                   value: string,
                   callback: (message?: string) => void
-                ) => checkPassword(rule, value, callback, intl)
+                ) =>
+                  checkConfirmPassword(
+                    rule,
+                    value,
+                    callback,
+                    form.getFieldValue("password"),
+                    intl
+                  )
               }
             ]}
           >
             <PasswordInput
               onChange={(e: ExplicitAny) => onChange(e, "passwordConfirm")}
+              onPressEnter={() => form.submit()}
             />
           </Item>
         </Row>

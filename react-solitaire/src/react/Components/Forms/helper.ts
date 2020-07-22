@@ -52,3 +52,17 @@ export const checkPassword = (
     callback();
   }
 };
+
+export const checkConfirmPassword = (
+  rule: object,
+  value: string,
+  callback: (message?: string) => void,
+  initialValue: string,
+  intl: IntlShape
+) => {
+  if (value && value !== initialValue) {
+    callback(intl.formatMessage({ id: "form.error.confirmPassword" }));
+  } else {
+    callback();
+  }
+};

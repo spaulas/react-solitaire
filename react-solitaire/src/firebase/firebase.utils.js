@@ -22,7 +22,25 @@ const googleProvider = new firebase.auth.GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: "select_account" });
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
-export const getUserInfo = async user => {
+export const createUserProfileDocument = async (user, userName) => {
+  // eslint-disable-next-line no-console
+  console.log("user id = ", user.uid);
+  // eslint-disable-next-line no-console
+  console.log("userName = ", userName);
+  if (user) {
+    const userRef = firestore.doc(`users/${user.uid}`);
+
+    try {
+      await userRef.set({ displayName: userName });
+    } catch (error) {
+      console.error("Error creating user ", error.message);
+    }
+  }
+};
+
+export const getUserInfo = async (user, userName) => {
+  // eslint-disable-next-line no-console
+  console.log("getUserInfo = ", user);
   if (!user) {
     return { userRef: null, highscoreRef: null };
   }
@@ -36,7 +54,7 @@ export const getUserInfo = async user => {
   if (!userSnapShot.exists && user.email) {
     try {
       await userRef.set({
-        userName: user.displayName || user.email,
+        userName: userName || user.displayName || user.email,
         email: user.email,
         createdAt: moment().format("DD/MM/YYYY, hh:mm"),
         maxMoves: 0,

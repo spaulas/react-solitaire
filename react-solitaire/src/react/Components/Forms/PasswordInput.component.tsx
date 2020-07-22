@@ -10,9 +10,10 @@ import { FormattedMessage } from "react-intl";
 
 interface PasswordInputProps {
   onChange: (e: ExplicitAny) => void;
+  onPressEnter: () => void;
 }
 
-function PasswordInput({ onChange }: PasswordInputProps) {
+function PasswordInput({ onChange, onPressEnter }: PasswordInputProps) {
   const [hidePwd, setHidePwd] = useState(true);
   return (
     <>
@@ -21,6 +22,7 @@ function PasswordInput({ onChange }: PasswordInputProps) {
           hidePwd ? "formPwd" : ""
         }`}
         onChange={onChange}
+        onPressEnter={onPressEnter}
       />
       <label className="labelPlaceholder">password</label>
       <Tooltip title={<FormattedMessage id="form.info.pwd" />}>

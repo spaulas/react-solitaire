@@ -93,6 +93,8 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       return { user: action.user, userRef: action.userRef };
 
     case UserActionTypes.CHANGE_USER_SETTINGS:
+      console.log(" CHANGE_USER_SETTINGS state = ", state);
+      console.log(" CHANGE_USER_SETTINGS action = ", action);
       if (state.userRef) {
         // add to firebase
         state.userRef.set({

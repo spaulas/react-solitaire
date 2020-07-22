@@ -1,4 +1,4 @@
-import { Form, Input, Row } from "antd";
+import { Form, Input, Row, notification } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
 import { auth, signInWithGoogle } from "../../../../firebase/firebase.utils";
 import { checkEmail, checkPassword } from "../helper";
@@ -25,21 +25,13 @@ function LoginForm() {
   const onSubmit = async (values: Record<string, string>) => {
     try {
       await auth.signInWithEmailAndPassword(values.email, values.password);
+      history.push("/");
     } catch (signInError) {
-      if (signInError.code === "auth/user-not-found") {
-        try {
-          await auth.createUserWithEmailAndPassword(
-            values.email,
-            values.password
-          );
-        } catch (signUpError) {
-          console.error("Error creating user2 ", signUpError.message);
-        }
-      } else {
-        console.error("Error creating user ", signInError.message);
-      }
+      notification.error({
+        message: `Login Error: ${signInError.message}`,
+        duration: 5
+      });
     }
-    history.push("/");
   };
 
   const [form] = Form.useForm();
@@ -72,6 +64,7 @@ function LoginForm() {
             <Input
               className="divButton loginButtonAnimated formInput pwdInput"
               onChange={(e: ExplicitAny) => onChange(e, "email")}
+              onPressEnter={() => form.submit()}
             />
             <label className="labelPlaceholder">email</label>
           </Item>
@@ -95,6 +88,7 @@ function LoginForm() {
           >
             <PasswordInput
               onChange={(e: ExplicitAny) => onChange(e, "password")}
+              onPressEnter={() => form.submit()}
             />
           </Item>
         </Row>

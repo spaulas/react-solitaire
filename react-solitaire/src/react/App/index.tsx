@@ -22,69 +22,73 @@ function BaseApplication() {
   }));
 
   const mountComponent = () => {
+    // eslint-disable-next-line no-console
+    console.log("mounting app component");
     // when the auth changes
-    auth.onAuthStateChanged(async (userAuth: ExplicitAny) => {
-      dispatch(userActions.clearUser());
+    if (storedUserRef === false) {
+      auth.onAuthStateChanged(async (userAuth: ExplicitAny) => {
+        dispatch(userActions.clearUser());
 
-      const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(
-        userAuth
-      );
+        const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(
+          userAuth
+        );
 
-      // if there is online user and highscore
-      if (userRef && highscoreRef) {
-        userRef?.onSnapshot((snapshot: ExplicitAny) => {
-          const {
-            createdAt,
-            graphs,
-            hasSavedGame,
-            savedGame,
-            history,
-            maxMoves,
-            maxTime,
-            nGames,
-            settings,
-            userName,
-            email
-          } = snapshot.data();
-          dispatch(
-            userActions.saveUser(
-              {
-                createdAt,
-                graphs,
-                hasSavedGame,
-                savedGame,
-                history,
-                maxMoves,
-                maxTime,
-                nGames,
-                settings,
-                userName,
-                email
-              },
-              userRef
-            )
-          );
-        });
+        // if there is online user and highscore
+        if (userRef && highscoreRef) {
+          userRef?.onSnapshot((snapshot: ExplicitAny) => {
+            const {
+              createdAt,
+              graphs,
+              hasSavedGame,
+              savedGame,
+              history,
+              maxMoves,
+              maxTime,
+              nGames,
+              settings,
+              userName,
+              email
+            } = snapshot.data();
+            dispatch(
+              userActions.saveUser(
+                {
+                  createdAt,
+                  graphs,
+                  hasSavedGame,
+                  savedGame,
+                  history,
+                  maxMoves,
+                  maxTime,
+                  nGames,
+                  settings,
+                  userName,
+                  email
+                },
+                userRef
+              )
+            );
+          });
 
-        highscoreRef?.onSnapshot((snapshot: ExplicitAny) => {
-          const { hasNewHighScore, highScores } = snapshot.data();
-          dispatch(
-            highscoreActions.setOnlineHighScores(
-              {
-                hasNewHighScore,
-                highScores
-              },
-              highscoreRef
-            )
-          );
-        });
-      }
-      // if not, make offline user and highscore
-      else {
-        dispatch(userActions.getLocalStorage());
-        dispatch(highscoreActions.setOfflineHighScores());
-      }
-    });
+          highscoreRef?.onSnapshot((snapshot: ExplicitAny) => {
+            const { hasNewHighScore, highScores } = snapshot.data();
+            dispatch(
+              highscoreActions.setOnlineHighScores(
+                {
+                  hasNewHighScore,
+                  highScores
+                },
+                highscoreRef
+              )
+            );
+          });
+        }
+        // if not, make offline user and highscore
+        else {
+          dispatch(userActions.getLocalStorage());
+          dispatch(highscoreActions.setOfflineHighScores());
+        }
+      });
+    }
   };
   useEffect(mountComponent, []);
 
