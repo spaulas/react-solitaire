@@ -1,21 +1,18 @@
 import { Form, Input, Row } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
-import { auth, signInWithGoogle } from "../../../../firebase/firebase.utils";
 import { checkEmail, checkPassword, checkUserName } from "../helper";
 import { ExplicitAny } from "../../../../global";
-import { GoogleCircleFilled } from "@ant-design/icons";
 import MenuButton from "../../Buttons/MenuButton.component";
 import PasswordInput from "../PasswordInput.component";
 import React from "react";
+import { auth } from "../../../../firebase/firebase.utils";
+import { useHistory } from "react-router-dom";
 
 const { Item } = Form;
 
-interface SignUpFormProps {
-  hideForm: () => void;
-}
-
-function SignUpForm({ hideForm }: SignUpFormProps) {
+function SignUpForm() {
   const intl = useIntl();
+  const history = useHistory();
 
   const onChange = (
     { target: { value } }: { target: { value: string } },
@@ -41,7 +38,7 @@ function SignUpForm({ hideForm }: SignUpFormProps) {
         console.error("Error creating user ", signInError.message);
       }
     }
-    hideForm();
+    history.push("/");
   };
 
   const [form] = Form.useForm();
@@ -157,15 +154,8 @@ function SignUpForm({ hideForm }: SignUpFormProps) {
           <FormattedMessage id="btn.submit" />
         </MenuButton>
 
-        <MenuButton
-          onClick={() => form.submit()}
-          className="loginButtonAnimated"
-        >
-          <FormattedMessage id="btn.signIn" />
-        </MenuButton>
-
-        <MenuButton onClick={hideForm} className="loginButtonAnimated">
-          <FormattedMessage id="btn.back" />
+        <MenuButton location="/login" className="loginButtonAnimated">
+          <FormattedMessage id="btn.login" />
         </MenuButton>
       </Form>
     </>

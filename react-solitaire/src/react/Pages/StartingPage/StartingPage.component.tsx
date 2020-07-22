@@ -1,18 +1,15 @@
-import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppIcon from "../../Components/Icon/AppIcon.component";
 import JoyrideSteps from "./JoyrideSteps.component";
-import LoginForm from "../../Components/Forms/LoginForm/LoginForm.component";
 import MainMenu from "../../Components/MainMenu/MainMenu.component";
+import { RootReducerState } from "../../../global";
 import { Row } from "antd";
 import joyrideActions from "../../../redux/joyride/joyride.actions";
 import pagesActions from "../../../redux/pages/pages.actions";
-import { useLocation } from "react-router-dom";
 
 function StartingPage() {
   const dispatch = useDispatch();
-  const location: ExplicitAny = useLocation();
 
   const { showAnimation, loggedOut, hasSavedGame } = useSelector(
     ({ Pages, User }: RootReducerState) => ({
@@ -25,7 +22,6 @@ function StartingPage() {
   const [showButtonsAnimation, setShowButtonsAnimation] = useState(
     showAnimation
   );
-  const [showLoginForm, setShowLoginForm] = useState(false);
 
   /**
    * Function called when the component is mounted
@@ -49,21 +45,6 @@ function StartingPage() {
   };
   useEffect(mountComponent, []);
 
-  /**
-   * Called to switch from the form to the main buttons
-   */
-  const handleHideForm = () => {
-    // when the components change, always animate them
-    setShowButtonsAnimation(true);
-    // hide the login form
-    setShowLoginForm(false);
-  };
-
-  // when the location changes, check if it comes with the login param, if so, show the form
-  useEffect(() => {
-    setShowLoginForm(location.state?.login);
-  }, [location]);
-
   return (
     <div
       className={`joyrideStartingPage mainPage startingPage ${
@@ -76,17 +57,10 @@ function StartingPage() {
           className={`${showAnimation ? "logoAnimated" : "logoImage"}`}
         />
       </Row>
-      {showLoginForm ? (
-        /* Login form */
-        <LoginForm hideForm={handleHideForm} />
-      ) : (
-        /* Main buttons */
-        <MainMenu
-          showStartAnimation={showAnimation}
-          showBackAnimation={showButtonsAnimation}
-          showLoginForm={() => setShowLoginForm(true)}
-        />
-      )}
+      <MainMenu
+        showStartAnimation={showAnimation}
+        showBackAnimation={showButtonsAnimation}
+      />
     </div>
   );
 }

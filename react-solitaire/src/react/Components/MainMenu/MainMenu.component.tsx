@@ -11,14 +11,9 @@ import userActions from "../../../redux/user/user.actions";
 interface MainMenuProps {
   showStartAnimation: boolean;
   showBackAnimation: boolean;
-  showLoginForm: () => void;
 }
 
-function MainMenu({
-  showStartAnimation,
-  showBackAnimation,
-  showLoginForm
-}: MainMenuProps) {
+function MainMenu({ showStartAnimation, showBackAnimation }: MainMenuProps) {
   const intl = useIntl();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -57,7 +52,7 @@ function MainMenu({
       )}
       {loggedOut && (
         <MenuButton
-          onClick={showLoginForm}
+          location="/login"
           className={`joyrideLoginButton ${getAnimation()}`}
         >
           <FormattedMessage id="btn.login" />

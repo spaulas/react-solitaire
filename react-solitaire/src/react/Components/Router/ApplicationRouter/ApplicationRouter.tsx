@@ -4,7 +4,9 @@ import AboutPage from "../../../Pages/AboutPage/AboutPage.component";
 import ConfigurationsPage from "../../../Pages/ConfigurationsPage/ConfigurationsPage.component";
 import ErrorPage from "../../../Pages/ErrorPage/ErrorPage.component";
 import GameBoard from "../../../Pages/GameBoard/GameBoard.component";
+import LoginPage from "../../../Pages/LoginPage/LoginPage.component";
 import ScoresPage from "../../../Pages/ScoresPage/ScoresPage.component";
+import SignUpPage from "../../../Pages/SignUpPage/SignUpPage.component";
 import StartingPage from "../../../Pages/StartingPage/StartingPage.component";
 import StatisticsPage from "../../../Pages/StatisticsPage/StatisticsPage.component";
 
@@ -22,6 +24,12 @@ function ApplicationRouter() {
       {/* Starting Page */}
       <Route exact path={`${url}/`}>
         <StartingPage />
+      </Route>
+      <Route exact path={`${url}/login`}>
+        <LoginPage />
+      </Route>
+      <Route exact path={`${url}/signUp`}>
+        <SignUpPage />
       </Route>
       {/* Game Play Page */}
       <Route exact path={`${url}/game`}>

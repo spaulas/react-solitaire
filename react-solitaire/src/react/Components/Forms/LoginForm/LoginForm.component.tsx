@@ -7,16 +7,13 @@ import { GoogleCircleFilled } from "@ant-design/icons";
 import MenuButton from "../../Buttons/MenuButton.component";
 import PasswordInput from "../PasswordInput.component";
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 const { Item } = Form;
-// const { Password } = Input;
 
-interface LoginFormProps {
-  hideForm: () => void;
-}
-
-function LoginForm({ hideForm }: LoginFormProps) {
+function LoginForm() {
   const intl = useIntl();
+  const history = useHistory();
 
   const onChange = (
     { target: { value } }: { target: { value: string } },
@@ -42,7 +39,7 @@ function LoginForm({ hideForm }: LoginFormProps) {
         console.error("Error creating user ", signInError.message);
       }
     }
-    hideForm();
+    history.push("/");
   };
 
   const [form] = Form.useForm();
@@ -108,6 +105,9 @@ function LoginForm({ hideForm }: LoginFormProps) {
         >
           <FormattedMessage id="btn.submit" />
         </MenuButton>
+        <MenuButton location="/signUp" className="loginButtonAnimated">
+          <FormattedMessage id="btn.signUp" />
+        </MenuButton>
         <MenuButton
           onClick={signInWithGoogle}
           className="googleButton loginButtonAnimated"
@@ -115,7 +115,7 @@ function LoginForm({ hideForm }: LoginFormProps) {
           <GoogleCircleFilled />
           <span> Google</span>
         </MenuButton>
-        <MenuButton onClick={hideForm} className="loginButtonAnimated">
+        <MenuButton location="/" className="loginButtonAnimated">
           <FormattedMessage id="btn.back" />
         </MenuButton>
       </Form>
