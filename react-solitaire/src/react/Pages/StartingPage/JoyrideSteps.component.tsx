@@ -3,11 +3,11 @@ import React from "react";
 import { Step } from "react-joyride/types";
 
 interface JoyrideStepsProps {
-  loggedOut: boolean;
+  loggedIn: boolean;
   hasSavedGame: boolean;
 }
 
-function JoyrideSteps({ loggedOut, hasSavedGame }: JoyrideStepsProps) {
+function JoyrideSteps({ loggedIn, hasSavedGame }: JoyrideStepsProps) {
   return [
     // Main page step
     {
@@ -22,7 +22,7 @@ function JoyrideSteps({ loggedOut, hasSavedGame }: JoyrideStepsProps) {
       placement: "center" as const
     },
     // Login button step (only shown if the user is loggedOut)
-    loggedOut && {
+    !loggedIn && {
       content: (
         <h3>
           <FormattedMessage id="joyride.main.step02" />
@@ -82,7 +82,7 @@ function JoyrideSteps({ loggedOut, hasSavedGame }: JoyrideStepsProps) {
       target: ".joyrideConfigurationsButton"
     },
     // Logout button (only shown if the user is logged in)
-    !loggedOut && {
+    loggedIn && {
       content: (
         <h3>
           <FormattedMessage id="joyride.main.step08" />

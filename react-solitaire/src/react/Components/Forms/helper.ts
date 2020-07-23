@@ -75,57 +75,59 @@ export const setUserRedux = async (
   dispatch: ExplicitAny,
   userName?: string
 ) => {
-  const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(
-    user,
-    userName
-  );
-  if (userRef && highscoreRef) {
-    userRef?.onSnapshot((snapshot: ExplicitAny) => {
-      const {
-        createdAt,
-        graphs,
-        hasSavedGame,
-        savedGame,
-        history,
-        maxMoves,
-        maxTime,
-        nGames,
-        settings,
-        userName,
-        email
-      } = snapshot.data();
-      dispatch(
-        userActions.saveUser(
-          {
-            createdAt,
-            graphs,
-            hasSavedGame,
-            savedGame,
-            history,
-            maxMoves,
-            maxTime,
-            nGames,
-            settings,
-            userName,
-            email
-          },
-          userRef
-        )
-      );
-    });
+  if (user) {
+    const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(
+      user,
+      userName
+    );
+    if (userRef && highscoreRef) {
+      userRef?.onSnapshot((snapshot: ExplicitAny) => {
+        const {
+          createdAt,
+          graphs,
+          hasSavedGame,
+          savedGame,
+          history,
+          maxMoves,
+          maxTime,
+          nGames,
+          settings,
+          userName,
+          email
+        } = snapshot.data();
+        dispatch(
+          userActions.saveUser(
+            {
+              createdAt,
+              graphs,
+              hasSavedGame,
+              savedGame,
+              history,
+              maxMoves,
+              maxTime,
+              nGames,
+              settings,
+              userName,
+              email
+            },
+            userRef
+          )
+        );
+      });
 
-    highscoreRef?.onSnapshot((snapshot: ExplicitAny) => {
-      const { hasNewHighScore, highScores } = snapshot.data();
-      dispatch(
-        highscoreActions.setOnlineHighScores(
-          {
-            hasNewHighScore,
-            highScores
-          },
-          highscoreRef
-        )
-      );
-    });
+      highscoreRef?.onSnapshot((snapshot: ExplicitAny) => {
+        const { hasNewHighScore, highScores } = snapshot.data();
+        dispatch(
+          highscoreActions.setOnlineHighScores(
+            {
+              hasNewHighScore,
+              highScores
+            },
+            highscoreRef
+          )
+        );
+      });
+    }
   }
   // if not, make offline user and highscore
   else {

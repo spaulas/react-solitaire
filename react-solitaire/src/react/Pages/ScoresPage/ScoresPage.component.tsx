@@ -21,10 +21,10 @@ function ScoresPage({ activeTab }: ScoresPageProps) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { gameHistory, loggedOut } = useSelector(
+  const { gameHistory, loggedIn } = useSelector(
     ({ User }: RootReducerState) => ({
       gameHistory: User.user.history,
-      loggedOut: User.userRef === false
+      loggedIn: User.loggedIn
     })
   );
 
@@ -33,7 +33,7 @@ function ScoresPage({ activeTab }: ScoresPageProps) {
    * Starts the joyride
    */
   const initJoyride = () => {
-    dispatch(joyrideActions.initJoyride("scores", JoyrideSteps({ loggedOut })));
+    dispatch(joyrideActions.initJoyride("scores", JoyrideSteps({ loggedIn })));
   };
   useEffect(initJoyride, []);
 

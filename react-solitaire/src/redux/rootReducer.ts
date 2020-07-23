@@ -24,7 +24,7 @@ export const rootReducer = {
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["GameBoard", "Pages", "Joyride"]
+  whitelist: ["GameBoard", "Pages", "User"]
 };
 const combinedRootReducer = combineReducers(rootReducer);
 

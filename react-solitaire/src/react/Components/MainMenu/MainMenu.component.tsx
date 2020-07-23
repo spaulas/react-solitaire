@@ -19,10 +19,10 @@ function MainMenu({ showStartAnimation, showBackAnimation }: MainMenuProps) {
   const dispatch = useDispatch();
   const [showAlarm, setShowAlarm] = useState(false);
 
-  const { userName, loggedOut, hasSavedGame, savedGame } = useSelector(
+  const { userName, loggedIn, hasSavedGame, savedGame } = useSelector(
     ({ User }: RootReducerState) => ({
       userName: User.user.userName,
-      loggedOut: User.userRef === false,
+      loggedIn: User.loggedIn,
       hasSavedGame: User.user.hasSavedGame,
       savedGame: User.user.savedGame
     })
@@ -46,12 +46,12 @@ function MainMenu({ showStartAnimation, showBackAnimation }: MainMenuProps) {
 
   return (
     <>
-      {!loggedOut && (
+      {loggedIn && (
         <div className="welcomeMessage">
           <FormattedMessage id="title.welcome" /> {userName}
         </div>
       )}
-      {loggedOut && (
+      {!loggedIn && (
         <MenuButton
           location="/login"
           className={`joyrideLoginButton ${getAnimation()}`}
@@ -109,7 +109,7 @@ function MainMenu({ showStartAnimation, showBackAnimation }: MainMenuProps) {
         <FormattedMessage id="sidebar.configurations" />
       </MenuButton>
 
-      {!loggedOut && (
+      {loggedIn && (
         <MenuButton
           className={`joyrideLogoutButton ${getAnimation()}`}
           onClick={handleLogout}

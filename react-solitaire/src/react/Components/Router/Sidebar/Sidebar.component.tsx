@@ -24,8 +24,8 @@ function Sidebar() {
   const history = useHistory();
   const [collapsed, setCollapsed] = useState(true);
 
-  const { loggedOut } = useSelector(({ User }: RootReducerState) => ({
-    loggedOut: User.userRef === false
+  const { loggedIn } = useSelector(({ User }: RootReducerState) => ({
+    loggedIn: User.loggedIn
   }));
 
   const handleLogout = () => {
@@ -50,7 +50,7 @@ function Sidebar() {
             />
           </div>
         </Item>
-        {loggedOut && (
+        {!loggedIn && (
           <Item
             onClick={() => history.push("/", { login: true })}
             key="2"
@@ -84,7 +84,7 @@ function Sidebar() {
           <SettingFilled />
           {!collapsed && <FormattedMessage id="sidebar.configurations" />}
         </Item>
-        {!loggedOut && (
+        {loggedIn && (
           <Item
             onClick={handleLogout}
             key="6"

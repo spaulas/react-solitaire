@@ -11,10 +11,10 @@ import pagesActions from "../../../redux/pages/pages.actions";
 function StartingPage() {
   const dispatch = useDispatch();
 
-  const { showAnimation, loggedOut, hasSavedGame } = useSelector(
+  const { showAnimation, loggedIn, hasSavedGame } = useSelector(
     ({ Pages, User }: RootReducerState) => ({
       showAnimation: Pages.startPageAnimation,
-      loggedOut: User.userRef === false,
+      loggedIn: User.loggedIn,
       hasSavedGame: User.user.hasSavedGame
     })
   );
@@ -35,8 +35,8 @@ function StartingPage() {
       // start the joyride
       dispatch(
         joyrideActions.initJoyride(
-          "home",
-          JoyrideSteps({ loggedOut, hasSavedGame })
+          "main",
+          JoyrideSteps({ loggedIn, hasSavedGame })
         )
       );
     }, 2500);

@@ -7,6 +7,7 @@ import { GoogleCircleFilled } from "@ant-design/icons";
 import MenuButton from "../../Buttons/MenuButton.component";
 import PasswordInput from "../PasswordInput.component";
 import React from "react";
+import highscoreActions from "../../../../redux/highScores/highscores.actions";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import userActions from "../../../../redux/user/user.actions";
@@ -27,26 +28,39 @@ function LoginForm() {
 
   const handleSignInWithGoogle = async () => {
     dispatch(userActions.clearUser());
-    const { user } = await signInWithGoogle();
-    setUserRedux(user, dispatch);
-    history.push("/");
+    await signInWithGoogle()
+      .then(({ user }) => {
+        setUserRedux(user, dispatch);
+        history.push("/");
+      })
+      .catch(signInError => {
+        notification.error({
+          message: `Login Error: ${signInError.message}`,
+          duration: 5
+        });
+
+        dispatch(userActions.getLocalStorage());
+        dispatch(highscoreActions.setOfflineHighScores());
+      });
   };
 
   const onSubmit = async (values: Record<string, string>) => {
     dispatch(userActions.clearUser());
-    try {
-      const { user } = await auth.signInWithEmailAndPassword(
-        values.email,
-        values.password
-      );
-      setUserRedux(user, dispatch);
-      history.push("/");
-    } catch (signInError) {
-      notification.error({
-        message: `Login Error: ${signInError.message}`,
-        duration: 5
+    await auth
+      .signInWithEmailAndPassword(values.email, values.password)
+      .then(({ user }) => {
+        setUserRedux(user, dispatch);
+        history.push("/");
+      })
+      .catch(signInError => {
+        notification.error({
+          message: `Login Error: ${signInError.message}`,
+          duration: 5
+        });
+
+        dispatch(userActions.getLocalStorage());
+        dispatch(highscoreActions.setOfflineHighScores());
       });
-    }
   };
 
   const [form] = Form.useForm();

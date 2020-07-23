@@ -43,6 +43,7 @@ export interface InitialUser {
     };
   };
   userRef: ExplicitAny;
+  loggedIn: boolean | undefined;
 }
 
 const INITIAL_USER: InitialUser = {
@@ -73,7 +74,8 @@ const INITIAL_USER: InitialUser = {
       }
     }
   },
-  userRef: undefined
+  userRef: undefined,
+  loggedIn: undefined
 };
 
 const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
@@ -84,10 +86,14 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       if (!offlineUser) {
         localStorage.setItem("offlineUser", JSON.stringify(INITIAL_USER));
       }
-      return { user: offlineUser || INITIAL_USER.user, userRef: false };
+      return {
+        user: offlineUser || INITIAL_USER.user,
+        userRef: undefined,
+        loggedIn: false
+      };
 
     case UserActionTypes.SAVE_USER:
-      return { user: action.user, userRef: action.userRef };
+      return { user: action.user, userRef: action.userRef, loggedIn: true };
 
     case UserActionTypes.CHANGE_USER_SETTINGS:
       if (state.userRef) {

@@ -3,10 +3,10 @@ import { FormattedMessage } from "react-intl";
 import React from "react";
 
 interface JoyrideStepsProps {
-  loggedOut: boolean;
+  loggedIn: boolean;
 }
 
-function JoyrideSteps({ loggedOut }: JoyrideStepsProps) {
+function JoyrideSteps({ loggedIn }: JoyrideStepsProps) {
   return [
     {
       content: (
@@ -42,7 +42,7 @@ function JoyrideSteps({ loggedOut }: JoyrideStepsProps) {
         <h3>
           <FormattedMessage
             id={
-              loggedOut
+              !loggedIn
                 ? "joyride.scores.step04_offline"
                 : "joyride.scores.step04_online"
             }

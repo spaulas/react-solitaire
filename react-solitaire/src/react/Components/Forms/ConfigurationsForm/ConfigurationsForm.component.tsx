@@ -31,7 +31,7 @@ function ConfigurationsForm() {
       createdAt: user.createdAt,
       language: user.settings.language,
       joyride: user.settings.joyride,
-      loggedOut: User.userRef === false
+      loggedOut: User.loggedIn
     };
   });
 
