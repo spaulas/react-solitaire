@@ -37,6 +37,7 @@ function MainMenu({ showStartAnimation, showBackAnimation }: MainMenuProps) {
   };
 
   const handleLogout = () => {
+    dispatch(userActions.clearUser());
     // logout user at firebase
     auth.signOut();
     // User at the redux should be from the localStorage

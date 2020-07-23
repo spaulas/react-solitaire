@@ -265,6 +265,7 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       };
 
     case UserActionTypes.CLEAR_USER:
+      console.log("CLEAR USER");
       return INITIAL_USER;
 
     // ********************************************************

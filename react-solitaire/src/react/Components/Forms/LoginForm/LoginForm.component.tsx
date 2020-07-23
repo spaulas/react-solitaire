@@ -9,6 +9,7 @@ import PasswordInput from "../PasswordInput.component";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import userActions from "../../../../redux/user/user.actions";
 
 const { Item } = Form;
 
@@ -25,12 +26,14 @@ function LoginForm() {
   };
 
   const handleSignInWithGoogle = async () => {
+    dispatch(userActions.clearUser());
     const { user } = await signInWithGoogle();
     setUserRedux(user, dispatch);
     history.push("/");
   };
 
   const onSubmit = async (values: Record<string, string>) => {
+    dispatch(userActions.clearUser());
     try {
       const { user } = await auth.signInWithEmailAndPassword(
         values.email,

@@ -14,6 +14,7 @@ import React from "react";
 import { auth } from "../../../../firebase/firebase.utils";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import userActions from "../../../../redux/user/user.actions";
 
 const { Item } = Form;
 
@@ -31,6 +32,7 @@ function SignUpForm() {
   };
 
   const onSubmit = async (values: Record<string, string>) => {
+    dispatch(userActions.clearUser());
     try {
       const { user } = await auth.createUserWithEmailAndPassword(
         values.email,

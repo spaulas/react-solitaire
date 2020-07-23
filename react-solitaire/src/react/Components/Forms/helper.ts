@@ -75,7 +75,6 @@ export const setUserRedux = async (
   dispatch: ExplicitAny,
   userName?: string
 ) => {
-  dispatch(userActions.clearUser());
   const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(
     user,
     userName
