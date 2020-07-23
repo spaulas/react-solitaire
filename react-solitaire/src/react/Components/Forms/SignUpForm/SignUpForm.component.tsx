@@ -78,7 +78,9 @@ function SignUpForm() {
               onChange={(e: ExplicitAny) => onChange(e, "userName")}
               onPressEnter={() => form.submit()}
             />
-            <label className="labelPlaceholder">username</label>
+            <label className="labelPlaceholder">
+              <FormattedMessage id="table.userName" />
+            </label>
           </Item>
         </Row>
         <Row align="middle" justify="center">
@@ -103,7 +105,9 @@ function SignUpForm() {
               onChange={(e: ExplicitAny) => onChange(e, "email")}
               onPressEnter={() => form.submit()}
             />
-            <label className="labelPlaceholder">email</label>
+            <label className="labelPlaceholder">
+              <FormattedMessage id="table.email" />
+            </label>
           </Item>
         </Row>
         <Row align="middle" justify="center">
@@ -126,6 +130,7 @@ function SignUpForm() {
             <PasswordInput
               onChange={(e: ExplicitAny) => onChange(e, "password")}
               onPressEnter={() => form.submit()}
+              confirmPwd={false}
             />
           </Item>
         </Row>
@@ -159,6 +164,7 @@ function SignUpForm() {
             <PasswordInput
               onChange={(e: ExplicitAny) => onChange(e, "passwordConfirm")}
               onPressEnter={() => form.submit()}
+              confirmPwd
             />
           </Item>
         </Row>

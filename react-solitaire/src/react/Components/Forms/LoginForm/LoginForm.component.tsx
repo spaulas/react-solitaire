@@ -95,7 +95,9 @@ function LoginForm() {
               onChange={(e: ExplicitAny) => onChange(e, "email")}
               onPressEnter={() => form.submit()}
             />
-            <label className="labelPlaceholder">email</label>
+            <label className="labelPlaceholder">
+              <FormattedMessage id="table.email" />
+            </label>
           </Item>
         </Row>
         <Row align="middle" justify="center">
@@ -118,6 +120,7 @@ function LoginForm() {
             <PasswordInput
               onChange={(e: ExplicitAny) => onChange(e, "password")}
               onPressEnter={() => form.submit()}
+              confirmPwd={false}
             />
           </Item>
         </Row>

@@ -11,9 +11,14 @@ import { FormattedMessage } from "react-intl";
 interface PasswordInputProps {
   onChange: (e: ExplicitAny) => void;
   onPressEnter: () => void;
+  confirmPwd: boolean;
 }
 
-function PasswordInput({ onChange, onPressEnter }: PasswordInputProps) {
+function PasswordInput({
+  onChange,
+  onPressEnter,
+  confirmPwd
+}: PasswordInputProps) {
   const [hidePwd, setHidePwd] = useState(true);
   return (
     <>
@@ -24,10 +29,16 @@ function PasswordInput({ onChange, onPressEnter }: PasswordInputProps) {
         onChange={onChange}
         onPressEnter={onPressEnter}
       />
-      <label className="labelPlaceholder">password</label>
-      <Tooltip title={<FormattedMessage id="form.info.pwd" />}>
-        <InfoCircleFilled className="inputIcons infoIcon" />
-      </Tooltip>
+      <label className="labelPlaceholder">
+        <FormattedMessage
+          id={confirmPwd ? "form.confirmPassword" : "form.password"}
+        />
+      </label>
+      {!confirmPwd && (
+        <Tooltip title={<FormattedMessage id="form.info.pwd" />}>
+          <InfoCircleFilled className="inputIcons infoIcon" />
+        </Tooltip>
+      )}
       {hidePwd ? (
         <EyeInvisibleFilled
           onClick={() => setHidePwd(false)}

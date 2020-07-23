@@ -102,7 +102,9 @@ function ConfigurationsForm() {
               defaultValue={userName}
               onChange={(e: ExplicitAny) => onChange(e, "userName")}
             />
-            <label className="labelPlaceholder">Username</label>
+            <label className="labelPlaceholder">
+              <FormattedMessage id="table.userName" />
+            </label>
           </Item>
         </Col>
         <Col span={10}>
@@ -114,7 +116,9 @@ function ConfigurationsForm() {
               defaultValue={createdAt}
               onChange={(e: ExplicitAny) => onChange(e, "createdAt")}
             />
-            <label className="labelPlaceholder">Created at</label>
+            <label className="labelPlaceholder">
+              <FormattedMessage id="table.createdAt" />
+            </label>
           </Item>
         </Col>
       </Row>
@@ -130,7 +134,9 @@ function ConfigurationsForm() {
                 defaultValue={email}
                 onChange={(e: ExplicitAny) => onChange(e, "email")}
               />
-              <label className="labelPlaceholder">Email</label>
+              <label className="labelPlaceholder">
+                <FormattedMessage id="table.email" />
+              </label>
             </Item>
           </Col>
         ) : null}
