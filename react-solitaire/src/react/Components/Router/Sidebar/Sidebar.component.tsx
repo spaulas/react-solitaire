@@ -52,7 +52,7 @@ function Sidebar() {
         </Item>
         {!loggedIn && (
           <Item
-            onClick={() => history.push("/", { login: true })}
+            onClick={() => history.push("/login")}
             key="2"
             title={intl.formatMessage({ id: "sidebar.login" })}
           >

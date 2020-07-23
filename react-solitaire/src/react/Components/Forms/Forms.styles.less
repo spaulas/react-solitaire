@@ -191,12 +191,15 @@
         margin-top: 10px;
       }
     }
-  }
-}
 
-.configurationsForm {
-  .formInput {
-    width: 100%;
+    .ant-form-item-label label,
+    .ant-divider-inner-text {
+      font-size: @fontTitleMobile;
+    }
+
+    .inputIcons {
+      font-size: @fontBodyMobile;
+    }
   }
 
   @media screen and (min-width: 320px) and (max-width: 767px) {
@@ -227,6 +230,42 @@
     .ant-col-xs-24 {
       text-align: start;
     }
+
+    .formInput {
+      font-size: @fontBodyMobile;
+    }
+
+    .labelPlaceholder {
+      font-size: @fontBodyMobile;
+    }
+
+    .formInput:focus ~ label,
+    .formInput > .ant-input-focused ~ label {
+      font-size: 9px;
+    }
+
+    .ant-form-item-has-error {
+      .formInput:focus ~ label {
+        font-size: 9px;
+      }
+    }
+
+    .ant-checkbox-wrapper {
+      span {
+        font-size: @fontBodyMobile;
+      }
+    }
+
+    .ant-form-item-explain,
+    .ant-form-item-extra {
+      font-size: 9px;
+    }
+  }
+}
+
+.configurationsForm {
+  .formInput {
+    width: 100%;
   }
 }
 

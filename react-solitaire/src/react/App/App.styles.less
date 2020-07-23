@@ -109,19 +109,45 @@
         min-width: 250px;
       }
     }
+
+    .ant-layout-sider {
+      flex: 0 0 120px !important;
+      max-width: 120px !important;
+      min-width: 120px !important;
+      width: 120px !important;
+    }
+    .ant-layout-sider-collapsed {
+      flex: 0 0 60px !important;
+      max-width: 60px !important;
+      min-width: 60px !important;
+      width: 60px !important;
+
+      .ant-menu-item {
+        padding: 0 0 0 20px !important;
+        .logoTitle {
+          max-width: 30px;
+          margin-left: -40px;
+        }
+      }
+    }
+
+    .sidebar {
+      .sidebarToggleSpan {
+        .sidebarToggleIcon {
+          font-size: @fontTitleMobile;
+        }
+      }
+    }
+
+    .ant-layout-sider {
+      .ant-menu-dark {
+        .ant-menu-item {
+          font-size: calc(@fontBodyMobile - 1px);
+          .anticon {
+            font-size: @fontBodyMobile;
+          }
+        }
+      }
+    }
   }
 }
-
-/* @media screen and (min-width: 320px) and (max-width: 767px) {
-  .ant-layout-sider-collapsed {
-    position: relative;
-    top: 90vh;
-    max-height: 10vh;
-    .ant-menu-inline-collapsed {
-      display: none;
-    }
-    .sidebarToggleSpan {
-      bottom: calc(10vh / 2 - 20px) !important;
-    }
-  }
-} */
