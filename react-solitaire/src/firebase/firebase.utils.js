@@ -20,7 +20,9 @@ export const firestore = firebase.firestore();
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: "select_account" });
-export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
+export const signInWithGoogle = () => {
+  return auth.signInWithPopup(googleProvider);
+};
 
 export const createUserProfileDocument = async (user, userName) => {
   // eslint-disable-next-line no-console
@@ -47,6 +49,9 @@ export const getUserInfo = async (user, userName) => {
 
   const userRef = firestore.doc(`users/${user.uid}`);
   const userSnapShot = await userRef.get();
+
+  // eslint-disable-next-line no-console
+  console.log("uisersnap = ", user.email);
 
   const highscoreRef = firestore.doc("topHighScores/highScores");
   const highscoreSnapShot = await highscoreRef.get();

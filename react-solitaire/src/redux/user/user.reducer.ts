@@ -77,7 +77,6 @@ const INITIAL_USER: InitialUser = {
 };
 
 const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
-  console.log("STATE = ", state);
   switch (action.type) {
     case UserActionTypes.GET_LOCAL_STORAGE:
       const currentLocal = localStorage.getItem("offlineUser");

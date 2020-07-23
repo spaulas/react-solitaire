@@ -20,7 +20,7 @@ function BaseJoyride() {
   );
 
   const handlePageChange = () => {
-    if (page && joyride[page]) {
+    if (page && joyride && joyride[page]) {
       const joyrideCopy = { ...joyride };
       joyrideCopy[page] = false;
       setRun(true);

@@ -21,22 +21,33 @@ function BaseApplication() {
     storedUserRef: User.userRef
   }));
 
-  const mountComponent = () => {
+  const mountComponent = async () => {
     // eslint-disable-next-line no-console
     console.log("mounting app component");
-    // when the auth changes
-    if (storedUserRef === false) {
-      auth.onAuthStateChanged(async (userAuth: ExplicitAny) => {
-        dispatch(userActions.clearUser());
+    const userAuth = auth.currentUser;
+    // eslint-disable-next-line no-console
+    console.log("userAuth  = ", userAuth);
+    const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(userAuth);
 
-        const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(
-          userAuth
-        );
-
-        // if there is online user and highscore
-        if (userRef && highscoreRef) {
-          userRef?.onSnapshot((snapshot: ExplicitAny) => {
-            const {
+    // if there is online user and highscore
+    if (userRef && highscoreRef) {
+      userRef?.onSnapshot((snapshot: ExplicitAny) => {
+        const {
+          createdAt,
+          graphs,
+          hasSavedGame,
+          savedGame,
+          history,
+          maxMoves,
+          maxTime,
+          nGames,
+          settings,
+          userName,
+          email
+        } = snapshot.data();
+        dispatch(
+          userActions.saveUser(
+            {
               createdAt,
               graphs,
               hasSavedGame,
@@ -48,49 +59,39 @@ function BaseApplication() {
               settings,
               userName,
               email
-            } = snapshot.data();
-            dispatch(
-              userActions.saveUser(
-                {
-                  createdAt,
-                  graphs,
-                  hasSavedGame,
-                  savedGame,
-                  history,
-                  maxMoves,
-                  maxTime,
-                  nGames,
-                  settings,
-                  userName,
-                  email
-                },
-                userRef
-              )
-            );
-          });
+            },
+            userRef
+          )
+        );
+      });
 
-          highscoreRef?.onSnapshot((snapshot: ExplicitAny) => {
-            const { hasNewHighScore, highScores } = snapshot.data();
-            dispatch(
-              highscoreActions.setOnlineHighScores(
-                {
-                  hasNewHighScore,
-                  highScores
-                },
-                highscoreRef
-              )
-            );
-          });
-        }
-        // if not, make offline user and highscore
-        else {
-          dispatch(userActions.getLocalStorage());
-          dispatch(highscoreActions.setOfflineHighScores());
-        }
+      highscoreRef?.onSnapshot((snapshot: ExplicitAny) => {
+        const { hasNewHighScore, highScores } = snapshot.data();
+        dispatch(
+          highscoreActions.setOnlineHighScores(
+            {
+              hasNewHighScore,
+              highScores
+            },
+            highscoreRef
+          )
+        );
       });
     }
+    // if not, make offline user and highscore
+    else {
+      dispatch(userActions.getLocalStorage());
+      dispatch(highscoreActions.setOfflineHighScores());
+    }
   };
-  useEffect(mountComponent, []);
+  useEffect(() => {
+    // Create an scoped async function in the hook
+    async function anyNameFunction() {
+      await mountComponent();
+    }
+    // Execute the created function directly
+    anyNameFunction();
+  }, []);
 
   return storedUserRef === undefined ? (
     <Spin spinning />

@@ -13,6 +13,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import MenuButton from "../../Buttons/MenuButton.component";
 import PasswordInput from "../PasswordInput.component";
+import highscoreActions from "../../../../redux/highScores/highscores.actions";
 import { useHistory } from "react-router-dom";
 import userActions from "../../../../redux/user/user.actions";
 
@@ -42,8 +43,64 @@ function SignUpForm() {
     setFinalUserName(values.userName);
     try {
       console.log("value s = ", values);
-      await auth.createUserWithEmailAndPassword(values.email, values.password);
-      getUserInfo(values.userName);
+      const { user } = await auth.createUserWithEmailAndPassword(
+        values.email,
+        values.password
+      );
+      const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(
+        user,
+        values.userName
+      );
+      if (userRef && highscoreRef) {
+        console.log("setting redux!!!!!!!");
+        userRef?.onSnapshot((snapshot: ExplicitAny) => {
+          const {
+            createdAt,
+            graphs,
+            hasSavedGame,
+            savedGame,
+            history,
+            maxMoves,
+            maxTime,
+            nGames,
+            settings,
+            userName,
+            email
+          } = snapshot.data();
+          dispatch(
+            userActions.saveUser(
+              {
+                createdAt,
+                graphs,
+                hasSavedGame,
+                savedGame,
+                history,
+                maxMoves,
+                maxTime,
+                nGames,
+                settings,
+                userName,
+                email
+              },
+              userRef
+            )
+          );
+        });
+
+        highscoreRef?.onSnapshot((snapshot: ExplicitAny) => {
+          const { hasNewHighScore, highScores } = snapshot.data();
+          dispatch(
+            highscoreActions.setOnlineHighScores(
+              {
+                hasNewHighScore,
+                highScores
+              },
+              highscoreRef
+            )
+          );
+        });
+      }
+      history.push("/");
     } catch (signUpError) {
       notification.error({
         message: `Sign Up Error: ${signUpError.message}`,
@@ -51,21 +108,6 @@ function SignUpForm() {
       });
     }
   };
-
-  /* const handleUserSignedUp = () => {
-    console.log("handleUserSignedUp userRef - ", userRef);
-    console.log("handleUserSignedUp finalUserName - ", finalUserName);
-    if (userRef && finalUserName) {
-      console.log("username = ", form.getFieldValue("userName"));
-      dispatch(
-        userActions.changeUserSettings({
-          userName: finalUserName
-        })
-      );
-      history.push("/");
-    }
-  };
-  useEffect(handleUserSignedUp, [userRef, finalUserName]); */
 
   return (
     <>
