@@ -129,23 +129,29 @@ function LoginForm() {
           onClick={() => form.submit()}
           className="loginButtonAnimated formButton"
         >
-          <FormattedMessage id="btn.submit" />
+          <span>
+            <FormattedMessage id="btn.submit" />
+          </span>
         </MenuButton>
         <MenuButton
           location="/signUp"
           className="loginButtonAnimated formButton"
         >
-          <FormattedMessage id="btn.signUp" />
+          <span>
+            <FormattedMessage id="btn.signUp" />
+          </span>
         </MenuButton>
         <MenuButton
           onClick={handleSignInWithGoogle}
-          className="googleButton loginButtonAnimated"
+          className="googleButton loginButtonAnimated formButton"
         >
           <GoogleCircleFilled />
           <span> Google</span>
         </MenuButton>
         <MenuButton location="/" className="loginButtonAnimated formButton">
-          <FormattedMessage id="btn.back" />
+          <span>
+            <FormattedMessage id="btn.back" />
+          </span>
         </MenuButton>
       </Form>
     </>

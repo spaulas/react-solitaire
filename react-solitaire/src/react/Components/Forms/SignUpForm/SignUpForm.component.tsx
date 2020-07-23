@@ -173,14 +173,18 @@ function SignUpForm() {
           onClick={() => form.submit()}
           className="loginButtonAnimated formButton"
         >
-          <FormattedMessage id="btn.submit" />
+          <span>
+            <FormattedMessage id="btn.submit" />
+          </span>
         </MenuButton>
 
         <MenuButton
           location="/login"
           className="loginButtonAnimated formButton"
         >
-          <FormattedMessage id="btn.login" />
+          <span>
+            <FormattedMessage id="btn.login" />
+          </span>
         </MenuButton>
       </Form>
     </>
