@@ -24,13 +24,19 @@ const addHighScore = (userName: string, finalScore: number) => ({
   finalScore
 });
 
+const resetHighscoresRef = (highScoreRef: ExplicitAny) => ({
+  type: HighScoresActionTypes.RESET_HIGHSCORES_REF,
+  highScoreRef
+});
+
 // ********************************************************
 
 const actionsCreators = Object.freeze({
   setOnlineHighScores,
   setOfflineHighScores,
   hasNewHighScore,
-  addHighScore
+  addHighScore,
+  resetHighscoresRef
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

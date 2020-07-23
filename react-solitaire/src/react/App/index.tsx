@@ -21,9 +21,7 @@ function BaseApplication() {
 
   const mountComponent = () => {
     const user = auth.currentUser;
-    // eslint-disable-next-line no-console
-    console.log("APP COMPONENT UPDATED!!! user = ", user);
-    setUserRedux(user, dispatch);
+    setUserRedux(user, dispatch, loggedIn);
   };
   useEffect(mountComponent, []);
 

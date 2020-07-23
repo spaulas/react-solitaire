@@ -93,12 +93,18 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       };
 
     case UserActionTypes.SAVE_USER:
-      return { user: action.user, userRef: action.userRef, loggedIn: true };
+      return {
+        user: action.user,
+        userRef: () => {
+          return action.userRef;
+        },
+        loggedIn: true
+      };
 
     case UserActionTypes.CHANGE_USER_SETTINGS:
       if (state.userRef) {
         // add to firebase
-        state.userRef.set({
+        state.userRef().set({
           ...state.user,
           ...action.changes
         });
@@ -116,7 +122,7 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       const finalGames = state.user.nGames + 1;
       if (state.userRef) {
         // add to firebase
-        state.userRef.set({
+        state.userRef().set({
           ...state.user,
           nGames: finalGames
         });
@@ -164,7 +170,7 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       // handle highscore!
       if (state.userRef) {
         // add to firebase
-        state.userRef.set({
+        state.userRef().set({
           ...state.user,
           ...finalChanges
         });
@@ -180,7 +186,7 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
     case UserActionTypes.SAVE_GAME:
       if (state.userRef) {
         // add to firebase
-        state.userRef.set({
+        state.userRef().set({
           ...state.user,
           savedGame: action.savedGame,
           hasSavedGame: true
@@ -205,7 +211,7 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
     case UserActionTypes.CLEAR_SAVED_GAME:
       if (state.userRef) {
         // add to firebase
-        state.userRef.set({
+        state.userRef().set({
           ...state.user,
           savedGame: {},
           hasSavedGame: false
@@ -229,7 +235,7 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
     case UserActionTypes.SET_JOYRIDE:
       if (state.userRef) {
         // add to firebase
-        state.userRef.set({
+        state.userRef().set({
           ...state.user,
           settings: {
             ...state.user.settings,
@@ -262,6 +268,14 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
 
     case UserActionTypes.CLEAR_USER:
       return INITIAL_USER;
+
+    case UserActionTypes.RESET_USER_REF:
+      return {
+        ...state,
+        userRef: () => {
+          return action.userRef;
+        }
+      };
 
     // ********************************************************
 

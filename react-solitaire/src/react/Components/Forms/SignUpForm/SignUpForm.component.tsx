@@ -38,7 +38,7 @@ function SignUpForm() {
         values.email,
         values.password
       );
-      setUserRedux(user, dispatch, values.userName);
+      setUserRedux(user, dispatch, false, values.userName);
       history.push("/");
     } catch (signUpError) {
       notification.error({
