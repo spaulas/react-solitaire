@@ -28,10 +28,20 @@ function StartingPage() {
    * The animation state starts with the value from the redux, if it comes true, then after the animation is over, set it to false
    */
   const mountComponent = () => {
-    // after animation is over, set showAnimation to false
-    setTimeout(() => {
-      // set animation redux state to false, so it won't repeat everytime
-      dispatch(pagesActions.setStartPageAnimation(false));
+    if (showAnimation) {
+      // after animation is over, set showAnimation to false
+      setTimeout(() => {
+        // start the joyride
+        dispatch(
+          joyrideActions.initJoyride(
+            "main",
+            JoyrideSteps({ loggedIn, hasSavedGame })
+          )
+        );
+        // set animation redux state to false, so it won't repeat everytime
+        dispatch(pagesActions.setStartPageAnimation(false));
+      }, 2500);
+    } else {
       // start the joyride
       dispatch(
         joyrideActions.initJoyride(
@@ -39,7 +49,8 @@ function StartingPage() {
           JoyrideSteps({ loggedIn, hasSavedGame })
         )
       );
-    }, 2500);
+    }
+
     // the buttons animation value is the same from show animation
     setShowButtonsAnimation(showAnimation);
   };

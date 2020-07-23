@@ -47,7 +47,7 @@ function MainMenu({ showStartAnimation, showBackAnimation }: MainMenuProps) {
   return (
     <>
       {loggedIn && (
-        <div className="welcomeMessage">
+        <div className={`welcomeMessage ${getAnimation()}`}>
           <FormattedMessage id="title.welcome" /> {userName}
         </div>
       )}

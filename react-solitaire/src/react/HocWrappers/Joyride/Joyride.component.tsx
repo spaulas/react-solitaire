@@ -2,12 +2,15 @@ import { ExplicitAny, RootReducerState } from "../../../global";
 import Joyride, { ACTIONS, CallBackProps, STATUS } from "react-joyride";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import joyrideActions from "../../../redux/joyride/joyride.actions";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 import userActions from "../../../redux/user/user.actions";
 
 function BaseJoyride() {
   const intl = useIntl();
   const dispatch = useDispatch();
+  const location = useLocation();
   const [run, setRun] = useState(false);
 
   const { page, steps, callback, joyride } = useSelector(
@@ -19,15 +22,21 @@ function BaseJoyride() {
     })
   );
 
+  // eslint-disable-next-line no-console
+  console.log("JORYDE PAGE = ", page);
+
   const handlePageChange = () => {
+    // eslint-disable-next-line no-console
+    console.log("joyride page changed!");
     if (page && joyride && joyride[page]) {
       const joyrideCopy = { ...joyride };
       joyrideCopy[page] = false;
       setRun(true);
       dispatch(userActions.setJoyride(joyrideCopy));
+      dispatch(joyrideActions.initJoyride("", []));
     }
   };
-  useEffect(handlePageChange, [page]);
+  useEffect(handlePageChange, [page, location]);
 
   function joyrideCallback({ action, index, status }: CallBackProps) {
     // check if current status if on of skip or finish joyride type, to close joyride
