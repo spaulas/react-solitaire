@@ -81,11 +81,21 @@ function JoyrideSteps({ loggedIn, hasSavedGame }: JoyrideStepsProps) {
       disableBeacon: true,
       target: ".joyrideConfigurationsButton"
     },
+    // About button
+    {
+      content: (
+        <h3>
+          <FormattedMessage id="joyride.main.step08" />
+        </h3>
+      ),
+      disableBeacon: true,
+      target: ".joyrideAboutButton"
+    },
     // Logout button (only shown if the user is logged in)
     loggedIn && {
       content: (
         <h3>
-          <FormattedMessage id="joyride.main.step08" />
+          <FormattedMessage id="joyride.main.step09" />
         </h3>
       ),
       disableBeacon: true,

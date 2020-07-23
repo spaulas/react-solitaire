@@ -20,8 +20,7 @@
   }
 
   .sidebar {
-    width: 200px;
-    font-family: @fontFamily;
+    width: 220px;
     .sidebarToggleSpan {
       position: absolute;
       bottom: 20px;
@@ -61,6 +60,14 @@
 
     .ant-menu-dark {
       background: transparent;
+      .ant-menu-item {
+        font-family: @fontFamily;
+        font-size: calc(@fontBody - 1px);
+        color: @fontColor;
+        .anticon {
+          font-size: @fontBody;
+        }
+      }
       .ant-menu-item-selected {
         background-color: @darkSecondaryColor;
       }

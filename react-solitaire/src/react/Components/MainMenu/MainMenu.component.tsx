@@ -108,7 +108,12 @@ function MainMenu({ showStartAnimation, showBackAnimation }: MainMenuProps) {
       >
         <FormattedMessage id="sidebar.configurations" />
       </MenuButton>
-
+      <MenuButton
+        className={`joyrideAboutButton ${getAnimation()}`}
+        location="/about"
+      >
+        <FormattedMessage id="sidebar.about" />
+      </MenuButton>
       {loggedIn && (
         <MenuButton
           className={`joyrideLogoutButton ${getAnimation()}`}
