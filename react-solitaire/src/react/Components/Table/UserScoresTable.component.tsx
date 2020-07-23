@@ -17,21 +17,20 @@ interface UserScore {
 
 interface UserScoresTableProps {
   data: Array<UserScore>;
-  className?: string;
 }
 
-function UserScoresTable({ data, className }: UserScoresTableProps) {
+function UserScoresTable({ data }: UserScoresTableProps) {
   const [expandTable, setExpandTable] = useState(false);
 
   return (
     <Table<UserScore>
-      className={className}
+      className={"scoresTable"}
       dataSource={data}
       rowKey="date"
       pagination={{ pageSize: 10 }}
     >
       <Column
-        className={expandTable ? "columnDateExpanded" : "columnDateNotExpanded"}
+        className={expandTable ? "columnExpanded" : "columnExpanded"}
         key="date"
         title={<FormattedMessage id="table.date" />}
         dataIndex="date"
@@ -42,6 +41,7 @@ function UserScoresTable({ data, className }: UserScoresTableProps) {
       />
       <Column
         key="finalScore"
+        className={expandTable ? "columnExpanded" : "columnExpanded"}
         title={
           <div>
             <FormattedMessage id="table.finalScore" />
@@ -62,6 +62,7 @@ function UserScoresTable({ data, className }: UserScoresTableProps) {
           title={<FormattedMessage id="table.moves" />}
           dataIndex="moves"
           align="center"
+          className="columnExpanded"
           sorter={(a: UserScore, b: UserScore) => a.moves - b.moves}
         />,
         <Column
@@ -69,6 +70,7 @@ function UserScoresTable({ data, className }: UserScoresTableProps) {
           title={<FormattedMessage id="table.nHints" />}
           dataIndex="nHints"
           align="center"
+          className="columnExpanded"
           sorter={(a: UserScore, b: UserScore) => a.nHints - b.nHints}
         />,
         <Column
@@ -76,6 +78,7 @@ function UserScoresTable({ data, className }: UserScoresTableProps) {
           title={<FormattedMessage id="table.time" />}
           dataIndex="time"
           align="center"
+          className="columnExpanded"
           sorter={(a: UserScore, b: UserScore) => a.seconds - b.seconds}
         />
       ]}
