@@ -47,4 +47,21 @@
       background: white;
     }
   }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    .ant-tabs {
+      max-width: 235px;
+      .ant-tabs-tab {
+        font-size: 20px;
+      }
+      .ant-tabs-tab-prev,
+      .ant-tabs-tab-next {
+        display: none;
+      }
+      .ant-tabs-nav-container-scrolling {
+        padding-right: 0px;
+        padding-left: 0px;
+      }
+    }
+  }
 }

@@ -111,6 +111,22 @@
     font-weight: bold;
     color: @fontColor;
   }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    .ant-table-tbody {
+      font-size: 15px;
+    }
+
+    thead {
+      tr > th {
+        font-size: 18px;
+      }
+    }
+
+    .iconsTable {
+      left: 60%;
+    }
+  }
 }
 
 .ant-empty {
