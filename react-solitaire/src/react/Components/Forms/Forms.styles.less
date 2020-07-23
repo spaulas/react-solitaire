@@ -1,0 +1,250 @@
+.styledForm {
+  margin: @limitHorizontal;
+  text-align: center;
+
+  .ant-form-item-label label,
+  .ant-divider-inner-text {
+    font-size: @fontTitle;
+    color: @fontColor;
+    height: auto;
+    line-height: 70px;
+  }
+
+  .googleButton {
+    background: rgba(76, 139, 245, 1);
+  }
+
+  .formInput {
+    border-bottom: 1px solid @fontColor !important;
+    font-size: @fontBody;
+    text-align: center;
+    background: transparent;
+    border: none;
+    color: @fontColor;
+    outline: 0;
+    box-shadow: none;
+    z-index: 1;
+  }
+
+  .labelPlaceholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: lightgrey;
+    font-size: @fontBody;
+    transition: @smallTransitionTime;
+    z-index: 0;
+  }
+
+  .formInput:focus ~ label,
+  .formInput > .ant-input-focused ~ label {
+    transform: unset;
+    color: @fontColor;
+    top: 0;
+    left: 0;
+    font-size: 15px;
+  }
+
+  .formInput:focus ~ .formPwd,
+  .formInput > .ant-input-focused ~ .formPwd {
+    color: white;
+  }
+
+  .formInput:not([value=""]) ~ label {
+    transform: unset;
+    top: 0;
+    left: 0;
+    font-size: 15px;
+    color: @fontColor;
+  }
+
+  .formInput:not([value=""]) ~ .formPwd {
+    color: @fontColor;
+  }
+
+  .ant-form-item-has-error {
+    .formInput {
+      border-bottom: 1px solid red !important;
+
+      .anticon {
+        color: red;
+      }
+    }
+    .formInput ~ label {
+      color: red;
+    }
+    .formInput:focus ~ label {
+      top: 0;
+      left: 0;
+      font-size: 15px;
+      transform: unset;
+      color: red;
+    }
+  }
+
+  .ant-checkbox-wrapper {
+    .ant-checkbox span {
+      height: 50px;
+      width: 50px;
+    }
+    span {
+      font-size: @fontBody;
+      color: @fontColor;
+    }
+  }
+
+  .ant-checkbox-checked {
+    .ant-checkbox-inner {
+      background-color: @secondaryColor;
+      border-color: @fontColor;
+    }
+  }
+
+  .ant-checkbox-disabled.ant-checkbox-checked .ant-checkbox-inner::after {
+    border-color: grey;
+  }
+
+  .ant-checkbox-disabled.ant-checkbox-checked {
+    background-color: @darkSecondaryColor;
+    border-color: grey;
+  }
+
+  .ant-checkbox-inner {
+    border-color: grey;
+  }
+
+  .ant-checkbox-inner::after {
+    width: 10px;
+    height: 20px;
+    left: 30%;
+  }
+
+  .languagesRadioGroup {
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+      color: @primaryColor;
+    }
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+      background-color: @primaryColor;
+    }
+
+    .ant-radio-button-wrapper::before {
+      background-color: transparent;
+    }
+
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled),
+    .ant-radio-button-wrapper-checked:active {
+      -webkit-box-shadow: 0px 0px 17px 1px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 0px 0px 17px 1px rgba(0, 0, 0, 0.75);
+      box-shadow: 0px 0px 17px 1px rgba(0, 0, 0, 0.75);
+    }
+
+    .flagRadioButton {
+      height: auto;
+      background: transparent;
+      border: none;
+      .flags {
+        height: 70px;
+        width: auto;
+        font-size: 40px !important;
+        line-height: 70px !important;
+      }
+    }
+  }
+
+  .formPwd {
+    -webkit-text-security: disc;
+  }
+
+  .inputIcons {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: @fontBody;
+    color: lightgrey;
+    z-index: 2;
+  }
+
+  .infoIcon {
+    right: 30px;
+  }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    margin: 0 40px !important;
+
+    .ant-row {
+      max-width: 200px;
+      max-height: 60px;
+      margin-bottom: 10px;
+
+      .ant-input {
+        max-width: 200px;
+        height: 60px !important;
+        line-height: 0;
+      }
+
+      .googleButton {
+        background: transparent;
+      }
+
+      .formButton {
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
+.configurationsForm {
+  .formInput {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    .extraSpaceRow {
+      margin-top: 100px;
+    }
+
+    .extraSpaceDivider {
+      margin-top: 150px;
+    }
+
+    .extraSpaceButtons {
+      margin-top: 200px;
+    }
+
+    .ant-checkbox-wrapper .ant-checkbox span {
+      height: 30px;
+      width: 30px;
+    }
+
+    .ant-checkbox-inner::after {
+      width: 9px;
+      height: 14px;
+      left: 27%;
+    }
+
+    .ant-col-sm-24,
+    .ant-col-xs-24 {
+      text-align: start;
+    }
+  }
+}
+
+.loginButtonAnimated {
+  opacity: 0;
+  animation: buttonDrop 1s 1;
+  animation-fill-mode: forwards;
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    @keyframes buttonDrop {
+      0% {
+        height: 0;
+        opacity: 0;
+      }
+      100% {
+        height: 60px;
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import "firebase/firestore";
 import "firebase/auth";
 import firebase from "firebase/app";
+import moment from "moment";
 
 const config = {
   apiKey: "AIzaSyAbT2Wbt4lgMQfVDN_BIU1PJMWjIpe4H_s",
@@ -19,9 +20,23 @@ export const firestore = firebase.firestore();
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: "select_account" });
-export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
+export const signInWithGoogle = () => {
+  return auth.signInWithPopup(googleProvider);
+};
 
-export const getUserInfo = async user => {
+export const createUserProfileDocument = async (user, userName) => {
+  if (user) {
+    const userRef = firestore.doc(`users/${user.uid}`);
+
+    try {
+      await userRef.set({ displayName: userName });
+    } catch (error) {
+      console.error("Error creating user ", error.message);
+    }
+  }
+};
+
+export const getUserInfo = async (user, userName) => {
   if (!user) {
     return { userRef: null, highscoreRef: null };
   }
@@ -35,12 +50,14 @@ export const getUserInfo = async user => {
   if (!userSnapShot.exists && user.email) {
     try {
       await userRef.set({
-        userName: user.displayName || user.email,
-        createdAt: new Date(),
+        userName: userName || user.displayName || user.email,
+        email: user.email,
+        createdAt: moment().format("DD/MM/YYYY, hh:mm"),
         maxMoves: 0,
         maxTime: 0,
         nGames: 0,
         hasSavedGame: false,
+        savedGame: {},
         history: [],
         graphs: {
           winsRatio: [],
@@ -48,9 +65,9 @@ export const getUserInfo = async user => {
           moves: {}
         },
         settings: {
-          language: "en-Us",
+          language: "en-US",
           joyride: {
-            home: true,
+            main: true,
             scores: true,
             statistics: true,
             login: true,

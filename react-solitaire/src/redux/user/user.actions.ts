@@ -46,6 +46,11 @@ const clearUser = () => ({
   type: UserActionTypes.CLEAR_USER
 });
 
+const resetUserRef = (userRef: ExplicitAny) => ({
+  type: UserActionTypes.RESET_USER_REF,
+  userRef
+});
+
 // ********************************************************
 
 const actionsCreators = Object.freeze({
@@ -57,7 +62,8 @@ const actionsCreators = Object.freeze({
   saveGame,
   clearSavedGame,
   setJoyride,
-  clearUser
+  clearUser,
+  resetUserRef
 });
 
 export type ActionsCreators = ReturnType<ValueOf<typeof actionsCreators>>;

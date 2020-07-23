@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable indent */
 import { ActionsCreators } from "./user.actions";
 import { ExplicitAny } from "../../global";
@@ -16,6 +17,7 @@ interface GameHistory {
 export interface InitialUser {
   user: {
     userName: string;
+    email?: string;
     maxMoves: number;
     maxTime: number;
     nGames: number;
@@ -31,7 +33,7 @@ export interface InitialUser {
     settings: {
       language: string;
       joyride: {
-        home: boolean;
+        main: boolean;
         scores: boolean;
         statistics: boolean;
         login: boolean;
@@ -41,11 +43,13 @@ export interface InitialUser {
     };
   };
   userRef: ExplicitAny;
+  loggedIn: boolean | undefined;
 }
 
 const INITIAL_USER: InitialUser = {
   user: {
     userName: "localUser",
+    email: undefined,
     maxMoves: 0,
     maxTime: 0,
     nGames: 0,
@@ -61,7 +65,7 @@ const INITIAL_USER: InitialUser = {
     settings: {
       language: "pt-PT",
       joyride: {
-        home: true,
+        main: true,
         scores: true,
         statistics: true,
         login: true,
@@ -70,7 +74,8 @@ const INITIAL_USER: InitialUser = {
       }
     }
   },
-  userRef: undefined
+  userRef: undefined,
+  loggedIn: undefined
 };
 
 const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
@@ -81,15 +86,25 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       if (!offlineUser) {
         localStorage.setItem("offlineUser", JSON.stringify(INITIAL_USER));
       }
-      return { user: offlineUser || INITIAL_USER.user, userRef: false };
+      return {
+        user: offlineUser || INITIAL_USER.user,
+        userRef: undefined,
+        loggedIn: false
+      };
 
     case UserActionTypes.SAVE_USER:
-      return { user: action.user, userRef: action.userRef };
+      return {
+        user: action.user,
+        userRef: () => {
+          return action.userRef;
+        },
+        loggedIn: true
+      };
 
     case UserActionTypes.CHANGE_USER_SETTINGS:
       if (state.userRef) {
         // add to firebase
-        state.userRef.set({
+        state.userRef().set({
           ...state.user,
           ...action.changes
         });
@@ -107,7 +122,7 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       const finalGames = state.user.nGames + 1;
       if (state.userRef) {
         // add to firebase
-        state.userRef.set({
+        state.userRef().set({
           ...state.user,
           nGames: finalGames
         });
@@ -155,7 +170,7 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       // handle highscore!
       if (state.userRef) {
         // add to firebase
-        state.userRef.set({
+        state.userRef().set({
           ...state.user,
           ...finalChanges
         });
@@ -171,7 +186,7 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
     case UserActionTypes.SAVE_GAME:
       if (state.userRef) {
         // add to firebase
-        state.userRef.set({
+        state.userRef().set({
           ...state.user,
           savedGame: action.savedGame,
           hasSavedGame: true
@@ -196,7 +211,7 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
     case UserActionTypes.CLEAR_SAVED_GAME:
       if (state.userRef) {
         // add to firebase
-        state.userRef.set({
+        state.userRef().set({
           ...state.user,
           savedGame: {},
           hasSavedGame: false
@@ -220,7 +235,7 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
     case UserActionTypes.SET_JOYRIDE:
       if (state.userRef) {
         // add to firebase
-        state.userRef.set({
+        state.userRef().set({
           ...state.user,
           settings: {
             ...state.user.settings,
@@ -253,6 +268,14 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
 
     case UserActionTypes.CLEAR_USER:
       return INITIAL_USER;
+
+    case UserActionTypes.RESET_USER_REF:
+      return {
+        ...state,
+        userRef: () => {
+          return action.userRef;
+        }
+      };
 
     // ********************************************************
 

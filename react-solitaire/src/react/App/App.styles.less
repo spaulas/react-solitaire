@@ -7,6 +7,7 @@
     position: relative;
     top: 0;
     bottom: 0;
+    overflow-x: hidden !important;
 
     .mainPage {
       height: 100%;
@@ -19,7 +20,7 @@
   }
 
   .sidebar {
-    width: 200px;
+    width: 220px;
     .sidebarToggleSpan {
       position: absolute;
       bottom: 20px;
@@ -36,9 +37,12 @@
       height: auto;
       text-align: center;
       margin: 20% 0;
-      padding: 10px;
+      padding: 10px 20px 10px 10px !important;
       .logoTitle {
+        max-height: 100px;
+        max-width: 85px;
         width: 100%;
+        margin: 20px 0;
         cursor: pointer;
         filter: brightness(0) invert(1);
         transition: @smallTransitionTime;
@@ -46,18 +50,26 @@
     }
 
     .logoSelected {
-      background-color: @hoverElemColor;
+      background-color: @darkSecondaryColor;
     }
   }
 
   .ant-layout-sider {
     background: transparent;
-    background-color: @darkSecondaryColor;
+    background-color: @secondaryColor;
 
     .ant-menu-dark {
       background: transparent;
+      .ant-menu-item {
+        font-family: @fontFamily;
+        font-size: calc(@fontBody - 1px);
+        color: @fontColor;
+        .anticon {
+          font-size: @fontBody;
+        }
+      }
       .ant-menu-item-selected {
-        background-color: @hoverElemColor;
+        background-color: @darkSecondaryColor;
       }
       .ant-menu-inline.ant-menu-sub {
         background-color: @darkSecondaryColor;
@@ -69,3 +81,47 @@
     }
   }
 }
+
+.ant-spin-spinning {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: @primaryColor;
+
+  .ant-spin-dot {
+    font-size: 100px;
+    margin-top: calc((100vh - 100px) / 2);
+
+    .ant-spin-dot-item {
+      width: 50px;
+      height: 50px;
+      background-color: white;
+    }
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .mainLayout {
+    .appContent {
+      .mainPage {
+        min-width: 250px;
+      }
+    }
+  }
+}
+
+/* @media screen and (min-width: 320px) and (max-width: 767px) {
+  .ant-layout-sider-collapsed {
+    position: relative;
+    top: 90vh;
+    max-height: 10vh;
+    .ant-menu-inline-collapsed {
+      display: none;
+    }
+    .sidebarToggleSpan {
+      bottom: calc(10vh / 2 - 20px) !important;
+    }
+  }
+} */

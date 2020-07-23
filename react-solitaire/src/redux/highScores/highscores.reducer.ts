@@ -27,7 +27,12 @@ const INITIAL_HIGHSCORE: InitialHighScores = {
 const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
   switch (action.type) {
     case HighScoresActionTypes.SET_ONLINE_HIGHSCORES:
-      return { highscore: action.data, highscoreRef: action.highScoreRef };
+      return {
+        highscore: action.data,
+        highscoreRef: () => {
+          return action.highScoreRef;
+        }
+      };
 
     case HighScoresActionTypes.SET_OFFLINE_HIGHSCORES:
       const currentLocal = localStorage.getItem("offlineHighScores");
@@ -42,7 +47,7 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
       }
       return {
         highScore: offlineHighScores || INITIAL_HIGHSCORE,
-        highScoreRef: false
+        highScoreRef: undefined
       };
 
     case HighScoresActionTypes.HAS_NEW_HIGHSCORE:
@@ -101,7 +106,7 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
 
       if (state.highscoreRef) {
         // add to firebase
-        state.highscoreRef.set({
+        state.highscoreRef().set({
           ...state.highScore,
           highScores: finalHighScores
         });
@@ -116,6 +121,14 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
       return {
         ...state,
         highScore: { highScores: finalHighScores, hasNewHighScore: false }
+      };
+
+    case HighScoresActionTypes.RESET_HIGHSCORES_REF:
+      return {
+        ...state,
+        highscoreRef: () => {
+          return action.highScoreRef;
+        }
       };
 
     // ********************************************************

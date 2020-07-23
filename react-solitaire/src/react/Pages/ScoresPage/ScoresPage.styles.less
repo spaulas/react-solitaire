@@ -1,0 +1,67 @@
+.scoresPage {
+  display: flex;
+  flex-direction: column;
+
+  .scoresTable {
+    align-self: center;
+    width: 100%;
+    margin-top: -15px;
+
+    .columnDateExpanded {
+      width: 20%;
+    }
+
+    .columnDateNotExpanded {
+      width: 50%;
+    }
+  }
+
+  .ant-tabs {
+    color: @buttonActiveColor;
+
+    .ant-tabs-bar {
+      background: @secondaryColor;
+      -webkit-box-shadow: inset 0px -10px 19px -4px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: inset 0px -10px 19px -4px rgba(0, 0, 0, 0.75);
+      box-shadow: inset 0px -10px 19px -4px rgba(0, 0, 0, 0.75);
+    }
+
+    .ant-tabs-nav {
+      width: 100%;
+    }
+    .ant-tabs-tab {
+      width: 50%;
+      font-size: @fontTitle;
+      font-weight: bold;
+    }
+
+    .ant-tabs-tab:hover {
+      color: @fontColor;
+    }
+
+    .ant-tabs-tab-active {
+      color: @fontColor;
+    }
+
+    .ant-tabs-ink-bar {
+      background: white;
+    }
+  }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    .ant-tabs {
+      max-width: 235px;
+      .ant-tabs-tab {
+        font-size: 20px;
+      }
+      .ant-tabs-tab-prev,
+      .ant-tabs-tab-next {
+        display: none;
+      }
+      .ant-tabs-nav-container-scrolling {
+        padding-right: 0px;
+        padding-left: 0px;
+      }
+    }
+  }
+}
