@@ -171,12 +171,15 @@ function SignUpForm() {
 
         <MenuButton
           onClick={() => form.submit()}
-          className="loginButtonAnimated"
+          className="loginButtonAnimated formButton"
         >
           <FormattedMessage id="btn.submit" />
         </MenuButton>
 
-        <MenuButton location="/login" className="loginButtonAnimated">
+        <MenuButton
+          location="/login"
+          className="loginButtonAnimated formButton"
+        >
           <FormattedMessage id="btn.login" />
         </MenuButton>
       </Form>

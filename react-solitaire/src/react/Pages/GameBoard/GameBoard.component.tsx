@@ -156,6 +156,9 @@ function GameBoard() {
   };
   useEffect(addGameToUser, [gameMoves]);
 
+  // eslint-disable-next-line no-console
+  console.log("WINDOW = ", window);
+
   // ---------------------------------------------------------
 
   return (

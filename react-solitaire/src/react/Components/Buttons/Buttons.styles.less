@@ -3,12 +3,27 @@
 }
 
 .divButton {
-  font-size: 28px;
+  font-size: @fontTitle;
   line-height: 70px;
   height: 70px;
   text-align: center;
   width: 400px;
   cursor: pointer;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .buttonSpaceRow {
+    height: 50px;
+    .divButton {
+      height: 100px;
+      height: 30px;
+      width: 200px;
+    }
+    .animatedButton::after {
+      height: 50px !important;
+      margin-bottom: -5px;
+    }
+  }
 }
 
 .animatedButton {

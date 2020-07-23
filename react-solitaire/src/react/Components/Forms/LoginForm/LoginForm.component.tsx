@@ -127,11 +127,14 @@ function LoginForm() {
 
         <MenuButton
           onClick={() => form.submit()}
-          className="loginButtonAnimated"
+          className="loginButtonAnimated formButton"
         >
           <FormattedMessage id="btn.submit" />
         </MenuButton>
-        <MenuButton location="/signUp" className="loginButtonAnimated">
+        <MenuButton
+          location="/signUp"
+          className="loginButtonAnimated formButton"
+        >
           <FormattedMessage id="btn.signUp" />
         </MenuButton>
         <MenuButton
@@ -141,7 +144,7 @@ function LoginForm() {
           <GoogleCircleFilled />
           <span> Google</span>
         </MenuButton>
-        <MenuButton location="/" className="loginButtonAnimated">
+        <MenuButton location="/" className="loginButtonAnimated formButton">
           <FormattedMessage id="btn.back" />
         </MenuButton>
       </Form>
