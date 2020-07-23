@@ -87,13 +87,9 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       return { user: offlineUser || INITIAL_USER.user, userRef: false };
 
     case UserActionTypes.SAVE_USER:
-      // eslint-disable-next-line no-console
-      console.log("action = ", action);
       return { user: action.user, userRef: action.userRef };
 
     case UserActionTypes.CHANGE_USER_SETTINGS:
-      console.log(" CHANGE_USER_SETTINGS state = ", state);
-      console.log(" CHANGE_USER_SETTINGS action = ", action);
       if (state.userRef) {
         // add to firebase
         state.userRef.set({
@@ -176,9 +172,7 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       return { ...state, user: { ...state.user, history: finalHistory } };
 
     case UserActionTypes.SAVE_GAME:
-      console.log("SAVE_GAME state.userRef = ", state.userRef);
       if (state.userRef) {
-        console.log("SAVE_GAME action = ", action);
         // add to firebase
         state.userRef.set({
           ...state.user,
@@ -197,10 +191,6 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
         );
       }
 
-      console.log("setting : ", {
-        ...state,
-        user: { ...state.user, savedGame: action.savedGame, hasSavedGame: true }
-      });
       return {
         ...state,
         user: { ...state.user, savedGame: action.savedGame, hasSavedGame: true }
@@ -265,7 +255,6 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
       };
 
     case UserActionTypes.CLEAR_USER:
-      console.log("CLEAR USER");
       return INITIAL_USER;
 
     // ********************************************************

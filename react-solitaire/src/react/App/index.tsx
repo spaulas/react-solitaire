@@ -26,9 +26,6 @@ function BaseApplication() {
   };
   useEffect(mountComponent, []);
 
-  // eslint-disable-next-line no-console
-  console.log("APP INDEX stored user ref = ", storedUserRef);
-
   return storedUserRef === undefined ? (
     <Spin spinning />
   ) : (

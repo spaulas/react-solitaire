@@ -67,9 +67,6 @@ function GameBoard() {
     savedGame: User.user.savedGame || {}
   }));
 
-  // eslint-disable-next-line no-console
-  console.log("savedGame = ", savedGame);
-
   // ---------------------------------------------------------
   // Create Game
 

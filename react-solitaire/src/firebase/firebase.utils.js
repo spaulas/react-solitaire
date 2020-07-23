@@ -25,10 +25,6 @@ export const signInWithGoogle = () => {
 };
 
 export const createUserProfileDocument = async (user, userName) => {
-  // eslint-disable-next-line no-console
-  console.log("user id = ", user.uid);
-  // eslint-disable-next-line no-console
-  console.log("userName = ", userName);
   if (user) {
     const userRef = firestore.doc(`users/${user.uid}`);
 
@@ -41,17 +37,12 @@ export const createUserProfileDocument = async (user, userName) => {
 };
 
 export const getUserInfo = async (user, userName) => {
-  // eslint-disable-next-line no-console
-  console.log("getUserInfo = ", user);
   if (!user) {
     return { userRef: null, highscoreRef: null };
   }
 
   const userRef = firestore.doc(`users/${user.uid}`);
   const userSnapShot = await userRef.get();
-
-  // eslint-disable-next-line no-console
-  console.log("uisersnap = ", user.email);
 
   const highscoreRef = firestore.doc("topHighScores/highScores");
   const highscoreSnapShot = await highscoreRef.get();
