@@ -9,7 +9,7 @@ function AboutPage() {
       <PageTitle title={<FormattedMessage id="sidebar.about" />} />
       <Row align="middle" className="aboutRow">
         {/* Developer picture */}
-        <Col span={12}>
+        <Col xs={24} sm={24} md={12}>
           <div className="imageHere">
             <img
               className="developerImg"
@@ -18,22 +18,22 @@ function AboutPage() {
             />
           </div>
         </Col>
-        <Col span={12}>
+        <Col xs={24} sm={24} md={12}>
           {/* Made by */}
           <Row className="rowInfo">
-            <Col span={8} className="title">
+            <Col xs={24} sm={24} md={8} className="title">
               <FormattedMessage id="about.madeBy" />
             </Col>
-            <Col span={16}>
+            <Col xs={24} sm={24} md={8}>
               <span>Paula Santos</span>
             </Col>
           </Row>
           {/* Languages used */}
           <Row className="rowInfo">
-            <Col span={8} className="title">
+            <Col xs={24} sm={24} md={8} className="title">
               <FormattedMessage id="about.usedLanguages" />
             </Col>
-            <Col span={16}>
+            <Col xs={24} sm={24} md={16}>
               <ul>
                 <li>React</li>
                 <li>Redux</li>
@@ -49,10 +49,10 @@ function AboutPage() {
           </Row>
           {/* Github link */}
           <Row className="rowInfo">
-            <Col span={8} className="title">
+            <Col xs={24} sm={24} md={8} className="title">
               <span>Github:</span>
             </Col>
-            <Col span={16}>
+            <Col xs={24} sm={24} md={8}>
               <a
                 href="https://github.com/spaulas/solitaireGame"
                 target="_black"
@@ -63,10 +63,10 @@ function AboutPage() {
           </Row>
           {/* Goals for this project */}
           <Row className="rowInfo">
-            <Col span={8} className="title">
+            <Col xs={24} sm={24} md={8} className="title">
               <FormattedMessage id="about.goals" />
             </Col>
-            <Col span={16}>
+            <Col xs={24} sm={24} md={8}>
               <FormattedMessage id="about.goalsDetails" />
             </Col>
           </Row>

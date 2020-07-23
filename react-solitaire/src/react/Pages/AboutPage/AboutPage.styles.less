@@ -15,7 +15,8 @@
       .developerImg {
         object-fit: cover;
         width: 100%;
-        min-height: 100%;
+        height: 100%;
+        min-width: 200px;
         transition: @smallTransitionTime;
       }
 
@@ -47,6 +48,24 @@
     .specialThanks {
       text-align: end;
       padding: 60px;
+    }
+
+    @media screen and (min-width: 320px) and (max-width: 767px) {
+      .imageHere {
+        width: 100%;
+        height: 400px;
+        margin: 0;
+        .developerImg {
+          margin-top: 50px;
+          max-height: 300px;
+        }
+      }
+      .title {
+        margin-bottom: 10px;
+      }
+      .specialThanks {
+        padding: 60px 0 0 0;
+      }
     }
   }
 }
