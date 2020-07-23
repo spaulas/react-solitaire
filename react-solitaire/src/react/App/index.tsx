@@ -1,7 +1,6 @@
 import { ExplicitAny, RootReducerState } from "../../global";
 import { Layout, Spin } from "antd";
 import React, { useEffect } from "react";
-import { auth, getUserInfo } from "../../firebase/firebase.utils";
 import { useDispatch, useSelector } from "react-redux";
 import ApplicationRouter from "../Components/Router/ApplicationRouter/ApplicationRouter";
 import { BrowserRouter } from "react-router-dom";
@@ -9,8 +8,8 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Joyride from "../HocWrappers/Joyride/Joyride.component";
 import Sidebar from "../Components/Router/Sidebar/Sidebar.component";
-import highscoreActions from "../../redux/highScores/highscores.actions";
-import userActions from "../../redux/user/user.actions";
+import { auth } from "../../firebase/firebase.utils";
+import { setUserRedux } from "../Components/Forms/helper";
 
 const { Content } = Layout;
 
@@ -21,77 +20,11 @@ function BaseApplication() {
     storedUserRef: User.userRef
   }));
 
-  const mountComponent = async () => {
-    // eslint-disable-next-line no-console
-    console.log("mounting app component");
-    const userAuth = auth.currentUser;
-    // eslint-disable-next-line no-console
-    console.log("userAuth  = ", userAuth);
-    const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(userAuth);
-
-    // if there is online user and highscore
-    if (userRef && highscoreRef) {
-      userRef?.onSnapshot((snapshot: ExplicitAny) => {
-        const {
-          createdAt,
-          graphs,
-          hasSavedGame,
-          savedGame,
-          history,
-          maxMoves,
-          maxTime,
-          nGames,
-          settings,
-          userName,
-          email
-        } = snapshot.data();
-        dispatch(
-          userActions.saveUser(
-            {
-              createdAt,
-              graphs,
-              hasSavedGame,
-              savedGame,
-              history,
-              maxMoves,
-              maxTime,
-              nGames,
-              settings,
-              userName,
-              email
-            },
-            userRef
-          )
-        );
-      });
-
-      highscoreRef?.onSnapshot((snapshot: ExplicitAny) => {
-        const { hasNewHighScore, highScores } = snapshot.data();
-        dispatch(
-          highscoreActions.setOnlineHighScores(
-            {
-              hasNewHighScore,
-              highScores
-            },
-            highscoreRef
-          )
-        );
-      });
-    }
-    // if not, make offline user and highscore
-    else {
-      dispatch(userActions.getLocalStorage());
-      dispatch(highscoreActions.setOfflineHighScores());
-    }
+  const mountComponent = () => {
+    const user = auth.currentUser;
+    setUserRedux(user, dispatch);
   };
-  useEffect(() => {
-    // Create an scoped async function in the hook
-    async function anyNameFunction() {
-      await mountComponent();
-    }
-    // Execute the created function directly
-    anyNameFunction();
-  }, []);
+  useEffect(mountComponent, []);
 
   return storedUserRef === undefined ? (
     <Spin spinning />

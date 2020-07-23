@@ -1,20 +1,14 @@
 import { Form, Input, Row, notification } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
-import {
-  auth,
-  getUserInfo,
-  signInWithGoogle
-} from "../../../../firebase/firebase.utils";
-import { checkEmail, checkPassword } from "../helper";
+import { auth, signInWithGoogle } from "../../../../firebase/firebase.utils";
+import { checkEmail, checkPassword, setUserRedux } from "../helper";
 import { ExplicitAny } from "../../../../global";
 import { GoogleCircleFilled } from "@ant-design/icons";
 import MenuButton from "../../Buttons/MenuButton.component";
 import PasswordInput from "../PasswordInput.component";
 import React from "react";
-import highscoreActions from "../../../../redux/highScores/highscores.actions";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import userActions from "../../../../redux/user/user.actions";
 
 const { Item } = Form;
 
@@ -32,55 +26,7 @@ function LoginForm() {
 
   const handleSignInWithGoogle = async () => {
     const { user } = await signInWithGoogle();
-    const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(user);
-    if (userRef && highscoreRef) {
-      userRef?.onSnapshot((snapshot: ExplicitAny) => {
-        const {
-          createdAt,
-          graphs,
-          hasSavedGame,
-          savedGame,
-          history,
-          maxMoves,
-          maxTime,
-          nGames,
-          settings,
-          userName,
-          email
-        } = snapshot.data();
-        dispatch(
-          userActions.saveUser(
-            {
-              createdAt,
-              graphs,
-              hasSavedGame,
-              savedGame,
-              history,
-              maxMoves,
-              maxTime,
-              nGames,
-              settings,
-              userName,
-              email
-            },
-            userRef
-          )
-        );
-      });
-
-      highscoreRef?.onSnapshot((snapshot: ExplicitAny) => {
-        const { hasNewHighScore, highScores } = snapshot.data();
-        dispatch(
-          highscoreActions.setOnlineHighScores(
-            {
-              hasNewHighScore,
-              highScores
-            },
-            highscoreRef
-          )
-        );
-      });
-    }
+    setUserRedux(user, dispatch);
     history.push("/");
   };
 
@@ -90,55 +36,7 @@ function LoginForm() {
         values.email,
         values.password
       );
-      const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(user);
-      if (userRef && highscoreRef) {
-        userRef?.onSnapshot((snapshot: ExplicitAny) => {
-          const {
-            createdAt,
-            graphs,
-            hasSavedGame,
-            savedGame,
-            history,
-            maxMoves,
-            maxTime,
-            nGames,
-            settings,
-            userName,
-            email
-          } = snapshot.data();
-          dispatch(
-            userActions.saveUser(
-              {
-                createdAt,
-                graphs,
-                hasSavedGame,
-                savedGame,
-                history,
-                maxMoves,
-                maxTime,
-                nGames,
-                settings,
-                userName,
-                email
-              },
-              userRef
-            )
-          );
-        });
-
-        highscoreRef?.onSnapshot((snapshot: ExplicitAny) => {
-          const { hasNewHighScore, highScores } = snapshot.data();
-          dispatch(
-            highscoreActions.setOnlineHighScores(
-              {
-                hasNewHighScore,
-                highScores
-              },
-              highscoreRef
-            )
-          );
-        });
-      }
+      setUserRedux(user, dispatch);
       history.push("/");
     } catch (signInError) {
       notification.error({

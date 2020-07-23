@@ -1,21 +1,19 @@
-/* eslint-disable no-console */
-import { ExplicitAny, RootReducerState } from "../../../../global";
 import { Form, Input, Row, notification } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
-import React, { useEffect, useState } from "react";
-import { auth, getUserInfo } from "../../../../firebase/firebase.utils";
 import {
   checkConfirmPassword,
   checkEmail,
   checkPassword,
-  checkUserName
+  checkUserName,
+  setUserRedux
 } from "../helper";
-import { useDispatch, useSelector } from "react-redux";
+import { ExplicitAny } from "../../../../global";
 import MenuButton from "../../Buttons/MenuButton.component";
 import PasswordInput from "../PasswordInput.component";
-import highscoreActions from "../../../../redux/highScores/highscores.actions";
+import React from "react";
+import { auth } from "../../../../firebase/firebase.utils";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import userActions from "../../../../redux/user/user.actions";
 
 const { Item } = Form;
 
@@ -24,13 +22,6 @@ function SignUpForm() {
   const history = useHistory();
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const [finalUserName, setFinalUserName] = useState<string | undefined>(
-    undefined
-  );
-
-  const { userRef } = useSelector(({ User }: RootReducerState) => ({
-    userRef: User.userRef
-  }));
 
   const onChange = (
     { target: { value } }: { target: { value: string } },
@@ -40,66 +31,12 @@ function SignUpForm() {
   };
 
   const onSubmit = async (values: Record<string, string>) => {
-    setFinalUserName(values.userName);
     try {
-      console.log("value s = ", values);
       const { user } = await auth.createUserWithEmailAndPassword(
         values.email,
         values.password
       );
-      const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(
-        user,
-        values.userName
-      );
-      if (userRef && highscoreRef) {
-        console.log("setting redux!!!!!!!");
-        userRef?.onSnapshot((snapshot: ExplicitAny) => {
-          const {
-            createdAt,
-            graphs,
-            hasSavedGame,
-            savedGame,
-            history,
-            maxMoves,
-            maxTime,
-            nGames,
-            settings,
-            userName,
-            email
-          } = snapshot.data();
-          dispatch(
-            userActions.saveUser(
-              {
-                createdAt,
-                graphs,
-                hasSavedGame,
-                savedGame,
-                history,
-                maxMoves,
-                maxTime,
-                nGames,
-                settings,
-                userName,
-                email
-              },
-              userRef
-            )
-          );
-        });
-
-        highscoreRef?.onSnapshot((snapshot: ExplicitAny) => {
-          const { hasNewHighScore, highScores } = snapshot.data();
-          dispatch(
-            highscoreActions.setOnlineHighScores(
-              {
-                hasNewHighScore,
-                highScores
-              },
-              highscoreRef
-            )
-          );
-        });
-      }
+      setUserRedux(user, dispatch, values.userName);
       history.push("/");
     } catch (signUpError) {
       notification.error({

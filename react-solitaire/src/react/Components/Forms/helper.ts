@@ -1,5 +1,8 @@
 import { ExplicitAny } from "../../../global";
 import { IntlShape } from "react-intl";
+import { getUserInfo } from "../../../firebase/firebase.utils";
+import highscoreActions from "../../../redux/highScores/highscores.actions";
+import userActions from "../../../redux/user/user.actions";
 
 export const checkUserName = (
   rule: object,
@@ -64,5 +67,70 @@ export const checkConfirmPassword = (
     callback(intl.formatMessage({ id: "form.error.confirmPassword" }));
   } else {
     callback();
+  }
+};
+
+export const setUserRedux = async (
+  user: ExplicitAny,
+  dispatch: ExplicitAny,
+  userName?: string
+) => {
+  dispatch(userActions.clearUser());
+  const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(
+    user,
+    userName
+  );
+  if (userRef && highscoreRef) {
+    userRef?.onSnapshot((snapshot: ExplicitAny) => {
+      const {
+        createdAt,
+        graphs,
+        hasSavedGame,
+        savedGame,
+        history,
+        maxMoves,
+        maxTime,
+        nGames,
+        settings,
+        userName,
+        email
+      } = snapshot.data();
+      dispatch(
+        userActions.saveUser(
+          {
+            createdAt,
+            graphs,
+            hasSavedGame,
+            savedGame,
+            history,
+            maxMoves,
+            maxTime,
+            nGames,
+            settings,
+            userName,
+            email
+          },
+          userRef
+        )
+      );
+    });
+
+    highscoreRef?.onSnapshot((snapshot: ExplicitAny) => {
+      const { hasNewHighScore, highScores } = snapshot.data();
+      dispatch(
+        highscoreActions.setOnlineHighScores(
+          {
+            hasNewHighScore,
+            highScores
+          },
+          highscoreRef
+        )
+      );
+    });
+  }
+  // if not, make offline user and highscore
+  else {
+    dispatch(userActions.getLocalStorage());
+    dispatch(highscoreActions.setOfflineHighScores());
   }
 };
