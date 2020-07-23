@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   BarChartOutlined,
   LoginOutlined,
@@ -9,9 +8,9 @@ import {
   PlusOutlined,
   SettingFilled
 } from "@ant-design/icons";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
-import { FormattedMessage } from "react-intl";
 import { RootReducerState } from "../../../../global";
 import { auth } from "../../../../firebase/firebase.utils";
 import { useHistory } from "react-router-dom";
@@ -22,6 +21,7 @@ const { Item } = Menu;
 
 function Sidebar() {
   const history = useHistory();
+  const intl = useIntl();
   const [collapsed, setCollapsed] = useState(true);
 
   const { loggedIn } = useSelector(({ User }: RootReducerState) => ({
@@ -40,7 +40,7 @@ function Sidebar() {
           className="logo"
           onClick={() => history.push("/")}
           key="1"
-          title={<FormattedMessage id="sidebar.login" />}
+          title={intl.formatMessage({ id: "sidebar.main" })}
         >
           <div>
             <img
@@ -54,7 +54,7 @@ function Sidebar() {
           <Item
             onClick={() => history.push("/", { login: true })}
             key="2"
-            title={<FormattedMessage id="sidebar.login" />}
+            title={intl.formatMessage({ id: "sidebar.login" })}
           >
             <LoginOutlined />
             {!collapsed && <FormattedMessage id="sidebar.login" />}
@@ -63,7 +63,7 @@ function Sidebar() {
         <Item
           onClick={() => history.push("/scores")}
           key="3"
-          title={<FormattedMessage id="sidebar.scores" />}
+          title={intl.formatMessage({ id: "sidebar.scores" })}
         >
           <OrderedListOutlined />
           {!collapsed && <FormattedMessage id="sidebar.scores" />}
@@ -71,7 +71,7 @@ function Sidebar() {
         <Item
           onClick={() => history.push("/statistics")}
           key="4"
-          title={<FormattedMessage id="sidebar.statistics" />}
+          title={intl.formatMessage({ id: "sidebar.statistics" })}
         >
           <BarChartOutlined />
           {!collapsed && <FormattedMessage id="sidebar.statistics" />}
@@ -79,7 +79,7 @@ function Sidebar() {
         <Item
           onClick={() => history.push("/configurations")}
           key="5"
-          title={<FormattedMessage id="sidebar.configurations" />}
+          title={intl.formatMessage({ id: "sidebar.configurations" })}
         >
           <SettingFilled />
           {!collapsed && <FormattedMessage id="sidebar.configurations" />}
@@ -88,7 +88,7 @@ function Sidebar() {
           <Item
             onClick={handleLogout}
             key="6"
-            title={<FormattedMessage id="btn.logout" />}
+            title={intl.formatMessage({ id: "btn.logout" })}
           >
             <LogoutOutlined />
             {!collapsed && <FormattedMessage id="btn.logout" />}
@@ -97,7 +97,7 @@ function Sidebar() {
         <Item
           onClick={() => history.push("/about")}
           key="7"
-          title={<FormattedMessage id="sidebar.about" />}
+          title={intl.formatMessage({ id: "sidebar.about" })}
         >
           <PlusOutlined />
           {!collapsed && <FormattedMessage id="sidebar.about" />}

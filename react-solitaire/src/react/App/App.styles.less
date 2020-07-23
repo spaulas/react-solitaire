@@ -21,6 +21,7 @@
 
   .sidebar {
     width: 200px;
+    font-family: @fontFamily;
     .sidebarToggleSpan {
       position: absolute;
       bottom: 20px;
@@ -37,9 +38,12 @@
       height: auto;
       text-align: center;
       margin: 20% 0;
-      padding: 10px;
+      padding: 10px 20px 10px 10px !important;
       .logoTitle {
+        max-height: 100px;
+        max-width: 85px;
         width: 100%;
+        margin: 20px 0;
         cursor: pointer;
         filter: brightness(0) invert(1);
         transition: @smallTransitionTime;
@@ -47,18 +51,18 @@
     }
 
     .logoSelected {
-      background-color: @hoverElemColor;
+      background-color: @darkSecondaryColor;
     }
   }
 
   .ant-layout-sider {
     background: transparent;
-    background-color: @darkSecondaryColor;
+    background-color: @secondaryColor;
 
     .ant-menu-dark {
       background: transparent;
       .ant-menu-item-selected {
-        background-color: @hoverElemColor;
+        background-color: @darkSecondaryColor;
       }
       .ant-menu-inline.ant-menu-sub {
         background-color: @darkSecondaryColor;

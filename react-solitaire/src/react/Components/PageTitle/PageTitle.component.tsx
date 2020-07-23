@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import BreadCrumb from "../Router/BreadCrumb/BreadCrumb.component";
+// import BreadCrumb from "../Router/BreadCrumb/BreadCrumb.component";
 import { useHistory } from "react-router-dom";
 
 interface PageTitleProps {
@@ -17,7 +17,7 @@ function PageTitle({ title }: PageTitleProps) {
         src={require("../../../images/icon.png")}
         alt=""
       />
-      <BreadCrumb />
+      {/* <BreadCrumb /> */}
     </div>
   );
 }
