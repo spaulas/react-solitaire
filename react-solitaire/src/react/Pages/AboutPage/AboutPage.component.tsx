@@ -24,7 +24,7 @@ function AboutPage() {
             <Col xs={24} sm={24} md={8} className="title">
               <FormattedMessage id="about.madeBy" />
             </Col>
-            <Col xs={24} sm={24} md={8}>
+            <Col xs={24} sm={24} md={16}>
               <span>Paula Santos</span>
             </Col>
           </Row>
@@ -52,7 +52,7 @@ function AboutPage() {
             <Col xs={24} sm={24} md={8} className="title">
               <span>Github:</span>
             </Col>
-            <Col xs={24} sm={24} md={8}>
+            <Col xs={24} sm={24} md={16}>
               <a
                 href="https://github.com/spaulas/solitaireGame"
                 target="_black"
@@ -66,7 +66,7 @@ function AboutPage() {
             <Col xs={24} sm={24} md={8} className="title">
               <FormattedMessage id="about.goals" />
             </Col>
-            <Col xs={24} sm={24} md={8}>
+            <Col xs={24} sm={24} md={16}>
               <FormattedMessage id="about.goalsDetails" />
             </Col>
           </Row>

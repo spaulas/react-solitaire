@@ -85,7 +85,7 @@ function ConfigurationsForm() {
       onFinish={onSubmit}
     >
       <Row className="buttonSpaceRow" align="middle" justify="space-between">
-        <Col span={10}>
+        <Col xs={24} sm={24} md={10}>
           {/* Username input item */}
           <Item
             name="userName"
@@ -107,7 +107,7 @@ function ConfigurationsForm() {
             </label>
           </Item>
         </Col>
-        <Col span={10}>
+        <Col xs={24} sm={24} md={10}>
           {/* Created at input item (disabled) */}
           <Item name="createdAt">
             <Input
@@ -122,10 +122,13 @@ function ConfigurationsForm() {
           </Item>
         </Col>
       </Row>
-
-      <Row className="buttonSpaceRow" align="middle" justify="space-between">
+      <Row
+        className="buttonSpaceRow extraSpaceRow"
+        align="middle"
+        justify="space-between"
+      >
         {!loggedOut ? (
-          <Col span={10}>
+          <Col xs={24} sm={24} md={10}>
             {/* Email input item (disabled and only visible for a logged in user) */}
             <Item name="email">
               <Input
@@ -141,7 +144,7 @@ function ConfigurationsForm() {
           </Col>
         ) : null}
 
-        <Col span={10}>
+        <Col xs={24} sm={24} md={10}>
           {/* Language radio button item (english, portuguese, german and spanish available) */}
           <Item name="language">
             <Radio.Group className="languagesRadioGroup" disabled={!editMode}>
@@ -170,13 +173,13 @@ function ConfigurationsForm() {
         </Col>
       </Row>
 
-      <Divider orientation="left">
+      <Divider orientation="left" className="extraSpaceDivider">
         <FormattedMessage id="joyride.title" />
       </Divider>
       {/* Joyride checkboxes for each page */}
       <Row className="buttonSpaceRow" align="middle" justify="center">
         {Object.keys(joyride).map((page: string) => (
-          <Col key={page} span={6}>
+          <Col key={page} xs={24} sm={24} md={6}>
             <Item name={page} valuePropName="checked">
               <Checkbox disabled={!editMode} defaultChecked={joyride[page]}>
                 <FormattedMessage id={`sidebar.${page}`} />
@@ -185,26 +188,36 @@ function ConfigurationsForm() {
           </Col>
         ))}
       </Row>
+
       {editMode ? (
         // at the edit mode, the buttons save and cancel are displayed
         <>
           <MenuButton
             onClick={() => form.submit()}
-            className="loginButtonAnimated"
+            className="loginButtonAnimated extraSpaceButtons"
           >
-            <FormattedMessage id="btn.save" />
+            <span>
+              <FormattedMessage id="btn.save" />
+            </span>
           </MenuButton>
-          <MenuButton onClick={handleCancel} className="loginButtonAnimated">
-            <FormattedMessage id="btn.cancel" />
+          <MenuButton
+            onClick={handleCancel}
+            className="loginButtonAnimated extraSpaceButtons"
+          >
+            <span>
+              <FormattedMessage id="btn.cancel" />
+            </span>
           </MenuButton>
         </>
       ) : (
         // when not editing, only the edit button is shown
         <MenuButton
           onClick={() => setEditMode(true)}
-          className="loginButtonAnimated"
+          className="loginButtonAnimated extraSpaceButtons"
         >
-          <FormattedMessage id="btn.edit" />
+          <span>
+            <FormattedMessage id="btn.edit" />
+          </span>
         </MenuButton>
       )}
     </Form>

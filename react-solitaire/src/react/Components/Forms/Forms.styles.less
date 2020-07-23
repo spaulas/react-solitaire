@@ -198,6 +198,36 @@
   .formInput {
     width: 100%;
   }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    .extraSpaceRow {
+      margin-top: 100px;
+    }
+
+    .extraSpaceDivider {
+      margin-top: 150px;
+    }
+
+    .extraSpaceButtons {
+      margin-top: 200px;
+    }
+
+    .ant-checkbox-wrapper .ant-checkbox span {
+      height: 30px;
+      width: 30px;
+    }
+
+    .ant-checkbox-inner::after {
+      width: 9px;
+      height: 14px;
+      left: 27%;
+    }
+
+    .ant-col-sm-24,
+    .ant-col-xs-24 {
+      text-align: start;
+    }
+  }
 }
 
 .loginButtonAnimated {
