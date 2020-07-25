@@ -8,16 +8,24 @@ interface BarGraphProps {
   data: Array<object>;
   dataKey: string;
   label: Record<string, number>;
+  className?: string;
 }
 
-function BarGraph({ width, height, data, dataKey, label }: BarGraphProps) {
+function BarGraph({
+  width,
+  height,
+  data,
+  dataKey,
+  label,
+  className = ""
+}: BarGraphProps) {
   return data?.length > 0 ? (
     <BarChart
       width={width}
       height={height}
       data={data}
       barCategoryGap={0}
-      className="statisticsBarChart"
+      className={`statisticsBarChart ${className}`}
     >
       <XAxis dataKey="name" />
       <YAxis />
@@ -32,7 +40,7 @@ function BarGraph({ width, height, data, dataKey, label }: BarGraphProps) {
       <Bar dataKey={dataKey} fill="rgba(255, 255, 255, 0.1)" />
     </BarChart>
   ) : (
-    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} className="graphEmpty" />
+    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
   );
 }
 

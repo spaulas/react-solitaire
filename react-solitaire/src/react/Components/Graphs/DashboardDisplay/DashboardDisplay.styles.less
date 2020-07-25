@@ -29,4 +29,24 @@
   .piechartEmpty {
     padding-left: calc((100% - 60px) / 2);
   }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    .graphTitle {
+      font-size: @fontBodyMobile;
+    }
+
+    .dashboardPieChart {
+      top: 0;
+      left: calc((100% - 200px) / 2);
+    }
+
+    .dashboardBarChart {
+      top: 0;
+      left: calc((100% - 200px - 80px) / 2);
+    }
+
+    .secondCol {
+      margin-top: 15%;
+    }
+  }
 }

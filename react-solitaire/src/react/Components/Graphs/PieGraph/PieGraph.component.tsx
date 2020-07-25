@@ -10,12 +10,13 @@ interface PieGraphProps {
   width: number;
   height: number;
   iconSize: number;
+  className?: string;
 }
 
 const COLORS = ["rgba(0, 0, 0, 0.2)", "rgba(255, 255, 255, 0.1)"];
 const RADIAN = Math.PI / 180;
 
-function PieGraph({ width, height, iconSize }: PieGraphProps) {
+function PieGraph({ width, height, iconSize, className = "" }: PieGraphProps) {
   const {
     graphs: { winsRatio }
   } = useSelector(({ User }: RootReducerState) => ({
@@ -48,7 +49,11 @@ function PieGraph({ width, height, iconSize }: PieGraphProps) {
   };
 
   return winsRatio.length > 0 ? (
-    <PieChart width={width} height={height} className="statisticsPieChart">
+    <PieChart
+      width={width}
+      height={height}
+      className={`statisticsPieChart ${className}`}
+    >
       <Pie
         data={winsRatio}
         cx={width / 2}

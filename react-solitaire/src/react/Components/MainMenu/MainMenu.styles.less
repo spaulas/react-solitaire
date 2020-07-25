@@ -3,4 +3,9 @@
   color: @fontColor;
   font-size: @fontTitle;
   margin: 20px;
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    font-size: @fontTitleMobile;
+    margin: 0 10px -30px 10px;
+  }
 }
