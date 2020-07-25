@@ -114,13 +114,17 @@
   }
 
   @media screen and (min-width: 320px) and (max-width: 767px) {
+    .ant-table-content {
+      overflow-x: scroll;
+    }
+
     .ant-table-tbody {
-      font-size: 15px;
+      font-size: @fontBodyMobile;
     }
 
     thead {
       tr > th {
-        font-size: 18px;
+        font-size: @fontTitleMobile;
       }
     }
 
@@ -143,5 +147,14 @@
   .ant-empty-description {
     font-size: @fontBody;
     color: @fontColor;
+  }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    .ant-empty-image {
+      height: 30px;
+    }
+    .ant-empty-description {
+      font-size: @fontBodyMobile;
+    }
   }
 }
