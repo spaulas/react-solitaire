@@ -9,12 +9,13 @@ import { useSelector } from "react-redux";
 interface PieGraphProps {
   width: number;
   height: number;
+  iconSize: number;
 }
 
 const COLORS = ["rgba(0, 0, 0, 0.2)", "rgba(255, 255, 255, 0.1)"];
 const RADIAN = Math.PI / 180;
 
-function PieGraph({ width, height }: PieGraphProps) {
+function PieGraph({ width, height, iconSize }: PieGraphProps) {
   const {
     graphs: { winsRatio }
   } = useSelector(({ User }: RootReducerState) => ({
@@ -70,7 +71,7 @@ function PieGraph({ width, height }: PieGraphProps) {
           borderRadius: "20px"
         }}
       />
-      <Legend iconSize={50} iconType="circle" />
+      <Legend iconSize={iconSize} iconType="circle" />
     </PieChart>
   ) : (
     <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} className="piechartEmpty" />

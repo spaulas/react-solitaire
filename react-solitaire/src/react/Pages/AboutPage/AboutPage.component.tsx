@@ -72,7 +72,14 @@ function AboutPage() {
           </Row>
           {/* Special thanks */}
           <Row className="specialThanks" justify="end">
-            <FormattedMessage id="about.specialThanks" />
+            <FormattedMessage id="about.specialThanks1" />
+            <a
+              href="https://www.linkedin.com/in/andreamorimsimoes/"
+              target="__blank"
+            >
+              André Amorim
+            </a>
+            <FormattedMessage id="about.specialThanks2" />
           </Row>
         </Col>
       </Row>

@@ -41,4 +41,32 @@
   .carouselArrowRight {
     right: @limitHorizontal;
   }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    .tabTitle {
+      font-size: @fontTitleMobile;
+    }
+
+    .statisticsCarousel {
+      .slick-slide {
+        height: 400px;
+      }
+    }
+
+    .carouselArrow {
+      font-size: @fontTitleMobile;
+    }
+
+    .carouselArrow:hover {
+      font-size: calc(@fontTitleMobile + 1px);
+    }
+
+    .carouselArrowLeft {
+      left: calc(@limitHorizontal / 2);
+    }
+
+    .carouselArrowRight {
+      right: calc(@limitHorizontal / 2);
+    }
+  }
 }

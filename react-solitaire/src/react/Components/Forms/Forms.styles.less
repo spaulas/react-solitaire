@@ -11,7 +11,7 @@
   }
 
   .googleButton {
-    background: rgba(76, 139, 245, 1);
+    background-color: rgba(76, 139, 245, 1);
   }
 
   .formInput {
@@ -200,9 +200,6 @@
     .inputIcons {
       font-size: @fontBodyMobile;
     }
-  }
-
-  @media screen and (min-width: 320px) and (max-width: 767px) {
     .extraSpaceRow {
       margin-top: 100px;
     }
@@ -241,6 +238,10 @@
 
     .formInput:focus ~ label,
     .formInput > .ant-input-focused ~ label {
+      font-size: 9px;
+    }
+
+    .formInput:not([value=""]) ~ label {
       font-size: 9px;
     }
 
