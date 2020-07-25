@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { forwardRef, memo, useState } from "react";
+import React, { forwardRef, memo, useEffect, useState } from "react";
 import CardFrame from "./CardFrame.component";
 import CardImage from "./CardImage.component";
 import { ExplicitAny } from "../../../global";
@@ -33,6 +33,7 @@ function CardFlippable(
   }: CardFlippableProps,
   ref: ExplicitAny
 ) {
+  const [isMobile, setIsMobile] = useState(false);
   const [cardFlipped, setCardFlipped] = useState(false);
   const [animationStyle, setAnimationStyle] = useState({});
   const animationStyleUndo = {
@@ -42,7 +43,9 @@ function CardFlippable(
     if (!cardFlipped && !disabled) {
       if (translationX && translationX !== 0) {
         setAnimationStyle({
-          transform: `translate(${translationX}px, ${translationY}px) rotateY(180deg)`
+          transform: isMobile
+            ? `translate(${-translationX}px, ${translationY}px) rotateY(180deg)`
+            : `translate(${translationX}px, ${translationY}px) rotateY(180deg)`
         });
       } else {
         setAnimationStyle({ transform: "rotateY(180deg)" });
@@ -54,6 +57,18 @@ function CardFlippable(
       removeCard();
     }
   };
+
+  const checkMobile = () => {
+    if (!isMobile && window.innerWidth < 767) {
+      setIsMobile(true);
+    }
+    if (isMobile && window.innerWidth >= 767) {
+      setIsMobile(false);
+    }
+  };
+  useEffect(checkMobile, []);
+
+  console.log("animation sytoe = ", animationStyle);
 
   return (
     <CardFrame
