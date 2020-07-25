@@ -79,7 +79,7 @@ function FlippedPile() {
       pileId="flippedPile"
       pileCards={getCards()}
       pileClassName="deckPile flippedPile"
-      insideClassName="columnPile"
+      insideClassName="columnPile deckPileMobile"
     />
   );
 }

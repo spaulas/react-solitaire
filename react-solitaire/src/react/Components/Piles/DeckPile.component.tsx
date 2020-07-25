@@ -81,7 +81,7 @@ function DeckPile() {
       pileCards={getCards()}
       offset={2}
       pileClassName="deckPileIndex flippedPile"
-      insideClassName="columnPile"
+      insideClassName="columnPile deckPileMobile"
     />
   );
 }

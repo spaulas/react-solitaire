@@ -11,9 +11,9 @@ import {
 import { FormattedMessage, useIntl } from "react-intl";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import { RootReducerState } from "../../../../global";
 import { auth } from "../../../../firebase/firebase.utils";
-import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const { Sider } = Layout;
@@ -21,6 +21,7 @@ const { Item } = Menu;
 
 function Sidebar() {
   const history = useHistory();
+  const location = useLocation();
   const intl = useIntl();
   const [collapsed, setCollapsed] = useState(true);
 
@@ -33,7 +34,7 @@ function Sidebar() {
     history.push("/");
   };
 
-  return (
+  return location.pathname !== "/game" ? (
     <Sider className="sidebar" trigger={null} collapsible collapsed={collapsed}>
       <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
         <Item
@@ -117,7 +118,7 @@ function Sidebar() {
         )}
       </span>
     </Sider>
-  );
+  ) : null;
 }
 
 export default Sidebar;
