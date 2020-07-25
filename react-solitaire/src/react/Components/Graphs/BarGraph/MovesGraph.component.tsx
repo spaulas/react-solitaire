@@ -6,9 +6,10 @@ import { useSelector } from "react-redux";
 interface MovesGraphProps {
   width: number;
   height: number;
+  className?: string;
 }
 
-function MovesGraph({ width, height }: MovesGraphProps) {
+function MovesGraph({ width, height, className }: MovesGraphProps) {
   const {
     graphs: {
       moves: { data, label }
@@ -19,6 +20,7 @@ function MovesGraph({ width, height }: MovesGraphProps) {
 
   return (
     <BarGraph
+      className={className}
       data={data}
       dataKey="moves"
       label={label}

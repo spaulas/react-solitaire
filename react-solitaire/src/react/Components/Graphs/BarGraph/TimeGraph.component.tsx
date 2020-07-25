@@ -6,9 +6,10 @@ import { useSelector } from "react-redux";
 interface TimesGraphProps {
   width: number;
   height: number;
+  className?: string;
 }
 
-function TimeGraph({ width, height }: TimesGraphProps) {
+function TimeGraph({ width, height, className }: TimesGraphProps) {
   const {
     graphs: {
       time: { data, label }
@@ -24,6 +25,7 @@ function TimeGraph({ width, height }: TimesGraphProps) {
       label={label}
       width={width}
       height={height}
+      className={className}
     />
   );
 }
