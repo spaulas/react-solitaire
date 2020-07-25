@@ -107,6 +107,7 @@
     .appContent {
       .mainPage {
         min-width: 250px;
+        height: 110%;
       }
     }
 
@@ -147,6 +148,18 @@
             font-size: @fontBodyMobile;
           }
         }
+      }
+    }
+  }
+
+  .ant-spin-spinning {
+    .ant-spin-dot {
+      font-size: 50px;
+      margin-top: calc((100vh - 50px) / 2);
+
+      .ant-spin-dot-item {
+        width: 25px;
+        height: 25px;
       }
     }
   }
