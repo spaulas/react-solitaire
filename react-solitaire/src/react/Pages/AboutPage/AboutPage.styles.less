@@ -35,14 +35,6 @@
       .title {
         font-size: @fontTitle;
       }
-
-      a {
-        color: white;
-      }
-      a:hover,
-      a:active {
-        color: @buttonActiveColor;
-      }
     }
 
     .specialThanks {
@@ -50,7 +42,19 @@
       padding: 60px;
     }
 
-    @media screen and (min-width: 320px) and (max-width: 767px) {
+    a {
+      color: white;
+      text-decoration: underline;
+    }
+    a:hover,
+    a:active {
+      color: @buttonActiveColor;
+    }
+  }
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    .aboutRow {
+      font-size: @fontBodyMobile;
+      padding-right: 0;
       .imageHere {
         width: 100%;
         height: 400px;
@@ -60,8 +64,11 @@
           max-height: 300px;
         }
       }
-      .title {
-        margin-bottom: 10px;
+      .rowInfo {
+        .title {
+          margin-bottom: 10px;
+          font-size: @fontTitleMobile;
+        }
       }
       .specialThanks {
         padding: 60px 0 0 0;
