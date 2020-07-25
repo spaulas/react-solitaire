@@ -32,7 +32,7 @@ function BarGraph({ width, height, data, dataKey, label }: BarGraphProps) {
       <Bar dataKey={dataKey} fill="rgba(255, 255, 255, 0.1)" />
     </BarChart>
   ) : (
-    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} className="graphEmpty" />
   );
 }
 

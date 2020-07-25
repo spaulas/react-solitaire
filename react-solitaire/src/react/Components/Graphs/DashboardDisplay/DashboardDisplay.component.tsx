@@ -13,7 +13,7 @@ function DashboardDisplay() {
           {" "}
           <FormattedMessage id="statistics.winRatio" />
         </div>
-        <Piegraph width={250} height={300} />
+        <Piegraph width={250} height={300} iconSize={20} />
       </Row>
       <Row className="bottomRow">
         <Col>

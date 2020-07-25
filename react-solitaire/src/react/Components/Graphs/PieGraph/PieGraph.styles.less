@@ -6,4 +6,13 @@
     color: @fontColor;
     font-size: @fontBody;
   }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    left: calc((100vw - 200px - 75px) / 2);
+    top: calc((100vh - 480px)/2);
+
+    .recharts-legend-item-text {
+      font-size: @fontBodyMobile;
+    }
+  }
 }
