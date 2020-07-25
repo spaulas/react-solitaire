@@ -18,7 +18,7 @@
     transform-origin: left top;
     width: 100vh;
     height: 100vw;
-    overflow-x: hidden;
+    overflow: scroll !important;
     position: absolute;
     top: 100%;
     left: 0;
@@ -41,12 +41,10 @@
   }
 
   .baseEmptySpots {
+    min-height: 1200px;
+    height: 100%;
     .joyrideColumns {
       margin-top: 10%;
     }
-  }
-
-  .mainPage {
-    overflow-x: scroll !important;
   }
 }
