@@ -1,5 +1,5 @@
 import { AppstoreFilled, BorderOutlined } from "@ant-design/icons";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import CarouselDisplay from "../../Components/Graphs/CarouselDisplay/CarouselDisplay.component";
 import DashboardDisplay from "../../Components/Graphs/DashboardDisplay/DashboardDisplay.component";
 import { ExplicitAny } from "../../../global";
@@ -57,4 +57,4 @@ function StatisticsPage() {
   );
 }
 
-export default StatisticsPage;
+export default memo(StatisticsPage);

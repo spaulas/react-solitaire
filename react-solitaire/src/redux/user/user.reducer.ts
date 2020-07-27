@@ -181,7 +181,7 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
           JSON.stringify({ ...state.user, ...finalChanges })
         );
       }
-      return { ...state, user: { ...state.user, history: finalHistory } };
+      return { ...state, user: { ...state.user, ...finalChanges } };
 
     case UserActionTypes.SAVE_GAME:
       if (state.userRef) {

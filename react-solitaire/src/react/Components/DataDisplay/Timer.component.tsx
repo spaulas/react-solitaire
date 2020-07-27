@@ -20,19 +20,35 @@ function Timer() {
   // creates a setInterval with respective clearInterval
   // returns the number of hours, minutes and seconds it has passed
   const useTimer = () => {
-    // set time states
-    const [seconds, setSeconds] = useState(0);
-    const [minutes, setMinutes] = useState(0);
-    const [hours, setHours] = useState(0);
-
     // get timer flag and the game pause from the GameBoard redux state
-    const { timerFlag, gamePaused, gameOver } = useSelector(
-      ({ GameBoard, Goal }: RootReducerState) => ({
-        timerFlag: GameBoard.gameFlag,
-        gamePaused: GameBoard.gamePaused,
-        gameOver: Goal.gameOver
-      })
-    );
+    const {
+      timerFlag,
+      gamePaused,
+      gameOver,
+      savingGame,
+      gameTime
+    } = useSelector(({ GameBoard, Goal }: RootReducerState) => ({
+      timerFlag: GameBoard.gameFlag,
+      gamePaused: GameBoard.gamePaused,
+      gameOver: Goal.gameOver,
+      savingGame: GameBoard.savingGame,
+      gameTime: GameBoard.gameTime
+    }));
+
+    let initialHours = 0;
+    let initialMinutes = 0;
+    let initialSeconds = 0;
+
+    if (gameTime > 0) {
+      initialHours = Math.floor(gameTime / 3600);
+      initialMinutes = Math.floor((gameTime % 3600) / 60);
+      initialSeconds = gameTime % 3600;
+    }
+
+    // set time states
+    const [seconds, setSeconds] = useState(initialSeconds);
+    const [minutes, setMinutes] = useState(initialMinutes);
+    const [hours, setHours] = useState(initialHours);
 
     // update the timer at every 1 second
     useEffect(() => {
@@ -44,19 +60,22 @@ function Timer() {
 
     // when the timer flag is toggled, reset the timer
     useEffect(() => {
-      setSeconds(0);
-      setMinutes(0);
-      setHours(0);
+      if (gameTime === 0) {
+        setSeconds(0);
+        setMinutes(0);
+        setHours(0);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [timerFlag]);
 
     const handleGameOver = () => {
-      if (gameOver) {
+      if (gameOver || savingGame) {
         dispatch(
           gameBoardActions.saveGameTime(hours * 3600 + minutes * 60 + seconds)
         );
       }
     };
-    useEffect(handleGameOver, [gameOver]);
+    useEffect(handleGameOver, [gameOver, savingGame]);
 
     // add one second, minute or hour accordingly
     function tick() {

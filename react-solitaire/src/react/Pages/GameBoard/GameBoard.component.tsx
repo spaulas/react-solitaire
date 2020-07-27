@@ -47,6 +47,7 @@ function GameBoard() {
     goal2Pile,
     goal3Pile,
     goal4Pile,
+    hasSavedGame,
     savedGame
   } = useSelector(({ GameBoard, Goal, User }: RootReducerState) => ({
     gameMoves: GameBoard.gameMoves,
@@ -64,6 +65,7 @@ function GameBoard() {
     goal2Pile: GameBoard.goal2Pile,
     goal3Pile: GameBoard.goal3Pile,
     goal4Pile: GameBoard.goal4Pile,
+    hasSavedGame: User.user.hasSavedGame,
     savedGame: User.user.savedGame || {}
   }));
 
@@ -85,7 +87,7 @@ function GameBoard() {
 
     // if nothing was sent through the location state, then create a new game
     if (!location.state) {
-      if (savedGame) {
+      if (hasSavedGame) {
         // if there was a saved game and the user started a new one, should count has a lost
         dispatch(userActions.addGame());
         // remove saved game from user settings
@@ -105,6 +107,8 @@ function GameBoard() {
       dispatch(columnsActions.setInitialColumns(savedGame.columns));
       // set the initial goals
       dispatch(goalActions.setInitialGoals(savedGame.goals));
+      // set initial game board
+      dispatch(gameBoardActions.setInitialSavedGame(savedGame));
       // remove saved game from user settings
       dispatch(userActions.clearSavedGame());
     }
@@ -155,9 +159,6 @@ function GameBoard() {
     }
   };
   useEffect(addGameToUser, [gameMoves]);
-
-  // eslint-disable-next-line no-console
-  console.log("WINDOW = ", window);
 
   // ---------------------------------------------------------
 

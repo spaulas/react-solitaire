@@ -1,5 +1,5 @@
+import { ExplicitAny, ValueOf } from "../../global";
 import GameBoardActionTypes, { GameMove } from "./gameBoard.types";
-import { ValueOf } from "../../global";
 
 // ********************************************************
 // INITIAL SETTINGS ACTIONS
@@ -9,6 +9,11 @@ import { ValueOf } from "../../global";
  */
 const createGame = () => ({
   type: GameBoardActionTypes.CREATE_GAME
+});
+
+const setInitialSavedGame = (savedGame: ExplicitAny) => ({
+  type: GameBoardActionTypes.SET_INITIAL_GAME,
+  savedGame
 });
 
 // ********************************************************
@@ -34,6 +39,10 @@ const timeGame = () => ({
 const saveGameTime = (time: number) => ({
   type: GameBoardActionTypes.SAVE_GAME_TIME,
   time
+});
+
+const savingGame = () => ({
+  type: GameBoardActionTypes.SAVING_GAME
 });
 
 /**
@@ -78,9 +87,11 @@ const reAddGameMove = () => ({
 
 const actionsCreators = Object.freeze({
   createGame,
+  setInitialSavedGame,
   toggleGameFlag,
   timeGame,
   saveGameTime,
+  savingGame,
   addGameHint,
   addGameMove,
   removeGameMove,

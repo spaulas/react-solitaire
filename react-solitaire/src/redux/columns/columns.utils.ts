@@ -40,7 +40,7 @@ export const createColumns = (columns: Record<string, Array<CardType>>) => {
   const columnValues: Array<Array<CardType>> = Object.values(columns);
 
   // add the flipped value to each card (the last one of each column will receive the value true)
-  const cardsFlippedSet = columnValues.map(
+  const cardsFlippedSet = columnValues?.map(
     (values: Array<CardType>, columnIndex: number) =>
       values.map((value: CardType, valueIndex: number) => {
         return {

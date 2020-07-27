@@ -28,8 +28,8 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
   switch (action.type) {
     case HighScoresActionTypes.SET_ONLINE_HIGHSCORES:
       return {
-        highscore: action.data,
-        highscoreRef: () => {
+        highScore: action.data,
+        highScoreRef: () => {
           return action.highScoreRef;
         }
       };
@@ -52,10 +52,10 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
 
     case HighScoresActionTypes.HAS_NEW_HIGHSCORE:
       let finalHasNewHighScore = false;
-      if (state.highScore?.highScores.length < 10) {
+      if (state.highScore?.highScores?.length < 10) {
         finalHasNewHighScore = true;
       } else {
-        const result = state.highScore?.highScores.find(
+        const result = state.highScore?.highScores?.find(
           (highScore: HighScore) => {
             return action.finalScore < highScore.finalScore;
           }

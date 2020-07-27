@@ -68,8 +68,6 @@ function CardFlippable(
   };
   useEffect(checkMobile, []);
 
-  console.log("animation sytoe = ", animationStyle);
-
   return (
     <CardFrame
       ref={ref}

@@ -2,8 +2,8 @@
 /* eslint-disable react/no-multi-comp */
 import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
 import { ExplicitAny, RootReducerState } from "../../../../global";
+import React, { memo } from "react";
 import { Empty } from "antd";
-import React from "react";
 import { useSelector } from "react-redux";
 
 interface PieGraphProps {
@@ -83,4 +83,4 @@ function PieGraph({ width, height, iconSize, className = "" }: PieGraphProps) {
   );
 }
 
-export default PieGraph;
+export default memo(PieGraph);

@@ -25,7 +25,9 @@ function AboutPage() {
               <FormattedMessage id="about.madeBy" />
             </Col>
             <Col xs={24} sm={24} md={16}>
-              <span>Paula Santos</span>
+              <a href="https://www.linkedin.com/in/spaulas/" target="_black">
+                Paula Santos
+              </a>
             </Col>
           </Row>
           {/* Languages used */}

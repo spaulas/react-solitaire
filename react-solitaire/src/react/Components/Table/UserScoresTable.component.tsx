@@ -30,7 +30,7 @@ function UserScoresTable({ data }: UserScoresTableProps) {
       pagination={{ pageSize: 10 }}
     >
       <Column
-        className={expandTable ? "columnExpanded" : "columnExpanded"}
+        className={expandTable ? "columnExpanded" : "columnNotExpanded"}
         key="date"
         title={<FormattedMessage id="table.date" />}
         dataIndex="date"
@@ -41,7 +41,7 @@ function UserScoresTable({ data }: UserScoresTableProps) {
       />
       <Column
         key="finalScore"
-        className={expandTable ? "columnExpanded" : "columnExpanded"}
+        className={expandTable ? "columnExpanded" : "columnNotExpanded"}
         title={
           <div>
             <FormattedMessage id="table.finalScore" />

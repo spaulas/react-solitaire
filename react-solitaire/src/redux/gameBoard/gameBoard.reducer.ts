@@ -5,7 +5,8 @@ import {
   addGameMove,
   createRandomGame,
   removeGameMove,
-  resetGameStatus
+  resetGameStatus,
+  setInitialValues
 } from "./gameBoard.utils";
 import { ActionsCreators } from "./gameBoard.actions";
 
@@ -32,6 +33,7 @@ interface InitialGameBoard {
   nHints: number;
   gamePreviousMoves: Array<GameMove>; // list of moves that can be undone
   gameNextMoves: Array<GameMove>; // list of moves that can be redone
+  savingGame: boolean;
 }
 
 const INITIAL_GAME_BOARD: InitialGameBoard = {
@@ -55,7 +57,8 @@ const INITIAL_GAME_BOARD: InitialGameBoard = {
   gameHints: [],
   nHints: 0,
   gamePreviousMoves: [],
-  gameNextMoves: []
+  gameNextMoves: [],
+  savingGame: false
 };
 
 const gameBoardReducer = (
@@ -74,6 +77,10 @@ const gameBoardReducer = (
         ...createRandomGame(),
         ...resetGameStatus(state.gameFlag)
       };
+
+    case GameBoardActionTypes.SET_INITIAL_GAME:
+      const initialValues = setInitialValues(action.savedGame, state.gameFlag);
+      return initialValues;
 
     // ********************************************************
     //  GAME INFO/OPTIONS ACTIONS
@@ -97,7 +104,10 @@ const gameBoardReducer = (
      * Save the game time
      */
     case GameBoardActionTypes.SAVE_GAME_TIME:
-      return { ...state, gameTime: action.time };
+      return { ...state, gameTime: action.time, gamePaused: true };
+
+    case GameBoardActionTypes.SAVING_GAME:
+      return { ...state, savingGame: true };
 
     /**
      * Adds a hint
