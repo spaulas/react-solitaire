@@ -71,7 +71,7 @@ function UndoButton() {
               source,
               target,
               cards.length,
-              movementWithFlip
+              Boolean(movementWithFlip)
             )
           );
         } else if (target.includes("goal")) {

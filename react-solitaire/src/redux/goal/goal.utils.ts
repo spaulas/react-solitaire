@@ -160,18 +160,9 @@ export const addDragginCardsToGoal = (
       finalGoal.push({ ...card, flipped: true, cardField: finalId })
     );
 
-    // get an array with the goal piles ids
-    const goalIds = Object.keys(goals);
-
     // it stops at the first comparison that is true, so it does not check the other piles without need
     // since the game is only over when all the four piles are full
-    const gameOver = !goalIds.some((key: string) => {
-      if (finalId === key) {
-        // because it was not added yet
-        return goals[key].length + 1 < 13;
-      }
-      return goals[key].length < 13;
-    });
+    const gameOver = isGameOver(goals, finalId);
 
     // returns the changes in the destination goal pile and, since the movement was valid, there is no need to send them back
     return {
@@ -185,6 +176,21 @@ export const addDragginCardsToGoal = (
   return {
     sendBack: true
   };
+};
+
+export const isGameOver = (
+  goals: Record<string, Array<CardType>>,
+  finalId: string
+) => {
+  // get an array with the goal piles ids
+  const goalIds = Object.keys(goals);
+  return !goalIds.some((key: string) => {
+    if (finalId === key) {
+      // because it was not added yet
+      return goals[key].length + 1 < 13;
+    }
+    return goals[key].length < 13;
+  });
 };
 
 // ********************************************************
@@ -214,7 +220,7 @@ export const addCardToGoal = (
       [goalId]: goal
     },
     doubleClickTarget: undefined,
-    gameOver: true
+    gameOver: isGameOver(goals, goalId)
   };
 };
 
