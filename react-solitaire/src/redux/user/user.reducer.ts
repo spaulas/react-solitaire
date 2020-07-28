@@ -36,7 +36,6 @@ export interface InitialUser {
         main: boolean;
         scores: boolean;
         statistics: boolean;
-        login: boolean;
         game: boolean;
         gameOptions: boolean;
       };
@@ -68,7 +67,6 @@ const INITIAL_USER: InitialUser = {
         main: true,
         scores: true,
         statistics: true,
-        login: true,
         game: true,
         gameOptions: true
       }

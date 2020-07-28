@@ -70,7 +70,6 @@ export const getUserInfo = async (user, userName) => {
             main: true,
             scores: true,
             statistics: true,
-            login: true,
             game: true,
             gameOptions: true
           }

@@ -85,16 +85,6 @@ function Sidebar() {
           <SettingFilled />
           {!collapsed && <FormattedMessage id="sidebar.configurations" />}
         </Item>
-        {loggedIn && (
-          <Item
-            onClick={handleLogout}
-            key="6"
-            title={intl.formatMessage({ id: "btn.logout" })}
-          >
-            <LogoutOutlined />
-            {!collapsed && <FormattedMessage id="btn.logout" />}
-          </Item>
-        )}
         <Item
           onClick={() => history.push("/about")}
           key="7"
