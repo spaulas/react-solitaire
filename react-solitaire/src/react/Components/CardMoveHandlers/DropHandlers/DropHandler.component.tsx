@@ -58,8 +58,21 @@ const DropHandler = ({
       document.getElementById("baseEmptySpots")?.offsetWidth || 1;
     const innerHeight = window.innerHeight;
     // get column size
-    const initialOffset = (innerWidth / 24) * 3;
+    const initialOffset = ((innerWidth / 24) * 3) / 8;
     const columnSizes = (innerWidth - initialOffset) / 7;
+
+    // eslint-disable-next-line no-console
+    console.log("INNER WIDTH = ", innerWidth);
+    // eslint-disable-next-line no-console
+    console.log("innerHeight = ", innerHeight);
+    // eslint-disable-next-line no-console
+    console.log("initialOffset = ", initialOffset);
+    // eslint-disable-next-line no-console
+    console.log("columnSizes = ", columnSizes);
+    // eslint-disable-next-line no-console
+    console.log("x = ", x);
+    // eslint-disable-next-line no-console
+    console.log("y = ", y);
 
     // should drop in one of the goal spots
     if (y < innerHeight / 3.8) {
