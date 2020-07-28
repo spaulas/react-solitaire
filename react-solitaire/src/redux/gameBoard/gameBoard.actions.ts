@@ -16,10 +16,6 @@ const setInitialSavedGame = (savedGame: ExplicitAny) => ({
   savedGame
 });
 
-const exitGame = () => ({
-  type: GameBoardActionTypes.EXIT_GAME
-});
-
 // ********************************************************
 // GAME INFO/OPTIONS ACTIONS
 
@@ -45,8 +41,9 @@ const saveGameTime = (time: number) => ({
   time
 });
 
-const savingGame = () => ({
-  type: GameBoardActionTypes.SAVING_GAME
+const showingConfirm = (showingConfirm: boolean) => ({
+  type: GameBoardActionTypes.SHOWING_CONFIRM,
+  showingConfirm
 });
 
 /**
@@ -92,11 +89,10 @@ const reAddGameMove = () => ({
 const actionsCreators = Object.freeze({
   createGame,
   setInitialSavedGame,
-  exitGame,
   toggleGameFlag,
   timeGame,
   saveGameTime,
-  savingGame,
+  showingConfirm,
   addGameHint,
   addGameMove,
   removeGameMove,

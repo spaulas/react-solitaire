@@ -142,8 +142,7 @@ export const resetGameStatus = (gameFlag: boolean) => {
     nHints: 0,
     gamePreviousMoves: [], // there are no moves to be undone
     gameNextMoves: [], // there are  no moves to be redone
-    savingGame: false,
-    leavingGame: false
+    showingConfirm: false
   };
 };
 
@@ -170,8 +169,7 @@ export const setInitialValues = (savedGame: ExplicitAny, gameFlag: boolean) => {
     goal2Pile: savedGame.goals.goal2Pile,
     goal3Pile: savedGame.goals.goal3Pile,
     goal4Pile: savedGame.goals.goal4Pile,
-    savingGame: false,
-    leavingGame: false
+    showingConfirm: false
   };
 };
 

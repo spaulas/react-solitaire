@@ -19,8 +19,10 @@ function BaseEmptySpots() {
       const gameHints = GameBoard.gameHints;
       const lastIndex = gameHints.length - 1;
       return {
-        deckRef: Deck.deckRef,
-        flippedRef: Deck.flippedRef,
+        deckRef:
+          typeof Deck.deckRef === "function" ? Deck.deckRef() : undefined,
+        flippedRef:
+          typeof Deck.flippedRef === "function" ? Deck.flippedRef() : undefined,
         lastHint: lastIndex >= 0 ? gameHints[lastIndex] : undefined
       };
     }

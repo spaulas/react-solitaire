@@ -60,17 +60,27 @@ function RestartGameButton() {
     setShowConfirm(false);
   };
 
+  const handleShowConfirm = () => {
+    setShowConfirm(true);
+    dispatch(gameBoardActions.showingConfirm(true));
+  };
+
+  const handleCancelConfirm = () => {
+    setShowConfirm(false);
+    dispatch(gameBoardActions.showingConfirm(false));
+  };
+
   return (
     <>
       <Tooltip title={<FormattedMessage id="btn.restart" />}>
         <RedoOutlined
           className="joyrideRestart iconButton"
-          onClick={() => setShowConfirm(true)}
+          onClick={handleShowConfirm}
         />
       </Tooltip>
       {showConfirm ? (
         <ConfirmationModal
-          onCancel={() => setShowConfirm(false)}
+          onCancel={handleCancelConfirm}
           onConfirm={restartGame}
           message={<FormattedMessage id="confirm.gameLost" />}
           className="adjustToGameOptions"

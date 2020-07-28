@@ -25,13 +25,13 @@ function Timer() {
       timerFlag,
       gamePaused,
       gameOver,
-      savingGame,
+      showingConfirm,
       gameTime
     } = useSelector(({ GameBoard, Goal }: RootReducerState) => ({
       timerFlag: GameBoard.gameFlag,
       gamePaused: GameBoard.gamePaused,
       gameOver: Goal.gameOver,
-      savingGame: GameBoard.savingGame,
+      showingConfirm: GameBoard.showingConfirm,
       gameTime: GameBoard.gameTime
     }));
 
@@ -68,19 +68,10 @@ function Timer() {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [timerFlag]);
 
-    const handleGameOver = () => {
-      if (gameOver || savingGame) {
-        dispatch(
-          gameBoardActions.saveGameTime(hours * 3600 + minutes * 60 + seconds)
-        );
-      }
-    };
-    useEffect(handleGameOver, [gameOver, savingGame]);
-
     // add one second, minute or hour accordingly
     function tick() {
       // only add one second if the game is not paused
-      if (!gamePaused && !gameOver) {
+      if (!gamePaused && !gameOver && !showingConfirm) {
         // if a minute has passed
         if (seconds === 59) {
           // if 59 minutes have passed
@@ -99,6 +90,10 @@ function Timer() {
           setSeconds(seconds + 1);
         }
       }
+
+      dispatch(
+        gameBoardActions.saveGameTime(hours * 3600 + minutes * 60 + seconds)
+      );
     }
 
     // return object with every time unit

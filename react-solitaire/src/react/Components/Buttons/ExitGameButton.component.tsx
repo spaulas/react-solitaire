@@ -16,13 +16,18 @@ function ExitGameButton() {
   const [showConfirm, setShowConfirm] = useState(false);
 
   const handleShowConfirm = () => {
-    dispatch(gameBoardActions.exitGame());
+    dispatch(gameBoardActions.showingConfirm(true));
     setShowConfirm(true);
   };
 
   const handleHideConfirm = () => {
     setShowConfirm(false);
     history.push("/");
+  };
+
+  const handleCancelConfirm = () => {
+    setShowConfirm(false);
+    dispatch(gameBoardActions.showingConfirm(false));
   };
 
   return (
@@ -35,7 +40,7 @@ function ExitGameButton() {
       </Tooltip>
       {showConfirm ? (
         <ConfirmationModal
-          onCancel={() => setShowConfirm(false)}
+          onCancel={handleCancelConfirm}
           onConfirm={handleHideConfirm}
           message={<FormattedMessage id="confirm.gameLostExit" />}
           className="adjustToGameOptions"

@@ -98,7 +98,7 @@ function GameOverModal() {
     setVisible(false);
     history.push("/");
 
-    dispatch(gameBoardActions.exitGame());
+    dispatch(gameBoardActions.showingConfirm(true));
     dispatch(goalActions.resetCardDragging());
   };
 

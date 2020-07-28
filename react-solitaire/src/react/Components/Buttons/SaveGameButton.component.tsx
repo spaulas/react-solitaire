@@ -33,7 +33,7 @@ function SaveGameButton() {
   }));
 
   const showConfimationModal = () => {
-    dispatch(gameBoardActions.savingGame());
+    dispatch(gameBoardActions.showingConfirm(true));
     setShowConfirm(true);
   };
 
@@ -52,6 +52,11 @@ function SaveGameButton() {
     history.push("/");
   };
 
+  const handleCancelConfirm = () => {
+    setShowConfirm(false);
+    dispatch(gameBoardActions.showingConfirm(false));
+  };
+
   return (
     <>
       <Tooltip title={<FormattedMessage id="btn.saveGame" />}>
@@ -62,7 +67,7 @@ function SaveGameButton() {
       </Tooltip>
       {showConfirm ? (
         <ConfirmationModal
-          onCancel={() => setShowConfirm(false)}
+          onCancel={handleCancelConfirm}
           onConfirm={saveGame}
           message={<FormattedMessage id="confirm.saveGame" />}
           className="adjustToGameOptions"

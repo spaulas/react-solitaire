@@ -33,8 +33,7 @@ interface InitialGameBoard {
   nHints: number;
   gamePreviousMoves: Array<GameMove>; // list of moves that can be undone
   gameNextMoves: Array<GameMove>; // list of moves that can be redone
-  savingGame: boolean;
-  leavingGame: boolean;
+  showingConfirm: boolean;
 }
 
 const INITIAL_GAME_BOARD: InitialGameBoard = {
@@ -59,8 +58,7 @@ const INITIAL_GAME_BOARD: InitialGameBoard = {
   nHints: 0,
   gamePreviousMoves: [],
   gameNextMoves: [],
-  savingGame: false,
-  leavingGame: false
+  showingConfirm: false
 };
 
 const gameBoardReducer = (
@@ -84,13 +82,6 @@ const gameBoardReducer = (
       const initialValues = setInitialValues(action.savedGame, state.gameFlag);
       return initialValues;
 
-    case GameBoardActionTypes.EXIT_GAME:
-      return {
-        ...state,
-        ...resetGameStatus(state.gameFlag),
-        leavingGame: true
-      };
-
     // ********************************************************
     //  GAME INFO/OPTIONS ACTIONS
 
@@ -113,10 +104,10 @@ const gameBoardReducer = (
      * Save the game time
      */
     case GameBoardActionTypes.SAVE_GAME_TIME:
-      return { ...state, gameTime: action.time, gamePaused: true };
+      return { ...state, gameTime: action.time };
 
-    case GameBoardActionTypes.SAVING_GAME:
-      return { ...state, savingGame: true };
+    case GameBoardActionTypes.SHOWING_CONFIRM:
+      return { ...state, showingConfirm: action.showingConfirm };
 
     /**
      * Adds a hint

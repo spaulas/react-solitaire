@@ -29,9 +29,6 @@ function GameBoard() {
   const history = useHistory();
   const intl = useIntl();
 
-  // eslint-disable-next-line no-console
-  console.log("HISTORY = ", history);
-
   // create refs for the deck and flipped piles
   const deckRef: ExplicitAny = useRef();
   const flippedRef: ExplicitAny = useRef();
@@ -53,8 +50,7 @@ function GameBoard() {
     goal2Pile,
     goal3Pile,
     goal4Pile,
-    savingGame,
-    leavingGame,
+    showingConfirm,
     hasSavedGame,
     savedGame
   } = useSelector(({ GameBoard, Goal, User }: RootReducerState) => ({
@@ -73,8 +69,7 @@ function GameBoard() {
     goal2Pile: GameBoard.goal2Pile,
     goal3Pile: GameBoard.goal3Pile,
     goal4Pile: GameBoard.goal4Pile,
-    savingGame: GameBoard.savingGame,
-    leavingGame: GameBoard.leavingGame,
+    showingConfirm: GameBoard.showingConfirm,
     hasSavedGame: User.user.hasSavedGame,
     savedGame: User.user.savedGame || {}
   }));
@@ -101,14 +96,19 @@ function GameBoard() {
 
     // if nothing was sent through the location state, then create a new game
     if (!location.state) {
-      if (hasSavedGame) {
-        // if there was a saved game and the user started a new one, should count has a lost
-        dispatch(userActions.addGame());
-        // remove saved game from user settings
-        dispatch(userActions.clearSavedGame());
+      if (history.action !== "POP") {
+        if (hasSavedGame) {
+          // if there was a saved game and the user started a new one, should count has a lost
+          dispatch(userActions.addGame());
+          // remove saved game from user settings
+          dispatch(userActions.clearSavedGame());
+        }
+        // create new deck
+        dispatch(gameBoardActions.createGame());
+      } else {
+        // eslint-disable-next-line no-console
+        console.log("SHOULD KEEP PREVIOUS VLAEUS!!!");
       }
-      // create new deck
-      dispatch(gameBoardActions.createGame());
     } // if the location state is defined
     else {
       // add game to the user counting
@@ -135,7 +135,7 @@ function GameBoard() {
    */
   const setNewGamePiles = () => {
     // this is only done when a new game is created!
-    if (!location.state) {
+    if (!location.state && history.action !== "POP") {
       // set the initial deck
       dispatch(deckActions.setInitialDeck(deckPile, flippedPile));
       // set the initial columns
@@ -179,7 +179,7 @@ function GameBoard() {
   return (
     <>
       <Prompt
-        when={!gameOver && gameMoves > 0 && !savingGame && !leavingGame}
+        when={!gameOver && gameMoves > 0 && !showingConfirm}
         message={intl.formatMessage({ id: "confirm.prompt" })}
       />
       <ResumeGameModal />

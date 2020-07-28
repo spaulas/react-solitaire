@@ -51,7 +51,7 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
         ...state,
         deckPile: action.deckPile,
         flippedPile: action.flippedPile,
-        translationY: action.deckPile.length - action.flippedPile.length
+        translationY: action.deckPile?.length - action.flippedPile?.length
       };
 
     /**
@@ -60,8 +60,12 @@ const deckReducer = (state = INITIAL_DECK, action: ActionsCreators) => {
     case DeckActionTypes.SET_REFS:
       return {
         ...state,
-        deckRef: action.deckRef,
-        flippedRef: action.flippedRef
+        deckRef: () => {
+          return action.deckRef;
+        },
+        flippedRef: () => {
+          return action.flippedRef;
+        }
       };
 
     /**

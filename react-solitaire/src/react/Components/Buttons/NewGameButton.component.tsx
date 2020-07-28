@@ -14,8 +14,18 @@ function NewGameButton() {
   const [showConfirm, setShowConfirm] = useState(false);
 
   const handleConfirm = () => {
-    dispatch(gameBoardActions.createGame());
     setShowConfirm(false);
+    dispatch(gameBoardActions.createGame());
+  };
+
+  const handleShowConfirm = () => {
+    setShowConfirm(true);
+    dispatch(gameBoardActions.showingConfirm(true));
+  };
+
+  const handleCancelConfirm = () => {
+    setShowConfirm(false);
+    dispatch(gameBoardActions.showingConfirm(false));
   };
 
   return (
@@ -23,12 +33,12 @@ function NewGameButton() {
       <Tooltip title={<FormattedMessage id="btn.newGame" />}>
         <PlusOutlined
           className="joyrideNew iconButton"
-          onClick={() => setShowConfirm(true)}
+          onClick={handleShowConfirm}
         />
       </Tooltip>
       {showConfirm ? (
         <ConfirmationModal
-          onCancel={() => setShowConfirm(false)}
+          onCancel={handleCancelConfirm}
           onConfirm={handleConfirm}
           message={<FormattedMessage id="confirm.gameLost" />}
           className="adjustToGameOptions"
