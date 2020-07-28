@@ -134,9 +134,9 @@ export const createRandomGame = () => {
  */
 export const resetGameStatus = (
   gameFlag: boolean,
-  initialTime: number,
-  initialMoves: number,
-  initialHints: number
+  initialTime = 0,
+  initialMoves = 0,
+  initialHints = 0
 ) => {
   return {
     gameFlag: !gameFlag, // toggle game flag
@@ -175,9 +175,9 @@ export const setInitialValues = (savedGame: ExplicitAny, gameFlag: boolean) => {
     goal3Pile: savedGame.goals?.goal3Pile,
     goal4Pile: savedGame.goals?.goal4Pile,
     showingConfirm: false,
-    initialTime: savedGame.gameTime,
-    initialMoves: savedGame.gameMoves,
-    initialHints: savedGame.nHints
+    initialTime: savedGame.gameTime || 0,
+    initialMoves: savedGame.gameMoves || 0,
+    initialHints: savedGame.nHints || 0
   };
 };
 
