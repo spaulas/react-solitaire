@@ -81,7 +81,7 @@ function DraggableCard({
   // a card should be hidden, if it is dragging or if it is inside the cardDragging array
   const hideCard =
     isDragging ||
-    (card.cardField.indexOf("column") === 0 && cardDragging.includes(card));
+    (card.cardField?.indexOf("column") === 0 && cardDragging.includes(card));
 
   // return the card component with the ref of the drag event
   return (

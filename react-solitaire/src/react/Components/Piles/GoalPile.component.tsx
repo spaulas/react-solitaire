@@ -23,7 +23,7 @@ function GoalPile({ goalId, offset }: GoalPileProps) {
       const gameHints = GameBoard.gameHints;
       const lastIndex = gameHints.length - 1;
       return {
-        goalPile: Goal.goals[goalId],
+        goalPile: Goal.goals ? Goal.goals[goalId] : [],
         lastHint: lastIndex >= 0 ? gameHints[lastIndex] : undefined
       };
     }

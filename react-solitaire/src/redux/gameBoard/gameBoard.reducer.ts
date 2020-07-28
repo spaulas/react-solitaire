@@ -5,7 +5,8 @@ import {
   addGameMove,
   createRandomGame,
   removeGameMove,
-  resetGameStatus
+  resetGameStatus,
+  setInitialValues
 } from "./gameBoard.utils";
 import { ActionsCreators } from "./gameBoard.actions";
 
@@ -32,6 +33,10 @@ interface InitialGameBoard {
   nHints: number;
   gamePreviousMoves: Array<GameMove>; // list of moves that can be undone
   gameNextMoves: Array<GameMove>; // list of moves that can be redone
+  showingConfirm: boolean;
+  initialTime: number;
+  initialMoves: number;
+  initialHints: number;
 }
 
 const INITIAL_GAME_BOARD: InitialGameBoard = {
@@ -55,7 +60,11 @@ const INITIAL_GAME_BOARD: InitialGameBoard = {
   gameHints: [],
   nHints: 0,
   gamePreviousMoves: [],
-  gameNextMoves: []
+  gameNextMoves: [],
+  showingConfirm: false,
+  initialTime: 0,
+  initialMoves: 0,
+  initialHints: 0
 };
 
 const gameBoardReducer = (
@@ -72,8 +81,12 @@ const gameBoardReducer = (
     case GameBoardActionTypes.CREATE_GAME:
       return {
         ...createRandomGame(),
-        ...resetGameStatus(state.gameFlag)
+        ...resetGameStatus(state.gameFlag, 0, 0, 0)
       };
+
+    case GameBoardActionTypes.SET_INITIAL_GAME:
+      const initialValues = setInitialValues(action.savedGame, state.gameFlag);
+      return initialValues;
 
     // ********************************************************
     //  GAME INFO/OPTIONS ACTIONS
@@ -84,7 +97,12 @@ const gameBoardReducer = (
     case GameBoardActionTypes.TOGGLE_GAME_FLAG:
       return {
         ...state,
-        ...resetGameStatus(state.gameFlag)
+        ...resetGameStatus(
+          state.gameFlag,
+          state.initialTime,
+          state.initialMoves,
+          state.initialHints
+        )
       };
 
     /**
@@ -98,6 +116,9 @@ const gameBoardReducer = (
      */
     case GameBoardActionTypes.SAVE_GAME_TIME:
       return { ...state, gameTime: action.time };
+
+    case GameBoardActionTypes.SHOWING_CONFIRM:
+      return { ...state, showingConfirm: action.showingConfirm };
 
     /**
      * Adds a hint

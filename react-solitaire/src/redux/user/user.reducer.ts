@@ -36,7 +36,6 @@ export interface InitialUser {
         main: boolean;
         scores: boolean;
         statistics: boolean;
-        login: boolean;
         game: boolean;
         gameOptions: boolean;
       };
@@ -68,7 +67,6 @@ const INITIAL_USER: InitialUser = {
         main: true,
         scores: true,
         statistics: true,
-        login: true,
         game: true,
         gameOptions: true
       }
@@ -181,7 +179,7 @@ const userReducer = (state = INITIAL_USER, action: ActionsCreators) => {
           JSON.stringify({ ...state.user, ...finalChanges })
         );
       }
-      return { ...state, user: { ...state.user, history: finalHistory } };
+      return { ...state, user: { ...state.user, ...finalChanges } };
 
     case UserActionTypes.SAVE_GAME:
       if (state.userRef) {

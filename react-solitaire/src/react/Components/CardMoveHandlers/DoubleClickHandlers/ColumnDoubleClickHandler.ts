@@ -1,5 +1,6 @@
 import { CardType } from "../../../../redux/gameBoard/gameBoard.types";
 import { Dispatch } from "redux";
+import { ExplicitAny } from "../../../../global";
 import columnsActions from "../../../../redux/columns/columns.actions";
 import gameBoardActions from "../../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../../redux/goal/goal.actions";
@@ -53,12 +54,26 @@ class ColumnDoubleClickHandler {
    * Anything else is read as a unsuccessful result, therefore try to move the card to a valid column pile
    * @param goalMoveTarget check result for a goal pile
    */
-  handleGoalDoubleClickResult(goalMoveTarget?: string | boolean) {
+  handleGoalDoubleClickResult(
+    goalMoveTarget?: string | boolean,
+    movementWithFlip?: boolean,
+    columns: ExplicitAny = {}
+  ) {
     // if the move to a goal was valid (result is the target goal id)
     if (typeof goalMoveTarget === "string") {
+      const copy = [...columns[this.columnId]];
+      const cardIndex = copy.length - 2;
+
+      const finalMovementWithFlip =
+        cardIndex >= 0 ? copy[cardIndex].flipped === false : false;
+
       // remove card from column
       this.dispatch(
-        columnsActions.removeNCardsFromColumn(this.columnId, 1, true)
+        columnsActions.removeNCardsFromColumn(
+          this.columnId,
+          1,
+          finalMovementWithFlip
+        )
       );
       // add removed card to the corresponding goal
       this.dispatch(goalActions.addCardToGoal(goalMoveTarget, this.card));
@@ -69,7 +84,7 @@ class ColumnDoubleClickHandler {
           source: this.columnId,
           target: goalMoveTarget,
           cards: [this.card],
-          movementWithFlip: true
+          movementWithFlip: finalMovementWithFlip
         })
       );
       // sets the move as over

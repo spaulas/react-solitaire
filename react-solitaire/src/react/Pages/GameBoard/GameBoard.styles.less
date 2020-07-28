@@ -20,13 +20,22 @@
     transform-origin: left top;
     width: 100vh;
     height: 100vw;
-    overflow: scroll !important;
     position: absolute;
     top: 100%;
     left: 0;
 
+    .baseEmptySpots {
+      min-height: calc(100vh * 1.35);
+    }
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .joyrideGamePage {
+    overflow: scroll !important;
+    background: @primaryColor;
     .boardInfoRow {
-      height: 5%;
+      height: 10%;
     }
 
     .boardDeckRow {
@@ -43,10 +52,12 @@
   }
 
   .baseEmptySpots {
-    min-height: calc(100vh * 1.35);
+    min-height: calc(100vh * 1.1);
+    background: @primaryColor;
     height: 100%;
     .joyrideColumns {
       margin-top: 5%;
+      padding-bottom: 0;
     }
   }
 }

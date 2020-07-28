@@ -9,9 +9,13 @@ import { ValueOf } from "../../global";
  * Stores the initial columns in the Redux State
  * @param columns
  */
-const setInitialColumns = (columns: Record<string, Array<CardType>>) => ({
+const setInitialColumns = (
+  columns: Record<string, Array<CardType>>,
+  keepFlipped = false
+) => ({
   type: ColumnActionTypes.SET_INITIAL_COLUMNS,
-  columns
+  columns,
+  keepFlipped
 });
 
 // ********************************************************

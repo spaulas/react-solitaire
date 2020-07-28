@@ -58,7 +58,7 @@ const DropHandler = ({
       document.getElementById("baseEmptySpots")?.offsetWidth || 1;
     const innerHeight = window.innerHeight;
     // get column size
-    const initialOffset = (innerWidth / 24) * 3;
+    const initialOffset = ((innerWidth / 24) * 3) / 8;
     const columnSizes = (innerWidth - initialOffset) / 7;
 
     // should drop in one of the goal spots

@@ -32,12 +32,14 @@ function HighScoresTable({ className }: HighScoresTableProps) {
         title={<FormattedMessage id="table.userName" />}
         dataIndex="userName"
         align="center"
+        className="columnNotExpanded"
       />
       <Column
         key="finalScore"
         title={<FormattedMessage id="table.finalScore" />}
         dataIndex="finalScore"
         align="center"
+        className="columnNotExpanded"
       />
     </Table>
   );

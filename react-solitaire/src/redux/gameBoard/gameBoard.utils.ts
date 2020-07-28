@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 import { CardType, GameMove, cardsConfigurations } from "./gameBoard.types";
+import { ExplicitAny } from "../../global";
 
 // part of the CardType interface
 interface RawCardType {
@@ -131,16 +132,52 @@ export const createRandomGame = () => {
  * When a game starts, it is necessary to reset a few states
  * @param gameFlag current game flag (to be toggled)
  */
-export const resetGameStatus = (gameFlag: boolean) => {
+export const resetGameStatus = (
+  gameFlag: boolean,
+  initialTime = 0,
+  initialMoves = 0,
+  initialHints = 0
+) => {
   return {
     gameFlag: !gameFlag, // toggle game flag
-    gameMoves: 0, // resets the counting of moves
+    gameMoves: initialMoves, // resets the counting of moves
     gamePaused: true, // the game is not paused at start
-    gameTime: 0,
+    gameTime: initialTime,
     gameHints: [],
-    nHints: 0,
+    nHints: initialHints,
     gamePreviousMoves: [], // there are no moves to be undone
-    gameNextMoves: [] // there are  no moves to be redone
+    gameNextMoves: [], // there are  no moves to be redone
+    showingConfirm: false
+  };
+};
+
+export const setInitialValues = (savedGame: ExplicitAny, gameFlag: boolean) => {
+  return {
+    gameFlag: !gameFlag, // toggle game flag
+    gamePaused: false,
+    gameHints: [],
+    gamePreviousMoves: [], // there are no moves to be undone
+    gameNextMoves: [], // there are  no moves to be redone
+    deckPile: savedGame.deckPile,
+    flippedPile: savedGame.flippedPile,
+    nHints: savedGame.nHints,
+    gameMoves: savedGame.gameMoves,
+    gameTime: savedGame.gameTime,
+    column1Pile: savedGame.columns?.column1Pile,
+    column2Pile: savedGame.columns?.column2Pile,
+    column3Pile: savedGame.columns?.column3Pile,
+    column4Pile: savedGame.columns?.column4Pile,
+    column5Pile: savedGame.columns?.column5Pile,
+    column6Pile: savedGame.columns?.column6Pile,
+    column7Pile: savedGame.columns?.column7Pile,
+    goal1Pile: savedGame.goals?.goal1Pile,
+    goal2Pile: savedGame.goals?.goal2Pile,
+    goal3Pile: savedGame.goals?.goal3Pile,
+    goal4Pile: savedGame.goals?.goal4Pile,
+    showingConfirm: false,
+    initialTime: savedGame.gameTime || 0,
+    initialMoves: savedGame.gameMoves || 0,
+    initialHints: savedGame.nHints || 0
   };
 };
 

@@ -17,9 +17,14 @@
     font-size: 12px;
   }
 
-  @media screen and (min-width: 320px) and (max-width: 767px) {
+  @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
     left: calc((100vw - 250px - 75px) / 2);
     top: calc((100vh - 450px) / 2);
+  }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    left: calc((100vw - 250px - 75px) / 2);
+    top: 0;
 
     line {
       stroke-width: 1px;

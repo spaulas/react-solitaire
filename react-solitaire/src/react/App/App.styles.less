@@ -4,19 +4,23 @@
   min-height: 100vh;
   background-color: @primaryColor;
 
-  .appContent {
-    position: relative;
-    top: 0;
-    bottom: 0;
-    overflow-x: hidden !important;
+  .appLayout {
+    min-height: 100%;
 
-    .mainPage {
-      height: 100%;
-      background-color: @primaryColor;
-      color: @fontColor;
-      overflow-x: hidden;
-      overflow-y: auto;
-      min-width: 450px;
+    .appContent {
+      position: relative;
+      top: 0;
+      bottom: 0;
+      overflow-x: hidden !important;
+
+      .mainPage {
+        height: 100%;
+        background-color: @primaryColor;
+        color: @fontColor;
+        overflow-x: hidden;
+        overflow-y: auto;
+        // min-width: 450px;
+      }
     }
   }
 

@@ -35,17 +35,20 @@ export const isValidMovement = (firstCard: CardType, finalCard?: CardType) => {
  * Sets additional info for the column cards
  * @param columns
  */
-export const createColumns = (columns: Record<string, Array<CardType>>) => {
+export const createColumns = (
+  columns: Record<string, Array<CardType>> = {},
+  keepFlipped: boolean
+) => {
   // get the cards of each column
-  const columnValues: Array<Array<CardType>> = Object.values(columns);
+  const columnValues: Array<Array<CardType>> = Object.values(columns) || [];
 
   // add the flipped value to each card (the last one of each column will receive the value true)
-  const cardsFlippedSet = columnValues.map(
+  const cardsFlippedSet = columnValues?.map(
     (values: Array<CardType>, columnIndex: number) =>
       values.map((value: CardType, valueIndex: number) => {
         return {
           ...value,
-          flipped: value.flipped || valueIndex === columnIndex
+          flipped: keepFlipped ? value.flipped : valueIndex === columnIndex
         };
       })
   );
@@ -361,8 +364,11 @@ export const removeNCardsFromColumn = (
 
   // get index of last card
   const lastCard = tempCol.length - 1;
+
+  let finalMovementWithFlip = movementWithFlip;
   // if the last card has flipped = false, then make it true
   if (lastCard >= 0 && movementWithFlip) {
+    finalMovementWithFlip = tempCol[lastCard].flipped === false;
     tempCol[lastCard] = {
       ...tempCol[lastCard],
       flipped: true
@@ -373,7 +379,8 @@ export const removeNCardsFromColumn = (
     columns: {
       ...columns,
       [columnId]: tempCol
-    }
+    },
+    movementWithFlip: finalMovementWithFlip
   };
 };
 
@@ -459,6 +466,13 @@ export const checkColumnSwapDoubleClickValid = (
   const copy = [...columns[sourceId]];
   // get the index of the last card
   const sourceLastIndex = copy.length;
+  const topRemaningIndex = sourceLastIndex - nCards - 1;
+  const topRemaningCard =
+    topRemaningIndex >= 0 ? copy[topRemaningIndex] : undefined;
+  const movementWithFlip = topRemaningCard
+    ? topRemaningCard.flipped === false
+    : false;
+
   // get the cards that are moving
   const cardsMoving = copy.splice(sourceLastIndex - nCards, nCards);
   // get the first possible target column id
@@ -468,7 +482,8 @@ export const checkColumnSwapDoubleClickValid = (
   if (targetId) {
     return {
       doubleClickTarget: targetId,
-      movingCards: cardsMoving
+      movingCards: cardsMoving,
+      movementWithFlip: movementWithFlip
     };
   }
   // if there is no valid target column, toggle the doubleClickTarget and reset the moving cards (the swap result holds nothing)

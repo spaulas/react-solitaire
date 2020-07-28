@@ -1,6 +1,6 @@
 import { ExplicitAny, RootReducerState } from "../../../global";
 import Joyride, { ACTIONS, CallBackProps, STATUS } from "react-joyride";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import joyrideActions from "../../../redux/joyride/joyride.actions";
 import { useIntl } from "react-intl";
@@ -22,18 +22,18 @@ function BaseJoyride() {
     })
   );
 
-  // eslint-disable-next-line no-console
-  console.log("JORYDE PAGE = ", page);
-
   const handlePageChange = () => {
-    // eslint-disable-next-line no-console
-    console.log("joyride page changed!");
-    if (page && joyride && joyride[page]) {
+    if (
+      (location?.pathname.includes(page) ||
+        (location?.pathname === "/" && page === "main") ||
+        (location?.pathname === "/game" && page === "gameOptions")) &&
+      joyride &&
+      joyride[page]
+    ) {
       const joyrideCopy = { ...joyride };
       joyrideCopy[page] = false;
       setRun(true);
       dispatch(userActions.setJoyride(joyrideCopy));
-      dispatch(joyrideActions.initJoyride("", []));
     }
   };
   useEffect(handlePageChange, [page, location]);
@@ -49,6 +49,7 @@ function BaseJoyride() {
     // check if current status if on of skip or finish joyride type, to close joyride
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status as ExplicitAny)) {
       // Need to set our running state to false, so we can restart if we click start again.
+      dispatch(joyrideActions.initJoyride("", []));
       setRun(false);
     }
   }
@@ -74,7 +75,7 @@ function BaseJoyride() {
         options: {
           arrowColor: "#fff",
           backgroundColor: "#fff",
-          primaryColor: "red",
+          primaryColor: "#b40202",
           textColor: "#000",
           zIndex: 1000
           // overlayColor: 'rgba(79, 26, 0, 0.4)'
@@ -88,4 +89,4 @@ function BaseJoyride() {
   );
 }
 
-export default BaseJoyride;
+export default memo(BaseJoyride);

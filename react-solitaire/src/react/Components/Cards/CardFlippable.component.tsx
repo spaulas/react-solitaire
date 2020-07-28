@@ -68,8 +68,6 @@ function CardFlippable(
   };
   useEffect(checkMobile, []);
 
-  console.log("animation sytoe = ", animationStyle);
-
   return (
     <CardFrame
       ref={ref}
@@ -90,6 +88,7 @@ function CardFlippable(
           additionalClassName="cardFlipFront"
         />
         <CardImage
+          image="flowers.png"
           directory="CardsBackPatterns"
           additionalClassName="cardFlipBack"
           onClick={handleFlip}

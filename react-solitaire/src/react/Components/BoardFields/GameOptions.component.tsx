@@ -2,6 +2,7 @@ import { DownCircleFilled, UpCircleFilled } from "@ant-design/icons";
 import React, { useState } from "react";
 import { Row, Tooltip } from "antd";
 import BarDisplay from "../DataDisplay/BarDisplay/BarDisplay.component";
+import ExitGameButton from "../Buttons/ExitGameButton.component";
 import { FormattedMessage } from "react-intl";
 import HintButton from "../Buttons/HintButton.component";
 import JoyrideSteps from "./GameOptionsJoyrideSteps.component";
@@ -53,6 +54,7 @@ function GameOptions() {
           <BarDisplay>
             <RestartGameButton />
             <NewGameButton />
+            <ExitGameButton />
             <SaveGameButton />
           </BarDisplay>
         </Row>

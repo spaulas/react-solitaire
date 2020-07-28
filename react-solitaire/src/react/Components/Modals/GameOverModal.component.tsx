@@ -13,6 +13,7 @@ import { Input, List } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { convertTime } from "../DataDisplay/Timer.component";
+import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../redux/goal/goal.actions";
 import highscoresActions from "../../../redux/highScores/highscores.actions";
 import moment from "moment";
@@ -97,6 +98,7 @@ function GameOverModal() {
     setVisible(false);
     history.push("/");
 
+    dispatch(gameBoardActions.showingConfirm(true));
     dispatch(goalActions.resetCardDragging());
   };
 

@@ -71,7 +71,7 @@ function UndoButton() {
               source,
               target,
               cards.length,
-              movementWithFlip
+              Boolean(movementWithFlip)
             )
           );
         } else if (target.includes("goal")) {
@@ -119,7 +119,9 @@ function UndoButton() {
   return (
     <Tooltip title={<FormattedMessage id="btn.undo" />}>
       <StepBackwardOutlined
-        className="joyrideUndo iconButton"
+        className={`joyrideUndo iconButton ${
+          gamePreviousMoves.length === 0 ? "iconButtonDisabled" : ""
+        }`}
         onClick={handleUndo}
       />
     </Tooltip>

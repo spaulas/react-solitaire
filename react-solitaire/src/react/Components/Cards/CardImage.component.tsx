@@ -8,7 +8,7 @@ interface CardImageProps {
 }
 
 function CardImage({
-  image = "flowers.png",
+  image = "default.png",
   directory,
   additionalClassName = "",
   onClick

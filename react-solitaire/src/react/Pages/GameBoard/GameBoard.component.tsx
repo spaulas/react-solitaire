@@ -8,6 +8,7 @@ import {
 import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { memo, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 import CustomDragLayer from "../../Components/CardMoveHandlers/DragHandlers/CustomDragLayer.component";
 import DropHandler from "../../Components/CardMoveHandlers/DropHandlers/DropHandler.component";
 import GameOverModal from "../../Components/Modals/GameOverModal.component";
@@ -19,12 +20,14 @@ import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../redux/goal/goal.actions";
 import joyrideActions from "../../../redux/joyride/joyride.actions";
-import { useLocation } from "react-router-dom";
+import { useIntl } from "react-intl";
 import userActions from "../../../redux/user/user.actions";
 
 function GameBoard() {
   const dispatch = useDispatch();
   const location = useLocation();
+  const history = useHistory();
+  const intl = useIntl();
 
   // create refs for the deck and flipped piles
   const deckRef: ExplicitAny = useRef();
@@ -47,6 +50,8 @@ function GameBoard() {
     goal2Pile,
     goal3Pile,
     goal4Pile,
+    showingConfirm,
+    hasSavedGame,
     savedGame
   } = useSelector(({ GameBoard, Goal, User }: RootReducerState) => ({
     gameMoves: GameBoard.gameMoves,
@@ -64,6 +69,8 @@ function GameBoard() {
     goal2Pile: GameBoard.goal2Pile,
     goal3Pile: GameBoard.goal3Pile,
     goal4Pile: GameBoard.goal4Pile,
+    showingConfirm: GameBoard.showingConfirm,
+    hasSavedGame: User.user.hasSavedGame,
     savedGame: User.user.savedGame || {}
   }));
 
@@ -77,6 +84,10 @@ function GameBoard() {
    * And either creates a new random game or resumes a previously saved game
    */
   const mountGameBoard = () => {
+    if (history.action === "POP") {
+      history.push("/");
+    }
+
     // set this refs at the redux
     dispatch(deckActions.setRefs(deckRef, flippedRef));
 
@@ -85,14 +96,17 @@ function GameBoard() {
 
     // if nothing was sent through the location state, then create a new game
     if (!location.state) {
-      if (savedGame) {
-        // if there was a saved game and the user started a new one, should count has a lost
-        dispatch(userActions.addGame());
-        // remove saved game from user settings
-        dispatch(userActions.clearSavedGame());
+      if (history.action !== "POP") {
+        if (hasSavedGame) {
+          // if there was a saved game and the user started a new one, should count has a lost
+          dispatch(userActions.addGame());
+          // remove saved game from user settings
+          dispatch(userActions.clearSavedGame());
+        }
+        // create new deck
+        dispatch(gameBoardActions.createGame());
+      } else {
       }
-      // create new deck
-      dispatch(gameBoardActions.createGame());
     } // if the location state is defined
     else {
       // add game to the user counting
@@ -102,9 +116,11 @@ function GameBoard() {
         deckActions.setInitialDeck(savedGame.deckPile, savedGame.flippedPile)
       );
       // set the initial columns
-      dispatch(columnsActions.setInitialColumns(savedGame.columns));
+      dispatch(columnsActions.setInitialColumns(savedGame.columns, true));
       // set the initial goals
       dispatch(goalActions.setInitialGoals(savedGame.goals));
+      // set initial game board
+      dispatch(gameBoardActions.setInitialSavedGame(savedGame));
       // remove saved game from user settings
       dispatch(userActions.clearSavedGame());
     }
@@ -117,7 +133,7 @@ function GameBoard() {
    */
   const setNewGamePiles = () => {
     // this is only done when a new game is created!
-    if (!location.state) {
+    if (!location.state && history.action !== "POP") {
       // set the initial deck
       dispatch(deckActions.setInitialDeck(deckPile, flippedPile));
       // set the initial columns
@@ -156,16 +172,13 @@ function GameBoard() {
   };
   useEffect(addGameToUser, [gameMoves]);
 
-  // eslint-disable-next-line no-console
-  console.log("WINDOW = ", window);
-
   // ---------------------------------------------------------
 
   return (
     <>
       <Prompt
-        when={!gameOver && gameMoves > 0 && !savedGame}
-        message="If you leave the game will be a lost"
+        when={!gameOver && gameMoves > 0 && !showingConfirm}
+        message={intl.formatMessage({ id: "confirm.prompt" })}
       />
       <ResumeGameModal />
       <GameOverModal />

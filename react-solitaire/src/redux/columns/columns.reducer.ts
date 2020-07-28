@@ -69,7 +69,7 @@ const columnsReducer = (state = INITIAL_COLUMNS, action: ActionsCreators) => {
      */
     case ColumnsActionTypes.SET_INITIAL_COLUMNS:
       return {
-        columns: createColumns(action.columns),
+        columns: createColumns(action.columns, action.keepFlipped),
         cardDragging: undefined,
         cardDraggingCol: undefined,
         sendBack: undefined

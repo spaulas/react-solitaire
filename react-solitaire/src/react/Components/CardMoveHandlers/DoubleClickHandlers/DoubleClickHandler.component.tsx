@@ -29,11 +29,13 @@ function DoubleClickHandler({
     columnMoveTarget,
     columnMoveCards,
     movementWithFlip,
-    hintSource
+    hintSource,
+    columns
   } = useSelector(({ Goal, Columns }: RootReducerState) => ({
     goalMoveTarget: Goal.doubleClickTarget,
     columnMoveTarget: Columns.doubleClickTarget,
     columnMoveCards: Columns.movingCards,
+    columns: Columns.columns,
     movementWithFlip: Columns.movementWithFlip,
     hintSource: Goal.hintSource || Columns.hintSource
   }));
@@ -63,9 +65,11 @@ function DoubleClickHandler({
   // if the goalMoveTarget changed, call the function which deals with it
   const handleGoalDoubleClickResult = () => {
     if (handlingMove) {
+      const copy = { ...columns };
       const result = handler.handleGoalDoubleClickResult(
         goalMoveTarget,
-        doubleClick ? undefined : hintSource
+        doubleClick ? movementWithFlip : hintSource,
+        copy
       );
       if (result) {
         setHandlingMove(false);

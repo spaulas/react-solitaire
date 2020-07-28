@@ -22,7 +22,7 @@ function HintButton() {
       columns: Columns.columns,
       goals: Goal.goals,
       deckPile: Deck.deckPile,
-      flippedPile: Deck.flippedPile,
+      flippedPile: Deck.flippedPile || [],
       gameHints: GameBoard.gameHints,
       nHints: GameBoard.nHints
     };
