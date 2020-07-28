@@ -36,11 +36,11 @@ export const isValidMovement = (firstCard: CardType, finalCard?: CardType) => {
  * @param columns
  */
 export const createColumns = (
-  columns: Record<string, Array<CardType>>,
+  columns: Record<string, Array<CardType>> = {},
   keepFlipped: boolean
 ) => {
   // get the cards of each column
-  const columnValues: Array<Array<CardType>> = Object.values(columns || {});
+  const columnValues: Array<Array<CardType>> = Object.values(columns) || [];
 
   // add the flipped value to each card (the last one of each column will receive the value true)
   const cardsFlippedSet = columnValues?.map(

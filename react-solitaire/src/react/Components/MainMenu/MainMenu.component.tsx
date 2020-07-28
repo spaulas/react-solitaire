@@ -44,9 +44,6 @@ function MainMenu({ showStartAnimation, showBackAnimation }: MainMenuProps) {
     dispatch(userActions.getLocalStorage());
   };
 
-  // eslint-disable-next-line no-console
-  console.log("SAVED GAME = ", savedGame);
-
   return (
     <>
       {loggedIn && (

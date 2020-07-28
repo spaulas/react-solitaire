@@ -30,7 +30,8 @@ function RestartGameButton() {
     goal1Pile,
     goal2Pile,
     goal3Pile,
-    goal4Pile
+    goal4Pile,
+    gameMoves
   } = useSelector(({ GameBoard }: RootReducerState) => ({
     deckPile: GameBoard.deckPile,
     flippedPile: GameBoard.flippedPile,
@@ -44,7 +45,8 @@ function RestartGameButton() {
     goal1Pile: GameBoard.goal1Pile,
     goal2Pile: GameBoard.goal2Pile,
     goal3Pile: GameBoard.goal3Pile,
-    goal4Pile: GameBoard.goal4Pile
+    goal4Pile: GameBoard.goal4Pile,
+    gameMoves: GameBoard.gameMoves
   }));
 
   // distribute the decks created to the right redux
@@ -53,18 +55,15 @@ function RestartGameButton() {
     dispatch(deckActions.setInitialDeck(deckPile, flippedPile));
     // set the initial columns
     dispatch(
-      columnsActions.setInitialColumns(
-        {
-          column1Pile,
-          column2Pile,
-          column3Pile,
-          column4Pile,
-          column5Pile,
-          column6Pile,
-          column7Pile
-        },
-        true
-      )
+      columnsActions.setInitialColumns({
+        column1Pile,
+        column2Pile,
+        column3Pile,
+        column4Pile,
+        column5Pile,
+        column6Pile,
+        column7Pile
+      })
     );
     // set the initial deck
     dispatch(
@@ -82,8 +81,10 @@ function RestartGameButton() {
   };
 
   const handleShowConfirm = () => {
-    setShowConfirm(true);
-    dispatch(gameBoardActions.showingConfirm(true));
+    if (gameMoves > 0) {
+      setShowConfirm(true);
+      dispatch(gameBoardActions.showingConfirm(true));
+    }
   };
 
   const handleCancelConfirm = () => {
@@ -95,7 +96,9 @@ function RestartGameButton() {
     <>
       <Tooltip title={<FormattedMessage id="btn.restart" />}>
         <RedoOutlined
-          className="joyrideRestart iconButton"
+          className={`joyrideRestart iconButton ${
+            gameMoves === 0 ? "iconButtonDisabled" : ""
+          }`}
           onClick={handleShowConfirm}
         />
       </Tooltip>

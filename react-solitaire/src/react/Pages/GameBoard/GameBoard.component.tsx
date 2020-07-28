@@ -106,8 +106,6 @@ function GameBoard() {
         // create new deck
         dispatch(gameBoardActions.createGame());
       } else {
-        // eslint-disable-next-line no-console
-        console.log("SHOULD KEEP PREVIOUS VLAEUS!!!");
       }
     } // if the location state is defined
     else {

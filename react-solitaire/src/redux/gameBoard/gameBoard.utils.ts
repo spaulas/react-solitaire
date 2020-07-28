@@ -141,7 +141,7 @@ export const resetGameStatus = (
   return {
     gameFlag: !gameFlag, // toggle game flag
     gameMoves: initialMoves, // resets the counting of moves
-    gamePaused: false, // the game is not paused at start
+    gamePaused: true, // the game is not paused at start
     gameTime: initialTime,
     gameHints: [],
     nHints: initialHints,
@@ -163,17 +163,17 @@ export const setInitialValues = (savedGame: ExplicitAny, gameFlag: boolean) => {
     nHints: savedGame.nHints,
     gameMoves: savedGame.gameMoves,
     gameTime: savedGame.gameTime,
-    column1Pile: savedGame.columns.column1Pile,
-    column2Pile: savedGame.columns.column2Pile,
-    column3Pile: savedGame.columns.column3Pile,
-    column4Pile: savedGame.columns.column4Pile,
-    column5Pile: savedGame.columns.column5Pile,
-    column6Pile: savedGame.columns.column6Pile,
-    column7Pile: savedGame.columns.column7Pile,
-    goal1Pile: savedGame.goals.goal1Pile,
-    goal2Pile: savedGame.goals.goal2Pile,
-    goal3Pile: savedGame.goals.goal3Pile,
-    goal4Pile: savedGame.goals.goal4Pile,
+    column1Pile: savedGame.columns?.column1Pile,
+    column2Pile: savedGame.columns?.column2Pile,
+    column3Pile: savedGame.columns?.column3Pile,
+    column4Pile: savedGame.columns?.column4Pile,
+    column5Pile: savedGame.columns?.column5Pile,
+    column6Pile: savedGame.columns?.column6Pile,
+    column7Pile: savedGame.columns?.column7Pile,
+    goal1Pile: savedGame.goals?.goal1Pile,
+    goal2Pile: savedGame.goals?.goal2Pile,
+    goal3Pile: savedGame.goals?.goal3Pile,
+    goal4Pile: savedGame.goals?.goal4Pile,
     showingConfirm: false,
     initialTime: savedGame.gameTime,
     initialMoves: savedGame.gameMoves,
