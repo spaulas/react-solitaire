@@ -88,6 +88,7 @@ function CardFlippable(
           additionalClassName="cardFlipFront"
         />
         <CardImage
+          image="flowers.png"
           directory="CardsBackPatterns"
           additionalClassName="cardFlipBack"
           onClick={handleFlip}

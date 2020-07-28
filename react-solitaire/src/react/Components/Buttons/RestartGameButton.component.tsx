@@ -53,15 +53,18 @@ function RestartGameButton() {
     dispatch(deckActions.setInitialDeck(deckPile, flippedPile));
     // set the initial columns
     dispatch(
-      columnsActions.setInitialColumns({
-        column1Pile,
-        column2Pile,
-        column3Pile,
-        column4Pile,
-        column5Pile,
-        column6Pile,
-        column7Pile
-      })
+      columnsActions.setInitialColumns(
+        {
+          column1Pile,
+          column2Pile,
+          column3Pile,
+          column4Pile,
+          column5Pile,
+          column6Pile,
+          column7Pile
+        },
+        true
+      )
     );
     // set the initial deck
     dispatch(

@@ -58,6 +58,7 @@ function FlippedPile() {
               }
             >
               <CardImage
+                image="flowers.png"
                 directory="CardsBackPatterns"
                 additionalClassName="cardFlipFront"
               />

@@ -118,7 +118,7 @@ function GameBoard() {
         deckActions.setInitialDeck(savedGame.deckPile, savedGame.flippedPile)
       );
       // set the initial columns
-      dispatch(columnsActions.setInitialColumns(savedGame.columns));
+      dispatch(columnsActions.setInitialColumns(savedGame.columns, true));
       // set the initial goals
       dispatch(goalActions.setInitialGoals(savedGame.goals));
       // set initial game board
