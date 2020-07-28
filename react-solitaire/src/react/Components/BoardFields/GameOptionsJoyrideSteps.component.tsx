@@ -29,6 +29,15 @@ function JoyrideSteps() {
         </h3>
       ),
       disableBeacon: true,
+      target: ".joyrideExit"
+    },
+    {
+      content: (
+        <h3>
+          <FormattedMessage id={"joyride.game.step15"} />
+        </h3>
+      ),
+      disableBeacon: true,
       target: ".joyrideSave"
     }
   ];
