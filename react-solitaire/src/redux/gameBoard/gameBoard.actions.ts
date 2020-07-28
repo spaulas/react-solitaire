@@ -16,6 +16,10 @@ const setInitialSavedGame = (savedGame: ExplicitAny) => ({
   savedGame
 });
 
+const exitGame = () => ({
+  type: GameBoardActionTypes.EXIT_GAME
+});
+
 // ********************************************************
 // GAME INFO/OPTIONS ACTIONS
 
@@ -88,6 +92,7 @@ const reAddGameMove = () => ({
 const actionsCreators = Object.freeze({
   createGame,
   setInitialSavedGame,
+  exitGame,
   toggleGameFlag,
   timeGame,
   saveGameTime,

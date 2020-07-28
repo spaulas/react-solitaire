@@ -1,7 +1,6 @@
 import {
   BarChartOutlined,
   LoginOutlined,
-  LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   OrderedListOutlined,
@@ -13,7 +12,6 @@ import { Layout, Menu } from "antd";
 import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { RootReducerState } from "../../../../global";
-import { auth } from "../../../../firebase/firebase.utils";
 import { useSelector } from "react-redux";
 
 const { Sider } = Layout;
@@ -28,11 +26,6 @@ function Sidebar() {
   const { loggedIn } = useSelector(({ User }: RootReducerState) => ({
     loggedIn: User.loggedIn
   }));
-
-  const handleLogout = () => {
-    auth.signOut();
-    history.push("/");
-  };
 
   return location.pathname !== "/game" ? (
     <Sider className="sidebar" trigger={null} collapsible collapsed={collapsed}>

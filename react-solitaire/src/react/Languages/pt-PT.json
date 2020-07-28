@@ -28,6 +28,7 @@
     "btn.undo": "Retornar Passos",
     "confirm.gameLost": "Esse jogo vai ser considerado uma derrota. Tem certeza que quer começar um jogo novo?",
     "confirm.gameLostExit": "Este jogo será considerado perdido. Tem certeza de que deseja sair do jogo?",
+    "confirm.prompt": "Este jogo será considerado perdido",
     "confirm.no": "Não",
     "confirm.saveGame": "Salvar jogo?",
     "confirm.yes": "Sim",

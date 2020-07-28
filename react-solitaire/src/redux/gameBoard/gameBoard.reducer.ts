@@ -34,6 +34,7 @@ interface InitialGameBoard {
   gamePreviousMoves: Array<GameMove>; // list of moves that can be undone
   gameNextMoves: Array<GameMove>; // list of moves that can be redone
   savingGame: boolean;
+  leavingGame: boolean;
 }
 
 const INITIAL_GAME_BOARD: InitialGameBoard = {
@@ -58,7 +59,8 @@ const INITIAL_GAME_BOARD: InitialGameBoard = {
   nHints: 0,
   gamePreviousMoves: [],
   gameNextMoves: [],
-  savingGame: false
+  savingGame: false,
+  leavingGame: false
 };
 
 const gameBoardReducer = (
@@ -81,6 +83,13 @@ const gameBoardReducer = (
     case GameBoardActionTypes.SET_INITIAL_GAME:
       const initialValues = setInitialValues(action.savedGame, state.gameFlag);
       return initialValues;
+
+    case GameBoardActionTypes.EXIT_GAME:
+      return {
+        ...state,
+        ...resetGameStatus(state.gameFlag),
+        leavingGame: true
+      };
 
     // ********************************************************
     //  GAME INFO/OPTIONS ACTIONS

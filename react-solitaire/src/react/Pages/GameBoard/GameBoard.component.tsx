@@ -8,6 +8,7 @@ import {
 import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { memo, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 import CustomDragLayer from "../../Components/CardMoveHandlers/DragHandlers/CustomDragLayer.component";
 import DropHandler from "../../Components/CardMoveHandlers/DropHandlers/DropHandler.component";
 import GameOverModal from "../../Components/Modals/GameOverModal.component";
@@ -19,12 +20,17 @@ import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../redux/goal/goal.actions";
 import joyrideActions from "../../../redux/joyride/joyride.actions";
-import { useLocation } from "react-router-dom";
+import { useIntl } from "react-intl";
 import userActions from "../../../redux/user/user.actions";
 
 function GameBoard() {
   const dispatch = useDispatch();
   const location = useLocation();
+  const history = useHistory();
+  const intl = useIntl();
+
+  // eslint-disable-next-line no-console
+  console.log("HISTORY = ", history);
 
   // create refs for the deck and flipped piles
   const deckRef: ExplicitAny = useRef();
@@ -47,6 +53,8 @@ function GameBoard() {
     goal2Pile,
     goal3Pile,
     goal4Pile,
+    savingGame,
+    leavingGame,
     hasSavedGame,
     savedGame
   } = useSelector(({ GameBoard, Goal, User }: RootReducerState) => ({
@@ -65,6 +73,8 @@ function GameBoard() {
     goal2Pile: GameBoard.goal2Pile,
     goal3Pile: GameBoard.goal3Pile,
     goal4Pile: GameBoard.goal4Pile,
+    savingGame: GameBoard.savingGame,
+    leavingGame: GameBoard.leavingGame,
     hasSavedGame: User.user.hasSavedGame,
     savedGame: User.user.savedGame || {}
   }));
@@ -79,6 +89,10 @@ function GameBoard() {
    * And either creates a new random game or resumes a previously saved game
    */
   const mountGameBoard = () => {
+    if (history.action === "POP") {
+      history.push("/");
+    }
+
     // set this refs at the redux
     dispatch(deckActions.setRefs(deckRef, flippedRef));
 
@@ -165,8 +179,8 @@ function GameBoard() {
   return (
     <>
       <Prompt
-        when={!gameOver && gameMoves > 0 && !savedGame}
-        message="If you leave the game will be a lost"
+        when={!gameOver && gameMoves > 0 && !savingGame && !leavingGame}
+        message={intl.formatMessage({ id: "confirm.prompt" })}
       />
       <ResumeGameModal />
       <GameOverModal />

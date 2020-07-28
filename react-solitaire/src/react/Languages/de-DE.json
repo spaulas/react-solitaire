@@ -28,6 +28,7 @@
     "btn.undo": "Bewegungen Rückgängig Machen",
     "confirm.gameLost": "Dieses Spiel gilt als verloren. Bist du sicher, dass du ein neues Spiel starten willst?",
     "confirm.gameLostExit": "Dieses Spiel gilt als verloren. Bist du sicher, dass du das Spiel verlassen willst?",
+    "confirm.prompt": "Dieses Spiel gilt als verloren",
     "confirm.no": "Nein",
     "confirm.saveGame": "Spiel speichern?",
     "confirm.yes": "Ja",

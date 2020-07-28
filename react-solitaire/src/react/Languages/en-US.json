@@ -28,6 +28,7 @@
     "btn.undo": "Undo Moves",
     "confirm.gameLost": "This game will be considered a lost. Are you sure you want to start a new game?",
     "confirm.gameLostExit": "This game will be considered a lost. Are you sure you want to leave the game?",
+    "confirm.prompt": "This game will be considered a lost",
     "confirm.no": "No",
     "confirm.saveGame": "Save game?",
     "confirm.yes": "Yes",
