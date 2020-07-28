@@ -65,10 +65,11 @@ function DoubleClickHandler({
   // if the goalMoveTarget changed, call the function which deals with it
   const handleGoalDoubleClickResult = () => {
     if (handlingMove) {
+      const copy = { ...columns };
       const result = handler.handleGoalDoubleClickResult(
         goalMoveTarget,
         doubleClick ? movementWithFlip : hintSource,
-        columns
+        copy
       );
       if (result) {
         setHandlingMove(false);

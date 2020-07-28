@@ -61,10 +61,11 @@ class ColumnDoubleClickHandler {
   ) {
     // if the move to a goal was valid (result is the target goal id)
     if (typeof goalMoveTarget === "string") {
-      const cardIndex = columns[this.columnId].length - 1;
+      const copy = [...columns[this.columnId]];
+      const cardIndex = copy.length - 2;
 
       const finalMovementWithFlip =
-        movementWithFlip || columns[this.columnId][cardIndex].flipped === false;
+        cardIndex >= 0 ? copy[cardIndex].flipped === false : false;
 
       // remove card from column
       this.dispatch(
