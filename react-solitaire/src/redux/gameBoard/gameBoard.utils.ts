@@ -132,14 +132,19 @@ export const createRandomGame = () => {
  * When a game starts, it is necessary to reset a few states
  * @param gameFlag current game flag (to be toggled)
  */
-export const resetGameStatus = (gameFlag: boolean) => {
+export const resetGameStatus = (
+  gameFlag: boolean,
+  initialTime: number,
+  initialMoves: number,
+  initialHints: number
+) => {
   return {
     gameFlag: !gameFlag, // toggle game flag
-    gameMoves: 0, // resets the counting of moves
-    gamePaused: true, // the game is not paused at start
-    gameTime: 0,
+    gameMoves: initialMoves, // resets the counting of moves
+    gamePaused: false, // the game is not paused at start
+    gameTime: initialTime,
     gameHints: [],
-    nHints: 0,
+    nHints: initialHints,
     gamePreviousMoves: [], // there are no moves to be undone
     gameNextMoves: [], // there are  no moves to be redone
     showingConfirm: false
@@ -169,7 +174,10 @@ export const setInitialValues = (savedGame: ExplicitAny, gameFlag: boolean) => {
     goal2Pile: savedGame.goals.goal2Pile,
     goal3Pile: savedGame.goals.goal3Pile,
     goal4Pile: savedGame.goals.goal4Pile,
-    showingConfirm: false
+    showingConfirm: false,
+    initialTime: savedGame.gameTime,
+    initialMoves: savedGame.gameMoves,
+    initialHints: savedGame.nHints
   };
 };
 

@@ -57,7 +57,7 @@ function DeckPile() {
       lastHint.source === "deckPile" &&
       lastHint.target === undefined;
 
-    const cardsArray = deckPile.map((card: CardType, index: number) => (
+    const cardsArray = deckPile?.map((card: CardType, index: number) => (
       <CardFlippable
         key={`deck_${card.id}`}
         image={card.image}

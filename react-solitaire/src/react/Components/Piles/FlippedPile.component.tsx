@@ -36,12 +36,12 @@ function FlippedPile() {
 
   const animationStyle = {
     transform: `translate(${translationX}px, ${
-      deckPile.length === 0 ? 0 : translationY
+      deckPile?.length === 0 ? 0 : translationY
     }px) rotateY(180deg)`
   };
 
   const getCards = () => {
-    return flippedPile.map((card: CardType, index: number) => {
+    return flippedPile?.map((card: CardType, index: number) => {
       const handler = new DeckDoubleClickHandler(dispatch, card);
       const shake = lastHint && lastHint.source === "flippedPile";
       return (

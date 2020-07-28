@@ -34,6 +34,9 @@ interface InitialGameBoard {
   gamePreviousMoves: Array<GameMove>; // list of moves that can be undone
   gameNextMoves: Array<GameMove>; // list of moves that can be redone
   showingConfirm: boolean;
+  initialTime: number;
+  initialMoves: number;
+  initialHints: number;
 }
 
 const INITIAL_GAME_BOARD: InitialGameBoard = {
@@ -58,7 +61,10 @@ const INITIAL_GAME_BOARD: InitialGameBoard = {
   nHints: 0,
   gamePreviousMoves: [],
   gameNextMoves: [],
-  showingConfirm: false
+  showingConfirm: false,
+  initialTime: 0,
+  initialMoves: 0,
+  initialHints: 0
 };
 
 const gameBoardReducer = (
@@ -75,7 +81,7 @@ const gameBoardReducer = (
     case GameBoardActionTypes.CREATE_GAME:
       return {
         ...createRandomGame(),
-        ...resetGameStatus(state.gameFlag)
+        ...resetGameStatus(state.gameFlag, 0, 0, 0)
       };
 
     case GameBoardActionTypes.SET_INITIAL_GAME:
@@ -91,7 +97,12 @@ const gameBoardReducer = (
     case GameBoardActionTypes.TOGGLE_GAME_FLAG:
       return {
         ...state,
-        ...resetGameStatus(state.gameFlag)
+        ...resetGameStatus(
+          state.gameFlag,
+          state.initialTime,
+          state.initialMoves,
+          state.initialHints
+        )
       };
 
     /**

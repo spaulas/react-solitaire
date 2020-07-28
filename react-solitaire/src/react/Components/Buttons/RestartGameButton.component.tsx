@@ -8,6 +8,7 @@ import { Tooltip } from "antd";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
+import goalActions from "../../../redux/goal/goal.actions";
 
 /**
  * Option to start a new game, with a confirmation dialog
@@ -25,7 +26,11 @@ function RestartGameButton() {
     column4Pile,
     column5Pile,
     column6Pile,
-    column7Pile
+    column7Pile,
+    goal1Pile,
+    goal2Pile,
+    goal3Pile,
+    goal4Pile
   } = useSelector(({ GameBoard }: RootReducerState) => ({
     deckPile: GameBoard.deckPile,
     flippedPile: GameBoard.flippedPile,
@@ -35,7 +40,11 @@ function RestartGameButton() {
     column4Pile: GameBoard.column4Pile,
     column5Pile: GameBoard.column5Pile,
     column6Pile: GameBoard.column6Pile,
-    column7Pile: GameBoard.column7Pile
+    column7Pile: GameBoard.column7Pile,
+    goal1Pile: GameBoard.goal1Pile,
+    goal2Pile: GameBoard.goal2Pile,
+    goal3Pile: GameBoard.goal3Pile,
+    goal4Pile: GameBoard.goal4Pile
   }));
 
   // distribute the decks created to the right redux
@@ -52,6 +61,15 @@ function RestartGameButton() {
         column5Pile,
         column6Pile,
         column7Pile
+      })
+    );
+    // set the initial deck
+    dispatch(
+      goalActions.setInitialGoals({
+        goal1Pile,
+        goal2Pile,
+        goal3Pile,
+        goal4Pile
       })
     );
     // toggle the timer flag
