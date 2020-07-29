@@ -75,7 +75,7 @@ function BaseJoyride() {
         options: {
           arrowColor: "#fff",
           backgroundColor: "#fff",
-          primaryColor: "#b40202",
+          primaryColor: "#a52d2d",
           textColor: "#000",
           zIndex: 1000
           // overlayColor: 'rgba(79, 26, 0, 0.4)'

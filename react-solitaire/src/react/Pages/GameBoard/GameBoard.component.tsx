@@ -105,7 +105,6 @@ function GameBoard() {
         }
         // create new deck
         dispatch(gameBoardActions.createGame());
-      } else {
       }
     } // if the location state is defined
     else {
