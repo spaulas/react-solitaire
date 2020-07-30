@@ -21,6 +21,7 @@
 
 @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
   .joyrideGamePage {
+    overflow: hidden !important;
     transform: rotate(-90deg);
     transform-origin: left top;
     width: 100vh;
@@ -42,7 +43,7 @@
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .joyrideGamePage {
-    overflow: scroll !important;
+    overflow: hidden !important;
     background: @primaryColor;
     height: 140vh;
     .boardInfoRow {
@@ -59,6 +60,13 @@
 
     .gameColumnsRow {
       margin-top: 5%;
+    }
+
+    #goal1Pile,
+    #goal2Pile,
+    #goal3Pile,
+    #goal4Pile {
+      margin-top: -85px;
     }
   }
 
