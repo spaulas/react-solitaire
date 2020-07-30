@@ -33,7 +33,8 @@ function Timer() {
       gameOver: Goal.gameOver,
       showingConfirm:
         GameBoard.showingConfirm &&
-        Pages.confirmationModalProps.message1 !== "",
+        (Pages.confirmationModalProps.message1 !== "" ||
+          Pages.confirmationModalProps.buttonConfirmId),
       gameTime: GameBoard.gameTime
     }));
 

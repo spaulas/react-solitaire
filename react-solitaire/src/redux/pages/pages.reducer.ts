@@ -12,6 +12,7 @@ interface InitialPages {
     onCancel: ExplicitAny;
     onConfirm: ExplicitAny;
     className: string;
+    buttonConfirmId?: string;
   };
 }
 
@@ -22,7 +23,8 @@ const INITIAL_PAGES: InitialPages = {
     message2: "",
     onCancel: undefined,
     onConfirm: undefined,
-    className: ""
+    className: "",
+    buttonConfirmId: undefined
   }
 };
 
@@ -31,6 +33,8 @@ const pagesReducer = (state = INITIAL_PAGES, action: ActionsCreators) => {
     case PagesActionTypes.SET_START_PAGE_ANIMATION:
       return { ...state, startPageAnimation: action.value };
     case PagesActionTypes.SET_CONFIRMATION_MODAL:
+      // eslint-disable-next-line no-console
+      console.log("SET_CONFIRMATION_MODAL = ", action);
       return {
         ...state,
         confirmationModalProps: {
@@ -38,7 +42,8 @@ const pagesReducer = (state = INITIAL_PAGES, action: ActionsCreators) => {
           message2: action.message2,
           onCancel: action.onCancel,
           onConfirm: action.onConfirm,
-          className: action.className
+          className: action.className,
+          buttonConfirmId: action.buttonConfirmId
         }
       };
     default:
