@@ -104,7 +104,7 @@ function GameOverModal() {
 
   if (gameOver && visible) {
     return (
-      <div className="gameFullDiv">
+      <div className="gameFullDiv gameOverModal">
         <div className="gameOverStatistics">
           <div>
             <FormattedMessage id="modal.gameStatistics" />
