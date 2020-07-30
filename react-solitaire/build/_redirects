@@ -1,4 +1,9 @@
-/main   /   200
-/scores /scores 200
-/statistics /statistics 200
-/game   /game   200
+/ /
+/scores /scores
+/scores/userHighScores /scores/userHighScores
+/statistics /statistics
+/configurations /configurations
+/game /game
+/about /about
+/login /login
+/signUp /signUp
