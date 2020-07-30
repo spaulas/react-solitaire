@@ -19,14 +19,26 @@ function PasswordInput({
   onPressEnter,
   confirmPwd
 }: PasswordInputProps) {
-  const [hidePwd, setHidePwd] = useState(true);
+  const [hidePwd, setHidePwd] = useState<boolean>(true);
+  const [password, setPassword] = useState("");
+
+  const handlePwdChange = ({
+    target: { value }
+  }: {
+    target: { value: string };
+  }) => {
+    setPassword(value);
+    onChange({ target: { value } });
+  };
+
   return (
     <>
+      {hidePwd && (
+        <div className="formPwdHidden">{password.replace(/./g, "*")}</div>
+      )}
       <Input
-        className={`divButton loginButtonAnimated formInput ${
-          hidePwd ? "formPwd" : ""
-        }`}
-        onChange={onChange}
+        className={`divButton loginButtonAnimated formInput`}
+        onChange={handlePwdChange}
         onPressEnter={onPressEnter}
       />
       <label className="labelPlaceholder">

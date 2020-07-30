@@ -1,0 +1,35 @@
+.errorPage {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  .warningIcon {
+    margin-top: 15vh;
+    color: @fontColor;
+    font-size: 100px;
+  }
+  .title {
+    margin-top: 10vh;
+    font-size: calc(@fontTitle * 2);
+  }
+  .subtitle {
+    margin: 5vh 0;
+    font-size: calc(@fontTitle * 1.5);
+  }
+
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    .warningIcon {
+      font-size: 50px;
+    }
+    .title {
+      font-size: calc(@fontTitleMobile * 2);
+    }
+    .subtitle {
+      font-size: calc(@fontTitleMobile * 1.5);
+    }
+
+    .menuButton {
+      height: 100%;
+      margin-top: 10px;
+    }
+  }
+}

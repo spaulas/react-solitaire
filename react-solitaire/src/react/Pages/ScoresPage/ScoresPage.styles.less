@@ -28,8 +28,12 @@
     }
     .ant-tabs-tab {
       width: 50%;
-      font-size: @fontTitle;
-      font-weight: bold;
+      .ant-typography {
+        font-size: @fontTitle;
+        font-weight: bold;
+        color: @fontColor;
+        max-width: 40vw;
+      }
     }
 
     .ant-tabs-tab:hover {
@@ -49,7 +53,9 @@
     .ant-tabs {
       min-width: 235px;
       .ant-tabs-tab {
-        font-size: @fontTitleMobile;
+        .ant-typography {
+          font-size: @fontTitleMobile;
+        }
       }
       .ant-tabs-tab-prev,
       .ant-tabs-tab-next {
