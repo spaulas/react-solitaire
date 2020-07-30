@@ -17,7 +17,6 @@ import GameOverModal from "../../Components/Modals/GameOverModal.component";
 import JoyrideSteps from "./JoyrideSteps.component";
 import { Prompt } from "react-router";
 import { RedoOutlined } from "@ant-design/icons";
-import ResumeGameModal from "../../Components/Modals/ResumeGameModal.component";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
@@ -73,7 +72,9 @@ function GameBoard() {
     goal3Pile: GameBoard.goal3Pile,
     goal4Pile: GameBoard.goal4Pile,
     showingConfirm:
-      GameBoard.showingConfirm && Pages.confirmationModalProps.message1 !== "",
+      GameBoard.showingConfirm &&
+      (Pages.confirmationModalProps.message1 !== "" ||
+        Pages.confirmationModalProps.buttonConfirmId),
     hasSavedGame: User.user.hasSavedGame,
     savedGame: User.user.savedGame || {}
   }));
@@ -176,15 +177,8 @@ function GameBoard() {
   useEffect(addGameToUser, [gameMoves]);
 
   const handleMobilePortrait = () => {
-    // eslint-disable-next-line no-console
-    console.log("window innerHeight = ", window.innerHeight);
-    // eslint-disable-next-line no-console
-    console.log("window innerWidth = ", window.innerWidth);
-
     if (window.innerWidth < 767 && window.innerWidth / window.innerHeight < 1) {
       if (location.pathname === "/game") {
-        // eslint-disable-next-line no-console
-        console.log("THIS IS A MOBILE!");
         dispatch(gameBoardActions.showingConfirm(true));
         dispatch(
           pageActions.setConfirmationModal(
@@ -199,13 +193,9 @@ function GameBoard() {
           )
         );
       } else {
-        // eslint-disable-next-line no-console
-        console.log("INSIDE USE EFFECT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         dispatch(gameBoardActions.showingConfirm(false));
       }
     } else {
-      // eslint-disable-next-line no-console
-      console.log("INSIDE USE EFFECT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
       dispatch(gameBoardActions.showingConfirm(false));
     }
   };
@@ -219,7 +209,6 @@ function GameBoard() {
         when={!gameOver && gameMoves > 0 && !showingConfirm}
         message={intl.formatMessage({ id: "confirm.gameLostExit" })}
       />
-      <ResumeGameModal />
       <GameOverModal />
       {showingConfirm ? <ConfirmationModal /> : null}
       <DropHandler

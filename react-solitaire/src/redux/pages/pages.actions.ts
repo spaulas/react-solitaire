@@ -12,14 +12,16 @@ const setConfirmationModal = (
   message2: ReactNode,
   onCancel: ExplicitAny,
   onConfirm: ExplicitAny,
-  className = ""
+  className = "",
+  buttonConfirmId?: string
 ) => ({
   type: PagesActionTypes.SET_CONFIRMATION_MODAL,
   message1,
   message2,
   onCancel,
   onConfirm,
-  className
+  className,
+  buttonConfirmId
 });
 
 // ********************************************************
