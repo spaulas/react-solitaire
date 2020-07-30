@@ -1,37 +1,36 @@
-import React, { ReactNode } from "react";
-import { ExplicitAny } from "../../../global";
 import { FormattedMessage } from "react-intl";
+import React from "react";
+import { RootReducerState } from "../../../global";
+import { useSelector } from "react-redux";
 
-interface ResumeSavedGameModalProps {
-  message: ReactNode;
-  onCancel: ExplicitAny;
-  onConfirm: ExplicitAny;
-  className?: string;
-}
-
-function ResumeSavedGameModal({
-  onConfirm,
-  onCancel,
-  message,
-  className = ""
-}: ResumeSavedGameModalProps) {
+function ConfirmationModal() {
+  const { onConfirm, onCancel, message1, message2, className } = useSelector(
+    ({ Pages }: RootReducerState) => ({
+      onConfirm: Pages.confirmationModalProps.onConfirm,
+      onCancel: Pages.confirmationModalProps.onCancel,
+      message1: Pages.confirmationModalProps.message1,
+      message2: Pages.confirmationModalProps.message2,
+      className: Pages.confirmationModalProps.className
+    })
+  );
   return (
     <div className={`gameFullDiv ${className}`}>
-      <div className="resumeGameQuestion">{message}</div>
+      <div className="resumeGameQuestion">{message1}</div>
+      <div className="resumeGameQuestion resumeGameQuestion2">{message2}</div>
       <div
-        className={`animatedButton divButton resumeGameAnimatedButton resumeGameQuestion`}
-        onClick={onConfirm}
-      >
-        <FormattedMessage id="confirm.yes" />
-      </div>
-      <div
-        className={`animatedButton divButton resumeGameAnimatedButton resumeGameQuestion`}
+        className={`animatedButton divButton resumeGameAnimatedButton resumeGameQuestion resumeQuestionAnswer`}
         onClick={onCancel}
       >
         <FormattedMessage id="confirm.no" />
+      </div>
+      <div
+        className={`animatedButton divButton resumeGameAnimatedButton resumeGameQuestion resumeQuestionAnswer`}
+        onClick={onConfirm}
+      >
+        <FormattedMessage id="confirm.yes" />
       </div>
     </div>
   );
 }
 
-export default ResumeSavedGameModal;
+export default ConfirmationModal;

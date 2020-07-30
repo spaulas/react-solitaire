@@ -1,9 +1,9 @@
-import React, { useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
-import ConfirmationModal from "../Modals/ConfirmationModal.component";
 import { FormattedMessage } from "react-intl";
+import React from "react";
 import { Tooltip } from "antd";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
+import pageActions from "../../../redux/pages/pages.actions";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -13,21 +13,27 @@ import { useHistory } from "react-router-dom";
 function ExitGameButton() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [showConfirm, setShowConfirm] = useState(false);
-
-  const handleShowConfirm = () => {
-    dispatch(gameBoardActions.showingConfirm(true));
-    setShowConfirm(true);
-  };
 
   const handleHideConfirm = () => {
-    setShowConfirm(false);
+    dispatch(gameBoardActions.showingConfirm(false));
     history.push("/");
   };
 
   const handleCancelConfirm = () => {
-    setShowConfirm(false);
     dispatch(gameBoardActions.showingConfirm(false));
+  };
+
+  const handleShowConfirm = () => {
+    dispatch(gameBoardActions.showingConfirm(true));
+    dispatch(
+      pageActions.setConfirmationModal(
+        <FormattedMessage id="confirm.gameLostExit" />,
+        <FormattedMessage id="confirm.leaveGame" />,
+        handleCancelConfirm,
+        handleHideConfirm,
+        "adjustToGameOptions"
+      )
+    );
   };
 
   return (
@@ -38,14 +44,6 @@ function ExitGameButton() {
           onClick={handleShowConfirm}
         />
       </Tooltip>
-      {showConfirm ? (
-        <ConfirmationModal
-          onCancel={handleCancelConfirm}
-          onConfirm={handleHideConfirm}
-          message={<FormattedMessage id="confirm.gameLostExit" />}
-          className="adjustToGameOptions"
-        />
-      ) : null}
     </>
   );
 }

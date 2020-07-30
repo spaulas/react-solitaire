@@ -9,6 +9,7 @@ import { ExplicitAny, RootReducerState } from "../../../global";
 import React, { memo, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
+import ConfirmationModal from "../../Components/Modals/ConfirmationModal.component";
 import CustomDragLayer from "../../Components/CardMoveHandlers/DragHandlers/CustomDragLayer.component";
 import DropHandler from "../../Components/CardMoveHandlers/DropHandlers/DropHandler.component";
 import GameOverModal from "../../Components/Modals/GameOverModal.component";
@@ -53,7 +54,7 @@ function GameBoard() {
     showingConfirm,
     hasSavedGame,
     savedGame
-  } = useSelector(({ GameBoard, Goal, User }: RootReducerState) => ({
+  } = useSelector(({ GameBoard, Goal, User, Pages }: RootReducerState) => ({
     gameMoves: GameBoard.gameMoves,
     gameOver: Goal.gameOver,
     deckPile: GameBoard.deckPile,
@@ -69,7 +70,8 @@ function GameBoard() {
     goal2Pile: GameBoard.goal2Pile,
     goal3Pile: GameBoard.goal3Pile,
     goal4Pile: GameBoard.goal4Pile,
-    showingConfirm: GameBoard.showingConfirm,
+    showingConfirm:
+      GameBoard.showingConfirm && Pages.confirmationModalProps.message1 !== "",
     hasSavedGame: User.user.hasSavedGame,
     savedGame: User.user.savedGame || {}
   }));
@@ -177,11 +179,16 @@ function GameBoard() {
     <>
       <Prompt
         when={!gameOver && gameMoves > 0 && !showingConfirm}
-        message={intl.formatMessage({ id: "confirm.prompt" })}
+        message={intl.formatMessage({ id: "confirm.gameLostExit" })}
       />
       <ResumeGameModal />
       <GameOverModal />
-      <DropHandler className="joyrideGamePage mainPage">
+      {showingConfirm ? <ConfirmationModal /> : null}
+      <DropHandler
+        className={`joyrideGamePage mainPage ${
+          showingConfirm ? "blurBackground" : ""
+        }`}
+      >
         {/* current game status display (time and moves) */}
         <GamePlayInfo />
         {/* empty spots */}

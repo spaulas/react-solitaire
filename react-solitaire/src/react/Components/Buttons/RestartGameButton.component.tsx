@@ -1,7 +1,6 @@
-import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ConfirmationModal from "../Modals/ConfirmationModal.component";
 import { FormattedMessage } from "react-intl";
+import React from "react";
 import { RedoOutlined } from "@ant-design/icons";
 import { RootReducerState } from "../../../global";
 import { Tooltip } from "antd";
@@ -9,14 +8,13 @@ import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../redux/goal/goal.actions";
+import pageActions from "../../../redux/pages/pages.actions";
 
 /**
  * Option to start a new game, with a confirmation dialog
  */
 function RestartGameButton() {
   const dispatch = useDispatch();
-  const [showConfirm, setShowConfirm] = useState(false);
-
   const {
     deckPile,
     flippedPile,
@@ -77,18 +75,25 @@ function RestartGameButton() {
     // toggle the timer flag
     dispatch(gameBoardActions.toggleGameFlag());
 
-    setShowConfirm(false);
+    dispatch(gameBoardActions.showingConfirm(false));
   };
 
   const handleShowConfirm = () => {
     if (gameMoves > 0) {
-      setShowConfirm(true);
       dispatch(gameBoardActions.showingConfirm(true));
+      dispatch(
+        pageActions.setConfirmationModal(
+          <FormattedMessage id="confirm.gameLostExit" />,
+          <FormattedMessage id="confirm.restart" />,
+          handleCancelConfirm,
+          restartGame,
+          "adjustToGameOptions"
+        )
+      );
     }
   };
 
   const handleCancelConfirm = () => {
-    setShowConfirm(false);
     dispatch(gameBoardActions.showingConfirm(false));
   };
 
@@ -102,14 +107,6 @@ function RestartGameButton() {
           onClick={handleShowConfirm}
         />
       </Tooltip>
-      {showConfirm ? (
-        <ConfirmationModal
-          onCancel={handleCancelConfirm}
-          onConfirm={restartGame}
-          message={<FormattedMessage id="confirm.gameLost" />}
-          className="adjustToGameOptions"
-        />
-      ) : null}
     </>
   );
 }

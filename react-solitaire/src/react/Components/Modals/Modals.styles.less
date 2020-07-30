@@ -5,7 +5,7 @@
 
 .gameFullDiv {
   position: absolute;
-  top: 0;
+  top: 0 !important;
   left: 0;
   right: 0;
   bottom: 0;
@@ -22,22 +22,33 @@
   .resumeGameQuestion {
     color: black;
     align-self: center;
-    font-weight: bold;
-    font-size: @fontTitle;
+    font-size: calc(@fontTitle * 2);
     position: absolute;
     left: 0;
     right: 0;
     text-align: center;
   }
 
+  .resumeGameQuestion2 {
+    font-size: calc(@fontTitle * 1.5);
+  }
+
+  .resumeQuestionAnswer {
+    font-size: calc(@fontTitle * 1.2) !important;
+    font-weight: unset !important;
+  }
+
   .resumeGameQuestion:first-child {
-    top: calc((100% - 510px) / 2);
+    top: calc((100% - 700px) / 2);
   }
   .resumeGameQuestion:nth-child(2) {
-    top: calc(((100% - 510px) / 2) + 200px);
+    top: calc(((100% - 700px) / 2) + 100px);
   }
   .resumeGameQuestion:nth-child(3) {
-    top: calc(((100% - 510px) / 2) + 300px);
+    top: calc(((100% - 700px) / 2) + 300px);
+  }
+  .resumeGameQuestion:nth-child(3) {
+    top: calc(((100% - 700px) / 2) + 400px);
   }
 }
 

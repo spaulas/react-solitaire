@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppIcon from "../../Components/Icon/AppIcon.component";
+import ConfirmationModal from "../../Components/Modals/ConfirmationModal.component";
 import JoyrideSteps from "./JoyrideSteps.component";
 import MainMenu from "../../Components/MainMenu/MainMenu.component";
 import { RootReducerState } from "../../../global";
@@ -11,11 +12,13 @@ import pagesActions from "../../../redux/pages/pages.actions";
 function StartingPage() {
   const dispatch = useDispatch();
 
-  const { showAnimation, loggedIn, hasSavedGame } = useSelector(
-    ({ Pages, User }: RootReducerState) => ({
+  const { showAnimation, loggedIn, hasSavedGame, showingConfirm } = useSelector(
+    ({ Pages, User, GameBoard }: RootReducerState) => ({
       showAnimation: Pages.startPageAnimation,
       loggedIn: User.loggedIn,
-      hasSavedGame: User.user.hasSavedGame
+      hasSavedGame: User.user.hasSavedGame,
+      showingConfirm:
+        GameBoard.showingConfirm && Pages.confirmationModalProps.message1 !== ""
     })
   );
 
@@ -57,22 +60,25 @@ function StartingPage() {
   useEffect(mountComponent, []);
 
   return (
-    <div
-      className={`joyrideStartingPage mainPage startingPage ${
-        showAnimation ? "startingPageAnimation" : ""
-      }`}
-    >
-      {/* Icon Row */}
-      <Row className="logoRow" align="middle" justify="center">
-        <AppIcon
-          className={`${showAnimation ? "logoAnimated" : "logoImage"}`}
+    <>
+      {showingConfirm ? <ConfirmationModal /> : null}
+      <div
+        className={`joyrideStartingPage mainPage startingPage ${
+          showAnimation ? "startingPageAnimation" : ""
+        } ${showingConfirm ? "blurBackground" : ""}`}
+      >
+        {/* Icon Row */}
+        <Row className="logoRow" align="middle" justify="center">
+          <AppIcon
+            className={`${showAnimation ? "logoAnimated" : "logoImage"}`}
+          />
+        </Row>
+        <MainMenu
+          showStartAnimation={showAnimation}
+          showBackAnimation={showButtonsAnimation}
         />
-      </Row>
-      <MainMenu
-        showStartAnimation={showAnimation}
-        showBackAnimation={showButtonsAnimation}
-      />
-    </div>
+      </div>
+    </>
   );
 }
 
