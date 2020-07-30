@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { forwardRef, memo, useEffect, useState } from "react";
+import React, { forwardRef, memo, useState } from "react";
 import CardFrame from "./CardFrame.component";
 import CardImage from "./CardImage.component";
 import { ExplicitAny } from "../../../global";
