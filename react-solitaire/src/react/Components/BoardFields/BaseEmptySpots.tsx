@@ -34,13 +34,10 @@ function BaseEmptySpots() {
   const setTranslation = () => {
     // if the refs are not null
     if (deckRef && deckRef.current && flippedRef.current) {
-      const mobile = window.innerWidth < 767;
       // get the x position of the deck pile
-      const deckX = deckRef.current.getBoundingClientRect()[mobile ? "y" : "x"];
+      const deckX = deckRef.current.getBoundingClientRect().x;
       // get the x position of the flipped pile
-      const flippedX = flippedRef.current.getBoundingClientRect()[
-        mobile ? "y" : "x"
-      ];
+      const flippedX = flippedRef.current.getBoundingClientRect().x;
       // save the distance at the redux
       dispatch(deckActions.setTranslation(flippedX - deckX));
     }

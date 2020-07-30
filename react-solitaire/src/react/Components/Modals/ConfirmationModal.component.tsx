@@ -17,18 +17,22 @@ function ConfirmationModal() {
     <div className={`gameFullDiv ${className}`}>
       <div className="resumeGameQuestion">{message1}</div>
       <div className="resumeGameQuestion resumeGameQuestion2">{message2}</div>
-      <div
-        className={`animatedButton divButton resumeGameAnimatedButton resumeGameQuestion resumeQuestionAnswer`}
-        onClick={onCancel}
-      >
-        <FormattedMessage id="confirm.no" />
-      </div>
-      <div
-        className={`animatedButton divButton resumeGameAnimatedButton resumeGameQuestion resumeQuestionAnswer`}
-        onClick={onConfirm}
-      >
-        <FormattedMessage id="confirm.yes" />
-      </div>
+      {typeof onConfirm === "function" && (
+        <div
+          className={`animatedButton divButton resumeGameAnimatedButton resumeGameQuestion resumeQuestionAnswer`}
+          onClick={onConfirm}
+        >
+          <FormattedMessage id="confirm.yes" />
+        </div>
+      )}
+      {typeof onCancel === "function" && (
+        <div
+          className={`animatedButton divButton resumeGameAnimatedButton resumeGameQuestion resumeQuestionAnswer`}
+          onClick={onCancel}
+        >
+          <FormattedMessage id="confirm.no" />
+        </div>
+      )}
     </div>
   );
 }

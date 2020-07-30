@@ -20,8 +20,8 @@ const INITIAL_PAGES: InitialPages = {
   confirmationModalProps: {
     message1: "",
     message2: "",
-    onCancel: () => null,
-    onConfirm: () => null,
+    onCancel: undefined,
+    onConfirm: undefined,
     className: ""
   }
 };
