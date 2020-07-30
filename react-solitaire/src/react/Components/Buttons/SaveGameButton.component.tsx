@@ -1,18 +1,17 @@
-import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ConfirmationModal from "../Modals/ConfirmationModal.component";
 import { FormattedMessage } from "react-intl";
+import React from "react";
 import { RootReducerState } from "../../../global";
 import { SaveFilled } from "@ant-design/icons";
 import { Tooltip } from "antd";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
+import pageActions from "../../../redux/pages/pages.actions";
 import { useHistory } from "react-router-dom";
 import userActions from "../../../redux/user/user.actions";
 
 function SaveGameButton() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [showConfirm, setShowConfirm] = useState(false);
   // get piles from redux
   const {
     deckPile,
@@ -34,7 +33,15 @@ function SaveGameButton() {
 
   const showConfimationModal = () => {
     dispatch(gameBoardActions.showingConfirm(true));
-    setShowConfirm(true);
+    dispatch(
+      pageActions.setConfirmationModal(
+        <FormattedMessage id="confirm.saveGame1" />,
+        <FormattedMessage id="confirm.saveGame2" />,
+        handleCancelConfirm,
+        saveGame,
+        "adjustToGameOptions"
+      )
+    );
   };
 
   const saveGame = () => {
@@ -49,11 +56,11 @@ function SaveGameButton() {
         nHints
       })
     );
+    dispatch(gameBoardActions.showingConfirm(false));
     history.push("/");
   };
 
   const handleCancelConfirm = () => {
-    setShowConfirm(false);
     dispatch(gameBoardActions.showingConfirm(false));
   };
 
@@ -65,14 +72,6 @@ function SaveGameButton() {
           onClick={showConfimationModal}
         />
       </Tooltip>
-      {showConfirm ? (
-        <ConfirmationModal
-          onCancel={handleCancelConfirm}
-          onConfirm={saveGame}
-          message={<FormattedMessage id="confirm.saveGame" />}
-          className="adjustToGameOptions"
-        />
-      ) : null}
     </>
   );
 }

@@ -6,21 +6,24 @@ import {
   GameTopRow
 } from "../../Components/BoardFields/BoardFields.items";
 import { ExplicitAny, RootReducerState } from "../../../global";
+import { FormattedMessage, useIntl } from "react-intl";
 import React, { memo, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
+import ConfirmationModal from "../../Components/Modals/ConfirmationModal.component";
 import CustomDragLayer from "../../Components/CardMoveHandlers/DragHandlers/CustomDragLayer.component";
 import DropHandler from "../../Components/CardMoveHandlers/DropHandlers/DropHandler.component";
 import GameOverModal from "../../Components/Modals/GameOverModal.component";
 import JoyrideSteps from "./JoyrideSteps.component";
 import { Prompt } from "react-router";
+import { RedoOutlined } from "@ant-design/icons";
 import ResumeGameModal from "../../Components/Modals/ResumeGameModal.component";
 import columnsActions from "../../../redux/columns/columns.actions";
 import deckActions from "../../../redux/deck/deck.actions";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 import goalActions from "../../../redux/goal/goal.actions";
 import joyrideActions from "../../../redux/joyride/joyride.actions";
-import { useIntl } from "react-intl";
+import pageActions from "../../../redux/pages/pages.actions";
 import userActions from "../../../redux/user/user.actions";
 
 function GameBoard() {
@@ -53,7 +56,7 @@ function GameBoard() {
     showingConfirm,
     hasSavedGame,
     savedGame
-  } = useSelector(({ GameBoard, Goal, User }: RootReducerState) => ({
+  } = useSelector(({ GameBoard, Goal, User, Pages }: RootReducerState) => ({
     gameMoves: GameBoard.gameMoves,
     gameOver: Goal.gameOver,
     deckPile: GameBoard.deckPile,
@@ -69,7 +72,8 @@ function GameBoard() {
     goal2Pile: GameBoard.goal2Pile,
     goal3Pile: GameBoard.goal3Pile,
     goal4Pile: GameBoard.goal4Pile,
-    showingConfirm: GameBoard.showingConfirm,
+    showingConfirm:
+      GameBoard.showingConfirm && Pages.confirmationModalProps.message1 !== "",
     hasSavedGame: User.user.hasSavedGame,
     savedGame: User.user.savedGame || {}
   }));
@@ -171,17 +175,58 @@ function GameBoard() {
   };
   useEffect(addGameToUser, [gameMoves]);
 
+  const handleMobilePortrait = () => {
+    // eslint-disable-next-line no-console
+    console.log("window innerHeight = ", window.innerHeight);
+    // eslint-disable-next-line no-console
+    console.log("window innerWidth = ", window.innerWidth);
+
+    if (window.innerWidth < 767 && window.innerWidth / window.innerHeight < 1) {
+      if (location.pathname === "/game") {
+        // eslint-disable-next-line no-console
+        console.log("THIS IS A MOBILE!");
+        dispatch(gameBoardActions.showingConfirm(true));
+        dispatch(
+          pageActions.setConfirmationModal(
+            <FormattedMessage id="confirm.mobilePortrait" />,
+            <div className="turnDeviceContainer">
+              <FormattedMessage id="confirm.turnPhone" />
+              <RedoOutlined className="flipIcon" />
+            </div>,
+            undefined,
+            undefined,
+            "adjustToGameOptions"
+          )
+        );
+      } else {
+        // eslint-disable-next-line no-console
+        console.log("INSIDE USE EFFECT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        dispatch(gameBoardActions.showingConfirm(false));
+      }
+    } else {
+      // eslint-disable-next-line no-console
+      console.log("INSIDE USE EFFECT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      dispatch(gameBoardActions.showingConfirm(false));
+    }
+  };
+  useEffect(handleMobilePortrait, [window.innerWidth, location.pathname]);
+
   // ---------------------------------------------------------
 
   return (
     <>
       <Prompt
         when={!gameOver && gameMoves > 0 && !showingConfirm}
-        message={intl.formatMessage({ id: "confirm.prompt" })}
+        message={intl.formatMessage({ id: "confirm.gameLostExit" })}
       />
       <ResumeGameModal />
       <GameOverModal />
-      <DropHandler className="joyrideGamePage mainPage">
+      {showingConfirm ? <ConfirmationModal /> : null}
+      <DropHandler
+        className={`joyrideGamePage mainPage ${
+          showingConfirm ? "blurBackground" : ""
+        }`}
+      >
         {/* current game status display (time and moves) */}
         <GamePlayInfo />
         {/* empty spots */}

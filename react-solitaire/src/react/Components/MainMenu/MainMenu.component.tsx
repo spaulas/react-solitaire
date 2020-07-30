@@ -1,10 +1,11 @@
-import { FormattedMessage, useIntl } from "react-intl";
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ConfirmationModal from "../Modals/ConfirmationModal.component";
+import { FormattedMessage } from "react-intl";
 import MenuButton from "../Buttons/MenuButton.component";
 import { RootReducerState } from "../../../global";
 import { auth } from "../../../firebase/firebase.utils";
+import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
+import pageActions from "../../../redux/pages/pages.actions";
 import { useHistory } from "react-router-dom";
 import userActions from "../../../redux/user/user.actions";
 
@@ -14,10 +15,8 @@ interface MainMenuProps {
 }
 
 function MainMenu({ showStartAnimation, showBackAnimation }: MainMenuProps) {
-  const intl = useIntl();
   const history = useHistory();
   const dispatch = useDispatch();
-  const [showAlarm, setShowAlarm] = useState(false);
 
   const { userName, loggedIn, hasSavedGame, savedGame } = useSelector(
     ({ User }: RootReducerState) => ({
@@ -42,6 +41,28 @@ function MainMenu({ showStartAnimation, showBackAnimation }: MainMenuProps) {
     auth.signOut();
     // User at the redux should be from the localStorage
     dispatch(userActions.getLocalStorage());
+  };
+
+  const handleShowAlarm = () => {
+    dispatch(gameBoardActions.showingConfirm(true));
+    dispatch(
+      pageActions.setConfirmationModal(
+        <FormattedMessage id="confirm.gameLostSaved" />,
+        <FormattedMessage id="confirm.startNew" />,
+        handleCancelConfirm,
+        handleHideConfirm,
+        "adjustToGameOptions"
+      )
+    );
+  };
+
+  const handleHideConfirm = () => {
+    dispatch(gameBoardActions.showingConfirm(false));
+    history.push("/game");
+  };
+
+  const handleCancelConfirm = () => {
+    dispatch(gameBoardActions.showingConfirm(false));
   };
 
   return (
@@ -69,18 +90,11 @@ function MainMenu({ showStartAnimation, showBackAnimation }: MainMenuProps) {
             <FormattedMessage id="btn.resumeGame" />
           </MenuButton>
           <MenuButton
-            onClick={() => setShowAlarm(true)}
+            onClick={handleShowAlarm}
             className={`joyrideStartGameButton ${getAnimation()}`}
           >
             <FormattedMessage id="btn.startGame" />
           </MenuButton>
-          {showAlarm ? (
-            <ConfirmationModal
-              onConfirm={() => history.push("/game")}
-              onCancel={() => setShowAlarm(false)}
-              message={intl.formatMessage({ id: "confirm.gameLost" })}
-            />
-          ) : null}
         </>
       ) : (
         <MenuButton

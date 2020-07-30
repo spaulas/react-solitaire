@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import ConfirmationModal from "../Modals/ConfirmationModal.component";
 import { FormattedMessage } from "react-intl";
 import { PlusOutlined } from "@ant-design/icons";
+import React from "react";
 import { Tooltip } from "antd";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
+import pageActions from "../../../redux/pages/pages.actions";
 import { useDispatch } from "react-redux";
 
 /**
@@ -11,20 +11,26 @@ import { useDispatch } from "react-redux";
  */
 function NewGameButton() {
   const dispatch = useDispatch();
-  const [showConfirm, setShowConfirm] = useState(false);
 
   const handleConfirm = () => {
-    setShowConfirm(false);
     dispatch(gameBoardActions.createGame());
+    dispatch(gameBoardActions.showingConfirm(false));
   };
 
   const handleShowConfirm = () => {
-    setShowConfirm(true);
     dispatch(gameBoardActions.showingConfirm(true));
+    dispatch(
+      pageActions.setConfirmationModal(
+        <FormattedMessage id="confirm.gameLostExit" />,
+        <FormattedMessage id="confirm.startNew" />,
+        handleCancelConfirm,
+        handleConfirm,
+        "adjustToGameOptions"
+      )
+    );
   };
 
   const handleCancelConfirm = () => {
-    setShowConfirm(false);
     dispatch(gameBoardActions.showingConfirm(false));
   };
 
@@ -36,14 +42,6 @@ function NewGameButton() {
           onClick={handleShowConfirm}
         />
       </Tooltip>
-      {showConfirm ? (
-        <ConfirmationModal
-          onCancel={handleCancelConfirm}
-          onConfirm={handleConfirm}
-          message={<FormattedMessage id="confirm.gameLost" />}
-          className="adjustToGameOptions"
-        />
-      ) : null}
     </>
   );
 }

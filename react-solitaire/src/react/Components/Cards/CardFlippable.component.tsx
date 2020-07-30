@@ -33,7 +33,6 @@ function CardFlippable(
   }: CardFlippableProps,
   ref: ExplicitAny
 ) {
-  const [isMobile, setIsMobile] = useState(false);
   const [cardFlipped, setCardFlipped] = useState(false);
   const [animationStyle, setAnimationStyle] = useState({});
   const animationStyleUndo = {
@@ -43,9 +42,7 @@ function CardFlippable(
     if (!cardFlipped && !disabled) {
       if (translationX && translationX !== 0) {
         setAnimationStyle({
-          transform: isMobile
-            ? `translate(${-translationX}px, ${translationY}px) rotateY(180deg)`
-            : `translate(${translationX}px, ${translationY}px) rotateY(180deg)`
+          transform: `translate(${translationX}px, ${translationY}px) rotateY(180deg)`
         });
       } else {
         setAnimationStyle({ transform: "rotateY(180deg)" });
@@ -57,16 +54,6 @@ function CardFlippable(
       removeCard();
     }
   };
-
-  const checkMobile = () => {
-    if (!isMobile && window.innerWidth < 767) {
-      setIsMobile(true);
-    }
-    if (isMobile && window.innerWidth >= 767) {
-      setIsMobile(false);
-    }
-  };
-  useEffect(checkMobile, []);
 
   return (
     <CardFrame

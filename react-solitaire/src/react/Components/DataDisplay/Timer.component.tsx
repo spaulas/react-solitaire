@@ -27,11 +27,13 @@ function Timer() {
       gameOver,
       showingConfirm,
       gameTime
-    } = useSelector(({ GameBoard, Goal }: RootReducerState) => ({
+    } = useSelector(({ GameBoard, Goal, Pages }: RootReducerState) => ({
       timerFlag: GameBoard.gameFlag,
       gamePaused: GameBoard.gamePaused,
       gameOver: Goal.gameOver,
-      showingConfirm: GameBoard.showingConfirm,
+      showingConfirm:
+        GameBoard.showingConfirm &&
+        Pages.confirmationModalProps.message1 !== "",
       gameTime: GameBoard.gameTime
     }));
 
