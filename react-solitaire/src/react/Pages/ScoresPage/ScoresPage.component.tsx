@@ -1,17 +1,18 @@
 /* eslint-disable indent */
 import React, { useEffect } from "react";
+import { Tabs, Typography } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import HighScoresTable from "../../Components/Table/HighScoresTable.component";
 import JoyrideSteps from "./JoyrideSteps.component";
 import PageTitle from "../../Components/PageTitle/PageTitle.component";
 import { RootReducerState } from "../../../global";
-import { Tabs } from "antd";
 import UserScoresTable from "../../Components/Table/UserScoresTable.component";
 import joyrideActions from "../../../redux/joyride/joyride.actions";
 import { useHistory } from "react-router-dom";
 
 const { TabPane } = Tabs;
+const { Text } = Typography;
 
 interface ScoresPageProps {
   activeTab: string;
@@ -56,9 +57,9 @@ function ScoresPage({ activeTab }: ScoresPageProps) {
       <Tabs activeKey={activeTab} onChange={handleTabChange}>
         <TabPane
           tab={
-            <span className="joyrideScoresUser">
+            <Text ellipsis className="joyrideScoresUser">
               <FormattedMessage id="sidebar.userHighScores" />
-            </span>
+            </Text>
           }
           key="1"
         >
@@ -66,9 +67,9 @@ function ScoresPage({ activeTab }: ScoresPageProps) {
         </TabPane>
         <TabPane
           tab={
-            <span className="joyrideScoresTop">
+            <Text ellipsis className="joyrideScoresTop">
               <FormattedMessage id="sidebar.top10HighScores" />
-            </span>
+            </Text>
           }
           key="2"
         >
