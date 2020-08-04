@@ -33,8 +33,6 @@ const pagesReducer = (state = INITIAL_PAGES, action: ActionsCreators) => {
     case PagesActionTypes.SET_START_PAGE_ANIMATION:
       return { ...state, startPageAnimation: action.value };
     case PagesActionTypes.SET_CONFIRMATION_MODAL:
-      // eslint-disable-next-line no-console
-      console.log("SET_CONFIRMATION_MODAL = ", action);
       return {
         ...state,
         confirmationModalProps: {

@@ -5,6 +5,7 @@ import MenuButton from "../Buttons/MenuButton.component";
 import { RootReducerState } from "../../../global";
 import { auth } from "../../../firebase/firebase.utils";
 import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
+import highscoreActions from "../../../redux/highScores/highscores.actions";
 import pageActions from "../../../redux/pages/pages.actions";
 import { useHistory } from "react-router-dom";
 import userActions from "../../../redux/user/user.actions";
@@ -41,6 +42,7 @@ function MainMenu({ showStartAnimation, showBackAnimation }: MainMenuProps) {
     auth.signOut();
     // User at the redux should be from the localStorage
     dispatch(userActions.getLocalStorage());
+    dispatch(highscoreActions.setOfflineHighScores());
   };
 
   const handleShowAlarm = () => {

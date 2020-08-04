@@ -42,12 +42,22 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
       if (!offlineHighScores) {
         localStorage.setItem(
           "offlineHighScores",
-          JSON.stringify(INITIAL_HIGHSCORE.highScore)
+          JSON.stringify(INITIAL_HIGHSCORE)
         );
       }
+      if (offlineHighScores) {
+        return {
+          highScore: {
+            ...offlineHighScores
+          },
+          highScoreRef: undefined
+        };
+      }
       return {
-        highScore: offlineHighScores || INITIAL_HIGHSCORE,
-        highScoreRef: undefined
+        highScoreRef: undefined,
+        highScore: {
+          ...INITIAL_HIGHSCORE
+        }
       };
 
     case HighScoresActionTypes.HAS_NEW_HIGHSCORE:

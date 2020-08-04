@@ -5,8 +5,8 @@ import gameBoardActions from "../../../redux/gameBoard/gameBoard.actions";
 
 export const convertTime = (value: number) => {
   const hours = Math.floor(value / 3600);
-  const minutes = Math.floor(value / 60) % 60;
-  const seconds = value % 3600;
+  const minutes = Math.floor((value % 3600) / 60);
+  const seconds = Math.floor((value % 3600) % 60);
   return `${hours > 0 ? `${hours}:` : "0:"}${
     minutes < 10 ? `0${minutes}` : minutes
   }:${seconds < 10 ? `0${seconds}` : seconds}`;
@@ -45,7 +45,7 @@ function Timer() {
     if (gameTime > 0) {
       initialHours = Math.floor(gameTime / 3600);
       initialMinutes = Math.floor((gameTime % 3600) / 60);
-      initialSeconds = gameTime % 3600;
+      initialSeconds = Math.floor((gameTime % 3600) % 60);
     }
 
     // set time states
