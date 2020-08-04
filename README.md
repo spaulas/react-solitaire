@@ -175,7 +175,7 @@ highScores: [
 <img align="left" alt="scoresTop" width="100%" src="https://i.ibb.co/QkN3rXx/scores-Top.png" />
 <br/>
 &nbsp;
-<h3 align="center">Statistics</h3>
+<h3 align="left">Statistics</h3>
 <p>In the statistics page, the user can evaluate its win/loss ration, number of moves and time per game through graphs (pie and bar) displayed in a carousel or in a dashboard.</p>
 <img align="left" alt="statistics" width="100%" src="https://i.ibb.co/54HHMZh/statistics-Dash.png" />
 <br/>
