@@ -9,7 +9,7 @@
 <img align="left" alt="react-solitaire-1995" width="100%" src="https://i.ibb.co/dgTkcP7/topBadge.png" />
 &nbsp;
 
-<h3 align="center"><a href="https://react-solitaire-1995.netlify.app/">Play</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://react-redux.realworld.io)">Demo</a></h3>
+<h3 align="center"><a href="https://react-solitaire-1995.netlify.app/">Play</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://youtu.be/NRUfqM_jY-k)">Demo</a></h3>
 <h3 align="left">Description</h3>
 
 <p>Solitaire game implemented by scratch on react.</p>
@@ -141,7 +141,7 @@ highScores: [
 </ul>
 
 
-<img align="left" alt="react-solitaire-1995" width="100%" src="https://i.ibb.co/X7czXW6/gamePlay.png" />
+<img align="left" alt="gamePlay" width="100%" src="https://i.ibb.co/X7czXW6/gamePlay.png" />
 &nbsp;&nbsp;&nbsp;
 <p>Besides the normal solitaire gameplay, more options are available:</p>
 <ul>
@@ -155,13 +155,13 @@ highScores: [
 </ul>
 
 <p align="center">
-  <img align="center" alt="react-solitaire-1995" width="60%" src="https://i.ibb.co/zfZ7Wdm/options.png" />
+  <img align="center" alt="gameOptions" width="60%" src="https://i.ibb.co/zfZ7Wdm/options.png" />
 </p>
 
 
 <p>When the user finishes a game, a modal is shown with all the game status, this information is stored and can be seen at the scores page as well.</p>
 
-<img align="left" alt="react-solitaire-1995" width="100%" src="https://i.ibb.co/hBDjpdC/gameover.png" />
+<img align="left" alt="gameOverModal" width="100%" src="https://i.ibb.co/hBDjpdC/gameover.png" />
 
 <br/>
 &nbsp;
@@ -169,21 +169,21 @@ highScores: [
 
 <p>The scores page is divided in two parts, the first is the user scores (by default is sorted by final scores) and the top ten highscores. This last part is different for online and local users. Online users see a list of the top ten highscores of all registered users and, since the local user has no access to others, it is listed the top ten highscores currently stored in the device session.</p>
 
-<img align="left" alt="react-solitaire-1995" width="100%" src="https://i.ibb.co/6B4wfL7/scores-User.png" />
+<img align="left" alt="scoresUser" width="100%" src="https://i.ibb.co/6B4wfL7/scores-User.png" />
 <br/>
 &nbsp;
-<img align="left" alt="react-solitaire-1995" width="100%" src="https://i.ibb.co/QkN3rXx/scores-Top.png" />
+<img align="left" alt="scoresTop" width="100%" src="https://i.ibb.co/QkN3rXx/scores-Top.png" />
 <br/>
 &nbsp;
 <h3 align="center">Statistics</h3>
 <p>In the statistics page, the user can evaluate its win/loss ration, number of moves and time per game through graphs (pie and bar) displayed in a carousel or in a dashboard.</p>
-<img align="left" alt="react-solitaire-1995" width="100%" src="https://i.ibb.co/54HHMZh/statistics-Dash.png" />
+<img align="left" alt="statistics" width="100%" src="https://i.ibb.co/54HHMZh/statistics-Dash.png" />
 <br/>
 &nbsp;
 <h3 align="left">Configurations</h3>
 <p>Is in the configuration page that an user can alter his username and language (english, portuguese, german and spanish). It is also possible to deactivate or activate the helps shown throughout the website.</p>
 
-<img align="left" alt="react-solitaire-1995" width="100%" src="https://i.ibb.co/HtwHTPS/configurations.png" />
+<img align="left" alt="configurations" width="100%" src="https://i.ibb.co/HtwHTPS/configurations.png" />
 
 
 <br/>
