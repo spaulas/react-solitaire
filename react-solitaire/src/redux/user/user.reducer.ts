@@ -62,7 +62,7 @@ const INITIAL_USER: InitialUser = {
       moves: {}
     },
     settings: {
-      language: "pt-PT",
+      language: "en-US",
       joyride: {
         main: true,
         scores: true,
