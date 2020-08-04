@@ -9,7 +9,7 @@
 <img align="left" alt="react-solitaire-1995" width="100%" src="https://i.ibb.co/dgTkcP7/topBadge.png" />
 &nbsp;
 
-<h3 align="center"><a href="https://react-solitaire-1995.netlify.app/">Play</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://youtu.be/NRUfqM_jY-k)">Demo</a></h3>
+<h3 align="center"><a href="https://react-solitaire-1995.netlify.app/">Play</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://youtu.be/NRUfqM_jY-k">Demo</a></h3>
 <h3 align="left">Description</h3>
 
 <p>Solitaire game implemented by scratch on react.</p>
