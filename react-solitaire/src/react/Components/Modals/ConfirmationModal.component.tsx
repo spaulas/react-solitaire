@@ -20,16 +20,6 @@ function ConfirmationModal() {
     className: Pages.confirmationModalProps.className
   }));
 
-  // eslint-disable-next-line no-console
-  console.log("CONFIRMATION MODAL = ", {
-    onConfirm,
-    onCancel,
-    message1,
-    message2,
-    buttonConfirmId,
-    className
-  });
-
   return (
     <div className={`gameFullDiv ${className}`}>
       <div className="resumeGameQuestion">{message1}</div>
