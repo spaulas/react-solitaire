@@ -1,3 +1,4 @@
+import { ExplicitAny, RootReducerState } from "../../../../global";
 import { Form, Input, Row, notification } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
 import {
@@ -7,12 +8,11 @@ import {
   checkUserName,
   setUserRedux
 } from "../helper";
-import { ExplicitAny } from "../../../../global";
+import { useDispatch, useSelector } from "react-redux";
 import MenuButton from "../../Buttons/MenuButton.component";
 import PasswordInput from "../PasswordInput.component";
 import React from "react";
 import { auth } from "../../../../firebase/firebase.utils";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import userActions from "../../../../redux/user/user.actions";
 
@@ -23,6 +23,10 @@ function SignUpForm() {
   const history = useHistory();
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+
+  const { language } = useSelector(({ User }: RootReducerState) => ({
+    language: User.user?.settings?.language
+  }));
 
   const onChange = (
     { target: { value } }: { target: { value: string } },
@@ -38,7 +42,7 @@ function SignUpForm() {
         values.email,
         values.password
       );
-      setUserRedux(user, dispatch, false, values.userName);
+      setUserRedux(user, dispatch, false, values.userName, language);
       history.push("/");
     } catch (signUpError) {
       notification.error({

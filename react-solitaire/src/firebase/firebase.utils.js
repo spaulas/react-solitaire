@@ -36,7 +36,7 @@ export const createUserProfileDocument = async (user, userName) => {
   }
 };
 
-export const getUserInfo = async (user, userName) => {
+export const getUserInfo = async (user, extra = {}) => {
   if (!user) {
     return { userRef: null, highscoreRef: null };
   }
@@ -48,9 +48,19 @@ export const getUserInfo = async (user, userName) => {
   const highscoreSnapShot = await highscoreRef.get();
 
   if (!userSnapShot.exists && user.email) {
+    let tempLanguage = extra.language;
+
+    try {
+      await userRef?.onSnapshot(snapshot => {
+        const { settings } = snapshot.data();
+        tempLanguage = settings?.language;
+      });
+    } catch (e) {
+      console.error("Error getting user ", e.message);
+    }
     try {
       await userRef.set({
-        userName: userName || user.displayName || user.email,
+        userName: extra.userName || user.displayName || user.email,
         email: user.email,
         createdAt: moment().format("DD/MM/YYYY, hh:mm"),
         maxMoves: 0,
@@ -65,7 +75,7 @@ export const getUserInfo = async (user, userName) => {
           moves: {}
         },
         settings: {
-          language: "en-US",
+          language: tempLanguage || "en-US",
           joyride: {
             main: true,
             scores: true,

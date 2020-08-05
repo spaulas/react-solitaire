@@ -75,7 +75,8 @@ export const setUserRedux = async (
   user: ExplicitAny,
   dispatch: ExplicitAny,
   loggedIn = false,
-  userName?: string
+  userName?: string,
+  language?: string
 ) => {
   if (loggedIn) {
     auth.onAuthStateChanged(async oldUser => {
@@ -88,10 +89,10 @@ export const setUserRedux = async (
       }
     });
   } else {
-    const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(
-      user,
-      userName
-    );
+    const { userRef, highscoreRef }: ExplicitAny = await getUserInfo(user, {
+      userName,
+      language
+    });
 
     if (userRef && highscoreRef) {
       userRef?.onSnapshot((snapshot: ExplicitAny) => {

@@ -1,14 +1,14 @@
+import { ExplicitAny, RootReducerState } from "../../../../global";
 import { Form, Input, Row, notification } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
 import { auth, signInWithGoogle } from "../../../../firebase/firebase.utils";
 import { checkEmail, checkPassword, setUserRedux } from "../helper";
-import { ExplicitAny } from "../../../../global";
+import { useDispatch, useSelector } from "react-redux";
 import { GoogleCircleFilled } from "@ant-design/icons";
 import MenuButton from "../../Buttons/MenuButton.component";
 import PasswordInput from "../PasswordInput.component";
 import React from "react";
 import highscoreActions from "../../../../redux/highScores/highscores.actions";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import userActions from "../../../../redux/user/user.actions";
 
@@ -18,6 +18,10 @@ function LoginForm() {
   const intl = useIntl();
   const history = useHistory();
   const dispatch = useDispatch();
+
+  const { language } = useSelector(({ User }: RootReducerState) => ({
+    language: User.user?.settings?.language
+  }));
 
   const onChange = (
     { target: { value } }: { target: { value: string } },
@@ -30,7 +34,7 @@ function LoginForm() {
     dispatch(userActions.clearUser());
     await signInWithGoogle()
       .then(({ user }) => {
-        setUserRedux(user, dispatch);
+        setUserRedux(user, dispatch, false, undefined, language);
         history.push("/");
       })
       .catch(signInError => {

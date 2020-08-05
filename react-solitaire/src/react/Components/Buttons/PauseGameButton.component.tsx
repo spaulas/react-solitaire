@@ -10,8 +10,6 @@ function PauseGameButton() {
   const dispatch = useDispatch();
 
   const handleShowConfirm = () => {
-    // eslint-disable-next-line no-console
-    console.log("PAUSE = handleShowConfirm");
     dispatch(gameBoardActions.showingConfirm(true));
     dispatch(
       pageActions.setConfirmationModal(
