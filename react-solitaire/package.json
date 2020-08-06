@@ -1,7 +1,7 @@
 {
   "name": "react-solitaire",
   "version": "0.1.0",
-  "homepage": "https://spaulas.github.io/solitaireGame",
+  "homepage": "http://spaulas.github.io/react-solitaire",
   "private": true,
   "dependencies": {
     "@babel/core": "7.8.4",
@@ -40,6 +40,7 @@
     "file-loader": "4.3.0",
     "firebase": "^7.16.0",
     "fs-extra": "^8.1.0",
+    "gh-pages": "^3.1.0",
     "html-webpack-plugin": "4.0.0-beta.11",
     "identity-obj-proxy": "3.0.0",
     "jest": "24.9.0",
@@ -95,7 +96,9 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "eslint": "eslint ./src/**/*.{js,jsx,ts,tsx}",
-    "stylelint": "stylelint ./src/**/*.{css,less,scss,sass}"
+    "stylelint": "stylelint ./src/**/*.{css,less,scss,sass}",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
