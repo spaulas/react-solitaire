@@ -2,7 +2,6 @@
 <p align="center">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/spaulas/solitaireGame?logo=typescript&style=for-the-badge">
   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/spaulas/solitaireGame?style=for-the-badge">
-  <img alt="Netlify" src="https://img.shields.io/netlify/d1ce08ff-353e-439d-a678-1159bbf60303?logo=netlify&style=for-the-badge">
   <img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed-raw/spaulas/solitaireGame?style=for-the-badge">
   <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/spaulas/solitaireGame?style=for-the-badge">
 </p>
