@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="react-solitaire">
       <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename="/react-solitaire">
           <PersistGate persistor={persistor}>
             <IntlProvider>
               <BaseApplication />
