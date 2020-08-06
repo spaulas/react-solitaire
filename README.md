@@ -195,5 +195,6 @@ highScores: [
   <li>End-to-end tests with cypress;</li>
   <li>Button to send all the possible cards to the goal spots;</li>
   <li>Customization (background color and cards backs image);</li>
-  <li>"Forgot password" option at sign in.</li>
+  <li>"Forgot password" option at sign in;</li>
+  <li>Search for other users and visualize their scores.</li>
 </ul>
