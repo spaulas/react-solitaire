@@ -1,6 +1,7 @@
 <h1 align="center">React Solitaire</h1>
 <p align="center">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/spaulas/solitaireGame?logo=typescript&style=for-the-badge">
+  <img alt="GitHub package.json version" src="https://img.shields.io/github/package-json/v/spaulas/react-solitaire?style=for-the-badge">
   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/spaulas/solitaireGame?style=for-the-badge">
   <img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed-raw/spaulas/solitaireGame?style=for-the-badge">
   <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/spaulas/solitaireGame?style=for-the-badge">
@@ -8,7 +9,7 @@
 <img align="left" alt="react-solitaire-1995" width="100%" src="https://i.ibb.co/dgTkcP7/topBadge.png" />
 &nbsp;
 
-<h3 align="center"><a href="https://react-solitaire-1995.netlify.app/" target="_blank">Play</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://youtu.be/NRUfqM_jY-k" target="_blank">Demo</a></h3>
+<h3 align="center"><a href="https://spaulas.github.io/react-solitaire/" target="_blank">Play</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://youtu.be/NRUfqM_jY-k" target="_blank">Demo</a></h3>
 <h3 align="left">Description</h3>
 
 <p>Solitaire game implemented by scratch on react.</p>
