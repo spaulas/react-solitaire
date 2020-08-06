@@ -2,7 +2,7 @@ import { ExplicitAny, RootReducerState } from "../../../../global";
 import { Form, Input, Row, notification } from "antd";
 import { FormattedMessage, useIntl } from "react-intl";
 import { auth, signInWithGoogle } from "../../../../firebase/firebase.utils";
-import { checkEmail, checkPassword, setUserRedux } from "../helper";
+import { checkEmail, setUserRedux } from "../helper";
 import { useDispatch, useSelector } from "react-redux";
 import { GoogleCircleFilled } from "@ant-design/icons";
 import MenuButton from "../../Buttons/MenuButton.component";
@@ -111,13 +111,6 @@ function LoginForm() {
               {
                 required: true,
                 message: intl.formatMessage({ id: "form.required.password" })
-              },
-              {
-                validator: (
-                  rule: object,
-                  value: string,
-                  callback: (message?: string) => void
-                ) => checkPassword(rule, value, callback, intl)
               }
             ]}
           >
