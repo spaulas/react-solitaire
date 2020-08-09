@@ -1,3 +1,6 @@
+import "moment/locale/es";
+import "moment/locale/de";
+import "moment/locale/pt-br";
 import { Checkbox, Col, Divider, Form, Input, Radio, Row, Tooltip } from "antd";
 import { ExplicitAny, RootReducerState } from "../../../../global";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -5,6 +8,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MenuButton from "../../Buttons/MenuButton.component";
 import ReactCountryFlag from "react-country-flag";
+import moment from "moment";
 import { useForm } from "antd/lib/form/util";
 import userActions from "../../../../redux/user/user.actions";
 
@@ -22,7 +26,7 @@ function ConfigurationsForm() {
     createdAt,
     language,
     joyride,
-    loggedOut
+    loggedIn
   } = useSelector(({ User }: RootReducerState) => {
     const user = User.user;
     return {
@@ -31,7 +35,7 @@ function ConfigurationsForm() {
       createdAt: user.createdAt,
       language: user.settings.language,
       joyride: user.settings.joyride,
-      loggedOut: User.loggedIn
+      loggedIn: User.loggedIn
     };
   });
 
@@ -113,8 +117,9 @@ function ConfigurationsForm() {
             <Input
               disabled
               className="divButton loginButtonAnimated formInput"
-              defaultValue={createdAt}
-              onChange={(e: ExplicitAny) => onChange(e, "createdAt")}
+              value={moment(createdAt)
+                .locale(language?.split("-")[0])
+                .format("MMMM Do YYYY, h:mm:ss a")}
             />
             <label className="labelPlaceholder">
               <FormattedMessage id="table.createdAt" />
@@ -127,7 +132,7 @@ function ConfigurationsForm() {
         align="middle"
         justify="space-between"
       >
-        {!loggedOut ? (
+        {loggedIn ? (
           <Col xs={24} sm={24} md={10}>
             {/* Email input item (disabled and only visible for a logged in user) */}
             <Item name="email">

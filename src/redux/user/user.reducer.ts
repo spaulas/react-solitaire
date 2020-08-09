@@ -4,6 +4,7 @@ import { ActionsCreators } from "./user.actions";
 import { ExplicitAny } from "../../global";
 import UserActionTypes from "./user.types";
 import { createGraphs } from "./user.utils";
+import moment from "moment";
 
 interface GameHistory {
   date: string;
@@ -23,7 +24,7 @@ export interface InitialUser {
     nGames: number;
     hasSavedGame: boolean;
     history: Array<GameHistory>;
-    createdAt: Date;
+    createdAt: any;
     savedGame: ExplicitAny;
     graphs: {
       winsRatio: ExplicitAny;
@@ -54,7 +55,7 @@ const INITIAL_USER: InitialUser = {
     nGames: 0,
     hasSavedGame: false,
     history: [],
-    createdAt: new Date(),
+    createdAt: moment(),
     savedGame: {},
     graphs: {
       winsRatio: [],
