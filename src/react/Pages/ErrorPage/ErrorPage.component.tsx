@@ -2,8 +2,12 @@ import { FormattedMessage } from "react-intl";
 import MenuButton from "../../Components/Buttons/MenuButton.component";
 import React from "react";
 import { WarningFilled } from "@ant-design/icons";
+import { useLocation } from "react-router-dom";
 
 function ErrorPage() {
+  const location = useLocation();
+  console.log("ERROR PAGE!!!! ", location);
+
   return (
     <div className="mainPage errorPage">
       <WarningFilled className="warningIcon" />
