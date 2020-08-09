@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.js": "/react-solitaire/static/js/main.59b4007a.chunk.js",
-    "main.js.map": "/react-solitaire/static/js/main.59b4007a.chunk.js.map",
+    "main.js": "/react-solitaire/static/js/main.11cd77c0.chunk.js",
+    "main.js.map": "/react-solitaire/static/js/main.11cd77c0.chunk.js.map",
     "runtime-main.js": "/react-solitaire/static/js/runtime-main.95c7ce92.js",
     "runtime-main.js.map": "/react-solitaire/static/js/runtime-main.95c7ce92.js.map",
-    "static/js/2.9538d36e.chunk.js": "/react-solitaire/static/js/2.9538d36e.chunk.js",
-    "static/js/2.9538d36e.chunk.js.map": "/react-solitaire/static/js/2.9538d36e.chunk.js.map",
+    "static/js/2.a453299b.chunk.js": "/react-solitaire/static/js/2.a453299b.chunk.js",
+    "static/js/2.a453299b.chunk.js.map": "/react-solitaire/static/js/2.a453299b.chunk.js.map",
     "index.html": "/react-solitaire/index.html",
-    "precache-manifest.f4f88d2a6c37d97a3f9842b1de74a965.js": "/react-solitaire/precache-manifest.f4f88d2a6c37d97a3f9842b1de74a965.js",
+    "precache-manifest.ab43b81ca4119b9d5e116a0b8f3d1469.js": "/react-solitaire/precache-manifest.ab43b81ca4119b9d5e116a0b8f3d1469.js",
     "service-worker.js": "/react-solitaire/service-worker.js",
-    "static/js/2.9538d36e.chunk.js.LICENSE.txt": "/react-solitaire/static/js/2.9538d36e.chunk.js.LICENSE.txt",
+    "static/js/2.a453299b.chunk.js.LICENSE.txt": "/react-solitaire/static/js/2.a453299b.chunk.js.LICENSE.txt",
     "static/media/Manrope-ExtraLight.ttf": "/react-solitaire/static/media/Manrope-ExtraLight.a4b068ee.ttf",
     "static/media/christmasTree.png": "/react-solitaire/static/media/christmasTree.74d648b4.png",
     "static/media/clubs01.png": "/react-solitaire/static/media/clubs01.084e2435.png",
@@ -71,7 +71,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.95c7ce92.js",
-    "static/js/2.9538d36e.chunk.js",
-    "static/js/main.59b4007a.chunk.js"
+    "static/js/2.a453299b.chunk.js",
+    "static/js/main.11cd77c0.chunk.js"
   ]
 }
