@@ -33,32 +33,7 @@
   </style>    
   <script type="text/javascript">
     console.log("--------------------");
-      const l = window.location
-      console.log("404 l.search = ", l.search);
-      if (l.search) {
-        var q = {};
-        // ?p=/react-solitaire/statistics
-        // splice -> p=/react-solitaire/statistics
-        // split -> p=/react-solitaire/statistics
-        // a = [p, /react-solitaire/statistics]
-        // q = {p : react-solitaire/statistics}
-        l.search.slice(1).split('&').forEach(function(v) {
-          var a = v.split('=');
-          q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
-        });
-
-        console.log("q = ", l);
-        console.log("replacing state - ", l.pathname.slice(0, -1) + (q.p || '') +
-            (q.q ? ('?' + q.q) : '') +
-            l.hash);
-        /* if (q.p !== undefined) {
-          window.history.replaceState(null, null,
-            l.pathname.slice(0, -1) + (q.p || '') +
-            (q.q ? ('?' + q.q) : '') +
-            l.hash
-          );
-        } */
-      }
+    
   </script>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
