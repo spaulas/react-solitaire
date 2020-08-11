@@ -39,20 +39,31 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
       const offlineHighScores = currentLocal
         ? JSON.parse(currentLocal)
         : undefined;
+
+      console.log("offlineHighScores = ", offlineHighScores);
       if (!offlineHighScores) {
+        console.log("set1 = ", INITIAL_HIGHSCORE);
         localStorage.setItem(
           "offlineHighScores",
           JSON.stringify(INITIAL_HIGHSCORE)
         );
       }
       if (offlineHighScores) {
+        console.log("set2 = ", {
+          ...offlineHighScores,
+          highScoreRef: undefined
+        });
         return {
-          highScore: {
-            ...offlineHighScores
-          },
+          ...offlineHighScores,
           highScoreRef: undefined
         };
       }
+      console.log("setting state- ", {
+        highScoreRef: undefined,
+        highScore: {
+          ...INITIAL_HIGHSCORE
+        }
+      });
       return {
         highScoreRef: undefined,
         highScore: {
@@ -62,6 +73,7 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
 
     case HighScoresActionTypes.HAS_NEW_HIGHSCORE:
       let finalHasNewHighScore = false;
+      console.log("has new highscore? initial state = ", state);
       if (state.highScore?.highScores?.length < 10) {
         finalHasNewHighScore = true;
       } else {
@@ -74,6 +86,14 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
           finalHasNewHighScore = true;
         }
       }
+
+      console.log("HAS_NEW_HIGHSCORE final state = ", {
+        ...state,
+        highScore: {
+          ...state.highScore,
+          hasNewHighScore: finalHasNewHighScore
+        }
+      });
 
       return {
         ...state,
@@ -114,19 +134,32 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
         return a.finalScore < b.finalScore ? -1 : 1;
       });
 
-      if (state.highscoreRef) {
+      if (typeof state.highscoreRef === "function") {
+        console.log("saving online highscore = ", {
+          ...state.highScore,
+          highScores: finalHighScores
+        });
         // add to firebase
         state.highscoreRef().set({
           ...state.highScore,
           highScores: finalHighScores
         });
       } else {
+        console.log("saving offline highscore = ", {
+          ...state.highScore,
+          highScores: finalHighScores
+        });
         // add to localStorage
         localStorage.setItem(
           "offlineHighScores",
           JSON.stringify({ ...state.highScore, highScores: finalHighScores })
         );
       }
+
+      console.log("saving redux highsore = ", {
+        ...state,
+        highScore: { highScores: finalHighScores, hasNewHighScore: false }
+      });
 
       return {
         ...state,
