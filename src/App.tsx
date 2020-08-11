@@ -11,11 +11,7 @@ import packageJson from "../package.json";
 
 const currentVersion = localStorage.getItem("version");
 
-console.log("PACKAGE JSON VERSION = ", packageJson.version);
-console.log("CURRENT local JSON VERSION = ", currentVersion);
-
 if (currentVersion !== packageJson.version) {
-  console.log("clearing locla storage");
   localStorage.clear();
   localStorage.setItem("version", packageJson.version);
 }
