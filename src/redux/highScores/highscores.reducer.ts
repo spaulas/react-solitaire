@@ -54,10 +54,7 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
         };
       }
       return {
-        highScoreRef: undefined,
-        highScore: {
-          ...INITIAL_HIGHSCORE
-        }
+        ...INITIAL_HIGHSCORE
       };
 
     case HighScoresActionTypes.HAS_NEW_HIGHSCORE:
@@ -114,7 +111,7 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
         return a.finalScore < b.finalScore ? -1 : 1;
       });
 
-      if (state.highscoreRef) {
+      if (typeof state.highscoreRef === "function") {
         // add to firebase
         state.highscoreRef().set({
           ...state.highScore,
