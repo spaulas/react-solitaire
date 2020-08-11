@@ -12,8 +12,8 @@
     "static/js/4.ea618f68.chunk.js.map": "/react-solitaire/static/js/4.ea618f68.chunk.js.map",
     "static/js/5.533d75e2.chunk.js": "/react-solitaire/static/js/5.533d75e2.chunk.js",
     "static/js/5.533d75e2.chunk.js.map": "/react-solitaire/static/js/5.533d75e2.chunk.js.map",
-    "main.js": "/react-solitaire/static/js/main.53fad702.chunk.js",
-    "main.js.map": "/react-solitaire/static/js/main.53fad702.chunk.js.map",
+    "main.js": "/react-solitaire/static/js/main.d04eccd5.chunk.js",
+    "main.js.map": "/react-solitaire/static/js/main.d04eccd5.chunk.js.map",
     "runtime-main.js": "/react-solitaire/static/js/runtime-main.b87636ab.js",
     "runtime-main.js.map": "/react-solitaire/static/js/runtime-main.b87636ab.js.map",
     "static/js/8.9642f8be.chunk.js": "/react-solitaire/static/js/8.9642f8be.chunk.js",
@@ -41,7 +41,7 @@
     "static/js/19.5a3ed795.chunk.js": "/react-solitaire/static/js/19.5a3ed795.chunk.js",
     "static/js/19.5a3ed795.chunk.js.map": "/react-solitaire/static/js/19.5a3ed795.chunk.js.map",
     "index.html": "/react-solitaire/index.html",
-    "precache-manifest.6c44c87a5b95f6e50362e1419ba386ff.js": "/react-solitaire/precache-manifest.6c44c87a5b95f6e50362e1419ba386ff.js",
+    "precache-manifest.46fad52e37f960981c1a3ea327b8fe22.js": "/react-solitaire/precache-manifest.46fad52e37f960981c1a3ea327b8fe22.js",
     "service-worker.js": "/react-solitaire/service-worker.js",
     "static/js/13.21d4f321.chunk.js.LICENSE.txt": "/react-solitaire/static/js/13.21d4f321.chunk.js.LICENSE.txt",
     "static/js/8.9642f8be.chunk.js.LICENSE.txt": "/react-solitaire/static/js/8.9642f8be.chunk.js.LICENSE.txt",
@@ -108,6 +108,6 @@
   "entrypoints": [
     "static/js/runtime-main.b87636ab.js",
     "static/js/8.9642f8be.chunk.js",
-    "static/js/main.53fad702.chunk.js"
+    "static/js/main.d04eccd5.chunk.js"
   ]
 }
