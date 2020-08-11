@@ -1,6 +1,6 @@
+import React, { memo } from "react";
 import { FormattedMessage } from "react-intl";
 import MenuButton from "../../Components/Buttons/MenuButton.component";
-import React from "react";
 import { WarningFilled } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
 
@@ -25,4 +25,4 @@ function ErrorPage() {
     </div>
   );
 }
-export default ErrorPage;
+export default memo(ErrorPage);

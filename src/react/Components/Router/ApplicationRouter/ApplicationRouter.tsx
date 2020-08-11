@@ -1,14 +1,33 @@
-import React, { memo } from "react";
+import React, { Suspense, memo } from "react";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import AboutPage from "../../../Pages/AboutPage/AboutPage.component";
-import ConfigurationsPage from "../../../Pages/ConfigurationsPage/ConfigurationsPage.component";
-import ErrorPage from "../../../Pages/ErrorPage/ErrorPage.component";
-import GameBoard from "../../../Pages/GameBoard/GameBoard.component";
-import LoginPage from "../../../Pages/LoginPage/LoginPage.component";
-import ScoresPage from "../../../Pages/ScoresPage/ScoresPage.component";
-import SignUpPage from "../../../Pages/SignUpPage/SignUpPage.component";
-import StartingPage from "../../../Pages/StartingPage/StartingPage.component";
-import StatisticsPage from "../../../Pages/StatisticsPage/StatisticsPage.component";
+
+const AboutPage = React.lazy(() =>
+  import("../../../Pages/AboutPage/AboutPage.component")
+);
+const ConfigurationsPage = React.lazy(() =>
+  import("../../../Pages/ConfigurationsPage/ConfigurationsPage.component")
+);
+const ErrorPage = React.lazy(() =>
+  import("../../../Pages/ErrorPage/ErrorPage.component")
+);
+const GameBoard = React.lazy(() =>
+  import("../../../Pages/GameBoard/GameBoard.component")
+);
+const LoginPage = React.lazy(() =>
+  import("../../../Pages/LoginPage/LoginPage.component")
+);
+const ScoresPage = React.lazy(() =>
+  import("../../../Pages/ScoresPage/ScoresPage.component")
+);
+const SignUpPage = React.lazy(() =>
+  import("../../../Pages/SignUpPage/SignUpPage.component")
+);
+const StartingPage = React.lazy(() =>
+  import("../../../Pages/StartingPage/StartingPage.component")
+);
+const StatisticsPage = React.lazy(() =>
+  import("../../../Pages/StatisticsPage/StatisticsPage.component")
+);
 
 /**
  * App available routes and corresponding pages
@@ -23,40 +42,61 @@ function ApplicationRouter() {
     <Switch>
       {/* Starting Page */}
       <Route exact path={`${url}/`}>
-        <StartingPage />
+        <Suspense fallback={<div>Loading...</div>}>
+          <StartingPage />
+        </Suspense>
       </Route>
       <Route exact path={`${url}/login`}>
-        <LoginPage />
+        <Suspense fallback={<div>Loading...</div>}>
+          <LoginPage />
+        </Suspense>
       </Route>
       <Route exact path={`${url}/signUp`}>
-        <SignUpPage />
+        <Suspense fallback={<div>Loading...</div>}>
+          <SignUpPage />
+        </Suspense>
       </Route>
       {/* Game Play Page */}
       <Route exact path={`${url}/game`}>
-        <GameBoard />
+        <Suspense fallback={<div>Loading...</div>}>
+          <GameBoard />
+        </Suspense>
       </Route>
       {/* Scores Page */}
       <Route exact path={[`${url}/scores/userHighScores`, `${url}/scores`]}>
-        <ScoresPage activeTab="1" />
+        <Suspense fallback={<div>Loading...</div>}>
+          <ScoresPage activeTab="1" />
+        </Suspense>
       </Route>
       <Route exact path={`${url}/scores/top10HighScores`}>
-        <ScoresPage activeTab="2" />
+        <Suspense fallback={<div>Loading...</div>}>
+          <ScoresPage activeTab="2" />
+        </Suspense>
       </Route>
       {/* Statistics Page */}
       <Route exact path={`${url}/statistics`}>
-        <StatisticsPage />
+        {" "}
+        <Suspense fallback={<div>Loading...</div>}>
+          <StatisticsPage />
+        </Suspense>
       </Route>
       {/* Configurations Page */}
       <Route exact path={`${url}/configurations`}>
-        <ConfigurationsPage />
+        <Suspense fallback={<div>Loading...</div>}>
+          <ConfigurationsPage />
+        </Suspense>
       </Route>
       {/* About Page */}
       <Route exact path={`${url}/about`}>
-        <AboutPage />
+        <Suspense fallback={<div>Loading...</div>}>
+          <AboutPage />
+        </Suspense>
       </Route>
       {/* Anything else, should be sent to the error page */}
       <Route>
-        <ErrorPage />
+        <Suspense fallback={<div>Loading...</div>}>
+          <ErrorPage />
+        </Suspense>
       </Route>
     </Switch>
   );
