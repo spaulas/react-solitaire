@@ -47,15 +47,14 @@ const userReducer = (state = INITIAL_HIGHSCORE, action: ActionsCreators) => {
       }
       if (offlineHighScores) {
         return {
-          ...offlineHighScores,
+          highScore: {
+            ...offlineHighScores
+          },
           highScoreRef: undefined
         };
       }
       return {
-        highScoreRef: undefined,
-        highScore: {
-          ...INITIAL_HIGHSCORE
-        }
+        ...INITIAL_HIGHSCORE
       };
 
     case HighScoresActionTypes.HAS_NEW_HIGHSCORE:
