@@ -7,6 +7,18 @@ import { HashRouter } from "react-router-dom";
 import IntlProvider from "./react/HocWrappers/IntlProvider/IntlProvider.component";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
+import packageJson from "../package.json";
+
+const currentVersion = localStorage.getItem("version");
+
+console.log("PACKAGE JSON VERSION = ", packageJson.version);
+console.log("CURRENT local JSON VERSION = ", currentVersion);
+
+if (currentVersion !== packageJson.version) {
+  console.log("clearing locla storage");
+  localStorage.clear();
+  localStorage.setItem("version", packageJson.version);
+}
 
 function App() {
   return (
