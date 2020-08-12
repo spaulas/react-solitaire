@@ -25,7 +25,7 @@ function AboutPage() {
               <FormattedMessage id="about.madeBy" />
             </Col>
             <Col xs={24} sm={24} md={16}>
-              <a href="https://www.linkedin.com/in/spaulas/" target="_black">
+              <a href="https://www.linkedin.com/in/spaulas/?locale=en_US" target="_black">
                 Paula Santos
               </a>
             </Col>
@@ -75,8 +75,9 @@ function AboutPage() {
           {/* Special thanks */}
           <Row className="specialThanks" justify="end">
             <FormattedMessage id="about.specialThanks1" />
+            &nbsp;
             <a
-              href="https://www.linkedin.com/in/andreamorimsimoes/"
+              href="https://www.linkedin.com/in/andreamorimsimoes/?locale=en_US"
               target="__blank"
             >
               André Amorim
