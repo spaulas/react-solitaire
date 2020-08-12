@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="react-solitaire">
       <Provider store={store}>
-        <HashRouter basename="/react-solitaire">
+        <HashRouter>
           <PersistGate persistor={persistor}>
             <IntlProvider>
               <BaseApplication />

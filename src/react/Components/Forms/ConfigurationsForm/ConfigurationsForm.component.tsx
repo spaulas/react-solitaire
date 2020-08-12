@@ -4,9 +4,8 @@ import "moment/locale/pt-br";
 import { Checkbox, Col, Divider, Form, Input, Radio, Row, Tooltip } from "antd";
 import { ExplicitAny, RootReducerState } from "../../../../global";
 import { FormattedMessage, useIntl } from "react-intl";
-import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MenuButton from "../../Buttons/MenuButton.component";
+import React from "react";
 import ReactCountryFlag from "react-country-flag";
 import moment from "moment";
 import { useForm } from "antd/lib/form/util";
@@ -18,66 +17,52 @@ function ConfigurationsForm() {
   const [form] = useForm();
   const intl = useIntl();
   const dispatch = useDispatch();
-  const [editMode, setEditMode] = useState(false);
 
-  const {
-    userName,
-    email,
-    createdAt,
-    language,
-    joyride,
-    loggedIn
-  } = useSelector(({ User }: RootReducerState) => {
-    const user = User.user;
-    return {
-      userName: user.userName,
-      email: user.email,
-      createdAt: user.createdAt,
-      language: user.settings.language,
-      joyride: user.settings.joyride,
-      loggedIn: User.loggedIn
-    };
-  });
+  const { loggedIn, ...userConfigs } = useSelector(
+    ({ User }: RootReducerState) => {
+      const user = User.user;
+      return {
+        userName: user.userName,
+        email: user.email,
+        createdAt: user.createdAt,
+        language: user.settings?.language,
+        joyride: user.settings?.joyride || {},
+        loggedIn: User.loggedIn
+      };
+    }
+  );
 
-  const onChange = (
-    { target: { value } }: { target: { value: string } },
-    field: string
-  ) => {
-    form.setFieldsValue({ [field]: value });
-  };
+  const onChange = (value: any) => {
+    const { userName, language, joyride } = userConfigs;
 
-  /**
-   * Submit form function
-   * @param values form fields values
-   */
-  const onSubmit = ({
-    userName,
-    language,
-    createdAt,
-    email,
-    ...joyride // the remaining fields are all from the joyride checkboxes
-  }: ExplicitAny) => {
-    // separate the language and the joyride into the settings key
-    const finalChanges = {
+    form.setFieldsValue(value);
+
+    let finalChanges = {
       userName,
       settings: {
         language,
         joyride
       }
     };
-    dispatch(userActions.changeUserSettings(finalChanges));
-    // close the edit mode
-    setEditMode(false);
-  };
 
-  /**
-   * Called when the edit changes are canceled
-   */
-  const handleCancel = () => {
-    // reset all the original values
-    form.resetFields();
-    // close the edit mode
-    setEditMode(false);
+    const key = Object.keys(value);
+    if (key.indexOf("userName") === 0) {
+      finalChanges = { ...finalChanges, ...value };
+    } else if (key.indexOf("language") === 0) {
+      finalChanges = {
+        ...finalChanges,
+        settings: { ...finalChanges.settings, ...value }
+      };
+    } else {
+      finalChanges = {
+        ...finalChanges,
+        settings: {
+          ...finalChanges.settings,
+          joyride: { ...joyride, ...value }
+        }
+      };
+    }
+    dispatch(userActions.changeUserSettings(finalChanges));
   };
 
   return (
@@ -85,8 +70,8 @@ function ConfigurationsForm() {
       className="styledForm configurationsForm"
       name="configurationsForm"
       form={form}
-      initialValues={{ userName, email, createdAt, language, ...joyride }}
-      onFinish={onSubmit}
+      initialValues={userConfigs}
+      onValuesChange={onChange}
     >
       <Row className="buttonSpaceRow" align="middle" justify="space-between">
         <Col xs={24} sm={24} md={10}>
@@ -101,10 +86,11 @@ function ConfigurationsForm() {
             ]}
           >
             <Input
-              disabled={!editMode}
               className="divButton loginButtonAnimated formInput"
-              defaultValue={userName}
-              onChange={(e: ExplicitAny) => onChange(e, "userName")}
+              defaultValue={userConfigs.userName}
+              onChange={(e: ExplicitAny) =>
+                onChange({ userName: e.target.value })
+              }
             />
             <label className="labelPlaceholder">
               <FormattedMessage id="table.userName" />
@@ -117,9 +103,13 @@ function ConfigurationsForm() {
             <Input
               disabled
               className="divButton loginButtonAnimated formInput"
-              value={moment(createdAt)
-                .locale(language?.split("-")[0])
-                .format("MMMM Do YYYY, h:mm:ss a")}
+              value={
+                userConfigs.createdAt
+                  ? moment(userConfigs.createdAt)
+                      .locale(userConfigs.language?.split("-")[0])
+                      .format("MMMM Do YYYY, h:mm:ss a")
+                  : ""
+              }
             />
             <label className="labelPlaceholder">
               <FormattedMessage id="table.createdAt" />
@@ -139,8 +129,7 @@ function ConfigurationsForm() {
               <Input
                 disabled
                 className="divButton loginButtonAnimated formInput"
-                defaultValue={email}
-                onChange={(e: ExplicitAny) => onChange(e, "email")}
+                defaultValue={userConfigs.email}
               />
               <label className="labelPlaceholder">
                 <FormattedMessage id="table.email" />
@@ -152,7 +141,7 @@ function ConfigurationsForm() {
         <Col xs={24} sm={24} md={10}>
           {/* Language radio button item (english, portuguese, german and spanish available) */}
           <Item name="language">
-            <Radio.Group className="languagesRadioGroup" disabled={!editMode}>
+            <Radio.Group className="languagesRadioGroup">
               <Radio.Button className="flagRadioButton" value="en-US">
                 <Tooltip title={<FormattedMessage id="languages.english" />}>
                   <ReactCountryFlag className="flags" countryCode="GB" />
@@ -183,48 +172,17 @@ function ConfigurationsForm() {
       </Divider>
       {/* Joyride checkboxes for each page */}
       <Row className="buttonSpaceRow" align="middle" justify="center">
-        {Object.keys(joyride).map((page: string) => (
+        {Object.keys(userConfigs.joyride).map((page: string) => (
           <Col key={page} xs={24} sm={24} md={6}>
-            <Item name={page} valuePropName="checked">
-              <Checkbox disabled={!editMode} defaultChecked={joyride[page]}>
-                <FormattedMessage id={`sidebar.${page}`} />
-              </Checkbox>
-            </Item>
+            <Checkbox
+              checked={userConfigs.joyride[page]}
+              onChange={e => onChange({ [page]: e.target.checked })}
+            >
+              <FormattedMessage id={`sidebar.${page}`} />
+            </Checkbox>
           </Col>
         ))}
       </Row>
-
-      {editMode ? (
-        // at the edit mode, the buttons save and cancel are displayed
-        <>
-          <MenuButton
-            onClick={() => form.submit()}
-            className="loginButtonAnimated extraSpaceButtons"
-          >
-            <span>
-              <FormattedMessage id="btn.save" />
-            </span>
-          </MenuButton>
-          <MenuButton
-            onClick={handleCancel}
-            className="loginButtonAnimated extraSpaceButtons"
-          >
-            <span>
-              <FormattedMessage id="btn.cancel" />
-            </span>
-          </MenuButton>
-        </>
-      ) : (
-        // when not editing, only the edit button is shown
-        <MenuButton
-          onClick={() => setEditMode(true)}
-          className="loginButtonAnimated extraSpaceButtons"
-        >
-          <span>
-            <FormattedMessage id="btn.edit" />
-          </span>
-        </MenuButton>
-      )}
     </Form>
   );
 }

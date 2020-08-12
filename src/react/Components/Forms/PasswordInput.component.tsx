@@ -1,12 +1,8 @@
-import {
-  EyeInvisibleFilled,
-  EyeOutlined,
-  InfoCircleFilled
-} from "@ant-design/icons";
 import { Input, Tooltip } from "antd";
 import React, { useState } from "react";
 import { ExplicitAny } from "../../../global";
 import { FormattedMessage } from "react-intl";
+import { InfoCircleOutlined } from "@ant-design/icons";
 
 interface PasswordInputProps {
   onChange: (e: ExplicitAny) => void;
@@ -19,7 +15,7 @@ function PasswordInput({
   onPressEnter,
   confirmPwd
 }: PasswordInputProps) {
-  const [hidePwd, setHidePwd] = useState<boolean>(true);
+  const [inputFocused, setInputFocused] = useState<boolean>(false);
   const [password, setPassword] = useState("");
 
   const handlePwdChange = ({
@@ -33,34 +29,26 @@ function PasswordInput({
 
   return (
     <>
-      {hidePwd && (
-        <div className="formPwdHidden">{password.replace(/./g, "*")}</div>
-      )}
-      <Input
-        className={`divButton loginButtonAnimated formInput`}
+      <Input.Password
+        onFocus={() => setInputFocused(true)}
+        onBlur={() => setInputFocused(false)}
+        className={`divButton loginButtonAnimated formPassword`}
         onChange={handlePwdChange}
         onPressEnter={onPressEnter}
       />
-      <label className="labelPlaceholder">
+      <label
+        className={`labelPlaceholder ${
+          password.length > 0 || inputFocused ? "passwordFocused" : ""
+        }`}
+      >
         <FormattedMessage
           id={confirmPwd ? "form.confirmPassword" : "form.password"}
         />
       </label>
       {!confirmPwd && (
         <Tooltip title={<FormattedMessage id="form.info.pwd" />}>
-          <InfoCircleFilled className="inputIcons infoIcon" />
+          <InfoCircleOutlined className="inputIcons infoIcon" />
         </Tooltip>
-      )}
-      {hidePwd ? (
-        <EyeInvisibleFilled
-          onClick={() => setHidePwd(false)}
-          className="inputIcons pwdIcon"
-        />
-      ) : (
-        <EyeOutlined
-          onClick={() => setHidePwd(true)}
-          className="inputIcons pwdIcon"
-        />
       )}
     </>
   );
