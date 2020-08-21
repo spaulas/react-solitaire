@@ -191,6 +191,7 @@ highScores: [
 <h3 align="left">Future Features</h3>
 
 <ul>
+  <li>Refactor to Saga;</li>
   <li>Unit tests with jest;</li>
   <li>End-to-end tests with cypress;</li>
   <li>Button to send all the possible cards to the goal spots;</li>
